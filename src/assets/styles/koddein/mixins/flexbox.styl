@@ -1,0 +1,65 @@
+/**
+ * Easy Flexbox - Mixin f() par @nusson
+ */
+
+f(
+  $type = null,
+  $direction = null,
+  $justify = null,
+  $align = null,
+  $wrap = null,
+  $inline = null)
+
+  if $inline is true
+    display inline-flex
+  else
+    display flex
+
+  // the most used case
+  if $type is 'row-center' or $type is 'r' or $type is r or $type is 'row' or $type is row or $type is 'rowc' or $type is 'rc'
+    justify-content space-between
+    align-items center
+  
+  if $type is 'row-full' or $type is 'rowf' or $type is 'rf'
+    justify-content space-between
+    align-items stretch
+
+  if $type is 'col-full' or $type is 'column' or $type is 'col' or $type is 'c' or $type is c or $type is 'cf'
+    flex-direction column
+    justify-content space-between
+    align-items stretch
+
+  if $type is 'col-center' or $type is 'colc' or $type is 'cc'
+    flex-direction column
+    justify-content space-between
+    align-items center
+
+  if $type is 'center' or $type is center
+    justify-content center
+    align-items center
+
+  // utils to quick override styles
+  if $direction
+    flex-direction $direction
+
+  if $justify is 'start'
+    justify-content flex-start
+  else if $justify is 'end'
+    justify-content flex-end
+  else if $justify
+    justify-content $justify
+
+  if $align is 'start'
+    align-items flex-start
+  else if $align is 'end'
+    align-items flex-end
+  else if $align
+    align-items $align
+    
+  if $wrap is true
+    flex-wrap wrap
+  else if $wrap is false
+    flex-wrap nowrap
+  else if $wrap
+    flex-wrap $wrap
+

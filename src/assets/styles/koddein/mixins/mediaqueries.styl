@@ -1,0 +1,58 @@
+/**
+ * Media Queries & Layout System
+ */
+
+/**
+ * Layout mixin - desktop/mobile layouts
+ * @param $layout - 'desktop' | 'mobile'
+ * 
+ * Usage:
+ *   +layout(desktop)
+ *     color red
+ *   +layout(mobile)
+ *     color blue
+ */
+layout($layout = 'desktop')
+  if $layout is desktop or $layout is 'desktop'
+    +above($layout-desktop)
+      {block}
+  else
+    +below($layout-desktop - 1)
+      {block}
+
+/**
+ * Above breakpoint
+ */
+above($breakpoint)
+  @media (min-width: $breakpoint)
+    {block}
+
+/**
+ * Below breakpoint
+ */
+below($breakpoint)
+  @media (max-width: $breakpoint)
+    {block}
+
+/**
+ * Between breakpoints
+ */
+between($min, $max)
+  @media (min-width: $min) and (max-width: $max)
+    {block}
+
+/**
+ * Common breakpoints shortcuts
+ */
+desktop()
+  +above(1025px)
+    {block}
+
+tablet()
+  +between(601px, 1024px)
+    {block}
+
+mobile()
+  +below(600px)
+    {block}
+

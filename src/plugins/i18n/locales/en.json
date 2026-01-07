@@ -1,0 +1,47 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "retry": "Retry",
+    "save": "Save",
+    "cancel": "Cancel",
+    "close": "Close",
+    "confirm": "Confirm",
+    "delete": "Delete",
+    "edit": "Edit",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "search": "Search",
+    "enabled": "Enabled",
+    "disabled": "Disabled (Live)",
+    "backToHome": "Back to home",
+    "pageNotFound": "Page not found",
+    "createdAt": "Created on",
+    "updatedAt": "Updated",
+    "availableTranslations": "Available translations"
+  },
+  "home": {
+    "title": "Home page",
+    "availablePages": "Available pages",
+    "refresh": "Refresh data",
+    "clearCache": "Clear cache",
+    "siteInfo": "Site information",
+    "name": "Name",
+    "language": "Language",
+    "lastUpdate": "Last update"
+  },
+  "navigation": {
+    "home": "Home",
+    "about": "About",
+    "contact": "Contact",
+    "services": "Services"
+  },
+  "errors": {
+    "notFound": "Page not found",
+    "serverError": "Server error",
+    "networkError": "Connection error",
+    "unauthorized": "Unauthorized"
+  }
+}
+

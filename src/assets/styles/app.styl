@@ -1,0 +1,116 @@
+/**
+ * Styles globaux de l'application
+ * 
+ * Reset CSS et styles de base appliqués à toute l'application
+ */
+
+// Reset
+*
+*::before
+*::after
+  margin: 0
+  padding: 0
+  box-sizing: border-box
+
+// Base HTML
+html
+  font-size: 16px
+  -webkit-font-smoothing: antialiased
+  -moz-osx-font-smoothing: grayscale
+  scroll-behavior: smooth
+
+body
+  font-family: $font-family-base
+  font-size: $font-size-base
+  line-height: $line-height-normal
+  color: $text-primary
+  background-color: $bg-primary
+
+// App container
+#app
+  min-height: 100vh
+  display: flex
+  flex-direction: column
+
+// Typography
+h1, h2, h3, h4, h5, h6
+  font-family: $font-family-heading
+  font-weight: $font-weight-bold
+  line-height: $line-height-tight
+  color: $text-primary
+
+h1
+  font-size: $font-size-4xl
+
+h2
+  font-size: $font-size-3xl
+
+h3
+  font-size: $font-size-2xl
+
+h4
+  font-size: $font-size-xl
+
+h5
+  font-size: $font-size-lg
+
+h6
+  font-size: $font-size-base
+
+p
+  margin-bottom: $spacing-md
+
+// Links
+a
+  color: $primary
+  text-decoration: none
+  transition: color $transition-fast
+
+  &:hover
+    color: $primary-dark
+
+// Images
+img
+  max-width: 100%
+  height: auto
+  display: block
+
+// Buttons (base)
+button
+  font-family: inherit
+  font-size: inherit
+  cursor: pointer
+  border: none
+  background: none
+
+// Touch-friendly pour bornes et iPads
+button
+a
+  -webkit-tap-highlight-color: transparent
+  touch-action: manipulation
+
+// Selection
+::selection
+  background-color: $primary
+  color: $text-inverse
+
+// Focus styles
+:focus-visible
+  outline: 2px solid $primary
+  outline-offset: 2px
+
+// Scrollbar (webkit)
+::-webkit-scrollbar
+  width: 8px
+  height: 8px
+
+::-webkit-scrollbar-track
+  background: $gray-100
+
+::-webkit-scrollbar-thumb
+  background: $gray-400
+  border-radius: $radius-full
+
+  &:hover
+    background: $gray-500
+

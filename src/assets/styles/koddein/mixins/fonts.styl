@@ -1,0 +1,86 @@
+/**
+ * Fonts Mixins
+ */
+
+// Font weights
+$fw-black    = 800
+$fw-bold     = 700
+$fw-semibold = 600
+$fw-medium   = 500
+$fw-regular  = 400
+$fw-narrow   = 350
+$fw-light    = 300
+
+// Line heights
+$lh-regular = 1.25
+$lh-medium  = 1.4
+
+/**
+ * Import webfont
+ */
+webfont($family, $file, $weight = $fw-regular, $format = 'woff-woff2', $style = 'normal')
+  @font-face
+    font-family $family
+    font-weight $weight
+    font-style $style
+    font-display swap
+    
+    if $format is 'woff-woff2'
+      src url(font-url($file, 'woff2')) format('woff2'),
+          url(font-url($file, 'woff')) format('woff')
+    else if $format is 'woff'
+      src url(font-url($file, 'woff')) format('woff')
+    else if $format is 'woff2'
+      src url(font-url($file, 'woff2')) format('woff2')
+
+font-url($file, $format = 'woff')
+  return 'assets/fonts/' + $file + '.' + $format
+
+/**
+ * Font style shortcut
+ * Usage: f-style('intro') ou f-style($size: 2rem, $lh: 1.5, $weight: 600)
+ */
+f-style($preset = null, $size = null, $lh = null, $weight = null)
+  if $preset is 'intro'
+    rp(font-size, 2.4rem 1.8rem)
+    line-height 1.4
+    font-weight $fw-medium
+  else if $preset is 'title' or $preset is 'h1'
+    rp(font-size, 4rem 2.4rem)
+    line-height 1.2
+    font-weight $fw-bold
+  else if $preset is 'h2'
+    rp(font-size, 3.2rem 2rem)
+    line-height 1.25
+    font-weight $fw-bold
+  else if $preset is 'h3'
+    rp(font-size, 2.4rem 1.8rem)
+    line-height 1.3
+    font-weight $fw-semibold
+  else if $preset is 'h4'
+    rp(font-size, 2rem 1.6rem)
+    line-height 1.35
+    font-weight $fw-semibold
+  else if $preset is 'eyebrow'
+    rp(font-size, 1.2rem 1rem)
+    line-height 1.5
+    font-weight $fw-medium
+    text-transform uppercase
+    letter-spacing 0.1em
+  else if $preset is 'body'
+    rp(font-size, 1.6rem 1.4rem)
+    line-height 1.6
+    font-weight $fw-regular
+  else if $preset is 'small'
+    rp(font-size, 1.4rem 1.2rem)
+    line-height 1.5
+    font-weight $fw-regular
+  
+  // Custom overrides
+  if $size
+    font-size $size
+  if $lh
+    line-height $lh
+  if $weight
+    font-weight $weight
+

@@ -1,0 +1,61 @@
+/**
+ * Responsive Properties System
+ * 
+ * Permet de créer des valeurs qui s'interpolent entre mobile et desktop
+ */
+
+// Ratio mobile par défaut
+mobileRatio = 0.8
+
+/**
+ * Responsive property - interpole entre mobile et desktop
+ * 
+ * @param $prop - CSS property name
+ * @param $values - (desktop mobile) ou juste desktop (mobile = desktop * 0.8)
+ * 
+ * Usage:
+ *   rp(padding, 100px 50px)     // 100px desktop, 50px mobile
+ *   rp(font-size, 24px)         // 24px desktop, ~19px mobile (auto)
+ *   r(margin-top, 60px 30px)    // Alias de rp
+ */
+responsive-prop($prop, $values)
+  $d = 0
+  $m = 0
+
+  if length($values) > 1
+    $d = $values[0]
+    $m = $values[1]
+  else
+    $d = $values
+    $m = $d * mobileRatio // auto compute a mobile fallback
+
+  // Si même unité, on interpole
+  if unit($d) == unit($m)
+    $diff = $d - $m
+    {$prop} 'calc( %s + %s * var(--ratio-between, 1))' % ($m $diff)
+  else 
+    +layout(desktop)
+      {$prop} 'calc( %s * var(--ratio-between, 1))' % ($d)
+    +layout(mobile)
+      {$prop} 'calc( %s * var(--ratio-between, 1))' % ($m)
+
+  +above($desktop)
+    r-desktop($prop, $d)
+  +below($mobile)
+    r-mobile($prop, $m)
+
+// Shortcuts
+rp($prop, $values)
+  responsive-prop($prop, $values)
+
+r($prop, $values)
+  responsive-prop($prop, $values)
+
+// Desktop ratio
+r-desktop($prop, $values)
+  {$prop} 'calc( %s * var(--ratio-desktop))' % $values
+
+// Mobile ratio
+r-mobile($prop, $values)
+  {$prop} 'calc( %s * var(--ratio-mobile))' % $values
+

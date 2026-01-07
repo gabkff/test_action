@@ -1,0 +1,47 @@
+{
+  "common": {
+    "loading": "Chargement...",
+    "error": "Une erreur est survenue",
+    "retry": "Réessayer",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "close": "Fermer",
+    "confirm": "Confirmer",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "back": "Retour",
+    "next": "Suivant",
+    "previous": "Précédent",
+    "search": "Rechercher",
+    "enabled": "Activé",
+    "disabled": "Désactivé (Live)",
+    "backToHome": "Retour à l'accueil",
+    "pageNotFound": "Page non trouvée",
+    "createdAt": "Créée le",
+    "updatedAt": "Mise à jour",
+    "availableTranslations": "Traductions disponibles"
+  },
+  "home": {
+    "title": "Page d'accueil",
+    "availablePages": "Pages disponibles",
+    "refresh": "Rafraîchir les données",
+    "clearCache": "Vider le cache",
+    "siteInfo": "Informations du site",
+    "name": "Nom",
+    "language": "Langue",
+    "lastUpdate": "Dernière mise à jour"
+  },
+  "navigation": {
+    "home": "Accueil",
+    "about": "À propos",
+    "contact": "Contact",
+    "services": "Services"
+  },
+  "errors": {
+    "notFound": "Page non trouvée",
+    "serverError": "Erreur serveur",
+    "networkError": "Erreur de connexion",
+    "unauthorized": "Non autorisé"
+  }
+}
+
