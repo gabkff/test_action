@@ -11,7 +11,12 @@
 
 export interface ApiResponse {
   meta: MetaData
-  data: ApiData
+  data: {
+    lang: string
+    ville: string
+    siteId: number
+    data: ApiData
+  }
 }
 
 export interface ApiData {

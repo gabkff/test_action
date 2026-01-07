@@ -13,6 +13,11 @@
     "fs:allow-app-read-recursive",
     "fs:allow-app-write-recursive",
     "http:default",
-    "http:allow-fetch"
+    {
+      "identifier": "http:allow-fetch",
+      "allow": [
+        { "url": "https://tcn.dev.kffein.work/*" }
+      ]
+    }
   ]
 }

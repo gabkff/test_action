@@ -3,16 +3,23 @@ import { mkdir, exists, writeFile } from '@tauri-apps/plugin-fs'
 import { fetch as tauriFetch } from '@tauri-apps/plugin-http'
 import { convertFileSrc } from '@tauri-apps/api/core'
 import { appConfig, ASSETS_DIR } from 'config'
-import type { MediaAsset, ApiResponse, Block } from 'types/api.types'
+import type { ApiResponse, CircuitEntry, CircuitStep } from 'types/api.types'
 
+/**
+ * Service de gestion des assets (images/vidéos)
+ * 
+ * Télécharge et stocke localement les assets pour le mode kiosk/borne.
+ * Utilise le système de fichiers Tauri pour le stockage.
+ */
 class AssetsService {
   private assetsDir: string | null = null
   private enableCache: boolean
   private isTauriEnvironment: boolean
+  /** Map des URLs distantes vers les chemins locaux */
+  private localPathsMap: Map<string, string> = new Map()
 
   constructor() {
     this.enableCache = appConfig.enableCache
-    // Vérifie si on est dans un environnement Tauri
     this.isTauriEnvironment = typeof window !== 'undefined' && '__TAURI__' in window
   }
 
@@ -46,11 +53,10 @@ class AssetsService {
     console.log('⬇️ Début du téléchargement des assets...')
     const downloadPromises: Promise<void>[] = []
 
-    // Parcourt toutes les pages
-    for (const page of Object.values(apiData.data)) {
-      // Parcourt tous les blocs de chaque page
-      for (const block of page.blocs) {
-        downloadPromises.push(this.downloadBlockAssets(block))
+    // Parcourt les circuits
+    if (apiData.data.circuits) {
+      for (const circuit of apiData.data.circuits) {
+        downloadPromises.push(this.downloadCircuitAssets(circuit))
       }
     }
 
@@ -61,51 +67,92 @@ class AssetsService {
   }
 
   /**
-   * Télécharge les assets d'un bloc
+   * Télécharge les assets d'un circuit (image principale + images des étapes)
    */
-  private async downloadBlockAssets(block: Block): Promise<void> {
-    const { content } = block
+  private async downloadCircuitAssets(circuit: CircuitEntry): Promise<void> {
+    const promises: Promise<void>[] = []
 
-    // Image principale
-    if (content.image?.src) {
-      await this.downloadAsset(content.image)
+    // Image principale du circuit
+    if (circuit.image) {
+      promises.push(this.downloadImage(circuit.image))
     }
 
-    // Vidéo
-    if (content.video?.src) {
-      await this.downloadAsset(content.video)
-    }
-
-    // Galerie d'images
-    if (content.images && Array.isArray(content.images)) {
-      for (const image of content.images) {
-        if (image.src) {
-          await this.downloadAsset(image)
-        }
+    // Images des étapes
+    if (circuit.steps && circuit.steps.length > 0) {
+      for (const step of circuit.steps) {
+        promises.push(this.downloadStepAssets(step))
       }
     }
+
+    await Promise.all(promises)
   }
 
   /**
-   * Télécharge un asset et le stocke localement
+   * Télécharge les assets d'une étape de circuit
    */
-  private async downloadAsset(asset: MediaAsset): Promise<void> {
-    if (!this.enableCache || !this.isTauriEnvironment || !this.assetsDir) return
+  private async downloadStepAssets(step: CircuitStep): Promise<void> {
+    if (!step.images || step.images.length === 0) return
+
+    const promises = step.images.map(image => this.downloadImage(image))
+    await Promise.all(promises)
+  }
+
+  /**
+   * Télécharge une image (toutes ses variantes)
+   * Structure Image: { meta, images: { optimized, original, focalPoint } }
+   */
+  private async downloadImage(image: Image): Promise<void> {
+    if (!image?.images) return
+
+    const promises: Promise<void>[] = []
+
+    // Télécharge l'image originale
+    if (image.images.original?.url) {
+      promises.push(this.downloadAsset(image.images.original.url))
+    }
+
+    // Télécharge les versions optimisées (standard)
+    if (image.images.optimized?.standard) {
+      for (const url of Object.values(image.images.optimized.standard)) {
+        if (url) promises.push(this.downloadAsset(url))
+      }
+    }
+
+    // Télécharge les versions WebP
+    if (image.images.optimized?.webp) {
+      for (const url of Object.values(image.images.optimized.webp)) {
+        if (url) promises.push(this.downloadAsset(url))
+      }
+    }
+
+    await Promise.all(promises)
+  }
+
+  /**
+   * Télécharge un asset depuis une URL et le stocke localement
+   */
+  private async downloadAsset(url: string): Promise<void> {
+    if (!this.enableCache || !this.isTauriEnvironment || !this.assetsDir || !url) return
 
     try {
-      // Vérifie si l'asset existe déjà
-      const fileName = this.getFileNameFromUrl(asset.src)
+      // Vérifie si l'asset a déjà été téléchargé
+      if (this.localPathsMap.has(url)) {
+        return
+      }
+
+      const fileName = this.getFileNameFromUrl(url)
       const localPath = await join(this.assetsDir, fileName)
 
+      // Vérifie si le fichier existe déjà sur le disque
       const fileExists = await exists(localPath)
       if (fileExists) {
-        asset.localPath = localPath
+        this.localPathsMap.set(url, localPath)
         return
       }
 
       // Télécharge l'asset
-      console.log('⬇️ Téléchargement:', asset.src)
-      const response = await tauriFetch(asset.src)
+      console.log('⬇️ Téléchargement:', url)
+      const response = await tauriFetch(url)
 
       if (!response.ok) {
         throw new Error(`Failed to download: ${response.status}`)
@@ -117,11 +164,11 @@ class AssetsService {
 
       // Sauvegarde le fichier
       await writeFile(localPath, uint8Array)
-      asset.localPath = localPath
+      this.localPathsMap.set(url, localPath)
 
       console.log('✅ Asset téléchargé:', fileName)
     } catch (error) {
-      console.error('❌ Erreur lors du téléchargement de l\'asset:', asset.src, error)
+      console.error('❌ Erreur lors du téléchargement de l\'asset:', url, error)
     }
   }
 
@@ -132,17 +179,33 @@ class AssetsService {
     try {
       const urlObj = new URL(url)
       const pathname = urlObj.pathname
-      const fileName = pathname.split('/').pop() || 'unknown'
+      
+      // Extrait le nom de fichier et nettoie les paramètres de transformation
+      let fileName = pathname.split('/').pop() || 'unknown'
+      
+      // Si le chemin contient des infos de transformation (ex: _576x432_crop_...)
+      // on les inclut pour différencier les tailles
+      const pathParts = pathname.split('/')
+      const transformPart = pathParts.find(part => part.startsWith('_') && part.includes('x'))
+      
+      if (transformPart && fileName) {
+        // Crée un nom unique basé sur la transformation + nom de fichier
+        const hash = this.simpleHash(pathname)
+        const extension = fileName.split('.').pop() || 'jpg'
+        return `${hash}.${extension}`
+      }
 
-      // Génère un nom unique basé sur l'URL si pas d'extension
+      // Si pas d'extension, génère un hash
       if (!fileName.includes('.')) {
         const hash = this.simpleHash(url)
         return `asset-${hash}`
       }
 
-      return fileName
+      // Pour les fichiers originaux, utilise un hash pour éviter les conflits
+      const hash = this.simpleHash(url)
+      const extension = fileName.split('.').pop() || 'jpg'
+      return `${hash}.${extension}`
     } catch {
-      // Si l'URL est invalide, génère un hash
       const hash = this.simpleHash(url)
       return `asset-${hash}`
     }
@@ -162,21 +225,61 @@ class AssetsService {
   }
 
   /**
-   * Récupère l'URL d'un asset (local ou distant)
+   * Récupère l'URL locale d'un asset (ou l'URL distante si non caché)
+   * @param url - L'URL distante de l'asset
    */
-  getAssetUrl(asset: MediaAsset): string {
-    // En mode cache et si le chemin local existe
-    if (this.enableCache && asset.localPath) {
+  getLocalUrl(url: string): string {
+    if (!this.enableCache || !url) return url
+
+    const localPath = this.localPathsMap.get(url)
+    if (localPath) {
       try {
-        return convertFileSrc(asset.localPath)
+        return convertFileSrc(localPath)
       } catch (error) {
-        console.warn('Erreur lors de la conversion du chemin local, fallback sur URL distante:', error)
-        return asset.src
+        console.warn('Erreur lors de la conversion du chemin local:', error)
+        return url
       }
     }
 
-    // Sinon, utilise l'URL distante
-    return asset.src
+    return url
+  }
+
+  /**
+   * Récupère la meilleure URL pour une image selon le contexte
+   * Préfère WebP si disponible, sinon standard, sinon original
+   * @param image - L'objet Image complet
+   * @param preferredSize - Taille préférée ('576' ou '768')
+   */
+  getImageUrl(image: Image | null | undefined, preferredSize: '576' | '768' = '768'): string {
+    if (!image?.images) return ''
+
+    // Essaie d'abord WebP (meilleure compression)
+    const webpUrl = image.images.optimized?.webp?.[preferredSize]
+    if (webpUrl) {
+      return this.getLocalUrl(webpUrl)
+    }
+
+    // Sinon standard optimisé
+    const standardUrl = image.images.optimized?.standard?.[preferredSize]
+    if (standardUrl) {
+      return this.getLocalUrl(standardUrl)
+    }
+
+    // Sinon original
+    const originalUrl = image.images.original?.url
+    if (originalUrl) {
+      return this.getLocalUrl(originalUrl)
+    }
+
+    return ''
+  }
+
+  /**
+   * Récupère l'URL originale d'une image
+   */
+  getOriginalUrl(image: Image | null | undefined): string {
+    if (!image?.images?.original?.url) return ''
+    return this.getLocalUrl(image.images.original.url)
   }
 
   /**
@@ -188,9 +291,9 @@ class AssetsService {
     try {
       const dirExists = await exists(this.assetsDir)
       if (dirExists) {
-        // Note: Il faudrait implémenter une fonction récursive pour supprimer tous les fichiers
-        // Pour l'instant, on recrée juste le dossier
+        // Recrée le dossier vide
         await mkdir(this.assetsDir, { recursive: true })
+        this.localPathsMap.clear()
         console.log('🗑️ Assets nettoyés')
       }
     } catch (error) {
@@ -200,4 +303,3 @@ class AssetsService {
 }
 
 export const assetsService = new AssetsService()
-
