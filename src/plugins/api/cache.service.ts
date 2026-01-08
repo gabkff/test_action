@@ -1,20 +1,20 @@
-import { appDataDir, join } from '@tauri-apps/api/path'
+import { appCacheDir, join } from '@tauri-apps/api/path'
 import { readTextFile, writeTextFile, exists, mkdir, remove } from '@tauri-apps/plugin-fs'
 import type { ApiResponse } from 'types/api.types'
 
 const DATA_FILE = 'data.json'
-const CACHE_DIR = 'cache'
 
 /**
  * Service de cache utilisant le système de fichiers (Tauri)
- * Stocke les données API dans appDataDir/cache/data.json
+ * Stocke les données API dans appCacheDir/data.json
+ * - macOS: ~/Library/Caches/com.tcn.app/
+ * - Windows: C:\Users\User\AppData\Local\com.tcn.app\
  */
 class CacheService {
 
   /** Chemin complet vers le dossier cache */
   private async getCacheDir(): Promise<string> {
-    const appDir = await appDataDir()
-    return await join(appDir, CACHE_DIR)
+    return await appCacheDir()
   }
 
   /** Chemin complet vers le fichier data.json */

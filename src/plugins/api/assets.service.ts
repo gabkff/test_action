@@ -1,4 +1,4 @@
-import { appDataDir, join } from '@tauri-apps/api/path'
+import { appCacheDir, join } from '@tauri-apps/api/path'
 import { mkdir, exists, writeFile, remove, readDir } from '@tauri-apps/plugin-fs'
 import { fetch as tauriFetch } from '@tauri-apps/plugin-http'
 import { convertFileSrc } from '@tauri-apps/api/core'
@@ -6,8 +6,7 @@ import { appConfig } from 'config'
 import { getAuthHeaders } from 'utils/helpers'
 import type { ApiResponse, ApiData, CircuitEntry, CircuitStep, EventEntry } from 'types/api.types'
 
-// Constantes pour le dossier cache
-const CACHE_DIR = 'cache'
+// Constante pour le dossier assets
 const ASSETS_DIR = 'assets'
 
 // ============================================
@@ -52,8 +51,8 @@ class AssetsService {
     }
 
     try {
-      const appDir = await appDataDir()
-      this.assetsDir = await join(appDir, CACHE_DIR, ASSETS_DIR)
+      const cacheDir = await appCacheDir()
+      this.assetsDir = await join(cacheDir, ASSETS_DIR)
 
       const dirExists = await exists(this.assetsDir)
       if (!dirExists) {
@@ -450,10 +449,14 @@ class AssetsService {
 
       // Convertit le chemin local en URL asset://
       let assetUrl = convertFileSrc(localPath)
-      if (assetUrl.includes('%2F')) {
-        assetUrl = assetUrl.replace(/%2F/g, '/')
-      }
+      console.log('🔗 URL brute de convertFileSrc:', assetUrl)
+      // Décode l'URL (corrige %2F, %20, etc.)
+      assetUrl = decodeURIComponent(assetUrl)
 
+      // Corrige le double slash après localhost
+      //assetUrl = assetUrl.replace('asset://localhost//', 'http://localhost:16780/')
+      //assetUrl = assetUrl.replace(/([^:])\/\//g, '$1/')
+      console.log('assetURL', assetUrl)
       return assetUrl
     } catch (error) {
       // Téléchargement échoué → fallback sur l'URL distante
@@ -495,8 +498,8 @@ class AssetsService {
     if (!this.enableCache || !this.isTauriEnvironment) return
 
     try {
-      const appDir = await appDataDir()
-      const assetsPath = await join(appDir, CACHE_DIR, ASSETS_DIR)
+      const cacheDir = await appCacheDir()
+      const assetsPath = await join(cacheDir, ASSETS_DIR)
 
       if (await exists(assetsPath)) {
         await remove(assetsPath, { recursive: true })

@@ -123,6 +123,7 @@
 </template>
 
 <script setup lang="ts">
+import { confirm, message } from '@tauri-apps/plugin-dialog'
 import { ref, reactive, computed } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useAppStore } from 'store/app'
@@ -157,17 +158,22 @@ const refreshData = () => {
 }
 
 /** Vide le cache et recharge les données */
+
 const clearCache = async () => {
-  if (confirm('Êtes-vous sûr de vouloir vider le cache ?')) {
+  const confirmed = await confirm('Êtes-vous sûr de vouloir vider le cache ?', {
+    title: 'Confirmation',
+    kind: 'warning'
+  })
+  
+  if (confirmed) {
     try {
       await cacheService.clear()
       await assetsService.clearAssets()
-      alert('Cache vidé avec succès !')
-      // Recharge les données
+      await message('Cache vidé avec succès !', { title: 'Succès', kind: 'info' })
       await store.initData()
     } catch (err) {
       console.error('Erreur lors du vidage du cache:', err)
-      alert('Erreur lors du vidage du cache')
+      await message('Erreur lors du vidage du cache', { title: 'Erreur', kind: 'error' })
     }
   }
 }
