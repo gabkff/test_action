@@ -119,11 +119,39 @@
       <span class="corner-icon">↘️</span>
       <span class="corner-label">4</span>
     </button>
+
+    <!-- Modal de confirmation -->
+    <Teleport to="body">
+      <Transition name="modal">
+        <div v-if="showModal" class="modal-overlay" @click.self="closeModal">
+          <div class="modal-content">
+            <div class="modal-icon">{{ modalConfig.icon }}</div>
+            <h3 class="modal-title">{{ modalConfig.title }}</h3>
+            <p class="modal-message">{{ modalConfig.message }}</p>
+            <div class="modal-actions">
+              <button 
+                v-if="modalConfig.showCancel" 
+                class="modal-btn cancel" 
+                @click="closeModal"
+              >
+                Annuler
+              </button>
+              <button 
+                class="modal-btn confirm" 
+                :class="modalConfig.kind"
+                @click="confirmModal"
+              >
+                {{ modalConfig.confirmText }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </Transition>
+    </Teleport>
   </div>
 </template>
 
 <script setup lang="ts">
-import { confirm, message } from '@tauri-apps/plugin-dialog'
 import { ref, reactive, computed } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useAppStore } from 'store/app'
@@ -149,6 +177,56 @@ const firstCircuitImage = computed(() => {
 })
 
 // ============================================
+// MODAL PERSONNALISÉE
+// ============================================
+
+interface ModalConfig {
+  icon: string
+  title: string
+  message: string
+  kind: 'warning' | 'success' | 'error' | 'info'
+  showCancel: boolean
+  confirmText: string
+  onConfirm?: () => void
+}
+
+const showModal = ref(false)
+const modalConfig = reactive<ModalConfig>({
+  icon: '⚠️',
+  title: '',
+  message: '',
+  kind: 'warning',
+  showCancel: true,
+  confirmText: 'OK',
+  onConfirm: undefined
+})
+
+const openModal = (config: Partial<ModalConfig>) => {
+  Object.assign(modalConfig, {
+    icon: '⚠️',
+    title: 'Confirmation',
+    message: '',
+    kind: 'warning',
+    showCancel: true,
+    confirmText: 'OK',
+    onConfirm: undefined,
+    ...config
+  })
+  showModal.value = true
+}
+
+const closeModal = () => {
+  showModal.value = false
+}
+
+const confirmModal = () => {
+  if (modalConfig.onConfirm) {
+    modalConfig.onConfirm()
+  }
+  closeModal()
+}
+
+// ============================================
 // ACTIONS (délègue au store)
 // ============================================
 
@@ -158,24 +236,41 @@ const refreshData = () => {
 }
 
 /** Vide le cache et recharge les données */
-
-const clearCache = async () => {
-  const confirmed = await confirm('Êtes-vous sûr de vouloir vider le cache ?', {
-    title: 'Confirmation',
-    kind: 'warning'
-  })
-  
-  if (confirmed) {
-    try {
-      await cacheService.clear()
-      await assetsService.clearAssets()
-      await message('Cache vidé avec succès !', { title: 'Succès', kind: 'info' })
-      await store.initData()
-    } catch (err) {
-      console.error('Erreur lors du vidage du cache:', err)
-      await message('Erreur lors du vidage du cache', { title: 'Erreur', kind: 'error' })
+const clearCache = () => {
+  openModal({
+    icon: '🗑️',
+    title: 'Vider le cache',
+    message: 'Êtes-vous sûr de vouloir vider le cache ? Les données seront rechargées depuis le serveur.',
+    kind: 'warning',
+    showCancel: true,
+    confirmText: 'Vider',
+    onConfirm: async () => {
+      try {
+        await cacheService.clear()
+        await assetsService.clearAssets()
+        // Affiche un message de succès
+        openModal({
+          icon: '✅',
+          title: 'Succès',
+          message: 'Cache vidé avec succès !',
+          kind: 'success',
+          showCancel: false,
+          confirmText: 'OK',
+          onConfirm: () => store.initData()
+        })
+      } catch (err) {
+        console.error('Erreur lors du vidage du cache:', err)
+        openModal({
+          icon: '❌',
+          title: 'Erreur',
+          message: 'Erreur lors du vidage du cache',
+          kind: 'error',
+          showCancel: false,
+          confirmText: 'OK'
+        })
+      }
     }
-  }
+  })
 }
 
 // ============================================
@@ -577,4 +672,109 @@ const resetTest = () => {
   100%
     opacity: 1
     transform: scale(1)
+
+// ============================================
+// MODAL PERSONNALISÉE
+// ============================================
+
+.modal-overlay
+  position: fixed
+  inset: 0
+  background: rgba(0, 0, 0, 0.8)
+  display: flex
+  align-items: center
+  justify-content: center
+  z-index: 9999
+  backdrop-filter: blur(4px)
+
+.modal-content
+  background: linear-gradient(135deg, #1e2a3a 0%, #2d3a4a 100%)
+  border: 1px solid rgba(255, 255, 255, 0.1)
+  border-radius: 20px
+  padding: 2rem
+  min-width: 320px
+  max-width: 90vw
+  text-align: center
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5)
+
+.modal-icon
+  font-size: 3.5rem
+  margin-bottom: 1rem
+
+.modal-title
+  color: white
+  font-size: 1.5rem
+  font-weight: 600
+  margin-bottom: 0.75rem
+
+.modal-message
+  color: rgba(255, 255, 255, 0.7)
+  font-size: 1rem
+  line-height: 1.5
+  margin-bottom: 1.5rem
+
+.modal-actions
+  display: flex
+  gap: 1rem
+  justify-content: center
+
+.modal-btn
+  padding: 12px 28px
+  border-radius: 30px
+  font-size: 1rem
+  font-weight: 600
+  cursor: pointer
+  transition: all 0.2s ease
+  border: none
+
+  &:active
+    transform: scale(0.95)
+
+  &.cancel
+    background: rgba(255, 255, 255, 0.1)
+    color: white
+    border: 1px solid rgba(255, 255, 255, 0.2)
+
+    &:hover
+      background: rgba(255, 255, 255, 0.2)
+
+  &.confirm
+    color: white
+
+    &.warning
+      background: linear-gradient(135deg, #f093fb, #f5576c)
+
+    &.success
+      background: linear-gradient(135deg, #43e97b, #38f9d7)
+      color: #1a1a2e
+
+    &.error
+      background: linear-gradient(135deg, #ff6b6b, #ee5a5a)
+
+    &.info
+      background: linear-gradient(135deg, #667eea, #764ba2)
+
+    &:hover
+      filter: brightness(1.1)
+
+// Transitions Vue pour la modal
+.modal-enter-active
+  transition: all 0.3s ease
+
+.modal-leave-active
+  transition: all 0.2s ease
+
+.modal-enter-from
+.modal-leave-to
+  opacity: 0
+
+  .modal-content
+    transform: scale(0.9) translateY(-20px)
+
+.modal-enter-to
+.modal-leave-from
+  opacity: 1
+
+  .modal-content
+    transform: scale(1) translateY(0)
 </style>

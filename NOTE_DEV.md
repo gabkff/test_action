@@ -8,3 +8,9 @@ if ($previousEvent && $nextEvent) {
     $elapsedTime = $currentTimestamp - $previousEvent['timestamp'];
     $progression = floor($elapsedTime / $totalDuration * 100);
 }
+
+
+Pour la version ipad on va avoir un ecran 0 avec un code de region a entrée qui permet de 
+savoir quel api aller tape
+Tadoussac
+xxx

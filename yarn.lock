@@ -904,15 +904,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tauri-apps/plugin-dialog@npm:^2.5.0":
-  version: 2.5.0
-  resolution: "@tauri-apps/plugin-dialog@npm:2.5.0"
-  dependencies:
-    "@tauri-apps/api": ^2.8.0
-  checksum: 1d973a97e40184ebb928dac2099868c7e67bac358729d812200e32dc7fc66a1c65b6e25ddb7890521b349ad3a21cd67b3292d74642c48992fd10a2a25aefd885
-  languageName: node
-  linkType: hard
-
 "@tauri-apps/plugin-fs@npm:^2.4.4":
   version: 2.4.4
   resolution: "@tauri-apps/plugin-fs@npm:2.4.4"
@@ -3389,7 +3380,6 @@ __metadata:
     "@intlify/unplugin-vue-i18n": ^6.0.8
     "@tauri-apps/api": ^2
     "@tauri-apps/cli": ^2
-    "@tauri-apps/plugin-dialog": ^2.5.0
     "@tauri-apps/plugin-fs": ^2.4.4
     "@tauri-apps/plugin-http": ^2.5.4
     "@tauri-apps/plugin-opener": ^2
