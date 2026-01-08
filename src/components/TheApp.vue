@@ -32,9 +32,9 @@ import { useAppStore } from 'store/app'
 
 const appStore = useAppStore()
 
-onMounted(() => {
-  // L'app est prête
-  appStore.setAppReady()
+onMounted(async () => {
+  // Initialise les données (cache + API ou mock selon le mode)
+  await appStore.initData()
   console.log('✅ Application montée et prête')
 })
 </script>

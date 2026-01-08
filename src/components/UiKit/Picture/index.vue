@@ -10,12 +10,18 @@
       <picture class="picture">
         <!-- WebP source -->
         <source
-          v-if="webpSrc"
+          v-if="webpSrcset"
           type="image/webp"
-          :srcset="webpSrc"
+          :srcset="webpSrcset"
           :sizes="sizes"
         >
         <!-- Standard source -->
+        <source
+          v-if="standardSrcset"
+          :srcset="standardSrcset"
+          :sizes="sizes"
+        >
+        <!-- Fallback img -->
         <img
           ref="img"
           class="img"
@@ -36,25 +42,14 @@
  * UiKit - Picture
  * 
  * Composant image avec support du lazy loading, webp et focal point.
+ * Utilise automatiquement les URLs locales si les assets sont en cache.
  */
 
 import { ref, computed, onMounted } from 'vue'
 
-interface ImageDetail {
-  original?: {
-    url: string
-    sizes: { width: number; height: number }
-  }
-  focalPoint?: { x: number; y: number }
-  optimized?: {
-    standard?: Record<string, string>
-    webp?: Record<string, string>
-  }
-}
-
 interface PictureProps {
-  /** Objet image avec les différentes sources */
-  images?: ImageDetail
+  /** Objet image (type Image global) */
+  images?: Image
   /** Texte alternatif */
   alt?: string
   /** Mode de couverture: cover | contain */
@@ -69,7 +64,7 @@ const props = withDefaults(defineProps<PictureProps>(), {
   images: undefined,
   alt: '',
   cover: 'contain',
-  sizes: undefined,
+  sizes: '100vw',
   lazy: true,
 })
 
@@ -77,19 +72,61 @@ const el = ref<HTMLElement | null>(null)
 const img = ref<HTMLImageElement | null>(null)
 const loaded = ref(false)
 
-const mainSrc = computed(() => props.images?.original?.url || '')
-const webpSrc = computed(() => {
-  if (!props.images?.optimized?.webp) return null
-  return Object.entries(props.images.optimized.webp)
-    .map(([size, url]) => `${url} ${size}w`)
+/**
+ * Retourne l'URL telle quelle (les URLs sont déjà locales dans data.json)
+ */
+const getUrl = (url: string | undefined): string => {
+  return url || ''
+}
+
+/**
+ * Source principale (original ou fallback sur optimized)
+ */
+const mainSrc = computed(() => {
+  // Préfère l'URL originale
+  if (props.images?.images?.original?.url) {
+    return getUrl(props.images.images.original.url)
+  }
+  // Fallback sur la plus grande taille optimisée
+  const standard = props.images?.images?.optimized?.standard
+  if (standard) {
+    const sizes = Object.keys(standard).map(Number).sort((a, b) => b - a)
+    if (sizes.length > 0) {
+      return getUrl(standard[sizes[0].toString()])
+    }
+  }
+  return ''
+})
+
+/**
+ * Srcset pour les images WebP (optimisées)
+ */
+const webpSrcset = computed(() => {
+  const webp = props.images?.images?.optimized?.webp
+  if (!webp) return null
+  
+  return Object.entries(webp)
+    .map(([size, url]) => `${getUrl(url)} ${size}w`)
     .join(', ')
 })
 
-const width = computed(() => props.images?.original?.sizes.width)
-const height = computed(() => props.images?.original?.sizes.height)
+/**
+ * Srcset pour les images standard (optimisées)
+ */
+const standardSrcset = computed(() => {
+  const standard = props.images?.images?.optimized?.standard
+  if (!standard) return null
+  
+  return Object.entries(standard)
+    .map(([size, url]) => `${getUrl(url)} ${size}w`)
+    .join(', ')
+})
+
+const width = computed(() => props.images?.images?.original?.sizes?.width)
+const height = computed(() => props.images?.images?.original?.sizes?.height)
 
 const position = computed(() => {
-  const fp = props.images?.focalPoint || { x: 0.5, y: 0.5 }
+  const fp = props.images?.images?.focalPoint || { x: 0.5, y: 0.5 }
   return `${fp.x * 100}% ${fp.y * 100}%`
 })
 
@@ -152,4 +189,3 @@ onMounted(() => {
     max-width 100%
     height auto
 </style>
-

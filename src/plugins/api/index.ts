@@ -1,8 +1,7 @@
 import { fetch as tauriFetch } from '@tauri-apps/plugin-http'
 import type { ApiResponse } from 'types/api.types'
-import { appConfig } from 'config'
-import { cacheService } from './cache.service'
 import { mockApiData } from './mock-data'
+import { getAuthHeaders } from 'utils/helpers'
 
 /**
  * Configuration de l'API
@@ -11,23 +10,28 @@ import { mockApiData } from './mock-data'
 const API_BASE_URL = import.meta.env.VITE_API_URL
 const API_SITE = import.meta.env.VITE_API_SITE
 const DEFAULT_LOCALE = import.meta.env.VITE_DEFAULT_LOCALE
-const API_AUTH_USER = import.meta.env.VITE_API_AUTH_USER || 'kff'
-const API_AUTH_PASS = import.meta.env.VITE_API_AUTH_PASS || 'ein'
 
+/**
+ * Service API simplifié
+ * 
+ * Responsabilités :
+ * - Fetch les données depuis l'API
+ * - Retourne les données mock si configuré
+ * - Fallback sur mock si erreur
+ * 
+ * Note: La gestion du cache fichier est faite par le store (app.ts)
+ */
 class ApiService {
-  private enableCache: boolean
   private useMockData: boolean
   private currentLocale: string
 
   constructor() {
-    this.enableCache = appConfig.enableCache
     this.useMockData = import.meta.env.VITE_USE_MOCK_DATA === 'true'
-    this.currentLocale = DEFAULT_LOCALE
+    this.currentLocale = DEFAULT_LOCALE || 'fr'
   }
 
   /**
    * Définit la langue pour les appels API
-   * @param locale - Code de langue (fr, en, etc.)
    */
   setLocale(locale: string): void {
     this.currentLocale = locale
@@ -58,94 +62,41 @@ class ApiService {
   }
 
   /**
-   * Récupère les données de l'API
+   * Récupère les données depuis l'API
    * 
-   * Ordre de priorité :
-   * 1. Si VITE_USE_MOCK_DATA=true → données mock directement
-   * 2. Sinon, essaie l'API
-   * 3. Si erreur API → fallback sur le cache
-   * 4. Si pas de cache → fallback sur les données mock
+   * Logique :
+   * 1. Si VITE_USE_MOCK_DATA=true → données mock
+   * 2. Sinon, fetch depuis l'API
+   * 3. Si erreur API → fallback sur mock
    */
   async fetchData(): Promise<ApiResponse> {
     // Mode mock forcé (dev sans API)
     if (this.useMockData) {
-      const mockData = this.getMockData()
-      
-      // Sauvegarde les mock dans le cache si activé
-      if (this.enableCache) {
-        await cacheService.saveApiData(mockData)
-        console.log('💾 Données mock sauvegardées dans le cache')
-      }
-      
-      return mockData
+      return this.getMockData()
     }
 
     // Mode API réelle
     try {
-      // En mode cache, essaie d'abord de récupérer depuis le cache
-      if (this.enableCache) {
-        const cachedData = await cacheService.getApiData()
-        if (cachedData) {
-          console.log('📦 Données récupérées depuis le cache')
-          // Lance une mise à jour en arrière-plan
-          this.updateCacheInBackground()
-          return cachedData
-        }
-      }
-
-      // Récupère depuis l'API
-      console.log(`🌐 Récupération des données depuis: ${this.getFullUrl()}`)
-      const data = await this.fetchFromApi()
-
-      // Sauvegarde dans le cache si activé
-      if (this.enableCache) {
-        await cacheService.saveApiData(data)
-        console.log('💾 Données sauvegardées dans le cache')
-      }
-
-      return data
+      return await this.fetchFromApi()
     } catch (error) {
       console.error('❌ Erreur lors de la récupération des données:', error)
-
-      // Fallback 1: Essaie le cache
-      if (this.enableCache) {
-        const cachedData = await cacheService.getApiData()
-        if (cachedData) {
-          console.log('📦 Fallback sur le cache après erreur API')
-          return cachedData
-        }
-      }
-
-      // Fallback 2: Utilise les données mock
+      
+      // Fallback sur les données mock
       console.log('🎭 Fallback sur les données mock après erreur API')
-      const mockData = this.getMockData()
-      
-      // Sauvegarde les mock dans le cache pour la prochaine fois
-      if (this.enableCache) {
-        await cacheService.saveApiData(mockData)
-        console.log('💾 Données mock sauvegardées dans le cache (fallback)')
-      }
-      
-      return mockData
+      return this.getMockData()
     }
   }
 
   /**
-   * Récupère les données depuis l'API réelle
+   * Récupère les données depuis l'API réelle (Tauri HTTP)
    */
   private async fetchFromApi(): Promise<ApiResponse> {
     const url = this.getFullUrl()
     console.log(`📡 Appel API: ${url}`)
 
-    // Construit les headers
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',
-    }
-
-    // Ajoute l'authentification Basic si configurée
-    if (API_AUTH_USER && API_AUTH_PASS) {
-      const credentials = btoa(`${API_AUTH_USER}:${API_AUTH_PASS}`)
-      headers['Authorization'] = `Basic ${credentials}`
+      ...getAuthHeaders()
     }
 
     const response = await tauriFetch(url, {
@@ -164,39 +115,24 @@ class ApiService {
       throw new Error('Données API invalides ou vides')
     }
 
-    console.log('✅ Données API reçues avec succès', data)
+    console.log('✅ Données API reçues avec succès')
     return data
   }
 
   /**
-   * Met à jour le cache en arrière-plan
-   */
-  private async updateCacheInBackground(): Promise<void> {
-    try {
-      const data = await this.fetchFromApi()
-      await cacheService.saveApiData(data)
-      console.log('🔄 Cache mis à jour en arrière-plan')
-    } catch (error) {
-      console.error('⚠️ Erreur lors de la mise à jour du cache:', error)
-      // On ne fait rien de plus, le cache actuel reste valide
-    }
-  }
-
-  /**
    * Force le rafraîchissement des données depuis l'API
-   * Avec fallback sur mock si erreur
+   * Utilisé par le refresh périodique
    */
   async refresh(): Promise<ApiResponse> {
-    console.log('🔄 Rafraîchissement forcé des données')
+    console.log('🔄 Rafraîchissement des données depuis l\'API')
     
+    // Si mode mock, retourne les mock
+    if (this.useMockData) {
+      return this.getMockData()
+    }
+
     try {
-      const data = await this.fetchFromApi()
-
-      if (this.enableCache) {
-        await cacheService.saveApiData(data)
-      }
-
-      return data
+      return await this.fetchFromApi()
     } catch (error) {
       console.error('❌ Erreur lors du refresh:', error)
       
@@ -207,23 +143,10 @@ class ApiService {
   }
 
   /**
-   * Vide le cache
+   * Vérifie si le mode mock est activé
    */
-  async clearCache(): Promise<void> {
-    await cacheService.clear()
-    console.log('🗑️ Cache vidé')
-  }
-
-  /**
-   * Peuple le cache avec les données mock
-   * Utile pour initialiser le cache sans connexion
-   */
-  async populateCacheWithMock(): Promise<void> {
-    if (this.enableCache) {
-      const mockData = this.getMockData()
-      await cacheService.saveApiData(mockData)
-      console.log('💾 Cache peuplé avec les données mock')
-    }
+  isMockMode(): boolean {
+    return this.useMockData
   }
 }
 

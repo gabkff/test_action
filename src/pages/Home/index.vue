@@ -12,15 +12,16 @@
       <div v-else-if="error" class="error-state">
         <div class="error-icon">❌</div>
         <p>{{ error }}</p>
-        <button @click="loadData" class="retry-button">Réessayer</button>
+        <button @click="refreshData" class="retry-button">Réessayer</button>
       </div>
 
       <!-- Image du premier circuit -->
       <div v-else-if="firstCircuitImage" class="circuit-preview">
-        <img 
-          :src="firstCircuitImageUrl" 
-          :alt="firstCircuit?.title"
-          class="circuit-image"
+        <ui-picture 
+          :images="firstCircuitImage" 
+          :alt="firstCircuit?.title" 
+          cover="cover"
+          class="circuit-image" 
         />
         <div class="circuit-info">
           <h2>{{ firstCircuit?.title }}</h2>
@@ -122,10 +123,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, computed, onMounted } from 'vue'
+import { ref, reactive, computed } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useAppStore } from 'store/app'
-import { apiService } from 'plugins/api'
+import { cacheService } from 'plugins/api/cache.service'
 import { assetsService } from 'plugins/api/assets.service'
 import { appConfig } from 'config'
 
@@ -134,11 +135,11 @@ import { appConfig } from 'config'
 // ============================================
 
 const store = useAppStore()
-const { isLoading, error, apiData } = storeToRefs(store)
+const { isLoading, error, circuits, circuitsCount } = storeToRefs(store)
 
 // Récupère le premier circuit
 const firstCircuit = computed(() => {
-  return apiData.value?.data?.data?.circuits?.[0] ?? null
+  return circuits.value[0] ?? null
 })
 
 // Récupère l'image du premier circuit
@@ -146,69 +147,26 @@ const firstCircuitImage = computed(() => {
   return firstCircuit.value?.image ?? null
 })
 
-// URL de l'image (via le service assets pour le cache)
-const firstCircuitImageUrl = computed(() => {
-  if (!firstCircuitImage.value) return ''
-  return assetsService.getImageUrl(firstCircuitImage.value, '768')
-})
-
-// Nombre de circuits
-const circuitsCount = computed(() => {
-  return apiData.value?.data?.data?.circuits?.length ?? 0
-})
-
 // ============================================
-// DATA LOADING
+// ACTIONS (délègue au store)
 // ============================================
 
-const loadData = async () => {
-  try {
-    store.setLoading(true)
-    store.clearError()
-    
-    let data = await apiService.fetchData()
-
-    // Télécharge les assets si en mode borne
-    if (appConfig.enableCache) {
-      data = await assetsService.downloadAllAssets(data)
-    }
-
-    store.setApiData(data)
-  } catch (err) {
-    store.setError(err instanceof Error ? err.message : 'Une erreur est survenue')
-  } finally {
-    store.setLoading(false)
-  }
+/** Rafraîchit les données via le store */
+const refreshData = () => {
+  store.initData()
 }
 
-const refreshData = async () => {
-  try {
-    store.setLoading(true)
-    store.clearError()
-    
-    let data = await apiService.refresh()
-
-    if (appConfig.enableCache) {
-      data = await assetsService.downloadAllAssets(data)
-    }
-
-    store.setApiData(data)
-  } catch (err) {
-    store.setError(err instanceof Error ? err.message : 'Erreur lors du rafraîchissement')
-  } finally {
-    store.setLoading(false)
-  }
-}
-
+/** Vide le cache et recharge les données */
 const clearCache = async () => {
   if (confirm('Êtes-vous sûr de vouloir vider le cache ?')) {
     try {
-      await apiService.clearCache()
+      await cacheService.clear()
       await assetsService.clearAssets()
       alert('Cache vidé avec succès !')
       // Recharge les données
-      await loadData()
+      await store.initData()
     } catch (err) {
+      console.error('Erreur lors du vidage du cache:', err)
       alert('Erreur lors du vidage du cache')
     }
   }
@@ -286,22 +244,7 @@ const resetTest = () => {
   touchHistory.splice(0, touchHistory.length)
 }
 
-// ============================================
-// LIFECYCLE
-// ============================================
-
-onMounted(async () => {
-  // Initialise le service des assets uniquement en mode cache
-  if (appConfig.enableCache) {
-    try {
-      await assetsService.init()
-    } catch (err) {
-      console.error('Erreur lors de l\'initialisation du service des assets:', err)
-    }
-  }
-  // Charge les données
-  await loadData()
-})
+// Note: Plus besoin de onMounted car TheApp.vue appelle store.initData() au démarrage
 </script>
 
 <style lang="stylus" scoped>
@@ -339,7 +282,6 @@ onMounted(async () => {
 .circuit-image
   width: 100%
   height: 100%
-  object-fit: cover
   border-radius: 22px
 
 .circuit-info

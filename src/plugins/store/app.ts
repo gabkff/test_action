@@ -1,38 +1,58 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
-import type { ApiResponse, CircuitEntry, EventEntry, HomeData } from 'types/api.types'
+import type { ApiResponse, ApiData, MetaData, CircuitEntry, EventEntry, HomeData } from 'types/api.types'
+import { mockApiData } from 'plugins/api/mock-data'
+import { cacheService } from 'plugins/api/cache.service'
+import { assetsService } from 'plugins/api/assets.service'
+import { apiService } from 'plugins/api'
+import { appConfig } from 'config'
+
+const isTauriEnvironment = typeof window !== 'undefined' && '__TAURI_INTERNALS__' in window
+
+/** Infos du site extraites du wrapper */
+export interface SiteContext {
+  lang: string
+  ville: string
+  siteId: number
+}
 
 export const useAppStore = defineStore('app', () => {
   // ============================================
-  // STATE
+  // STATE (aplati depuis ApiResponse)
   // ============================================
   
-  const apiData = ref<ApiResponse | null>(null)
+  /** Métadonnées de l'API */
+  const meta = ref<MetaData | null>(null)
+  
+  /** Contexte du site (lang, ville, siteId) */
+  const siteContext = ref<SiteContext | null>(null)
+  
+  /** Données utiles (home, events, circuits) - APLATI */
+  const data = ref<ApiData | null>(null)
+  
+  /** États UI */
   const isLoading = ref(false)
   const error = ref<string | null>(null)
   const lastUpdate = ref<number>(0)
   const isAppReady = ref(false)
 
   // ============================================
-  // GETTERS - Données brutes
+  // GETTERS - Accès direct aux données
   // ============================================
-  
-  /** Métadonnées de l'API (site, timestamp, etc.) */
-  const meta = computed(() => apiData.value?.meta ?? null)
   
   /** Données de la page d'accueil */
   const home = computed((): HomeData | null => {
-    return apiData.value?.data?.home ?? null
+    return data.value?.home ?? null
   })
   
   /** Liste des événements */
   const events = computed((): EventEntry[] => {
-    return apiData.value?.data?.events ?? []
+    return data.value?.events ?? []
   })
   
   /** Liste des circuits */
   const circuits = computed((): CircuitEntry[] => {
-    return apiData.value?.data?.circuits ?? []
+    return data.value?.circuits ?? []
   })
 
   // ============================================
@@ -68,12 +88,86 @@ export const useAppStore = defineStore('app', () => {
   // ============================================
   // ACTIONS
   // ============================================
-  
-  /** Définit les données de l'API */
-  function setApiData(data: ApiResponse) {
-    apiData.value = data
+  async function initData() {
+    setLoading(true)
+    clearError()
+    
+    try {
+      // ========================================
+      // MODE TAURI/KIOSK : Cache fichier + API
+      // ========================================
+      if (isTauriEnvironment && appConfig.enableCache) {
+        // 1. Charger d'abord depuis le cache fichier (démarrage rapide)
+        const cachedData = await cacheService.readDataFromFile()
+        if (cachedData) {
+          setApiData(cachedData)
+          console.log('🚀 Démarrage avec données en cache')
+        } else {
+          // Pas de cache : charger les données mock en attendant
+          setApiData(mockApiData)
+          console.log('🚀 Démarrage avec données mock')
+        }
+        
+        // 2. Tenter de mettre à jour depuis l'API
+        try {
+          const freshData = await apiService.fetchData()
+          
+          // Télécharge UNIQUEMENT les assets des éléments modifiés
+          // et fusionne avec le cache existant
+          const dataWithLocalAssets = await assetsService.downloadAndReplaceUrlsOptimized(
+            freshData,
+            cachedData // Passe le cache pour comparaison
+          )
+          
+          setApiData(dataWithLocalAssets)
+          await cacheService.writeDataToFile(dataWithLocalAssets) 
+          console.log('✅ Données mises à jour depuis l\'API')
+        } catch (apiError) {
+          console.warn('⚠️ API non disponible, conservation du cache')
+        }
+      } 
+      // ========================================
+      // MODE BROWSER : Données mock uniquement
+      // ========================================
+      else {
+        setApiData(mockApiData)
+        console.log('🌐 Mode browser : données mock')
+      }
+    } catch (error) {
+      setError(`Erreur initialisation: ${error}`)
+    } finally {
+      setLoading(false)
+      setAppReady()
+    }
+  }
+  /** 
+   * Définit les données de l'API (avec aplatissement)
+   * Extrait et sépare : meta, siteContext, data
+   */
+  function setApiData(response: ApiResponse) {
+    // Extrait les métadonnées
+    meta.value = response.meta
+    
+    // Extrait le contexte du site
+    siteContext.value = {
+      lang: response.data.lang,
+      ville: response.data.ville,
+      siteId: response.data.siteId
+    }
+    
+    // Extrait les données utiles (APLATISSEMENT)
+    data.value = response.data.data
+    
+    // Met à jour les timestamps
     lastUpdate.value = Date.now()
     error.value = null
+    
+    console.log('📦 Store mis à jour:', {
+      lang: siteContext.value.lang,
+      ville: siteContext.value.ville,
+      circuits: data.value?.circuits?.length ?? 0,
+      events: data.value?.events?.length ?? 0
+    })
   }
 
   /** Définit l'état de chargement */
@@ -99,7 +193,9 @@ export const useAppStore = defineStore('app', () => {
 
   /** Réinitialise le store */
   function reset() {
-    apiData.value = null
+    meta.value = null
+    siteContext.value = null
+    data.value = null
     isLoading.value = false
     error.value = null
     lastUpdate.value = 0
@@ -107,14 +203,15 @@ export const useAppStore = defineStore('app', () => {
 
   return {
     // State
-    apiData,
+    meta,
+    siteContext,
+    data,
     isLoading,
     error,
     lastUpdate,
     isAppReady,
     
-    // Getters - Données
-    meta,
+    // Getters - Données directes
     home,
     events,
     circuits,
@@ -128,6 +225,7 @@ export const useAppStore = defineStore('app', () => {
     getEventById,
     
     // Actions
+    initData,
     setApiData,
     setLoading,
     setError,

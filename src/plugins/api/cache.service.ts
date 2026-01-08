@@ -1,101 +1,101 @@
+import { appDataDir, join } from '@tauri-apps/api/path'
+import { readTextFile, writeTextFile, exists, mkdir, remove } from '@tauri-apps/plugin-fs'
 import type { ApiResponse } from 'types/api.types'
-import { CACHE_DB_NAME, CACHE_VERSION } from 'config'
 
-// Service de cache utilisant IndexedDB pour les métadonnées
+const DATA_FILE = 'data.json'
+const CACHE_DIR = 'cache'
+
+/**
+ * Service de cache utilisant le système de fichiers (Tauri)
+ * Stocke les données API dans appDataDir/cache/data.json
+ */
 class CacheService {
-  private dbName = CACHE_DB_NAME
-  private storeName = 'api-cache'
-  private db: IDBDatabase | null = null
 
-  async init(): Promise<void> {
-    return new Promise((resolve, reject) => {
-      const request = indexedDB.open(this.dbName, 1)
+  /** Chemin complet vers le dossier cache */
+  private async getCacheDir(): Promise<string> {
+    const appDir = await appDataDir()
+    return await join(appDir, CACHE_DIR)
+  }
 
-      request.onerror = () => reject(request.error)
-      request.onsuccess = () => {
-        this.db = request.result
-        resolve()
+  /** Chemin complet vers le fichier data.json */
+  private async getDataFilePath(): Promise<string> {
+    const cacheDir = await this.getCacheDir()
+    return await join(cacheDir, DATA_FILE)
+  }
+
+  /** Lit les données depuis le fichier data.json */
+  async readDataFromFile(): Promise<ApiResponse | null> {
+    try {
+      const filePath = await this.getDataFilePath()
+      
+      if (!await exists(filePath)) {
+        console.log('📂 Aucun fichier cache trouvé')
+        return null
       }
+      
+      const content = await readTextFile(filePath)
+      const data = JSON.parse(content) as ApiResponse
+      console.log('📂 Données chargées depuis le fichier cache')
+      return data
+    } catch (error) {
+      console.error('❌ Erreur lecture fichier cache:', error)
+      return null
+    }
+  }
 
-      request.onupgradeneeded = (event) => {
-        const db = (event.target as IDBOpenDBRequest).result
-        if (!db.objectStoreNames.contains(this.storeName)) {
-          db.createObjectStore(this.storeName, { keyPath: 'key' })
-        }
+  /** Écrit les données dans le fichier data.json */
+  async writeDataToFile(data: ApiResponse): Promise<void> {
+    try {
+      const cacheDir = await this.getCacheDir()
+      
+      // Créer le dossier cache s'il n'existe pas
+      if (!await exists(cacheDir)) {
+        await mkdir(cacheDir, { recursive: true })
       }
-    })
+      
+      const filePath = await this.getDataFilePath()
+      await writeTextFile(filePath, JSON.stringify(data, null, 2))
+      console.log('💾 Données sauvegardées dans le fichier cache')
+    } catch (error) {
+      console.error('❌ Erreur écriture fichier cache:', error)
+    }
   }
 
-  async set(key: string, value: unknown): Promise<void> {
-    if (!this.db) await this.init()
-
-    return new Promise((resolve, reject) => {
-      const transaction = this.db!.transaction([this.storeName], 'readwrite')
-      const store = transaction.objectStore(this.storeName)
-      const request = store.put({
-        key,
-        value,
-        timestamp: Date.now(),
-        version: CACHE_VERSION,
-      })
-
-      request.onerror = () => reject(request.error)
-      request.onsuccess = () => resolve()
-    })
+  /** Vérifie si un fichier cache existe */
+  async hasCache(): Promise<boolean> {
+    try {
+      const filePath = await this.getDataFilePath()
+      return await exists(filePath)
+    } catch {
+      return false
+    }
   }
 
-  async get(key: string): Promise<unknown | null> {
-    if (!this.db) await this.init()
-
-    return new Promise((resolve, reject) => {
-      const transaction = this.db!.transaction([this.storeName], 'readonly')
-      const store = transaction.objectStore(this.storeName)
-      const request = store.get(key)
-
-      request.onerror = () => reject(request.error)
-      request.onsuccess = () => {
-        const result = request.result
-        resolve(result ? result.value : null)
-      }
-    })
-  }
-
-  async delete(key: string): Promise<void> {
-    if (!this.db) await this.init()
-
-    return new Promise((resolve, reject) => {
-      const transaction = this.db!.transaction([this.storeName], 'readwrite')
-      const store = transaction.objectStore(this.storeName)
-      const request = store.delete(key)
-
-      request.onerror = () => reject(request.error)
-      request.onsuccess = () => resolve()
-    })
-  }
-
+  /** Supprime le fichier cache */
   async clear(): Promise<void> {
-    if (!this.db) await this.init()
-
-    return new Promise((resolve, reject) => {
-      const transaction = this.db!.transaction([this.storeName], 'readwrite')
-      const store = transaction.objectStore(this.storeName)
-      const request = store.clear()
-
-      request.onerror = () => reject(request.error)
-      request.onsuccess = () => resolve()
-    })
+    try {
+      const filePath = await this.getDataFilePath()
+      if (await exists(filePath)) {
+        await remove(filePath)
+        console.log('🗑️ Cache supprimé')
+      }
+    } catch (error) {
+      console.error('❌ Erreur suppression cache:', error)
+    }
   }
 
-  // Sauvegarde les données de l'API
-  async saveApiData(data: ApiResponse): Promise<void> {
-    await this.set('api-data', data)
-  }
-
-  // Récupère les données de l'API
-  async getApiData(): Promise<ApiResponse | null> {
-    return await this.get('api-data') as ApiResponse | null
+  /** Supprime tout le dossier cache (données + assets) */
+  async clearAll(): Promise<void> {
+    try {
+      const cacheDir = await this.getCacheDir()
+      if (await exists(cacheDir)) {
+        await remove(cacheDir, { recursive: true })
+        console.log('🗑️ Dossier cache entièrement supprimé')
+      }
+    } catch (error) {
+      console.error('❌ Erreur suppression dossier cache:', error)
+    }
   }
 }
 
 export const cacheService = new CacheService()
-

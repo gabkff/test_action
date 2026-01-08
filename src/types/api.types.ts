@@ -11,14 +11,18 @@
 
 export interface ApiResponse {
   meta: MetaData
-  data: {
-    lang: string
-    ville: string
-    siteId: number
-    data: ApiData
-  }
+  data: ApiDataWrapper
 }
 
+/** Wrapper contenant les infos du site + les données */
+export interface ApiDataWrapper {
+  lang: string
+  ville: string
+  siteId: number
+  data: ApiData
+}
+
+/** Données utiles de l'application */
 export interface ApiData {
   home: HomeData
   events: EventEntry[]

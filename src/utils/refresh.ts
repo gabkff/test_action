@@ -1,5 +1,6 @@
 import { apiService } from 'plugins/api'
 import { assetsService } from 'plugins/api/assets.service'
+import { cacheService } from 'plugins/api/cache.service'
 import { useAppStore } from 'store/app'
 import { appConfig } from 'config'
 
@@ -23,14 +24,23 @@ export function startPeriodicRefresh() {
       console.log('🔄 Rafraîchissement automatique des données...')
       const store = useAppStore()
 
-      // Récupère les nouvelles données
-      const data = await apiService.refresh()
+      // Récupère les données en cache pour comparaison
+      const cachedData = await cacheService.readDataFromFile()
+
+      // Récupère les nouvelles données depuis l'API
+      const freshData = await apiService.refresh()
+
+      // Télécharge UNIQUEMENT les assets des éléments modifiés
+      const dataWithLocalAssets = await assetsService.downloadAndReplaceUrlsOptimized(
+        freshData,
+        cachedData
+      )
 
       // Met à jour le store
-      store.setApiData(data)
-
-      // Télécharge les nouveaux assets
-      await assetsService.downloadAllAssets(data)
+      store.setApiData(dataWithLocalAssets)
+      
+      // Sauvegarde dans le cache
+      await cacheService.writeDataToFile(dataWithLocalAssets)
 
       console.log('✅ Rafraîchissement automatique terminé')
     } catch (error) {
