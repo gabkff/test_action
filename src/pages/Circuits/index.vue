@@ -10,4 +10,5 @@
 
 <style lang="stylus" scoped>
 .circuits-page
+  background red
 </style>

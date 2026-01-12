@@ -37,12 +37,6 @@ const routes: RouteRecordRaw[] = [
     props: true,
   },
 
-  {
-    path: '/:slug',
-    name: 'dynamic-page',
-    component: () => import('pages/DynamicPage/index.vue'),
-    props: true,
-  },
   // Route 404
   {
     path: '/:pathMatch(.*)*',

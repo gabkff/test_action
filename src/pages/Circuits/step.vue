@@ -9,5 +9,4 @@
   </script>
   
   <style lang="stylus" scoped>
-  .circuits-etape
   </style>
