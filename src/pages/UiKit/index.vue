@@ -269,10 +269,26 @@
         </UiAccordionItems>
       </div>
 
-      <!-- Marquee -->
+      <!-- UiSelector -->
       <h3 class="UiKitPage__componentTitle">Marquee</h3>
-      <div class="UiKitPage__componentDemo UiKitPage__componentDemo--full">
-        <UiMarquee :text="marqueeTexts" />
+      <div class="UiKitPage__componentDemo UiKitPage__componentDemo--full" :style="{ 'background-color': '#0D0C0C', 'gap': '16px', 'display': 'flex', 'flex-direction': 'column' }">
+        <UiSelector
+            v-model="selectedLang"
+            :options="[
+            { value: 'fr', label: 'FR' },
+            { value: 'en', label: 'EN' }
+            ]"
+            @change="onLangChange"
+        />
+        <UiSelector
+            theme="secondary"
+            v-model="selectedView"
+            :options="[
+            { value: 'grid', icon: IconMap, label: 'carte'},
+            { value: 'list', label: 'liste', icon: IconList }
+            ]"
+            @change="onLangChange"
+        />
       </div>
     </section>
   </div>
@@ -289,11 +305,21 @@
 import UiButton from 'components/UiKit/Button/index.vue'
 import UiAccordionItems from 'components/UiKit/Accordions/Items.vue'
 import UiAccordionItem from 'components/UiKit/Accordions/Item.vue'
-import UiMarquee from 'components/UiKit/Marquee/index.vue'
+import UiSelector, { SelectorOption } from 'components/ui/Selector.vue'
 import IconPlus from 'assets/svg/plus.svg?raw'
+import IconMap from 'assets/svg/pin.svg?raw'
+import IconList from 'assets/svg/list.svg?raw'
+import { ref } from 'vue'
 
 const marqueeTexts = ['Element 1', 'Element 2', 'Element 3', 'Element 4']
-
+const selectedLang = ref('fr')
+const selectedView = ref('grid')
+function onLangChange(value: string, option: SelectorOption) {
+  console.log('Langue changée:', value, option)
+}
+function onViewChange(value: string, option: SelectorOption) {
+  console.log('Vue changée:', value, option)
+}
 </script>
 
 <style lang="stylus" scoped>
