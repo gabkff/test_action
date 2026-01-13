@@ -11,10 +11,9 @@
         <p class="title">{{ title }}</p>
       </div>
       <slot name="toggle">
-        <button
-          type="button"
-          aria-label="Toggle"
-          :class="['toggle-btn', 'plus', { '-active': isOpen }]"
+        <i 
+          :class="['toggle-icon', { '-active': isOpen }]"
+          v-html="IconPlus"
         />
       </slot>
     </div>
@@ -40,7 +39,8 @@
  * Item individuel d'accordion.
  */
 
-import { ref, inject, watch, onMounted, getCurrentInstance } from 'vue'
+import { ref, inject, watch, onMounted, type Ref } from 'vue'
+import IconPlus from 'assets/svg/plus.svg?raw'
 
 interface AccordionsItemProps {
   /** Titre de l'accordion */
@@ -57,26 +57,26 @@ const props = withDefaults(defineProps<AccordionsItemProps>(), {
   open: false,
 })
 
-const instance = getCurrentInstance()
 const contentEl = ref<HTMLElement | null>(null)
 const isOpen = ref(false)
 
-// Injected from parent
-const active = inject<number[]>('active', [])
-const updateActive = inject<(id: number, disabled: boolean) => void>('updateActive')
+// Générer un ID unique stable
+const uid = Math.random().toString(36).substring(2, 9)
 
-const uid = instance?.uid || Math.random()
+// Injected from parent
+const activeIds = inject<Ref<string[]>>('activeIds', ref([]))
+const updateActive = inject<(id: string, disabled: boolean) => void>('updateActive', () => {})
 
 onMounted(() => {
-  isOpen.value = props.open
-  if (props.open && updateActive) {
+  if (props.open) {
+    isOpen.value = true
     updateActive(uid, props.disabled)
   }
 })
 
-// Watch active state
+// Watch active state from parent
 watch(
-  () => active,
+  activeIds,
   (value) => {
     isOpen.value = value.includes(uid)
   },
@@ -85,7 +85,7 @@ watch(
 
 // Animate content
 watch(
-  () => isOpen.value,
+  isOpen,
   (value) => {
     if (contentEl.value) {
       if (value) {
@@ -104,16 +104,13 @@ watch(
 )
 
 const onToggle = () => {
-  if (updateActive) {
+  if (!props.disabled) {
     updateActive(uid, props.disabled)
   }
 }
 </script>
 
 <style lang="stylus" scoped>
-$c-border = $gray-300
-$c-accent = $primary
-
 .UiAccordionsItem
   position relative
   width 100%
@@ -124,10 +121,8 @@ $c-accent = $primary
       opacity 0.4
 
   &:not([data-disabled]):hover
-    .toggle-btn
-      transform rotate(-90deg)
-      &::before
-        opacity 0
+    .toggle-icon
+      transform rotate(90deg)
 
 .border
   position absolute
@@ -135,24 +130,26 @@ $c-accent = $primary
   left 0
   right 0
   height 1px
-  background $c-border
+  background $fjord
   
   &.-bottom
     top auto
     bottom -1px
 
 .header
-  f row
+  f(row, $align: center, $justify: space-between)
   position relative
   cursor pointer
-  rp(padding-top, 40px 20px)
-  rp(padding-bottom, 40px 20px)
+  padding 60px 0
+
+.left
+  display flex
+  align-items center
+  gap 16px
 
 .title
-  margin-right 20px
-  rp(font-size, 2rem 1.4rem)
-  font-weight $fw-bold
-  line-height 1.2
+  f-style('h5')
+  color $fjord
 
 .togglable
   height 0
@@ -160,41 +157,31 @@ $c-accent = $primary
   transition height 0.4s ease
 
 .content
-  rp(padding-bottom, 40px 20px)
+  padding-bottom 60px
 
-// Toggle button (plus/minus)
-.plus
-  position relative
-  rp(size, 24px 16px)
-  background none
-  border none
+// Toggle icon
+.toggle-icon
+  display flex
+  align-items center
+  justify-content center
+  padding 24px
+  width 80px
+  height 80px
+  flex-shrink 0
   cursor pointer
   transition transform 0.3s ease
+  border-radius 50%
+  background $fjord
+  color white
 
-  &::before
-  &::after
-    content ''
-    position absolute
-    background $c-border
-    transition all 0.3s ease
-
-  &::before
-    top 50%
-    left 0
+  :deep(svg)
     width 100%
-    height 1px
-    transform translateY(-50%)
-
-  &::after
-    top 0
-    left 50%
     height 100%
-    width 1px
-    transform translateX(-50%)
+    
+    path
+      fill white
 
   &.-active
-    transform rotate(-90deg)
-    &::before
-      opacity 0
+    transform rotate(45deg)
 </style>
 

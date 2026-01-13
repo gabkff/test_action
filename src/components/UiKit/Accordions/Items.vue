@@ -1,7 +1,7 @@
 <template>
-  <UiAnimation animation="list" class="UiAccordions">
+  <div class="UiAccordions">
     <slot />
-  </UiAnimation>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -12,8 +12,7 @@
  * Gère l'état actif des items enfants.
  */
 
-import { provide, reactive, readonly } from 'vue'
-import UiAnimation from '../Animation/index.vue'
+import { provide, ref } from 'vue'
 
 interface AccordionsProps {
   /** Permet d'ouvrir plusieurs items en même temps */
@@ -24,33 +23,31 @@ const props = withDefaults(defineProps<AccordionsProps>(), {
   multiple: false,
 })
 
-const state = reactive({
-  active: [] as number[],
-})
+const activeIds = ref<string[]>([])
 
-const updateActive = (id: number, disabled: boolean) => {
+const updateActive = (id: string, disabled: boolean) => {
   if (disabled) return
 
+  const index = activeIds.value.indexOf(id)
+  
   if (props.multiple) {
-    const index = state.active.indexOf(id)
     if (index > -1) {
-      state.active.splice(index, 1)
+      activeIds.value.splice(index, 1)
     } else {
-      state.active.push(id)
+      activeIds.value.push(id)
     }
   } else {
-    const index = state.active.indexOf(id)
     if (index > -1) {
-      state.active.splice(index, 1)
+      activeIds.value = []
     } else {
-      state.active = [id]
+      activeIds.value = [id]
     }
   }
 }
 
 // Provide to children
+provide('activeIds', activeIds)
 provide('updateActive', updateActive)
-provide('active', readonly(state.active))
 </script>
 
 <style lang="stylus" scoped>

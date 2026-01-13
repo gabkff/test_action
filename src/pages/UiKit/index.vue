@@ -251,6 +251,7 @@
         <UiButton label="Link" theme="link" />
         <UiButton theme="primary" :icon="IconPlus" label="icon">
         </UiButton>
+        <UiButton theme="icon" :icon="IconInfo"/>
         <UiButton label="Primary big" theme="primary" :big="true" />
         <UiButton label="Disabled" theme="primary" disabled />
         <UiButton label="Loading" theme="primary" loading />
@@ -258,19 +259,19 @@
 
       <!-- Accordion -->
       <h3 class="UiKitPage__componentTitle">Accordion</h3>
-      <div class="UiKitPage__componentDemo UiKitPage__componentDemo--full">
-        <UiAccordionItems>
-          <UiAccordionItem title="Premier élément">
-            <p>Contenu du premier élément de l'accordéon. Lorem ipsum dolor sit amet.</p>
+      <div class="UiKitPage__componentDemo UiKitPage__componentDemo--full"> 
+        <UiAccordions :multiple="true">
+          <UiAccordionItem title="Premier élément" :icon="IconPlus">
+            <div class="wysiwyg">Contenu du premier élément de l'accordéon. Lorem ipsum dolor sit amet.</div>
           </UiAccordionItem>
           <UiAccordionItem title="Deuxième élément">
-            <p>Contenu du deuxième élément de l'accordéon. Consectetur adipiscing elit.</p>
+            <div class="wysiwyg">Contenu du deuxième élément de l'accordéon. Consectetur adipiscing elit.</div>
           </UiAccordionItem>
-        </UiAccordionItems>
+        </UiAccordions>
       </div>
 
       <!-- UiSelector -->
-      <h3 class="UiKitPage__componentTitle">Marquee</h3>
+      <h3 class="UiKitPage__componentTitle">Selector</h3>
       <div class="UiKitPage__componentDemo UiKitPage__componentDemo--full" :style="{ 'background-color': '#0D0C0C', 'gap': '16px', 'display': 'flex', 'flex-direction': 'column' }">
         <UiSelector
             v-model="selectedLang"
@@ -278,7 +279,7 @@
             { value: 'fr', label: 'FR' },
             { value: 'en', label: 'EN' }
             ]"
-            @change="onLangChange"
+            @change="(value, option) => onLangChange(value as string, option)"
         />
         <UiSelector
             theme="secondary"
@@ -287,8 +288,16 @@
             { value: 'grid', icon: IconMap, label: 'carte'},
             { value: 'list', label: 'liste', icon: IconList }
             ]"
-            @change="onLangChange"
+            @change="(value, option) => onLangChange(value as string, option)"
         />
+      </div>
+
+      <!-- Tags -->
+      <h3 class="UiKitPage__componentTitle">Tags</h3>
+      <div class="UiKitPage__componentDemo":style="{'background-color': 'black'}">
+        <UiTag label="Tag" />
+        <UiTag label="Tag" :icon="IconWalk"/>
+        <UiTag :icon="IconInfo"/>
       </div>
     </section>
   </div>
@@ -303,12 +312,15 @@
  */
 
 import UiButton from 'components/UiKit/Button/index.vue'
-import UiAccordionItems from 'components/UiKit/Accordions/Items.vue'
+import UiAccordions from 'components/UiKit/Accordions/Items.vue'
 import UiAccordionItem from 'components/UiKit/Accordions/Item.vue'
+import UiTag from 'components/UiKit/Tag/index.vue'
 import UiSelector, { SelectorOption } from 'components/ui/Selector.vue'
 import IconPlus from 'assets/svg/plus.svg?raw'
 import IconMap from 'assets/svg/pin.svg?raw'
 import IconList from 'assets/svg/list.svg?raw'
+import IconWalk from 'assets/svg/walk.svg?raw'
+import IconInfo from 'assets/svg/info.svg?raw'
 import { ref } from 'vue'
 
 const marqueeTexts = ['Element 1', 'Element 2', 'Element 3', 'Element 4']
@@ -482,8 +494,7 @@ function onViewChange(value: string, option: SelectorOption) {
     margin-bottom 20px
 
   &__componentDemo
-    display flex
-    flex-wrap wrap
+    f(row, $wrap: wrap)
     gap 16px
     padding 32px
     background $bg-secondary

@@ -172,13 +172,16 @@ const onClick = (event: MouseEvent) => {
       text-decoration underline
 
   &--icon
-    padding 12px
+    padding 20px
     border-radius 50%
-    background $light
-    
-    &:hover
-      background $embruns
-
+    background $fjord
+    color white
+    .UiButton__icon
+      width 40px
+      height 40px
+      svg
+        width 100%
+        height 100%
   &--big
     border-radius $radius-lg
     padding 60px 45px
