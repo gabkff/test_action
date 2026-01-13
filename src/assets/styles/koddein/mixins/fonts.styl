@@ -1,8 +1,14 @@
 /**
- * Fonts Mixins
- */
+  * FONTS MIXIN
+  * --------
+  * responsive-font-size - responsive font-size
+  * f-size - switch desktop/mobile font-size
+  * f-vw - convert px to vw
+  * webfont - import font file
+  * font-url - build right url path
+  */
 
-// Font weights
+/** font weight */
 $fw-black    = 800
 $fw-bold     = 700
 $fw-semibold = 600
@@ -11,14 +17,119 @@ $fw-regular  = 400
 $fw-narrow   = 350
 $fw-light    = 300
 
-// Line heights
+/* line heights */
 $lh-regular = 1.25
 $lh-medium  = 1.4
 
-/**
- * Import webfont
- */
-webfont($family, $file, $weight = $fw-regular, $format = 'woff-woff2', $style = 'normal')
+/*
+  ===FONTS===
+*/
+// use in body tag to make 1 rem = 10px, and also use to calc responsive font
+// $kff-fz-base    = 10px 
+// $kff-w-unzoom-font = 1400px // bellow this size (viewport), we unzoom the font from desktop to mobile
+
+/** responsive fontsize capped min/max
+  *  @argument $size : px base fontsize
+  *    - simply desktop fontsize
+  *    - or can be an array of fontssize/lineheight(fractal or px)
+  *      @exemple
+  *        `responsive-font-size(50px 60px, 40px)`
+  *        `responsive-font-size(50px 1.2, 40px)`
+  *  @argument $min : px min fontsize
+  *  @argument $max : px max fontsize (if 'auto', will use $fs_rem | if false: not use)
+  *  @argument $lh : line-height
+  *  @return font-size vw + px fontsize in mediaquery
+  *  @todo: detect base fs px or rem
+  */
+/* responsive-font-size($size, $min=12px, $max='auto', $lh=false)
+  if length($size) > 1
+    $fs = $size[0]
+    $lh = $size[1]
+    if unit($lh) is 'px'
+      $lh = remove-unit($size[1] / $size[0])
+  else
+    $fs = $size
+
+  if $max is 'auto'
+    $max = $fs
+
+  $fs_no_unit = remove-unit(($fs / $kff-fz-base) * f-vw($base:$kff-w-unzoom-font)) // convert px to vw without unit - start unzoom from 1100px
+  $fs_responsive = unit($fs_no_unit, 'vw')
+
+  font-size unit($fs_responsive, 'vw')
+
+  if $lh
+    line-height $lh
+
+  if $min
+    $mq_min = $min / $fs_no_unit * 100;
+    @media (max-width: $mq_min)
+      font-size: $min;
+    
+  if $max
+    $mq_max = $max / $fs_no_unit * 100;
+    @media (min-width: $mq_max)
+      font-size: $max; */
+
+/** responsive fontsize capped min/max
+  *  @argument $min : px min fontsize
+  *  @argument $max : px max fontsize (if 'auto', will use $fs_rem | if false: not use)
+  *  @argument $lh : line-height
+  *  @return font-size vw + px fontsize in mediaquery
+*/
+// responsive-font-size($size, $min=12px, $max='auto', $lh=false)
+//   if length($size) > 1
+//     $fs = $size[0]
+//     $lh = $size[1]
+//     if unit($lh) is 'px'
+//       $lh = remove-unit($size[1] / $size[0])
+//   else
+//     $fs = $size
+
+//   $fs_no_unit = remove-unit(($fs / $kff-fz-base) * f-vw($base:$kff-w-unzoom-font)) // convert px to vw without unit - start unzoom from 1100px
+//   $fs_responsive = unit($fs_no_unit, 'vw')
+
+//   if $lh
+//     line-height $lh
+
+//   // font-size clamp($min, unit($fs_responsive, 'vw'), $fs )
+//   font-size clamp($min, unit($fs_responsive, 'vw'), 100vw)
+
+/** swap desktop/mobile fontsize
+  * I think we prefer responsive-font-size
+  */
+// f-size($sizes, $responsive = false)
+//   if $responsive
+//     // @todo add min and max (in px)
+//     // https://css-tricks.com/snippets/sass/viewport-sized-typography-minimum-maximum-sizes/
+//     font-size unit(remove-unit($sizes[0]) * f-vw(), 'vw')
+//     +below($kff-mq-tablet)
+//       font-size $sizes[0]
+//     +below($kff-mq-tablet-portrait)
+//       font-size $sizes[1]
+//   else if length($sizes) > 0
+//     font-size $sizes[0]
+//     +below($kff-mq-tablet-portrait)
+//       font-size $sizes[1]
+//   else
+//     font-size $sizes
+
+// /** simply convert px to vw */
+// f-vw($target = $kff-fz-base, $base = $kff-w-basis)
+//   return ($target / ($base * 0.01))
+
+
+/** import our font
+  * prefer woff format (and woff2)
+  * > http://davidensinger.com/2014/10/update-your-font-face-file-formats-to-just-use-woff-and-woff2/
+  * > https://css-tricks.com/snippets/css/using-font-face/ 
+  */
+webfont($family,
+$file,
+$weight=$fw-regular,
+$format='woff-woff2',
+$style='normal'
+)
   @font-face
     font-family $family
     font-weight $weight
@@ -32,55 +143,11 @@ webfont($family, $file, $weight = $fw-regular, $format = 'woff-woff2', $style = 
       src url(font-url($file, 'woff')) format('woff')
     else if $format is 'woff2'
       src url(font-url($file, 'woff2')) format('woff2')
-
-font-url($file, $format = 'woff')
+    else if $format is 'ttf'
+      src url(font-url($file, 'ttf')) format('truetype')
+    else if $format is 'otf'
+      src url(font-url($file, 'otf')) format('opentype')
+      
+/** just return file path */
+font-url($file, $format = 'woff', $style = 'normal')
   return 'assets/fonts/' + $file + '.' + $format
-
-/**
- * Font style shortcut
- * Usage: f-style('intro') ou f-style($size: 2rem, $lh: 1.5, $weight: 600)
- */
-f-style($preset = null, $size = null, $lh = null, $weight = null)
-  if $preset is 'intro'
-    rp(font-size, 2.4rem 1.8rem)
-    line-height 1.4
-    font-weight $fw-medium
-  else if $preset is 'title' or $preset is 'h1'
-    rp(font-size, 4rem 2.4rem)
-    line-height 1.2
-    font-weight $fw-bold
-  else if $preset is 'h2'
-    rp(font-size, 3.2rem 2rem)
-    line-height 1.25
-    font-weight $fw-bold
-  else if $preset is 'h3'
-    rp(font-size, 2.4rem 1.8rem)
-    line-height 1.3
-    font-weight $fw-semibold
-  else if $preset is 'h4'
-    rp(font-size, 2rem 1.6rem)
-    line-height 1.35
-    font-weight $fw-semibold
-  else if $preset is 'eyebrow'
-    rp(font-size, 1.2rem 1rem)
-    line-height 1.5
-    font-weight $fw-medium
-    text-transform uppercase
-    letter-spacing 0.1em
-  else if $preset is 'body'
-    rp(font-size, 1.6rem 1.4rem)
-    line-height 1.6
-    font-weight $fw-regular
-  else if $preset is 'small'
-    rp(font-size, 1.4rem 1.2rem)
-    line-height 1.5
-    font-weight $fw-regular
-  
-  // Custom overrides
-  if $size
-    font-size $size
-  if $lh
-    line-height $lh
-  if $weight
-    font-weight $weight
-

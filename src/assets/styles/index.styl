@@ -5,11 +5,31 @@
  * dans le bon ordre (settings → koddein → base → components → utilities)
  */
 
-// Settings (variables, couleurs, fonts) - DOIT être en premier
+// 1. Settings (variables, couleurs, fonts) - DOIT être en premier
 @import 'settings/index'
 
-// Koddein Framework (mixins et utilitaires)
+// 2. Koddein Framework (mixins et utilitaires)
 @import 'koddein/index'
 
-// Base styles
+// 3. Maintenant on peut utiliser les mixins et variables !
+meyer-reset()
+box-sizing-reset()
+
+webfont('GtFlexa', 'GT-Flexa-Bold', $weight: $fw-bold)
+webfont('GtFlexa', 'GT-Flexa-Light', $weight: $fw-light)
+webfont('GtFlexa', 'GT-Flexa-Regular', $weight: $fw-regular)
+webfont('Montserrat', 'Montserrat-Light', $weight: $fw-light)
+webfont('Montserrat', 'Montserrat-Regular', $weight: $fw-regular)
+webfont('Montserrat', 'Montserrat-Medium', $weight: $fw-medium)
+webfont('Montserrat', 'Montserrat-Bold', $weight: $fw-bold)
+webfont('Montserrat', 'Montserrat-ExtraBold', $weight: $fw-extrabold)
+webfont('Montserrat', 'Montserrat-Black', $weight: $fw-black)
+webfont('LibreFranklin', 'LibreFranklin-Black', $weight: $fw-black)
+webfont('LibreFranklin', 'LibreFranklin-Bold', $weight: $fw-bold)
+webfont('LibreFranklin', 'LibreFranklin-Light', $weight: $fw-light)
+webfont('LibreFranklin', 'LibreFranklin-Medium', $weight: $fw-medium)
+webfont('LibreFranklin', 'LibreFranklin-Regular', $weight: $fw-regular)
+webfont('LibreFranklin', 'LibreFranklin-SemiBold', $weight: $fw-semibold)
+
+// 4. Base styles
 @import 'app'

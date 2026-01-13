@@ -11,12 +11,23 @@
       'UiButton',
       `UiButton--${theme}`,
       { 'UiButton--disabled': disabled },
-      { 'UiButton--loading': loading }
+      { 'UiButton--loading': loading },
+      { 'UiButton--big': big }
     ]"
     @click="onClick"
   >
     <span class="UiButton__content">
+      <i
+        v-if="icon && iconPosition === 'left'"
+        v-html="icon"
+        class="UiButton__icon"
+      />
       <slot>{{ label }}</slot>
+      <i
+        v-if="icon && iconPosition === 'right'"
+        v-html="icon"
+        class="UiButton__icon"
+      />
     </span>
     <span v-if="loading" class="UiButton__loader" />
   </component>
@@ -48,6 +59,12 @@ interface ButtonProps {
   loading?: boolean
   /** Target du lien */
   target?: string
+  /** Grand bouton */
+  big?: boolean
+  /** URL de l'icône */
+  icon?: string
+  /** Position de l'icône */
+  iconPosition?: 'left' | 'right'
 }
 
 const props = withDefaults(defineProps<ButtonProps>(), {
@@ -58,6 +75,9 @@ const props = withDefaults(defineProps<ButtonProps>(), {
   disabled: false,
   loading: false,
   target: undefined,
+  big: false,
+  icon: undefined,
+  iconPosition: 'left',
 })
 
 const emit = defineEmits<{
@@ -101,12 +121,10 @@ const onClick = (event: MouseEvent) => {
   align-items center
   justify-content center
   gap 8px
-  padding 12px 24px
+  padding 20px
   border none
   border-radius $radius-md
-  font-weight $fw-semibold
-  font-size 1rem
-  line-height 1.2
+  f-style('button')
   text-decoration none
   cursor pointer
   transition all 0.2s ease
@@ -128,22 +146,22 @@ const onClick = (event: MouseEvent) => {
 
   // Themes
   &--primary
-    background $primary
-    color white
+    background $brume
+    color $fjord
     
-    &:hover
-      background $primary-dark
+    &:hover, &:active
+      background $fjord
+      color $ecume
       transform translateY(-2px)
       box-shadow $shadow-md
 
   &--secondary
-    background transparent
-    color $primary
-    border 2px solid $primary
+    background $fjord
+    color $ecume
     
-    &:hover
-      background $primary
-      color white
+    &:hover, &:active
+      background $brume
+      color $fjord
 
   &--link
     background transparent
@@ -156,10 +174,14 @@ const onClick = (event: MouseEvent) => {
   &--icon
     padding 12px
     border-radius 50%
-    background $gray-100
+    background $light
     
     &:hover
-      background $gray-200
+      background $embruns
+
+  &--big
+    border-radius $radius-lg
+    padding 60px 45px
 
   &--reset
     background none
@@ -169,7 +191,19 @@ const onClick = (event: MouseEvent) => {
   &__content
     display flex
     align-items center
-    gap 8px
+    gap 30px
+
+  &--big &__content
+    gap 60px
+
+  &__icon
+    width 20px
+    height 20px
+    flex-shrink 0
+
+  &--big &__icon
+    width 40px
+    height 40px
 
   &__loader
     position absolute

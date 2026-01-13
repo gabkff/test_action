@@ -1,41 +1,193 @@
 /**
- * Configuration des fonts
- * 
- * Définit les familles de police et les tailles
+ * Font settings: only vars and mixins !!!
+ *
+ * NOTE:
+ *
+ * - You SHOULD NOT print CSS here, like class for example, as settings are included multiple times.
+ *
+ * @author KFFEIN <admin@kffein.com>
  */
 
-// Font families
-$font-family-base = -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif
-$font-family-heading = $font-family-base
-$font-family-mono = 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Mono', 'Droid Sans Mono', 'Source Code Pro', monospace
+/*
+  ===VARS===
+*/
+// @see assets/styles/index.styl wor font imports
+$ff-title = 'GtFlexa', Helvetica, Arial, sans-serif
+$ff-text = 'LibreFranklin', Arial, Helvetica, sans-serif
 
-// Font sizes
-$font-size-xs = 0.75rem    // 12px
-$font-size-sm = 0.875rem   // 14px
-$font-size-base = 1rem     // 16px
-$font-size-lg = 1.125rem   // 18px
-$font-size-xl = 1.25rem    // 20px
-$font-size-2xl = 1.5rem    // 24px
-$font-size-3xl = 1.875rem  // 30px
-$font-size-4xl = 2.25rem   // 36px
-$font-size-5xl = 3rem      // 48px
+/*
+  ===MIXINS===
+*/
+f-style($type='default', // default | title | subtitle | fbQuote | legend
+  $level=null, // for titles, if `big` use fz-titleBig (some titles are bigger on mobile/tablet)
+  $color=null, // for titles, can be white or black
+  $italic=null, // {Boolean}
+  $bold=null, // {Boolean}
+  $responsive=false, // {boolean} if true, fontsize vw
+  $style=null, // {value} font-style
+  $decoration=null, // {value} - text-decoration
+  $transform=null, // {value} - text-transform
+  $spacing=null, // {value} - letter-spacing
+  $lh=null, // {value} - line-height
+  $uppercase=null,
+  $align=null,
+  $outline=null, // outline title //
+  $outline-color=rgb(42, 42, 42)
+)
 
-// Font weights
-$font-weight-light = 300
-$font-weight-normal = 400
-$font-weight-medium = 500
-$font-weight-semibold = 600
-$font-weight-bold = 700
+  // _DEFAULT_ : default texts
+  if $type is 'default'
+    font-family $ff-text
+    font-size 36px
+    line-height 1.4
+    font-weight $fw-medium
 
-// Line heights
-$line-height-tight = 1.25
-$line-height-snug = 1.375
-$line-height-normal = 1.5
-$line-height-relaxed = 1.625
-$line-height-loose = 2
+    // only if default type because you may use custom font familly for each variant
+    if $italic
+      font-style italic
+    if $bold
+      font-weight $fw-bold
 
-// Letter spacing
-$letter-spacing-tight = -0.025em
-$letter-spacing-normal = 0
-$letter-spacing-wide = 0.025em
+  if $type is 'h0'
+    font-family $ff-title
+    font-weight $fw-bold
+    rp(font-size, 432px 204px)
+    rp(line-height, 1, 1)
+    text-transform uppercase
+  if $type is 'h1'
+    font-family $ff-title
+    font-weight $fw-bold
+    rp(font-size, 220px 55px)
+    rp(line-height, 1, 1.2)
+    text-transform uppercase
+  if $type is 'h2'
+    font-family $ff-title
+    font-weight $fw-bold
+    rp(font-size, 114px 40px)
+    rp(line-height, 1.2 1)
+    text-transform uppercase
+  if $type is 'h3'
+    font-family $ff-text
+    rp(font-size, 70px 35px)
+    font-weight $fw-bold
+    rp(line-height, 1.1 1)
+  if $type is 'h4'  //mobile not present in figma uikit
+    font-family $ff-text
+    font-size 64px
+    font-weight $fw-bold
+    line-height 1.2
+  if $type is 'h5'
+    font-family $ff-text
+    font-size 50px
+    font-weight $fw-bold
+    line-height 1.1
 
+  if $type is 'small-body'
+    font-familly $ff-text
+    font-size 30px
+    line-height 1.3
+    font-weight $fw-medium
+
+  if $type is 'bold-infos'
+    font-familly $ff-text
+    font-size 30px
+    line-height 1.3
+    font-weight $fw-bold
+
+  if $type is 'small-text'
+    font-familly $ff-text
+    font-size 21px
+    line-height 1.3
+    font-weight $fw-regular
+  // wysiwyg
+  if $type is 'wysiwyg'
+    font-family $ff-text
+    rp(font-size, 15px 13px)
+    rp(line-height, 1.6 1.9)
+
+  // if $type is 'list-numbers'
+  //   font-weight $fw-regular
+  //   rp(font-size, 20px 15px)
+  //   line-height 1
+
+  // // builder intro
+  if $type is 'big'
+    rp(font-size, 100px 40px)
+    line-height 1.1
+    font-family $ff-text
+
+   if $type is 'big-numbers'
+    rp(font-size, 90px 40px)
+    line-height 1.1
+    font-family $ff-text
+
+  if $type is 'subtitle'
+    rp(font-size, 40px 20px)
+    rp(line-height, 1.2 1.1)
+    font-family $ff-text
+    font-weight $fw-bold
+    
+  // other type texts
+  if $type is 'text18'
+    font-family $ff-text
+    rp(font-size, 18px 13px) //mobile not present in figma uikit
+    line-height 1.55
+
+  if $type is 'text16'
+    font-family $ff-text
+    rp(font-size, 16px 13px) //mobile not present in figma uikit
+    line-height 1.6
+
+  if $type is 'text14'
+    font-family $ff-text
+    rp(font-size, 14px 14px)
+    line-height 1.35
+
+  if $type is 'button' or $type is 'btn'
+    font-family $ff-text
+    rp(font-size, 18px 14px)
+    line-height 1.1
+    font-weight $fw-regular
+    text-transform uppercase
+  if $type is 'btn-large'
+    font-familly $ff-text
+    font-size 32px
+    line-height 1.1
+    font-weight $fw-regular
+    text-transform uppercase
+  if $type is 'btn-medium'
+    font-familly $ff-text
+    font-size 24px
+    line-height 1.1
+    font-weight $fw-regular
+    text-transform uppercase
+  if $type is 'text12'
+    font-family $ff-text
+    text-transform uppercase
+    rp(font-size, 12px 12px)  //mobile not present in figma uikit
+    rp(line-height, 1.8 1.4)
+
+
+    // Other type here
+    // ...
+
+  // and others params for quick overrides
+  if $color
+    color $color
+  if $outline is true
+    color transparent
+    -webkit-text-stroke 1px $outline-color
+  if $decoration
+    text-decoration $decoration
+  if $style
+    font-style $style
+  if $uppercase
+    text-transform uppercase
+  else if $transform
+    text-transform $transform
+  if $lh
+    line-height $lh
+  if $spacing
+    letter-spacing $spacing
+  if $align
+    text-align $align

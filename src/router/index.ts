@@ -36,6 +36,11 @@ const routes: RouteRecordRaw[] = [
     component: () => import('pages/Evenements/single.vue'),
     props: true,
   },
+  {
+    path: '/uikit',
+    name: 'uikit',
+    component: () => import('pages/UiKit/index.vue'),
+  },
 
   // Route 404
   {

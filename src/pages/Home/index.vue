@@ -352,7 +352,7 @@ const resetTest = () => {
 .touch-test
   position: fixed
   inset: 0
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)
+  background-image: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)
   display: flex
   align-items: center
   justify-content: center
@@ -391,13 +391,14 @@ const resetTest = () => {
   left: 0
   right: 0
   padding: 1.5rem
-  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent)
+  background-image: linear-gradient(to top, rgba(0,0,0,0.8), transparent)
   border-radius: 0 0 22px 22px
 
   h2
     color: white
     font-size: 1.5rem
     margin-bottom: 0.5rem
+    f-style('h1')
 
   p
     color: rgba(255,255,255,0.7)
@@ -619,25 +620,25 @@ const resetTest = () => {
 .top-left
   top: 40px
   left: 40px
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.3), rgba(102, 126, 234, 0.1))
+  background-image: linear-gradient(135deg, rgba(102, 126, 234, 0.3), rgba(102, 126, 234, 0.1))
   border-color: rgba(102, 126, 234, 0.5)
 
 .top-right
   top: 40px
   right: 40px
-  background: linear-gradient(135deg, rgba(240, 147, 251, 0.3), rgba(240, 147, 251, 0.1))
+  background-image: linear-gradient(135deg, rgba(240, 147, 251, 0.3), rgba(240, 147, 251, 0.1))
   border-color: rgba(240, 147, 251, 0.5)
 
 .bottom-left
   bottom: 40px
   left: 40px
-  background: linear-gradient(135deg, rgba(79, 172, 254, 0.3), rgba(79, 172, 254, 0.1))
+  background-image: linear-gradient(135deg, rgba(79, 172, 254, 0.3), rgba(79, 172, 254, 0.1))
   border-color: rgba(79, 172, 254, 0.5)
 
 .bottom-right
   bottom: 40px
   right: 40px
-  background: linear-gradient(135deg, rgba(67, 233, 123, 0.3), rgba(67, 233, 123, 0.1))
+  background-image: linear-gradient(135deg, rgba(67, 233, 123, 0.3), rgba(67, 233, 123, 0.1))
   border-color: rgba(67, 233, 123, 0.5)
 
 // ============================================
@@ -688,7 +689,7 @@ const resetTest = () => {
   backdrop-filter: blur(4px)
 
 .modal-content
-  background: linear-gradient(135deg, #1e2a3a 0%, #2d3a4a 100%)
+  background-image: linear-gradient(135deg, #1e2a3a 0%, #2d3a4a 100%)
   border: 1px solid rgba(255, 255, 255, 0.1)
   border-radius: 20px
   padding: 2rem
@@ -742,17 +743,17 @@ const resetTest = () => {
     color: white
 
     &.warning
-      background: linear-gradient(135deg, #f093fb, #f5576c)
+      background-image: linear-gradient(135deg, #f093fb, #f5576c)
 
     &.success
-      background: linear-gradient(135deg, #43e97b, #38f9d7)
+      background-image: linear-gradient(135deg, #43e97b, #38f9d7)
       color: #1a1a2e
 
     &.error
-      background: linear-gradient(135deg, #ff6b6b, #ee5a5a)
+      background-image: linear-gradient(135deg, #ff6b6b, #ee5a5a)
 
     &.info
-      background: linear-gradient(135deg, #667eea, #764ba2)
+      background-image: linear-gradient(135deg, #667eea, #764ba2)
 
     &:hover
       filter: brightness(1.1)
