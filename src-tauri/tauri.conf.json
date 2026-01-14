@@ -15,7 +15,10 @@
         "title": "Tcn App",
         "width": 1920,
         "height": 1080,
-        "fullscreen": false
+        "fullscreen": true,
+        "decorations": false,
+        "alwaysOnTop": true,
+        "resizable": false
       }
     ],
     "security": {

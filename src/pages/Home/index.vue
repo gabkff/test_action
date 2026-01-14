@@ -81,6 +81,9 @@
       >
         🗑️ Clear Cache
       </button>
+      <button class="action-button quit" @click="closeApp">
+        Close app
+      </button>
     </div>
 
     <!-- Les 4 boutons de coins -->
@@ -152,6 +155,7 @@
 </template>
 
 <script setup lang="ts">
+import { getCurrentWindow } from '@tauri-apps/api/window';
 import { ref, reactive, computed } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useAppStore } from 'store/app'
@@ -271,6 +275,10 @@ const clearCache = () => {
       }
     }
   })
+}
+
+async function closeApp() {
+  await getCurrentWindow().close();
 }
 
 // ============================================
