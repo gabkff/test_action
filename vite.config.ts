@@ -6,12 +6,6 @@ import path from 'path'
 // @ts-expect-error process is a nodejs global
 const host = process.env.TAURI_DEV_HOST
 
-// Définition des dossiers pour les aliases
-const DIRS = {
-  SRC: '/src',
-  ASSETS: '/src/assets',
-}
-
 // https://vite.dev/config/
 export default defineConfig(async () => ({
   plugins: [
@@ -25,23 +19,24 @@ export default defineConfig(async () => ({
   ],
 
   // Configuration des aliases (doit matcher tsconfig.json !)
+  // Utilise path.resolve() pour des chemins cross-platform (macOS, Linux, Windows)
   resolve: {
     alias: {
-      '@': DIRS.SRC,
-      'src': DIRS.SRC,
-      'assets': DIRS.ASSETS,
-      'config': `${DIRS.SRC}/config`,
-      'pages': `${DIRS.SRC}/pages`,
-      'components': `${DIRS.SRC}/components`,
-      'ui': `${DIRS.SRC}/components/ui`,
-      'UiKit': `${DIRS.SRC}/components/UiKit`,
-      'plugins': `${DIRS.SRC}/plugins`,
-      'store': `${DIRS.SRC}/plugins/store`,
-      'router': `${DIRS.SRC}/router`,
-      'utils': `${DIRS.SRC}/utils`,
-      'types': `${DIRS.SRC}/types`,
-      'i18n': `${DIRS.SRC}/plugins/i18n`,
-      'vendors': `${DIRS.SRC}/vendors`,
+      '@': path.resolve(__dirname, 'src'),
+      'src': path.resolve(__dirname, 'src'),
+      'assets': path.resolve(__dirname, 'src/assets'),
+      'config': path.resolve(__dirname, 'src/config'),
+      'pages': path.resolve(__dirname, 'src/pages'),
+      'components': path.resolve(__dirname, 'src/components'),
+      'ui': path.resolve(__dirname, 'src/components/ui'),
+      'UiKit': path.resolve(__dirname, 'src/components/UiKit'),
+      'plugins': path.resolve(__dirname, 'src/plugins'),
+      'store': path.resolve(__dirname, 'src/plugins/store'),
+      'router': path.resolve(__dirname, 'src/router'),
+      'utils': path.resolve(__dirname, 'src/utils'),
+      'types': path.resolve(__dirname, 'src/types'),
+      'i18n': path.resolve(__dirname, 'src/plugins/i18n'),
+      'vendors': path.resolve(__dirname, 'src/vendors'),
     },
   },
 
