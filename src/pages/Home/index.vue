@@ -156,7 +156,7 @@
 
 <script setup lang="ts">
 import { getCurrentWindow } from '@tauri-apps/api/window';
-import { ref, reactive, computed } from 'vue'
+import { ref, reactive, computed, onMounted } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useAppStore } from 'store/app'
 import { cacheService } from 'plugins/api/cache.service'
@@ -281,6 +281,19 @@ async function closeApp() {
   await getCurrentWindow().close();
 }
 
+onMounted(() => {
+  document.addEventListener('keydown', async (e) => {
+    if (e.key === 'Escape') {
+      const window = getCurrentWindow();
+      const isFullscreen = await window.isFullscreen();
+      
+      if (isFullscreen) {
+        await window.setFullscreen(false);
+        await window.setDecorations(true);
+      }
+    }
+  })
+})
 // ============================================
 // TOUCH TEST
 // ============================================
