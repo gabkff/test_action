@@ -34,7 +34,7 @@ jobs:
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: ${{ runner.os }}-cargo-
 
-      - run: yarn install --frozen-lockfile
+      - run: yarn install
 
       - uses: tauri-apps/tauri-action@v0
         env:
