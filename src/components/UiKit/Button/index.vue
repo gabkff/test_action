@@ -42,7 +42,7 @@
 
 import { computed } from 'vue'
 
-type ButtonTheme = 'primary' | 'secondary' | 'link' | 'icon' | 'reset'
+type ButtonTheme = 'primary' | 'secondary' | 'link' | 'icon' | 'reset' | 'date'
 
 interface ButtonProps {
   /** Texte du bouton */
@@ -190,6 +190,28 @@ const onClick = (event: MouseEvent) => {
     background none
     padding 0
     color inherit
+
+  &--date
+    background transparent
+    border 1px solid rgba(#102838, 0.3)
+    border-radius 12px
+    text-transform capitalize
+    r(padding, 50px 40px)
+    
+    .UiButton__content
+      f-style('subtitle')
+      color $fjord
+    
+    &:hover
+      border-color rgba(#102838, 0.5)
+      background rgba(#102838, 0.05)
+    
+    &.is-active
+      background $fjord
+      border-color $fjord
+      
+      .UiButton__content
+        color white
 
   &__content
     display flex

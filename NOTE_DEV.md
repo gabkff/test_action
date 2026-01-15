@@ -28,3 +28,5 @@ Manquerait :
 :x: 4* => Fog ;
 :x: 7* => Snow ;
 À mon sens, freezing rain, freezing drizzle, snow grain.. ça peut tomber dans pluie et neige, fak on serait correct avec c'est deux-là qui manquent (je laisse à Nana/jm le dernier mot tho)
+
+

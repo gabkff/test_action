@@ -249,8 +249,7 @@
         <UiButton label="Primary" theme="primary" />
         <UiButton label="Secondary" theme="secondary" />
         <UiButton label="Link" theme="link" />
-        <UiButton theme="primary" :icon="IconPlus" label="icon">
-        </UiButton>
+        <UiButton theme="primary" :icon="IconPlus" label="icon"/>
         <UiButton theme="icon" :icon="IconInfo"/>
         <UiButton label="Primary big" theme="primary" :big="true" />
         <UiButton label="Disabled" theme="primary" disabled />
