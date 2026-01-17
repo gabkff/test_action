@@ -43,7 +43,14 @@
     "create": "Créer un événement",
     "edit": "Modifier un événement",
     "delete": "Supprimer un événement",
-    "view": "Voir un événement"
+    "view": "Voir un événement",
+    "date_debut": "Début de l'évènement",
+    "date_fin": "Fin de l'évènement",
+    "adresse": "Adresse",
+    "price": "Prix",
+    "url": "URL de l'évènement",
+    "qrcode": "QRCode de l'évènement",
+    "access_site": "Scannez le code pour accéder au site internet de l'évènement"
   },
   "errors": {
     "notFound": "Page non trouvée",

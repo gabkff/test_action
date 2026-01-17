@@ -1,0 +1,49 @@
+import { ref, onMounted } from 'vue'
+import { Meta, Story, Canvas, ArgsTable, Description, Source } from '@storybook/addon-docs';
+import { WithApp, scrollable } from 'decorators'
+import UiSwiper from '../index.vue'
+import Thumbs from './Thumbs.vue'
+
+<Meta title='Components / UiKit / Swiper / 8. Thumbs' component={UiSwiper} decorators={[WithApp, scrollable]}/>
+
+<Description markdown={UiSwiper.__docgenInfo.docsBlocks[0]} />
+
+
+## Thumbs
+Can have anything as a slot, each child element will became a slide.
+
+<Canvas>
+  <Story name='8. Thumbs'
+         args={{
+          tag: 'div',
+          pagination: false,
+          navigation: false,
+          autoplay: false,
+          progressBar: false,
+          scrollbar: false,
+          slidesPerView: 'auto',
+          spaceBetween: 50,
+          centeredSlides: false,
+          loop: false,
+          onChange: false,
+          watchEnd: false,
+          cursor: true,
+          overflow: false,
+          animated: true,
+          animation: undefined,
+          thumb: true,
+         }}
+  >
+    { ((args) => ({
+      components: { Thumbs },
+      setup() {
+        return { args }
+      },
+      template: `<Thumbs :key="args" :options="args"></Thumbs>`,
+    })).bind({}) }
+  </Story>
+</Canvas>
+
+
+## Props
+<ArgsTable of={UiSwiper} />

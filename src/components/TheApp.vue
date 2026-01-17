@@ -12,6 +12,8 @@
       </router-view>
     </main>
 
+    <sidePanel />
+
     <!-- Footer global (optionnel) -->
     <!-- <AppFooter /> -->
   </div>
@@ -29,6 +31,8 @@
 
 import { onMounted } from 'vue'
 import { useAppStore } from 'store/app'
+import { useSidePanelStore } from 'store/sidePanel'
+import sidePanel from 'components/UiKit/SidePanel/index.vue'
 
 const appStore = useAppStore()
 

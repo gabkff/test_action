@@ -4089,6 +4089,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"swiper@npm:11.1.14":
+  version: 11.1.14
+  resolution: "swiper@npm:11.1.14"
+  checksum: 87bf4c42d893c76d3545d42ad664b78b032f7768c99f3d90d8340c035d661e10e7805c3270df704f8da99508304e8ca87cab61d3c863586d9d231c9f718ae785
+  languageName: node
+  linkType: hard
+
 "tapable@npm:^2.2.0, tapable@npm:^2.3.0":
   version: 2.3.0
   resolution: "tapable@npm:2.3.0"
@@ -4136,6 +4143,7 @@ __metadata:
     postcss-media-minmax: ^5.0.0
     rupture: ^0.7.1
     stylus: ^0.64.0
+    swiper: 11.1.14
     typescript: ~5.6.2
     vite: ^6.0.3
     vue: ^3.5.13

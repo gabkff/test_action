@@ -68,8 +68,19 @@ export interface EventEntry {
   url: string
   title: string
   slug: string
+  times: string
+  address: string
   entry_type: string
   dates: EntryDates
+  date_start: string
+  date_start_timestamp: number
+  date_end: string
+  date_end_timestamp: number
+  price_range: string | null
+  description: string | null
+  images: Image[]
+  event_url: string | null
+  event_qrcode: string | null
 }
 
 // ============================================

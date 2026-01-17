@@ -1,0 +1,27 @@
+import { ref, onMounted } from 'vue'
+import { Meta, Story, Canvas, ArgsTable, Description, Source } from '@storybook/addon-docs';
+import { WithApp, scrollable } from 'decorators'
+import UiSwiper from '../index.vue'
+import Parallax from './parallax.vue'
+
+<Meta title='Components / UiKit / Swiper / 7. Parallax' component={UiSwiper} decorators={[WithApp, scrollable]}/>
+
+<Description markdown={UiSwiper.__docgenInfo.docsBlocks[0]} />
+
+## Parallax
+Simple slider example with parallax in images
+
+<Canvas>
+  <Story name='7. Parallax'>
+    { (() => ({
+      components: { Parallax },
+      setup() {
+      },
+      template: `<Parallax></Parallax>`,
+    })).bind({}) }
+  </Story>
+</Canvas>
+
+
+## Props
+<ArgsTable of={UiSwiper} />

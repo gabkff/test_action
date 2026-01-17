@@ -29,7 +29,7 @@ const updateActive = (id: string, disabled: boolean) => {
   if (disabled) return
 
   const index = activeIds.value.indexOf(id)
-  
+
   if (props.multiple) {
     if (index > -1) {
       activeIds.value.splice(index, 1)

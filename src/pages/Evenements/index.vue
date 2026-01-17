@@ -20,33 +20,37 @@
         </UiButton>
       </div>
       
-      <!-- Liste des événements filtrés -->
-      <div class="events-page__list">
-        <div class="events-page__list-header">
-          <h2 class="events-page__list-title">
-            {{ formattedSelectedDate.weekday }} {{ formattedSelectedDate.dateMonth }}
-          </h2>
+      <!-- Liste des événements avec NavBar sticky -->
+      <div class="events-page__list-wrapper">
+        <div class="events-page__list" ref="listRef">
+          <div class="events-page__list-header">
+            <h2 class="events-page__list-title">
+              {{ formattedSelectedDate.weekday }} {{ formattedSelectedDate.dateMonth }}
+            </h2>
+          </div>
+        <div class="events-page__list-content">
+          <!--<UiAccordions>
+            <UiAccordionItem v-for="i in 10" :key="i" :time="'10:00'" :location="'Tadoussac'" :title="'Festival de la chanson<br> de Tadoussac'" :icon="IconPlus">
+            </UiAccordionItem>
+          </UiAccordions> -->
+          <UiAccordions v-if="filteredEvents.length > 0">
+            <UiAccordionItem v-for="event in filteredEvents" :key="event.id" :time="event.times" :location="event.address" :title="event.title" :icon="IconPlus" @click="toggleEvent(event.id)">
+            </UiAccordionItem>
+          </UiAccordions>
+          <div v-else class="events-page__empty">
+            Aucun événement pour cette date
+          </div>
         </div>
-        <UiAccordions>
-          <UiAccordionItem :time="'10:00'" :location="'Tadoussac'" :title="'Festival de la chanson<br> de Tadoussac'" :icon="IconPlus">
-          </UiAccordionItem>
-        </UiAccordions>
-        <UiAccordions>
-          <UiAccordionItem v-for="event in events" :key="event.id" :title="event.title" :icon="IconPlus">
-            <div class="wysiwyg" v-html="event" />
-          </UiAccordionItem>
-        </UiAccordions>
-        <div v-if="filteredEvents.length === 0" class="events-page__empty">
-          Aucun événement pour cette date
-        </div>
-        <div
-          v-for="event in filteredEvents"
-          :key="event.id"
-          class="events-page__event"
-        >
-          {{ event.title }}
-        </div>
+        
+        
       </div>
+      
+      <UiNavBar 
+        :show-scroll-arrows="filteredEvents.length > 5"
+        @scrollup="scrollListUp"
+        @scrolldown="scrollListDown"
+      />
+    </div>
     </div>
   </div>
 </template>
@@ -55,18 +59,22 @@
 import { ref, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useAppStore } from 'store/app'
+import { useSidePanelStore } from 'store/sidePanel'
 import { storeToRefs } from 'pinia'
 import IconPlus from 'assets/svg/plus.svg?raw'
 import UiButton from 'components/UiKit/Button/index.vue'
 import UiAccordions from 'components/UiKit/Accordions/Items.vue'
 import UiAccordionItem from 'components/UiKit/EventItem/index.vue'
+import UiNavBar from 'components/NavBar/index.vue'
 
 const { locale } = useI18n()
 const store = useAppStore()
+const sidePanelStore = useSidePanelStore()
 const { isLoading, events } = storeToRefs(store)
 
 // Date sélectionnée (timestamp du début du jour)
 const selectedDate = ref<number>(getStartOfDay(new Date()).getTime())
+const listRef = ref<HTMLElement | null>(null)
 
 /**
  * Retourne le début du jour (minuit) pour une date donnée
@@ -129,25 +137,48 @@ const formattedSelectedDate = computed(() => {
  * À adapter quand le type EventEntry aura une vraie date d'événement
  */
 const filteredEvents = computed(() => {
-  const dayStart = selectedDate.value
-  const dayEnd = dayStart + 24 * 60 * 60 * 1000 // +24h
-  
+  const currentDay = selectedDate.value
   return store.events.filter(event => {
     // Utilise 'posted' comme date d'événement temporairement
-    const eventDate = event.dates.posted
-    return eventDate >= dayStart && eventDate < dayEnd
+    const eventDateStart = event.date_start_timestamp * 1000
+    const eventDateEnd = event.date_end_timestamp * 1000
+    return currentDay >= eventDateStart && currentDay <= eventDateEnd
   })
 })
+
+const scrollListUp = () => {
+  console.log('scrollListUp', listRef.value)
+  if (listRef.value) {
+    listRef.value.scrollBy({ top: -300, behavior: 'smooth' })
+  }
+}
+
+const scrollListDown = () => {
+  console.log('scrollListDown', listRef.value)
+  if (listRef.value) {
+    listRef.value.scrollBy({ top: 300, behavior: 'smooth' })
+  }
+}
+
+const toggleEvent = (id: string) => {
+  console.log('handleToggle', id)
+  const selectedEvent = events.value.find((e: EventEntry) => e.id === id)
+  console.log('selectedEvent', selectedEvent)
+  sidePanelStore.openEvent(selectedEvent)
+}
+
 </script>
 
 <style lang="stylus" scoped>
   .events-page
     background-color $embruns
     min-height 100vh
+    height 100%
     
     &__container
       margin-top 69px
-      container()
+      margin-left 100px
+      margin-right 228px
     
     &__header
       f(row, $justify: start, $align: flex-end)
@@ -186,23 +217,41 @@ const filteredEvents = computed(() => {
         &__date
           f-style('subtitle')
     
+    &__list-wrapper
+      position relative
+      margin-bottom 125px
+      
+      // NavBar positionnée en absolute à droite du listing
+      .NavBar
+        position absolute
+        top 100px
+        right -90px  // Sort du listing vers la droite
+
     &__list
+      width 100%
       display flex
       flex-direction column
       gap 16px
       background-color white
       border-radius $radius-lgxl
       r(padding, 100px 110px)
+      max-height 2346px
+      min-height px
+      overflow-y auto
+      
+    &__list-content
+      overflow scroll
     &__list-header
       r(margin-bottom, 100px)
     &__list-title
       f-style('h2')
     &__empty
-      f-style('body')
+      f-style('small-body')
       color $fjord
       opacity 0.6
       text-align center
-      r(padding, 60px)
+      padding-top 60px
+      padding-bottom 100px
     
     &__event
       background white

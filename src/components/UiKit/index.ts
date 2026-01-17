@@ -20,6 +20,7 @@ import UiAccordionsItem from './Accordions/Item.vue'
 import UiWysiwyg from './Wysiwyg/index.vue'
 import UiVideo from './Video/index.vue'
 import UiMarquee from './Marquee/index.vue'
+import UiSwiper from './Swiper/index.vue'
 
 // Tous les composants enregistrés globalement
 const components: Record<string, Component> = {
@@ -31,6 +32,7 @@ const components: Record<string, Component> = {
   'ui-wysiwyg': UiWysiwyg,
   'ui-video': UiVideo,
   'ui-marquee': UiMarquee,
+  'ui-swiper': UiSwiper,
 }
 
 /**

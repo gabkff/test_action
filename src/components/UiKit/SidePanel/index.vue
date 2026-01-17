@@ -1,25 +1,69 @@
 <template>
   <Teleport to="body">
     <Transition name="panel">
-      <div v-if="isOpen" class="SidePanel" @click.self="handleClose">
+      <div v-if="store.isOpen" class="SidePanel" @click.self="handleClose">
         <div class="SidePanel__overlay" @click="handleClose" />
         
         <div class="SidePanel__container">
-          <div class="SidePanel__header">
-            <slot name="header">
-              <h2 v-if="title" class="SidePanel__title">{{ title }}</h2>
-            </slot>
-            <button type="button" class="SidePanel__close" @click="handleClose">
-              <i class="SidePanel__close-icon" v-html="IconClose" />
-            </button>
-          </div>
           
           <div class="SidePanel__content">
-            <slot />
-          </div>
-          
-          <div v-if="$slots.footer" class="SidePanel__footer">
-            <slot name="footer" />
+            <!-- Contenu dynamique basé sur le type -->
+            <slot :type="store.currentType" :payload="store.payload">
+              <!-- Contenu par défaut basé sur le type -->
+              <template v-if="store.currentType === 'language'">
+                <div class="SidePanel__language">
+                  <p>Sélectionnez votre langue</p>
+                  <!-- Slots pour le contenu langue -->
+                </div>
+              </template>
+              
+              <template v-else-if="store.currentType === 'event'">
+                <div class="SidePanel__event">
+                  <!-- Contenu événement -->
+                  <div class="SidePanel__title"> {{ store.payload.title }}</div>
+                  <div class="SidePanel__image-wrapper">
+                    <ui-swiper :options="{ slidesPerView: 1, spaceBetween: 30, centeredSlides: false }" :overflow="true" :navigation="true">
+                      <ui-picture v-for="image in store.payload.images" :key="image.meta" :images="image.images" class="SidePanel__image"/>
+                    </ui-swiper>
+                  </div>
+                  <div class="SidePanel__content-dates-price">
+                    <div class="SidePanel__dates-item">
+                      <div class="SidePanel__dates-start" v-if="store.payload.date_start">
+                        <div class="SidePanel__dates-start-label">{{ $t('events.date_debut') }}</div>
+                        <div class="SidePanel__dates-start-value"> {{ new Date(store.payload.date_start_timestamp as number * 1000).toLocaleDateString('fr-CA', {  day: 'numeric', month: 'short', year: 'numeric' }) }} </div>
+                      </div>
+                      <div class="SidePanel__dates-end" v-if="store.payload.date_end">
+                        <div class="SidePanel__dates-end-label">{{ $t('events.date_fin') }}</div>
+                        <div class="SidePanel__dates-end-value"> {{ new Date(store.payload.date_end_timestamp as number * 1000).toLocaleDateString('fr-CA', {  day: 'numeric', month: 'short', year: 'numeric' }) }} </div>
+                      </div>
+                    </div>
+                  </div>
+                    <div class="SidePanel__price" v-if="store.payload.price_range">
+                      <div class="SidePanel__price-label">{{ $t('events.price') }}</div>
+                      <div class="SidePanel__price-value"> {{ store.payload.price_range }}</div>
+                    </div>
+                  
+                  <div class="SidePanel__qrcode" v-if="store.payload.event_qrcode">
+                    <div class="SidePanel__qrcode-label">{{ $t('events.access_site') }}</div>
+                    <div class="SidePanel__qrcode-value"> {{ store.payload.event_qrcode }}re</div>
+                  </div>
+                  <div class="SidePanel__address">
+                    <div class="SidePanel__address-icon">
+                      <div class="SidePanel__address-icon-icon" v-html="IconPin" />
+                      <div class="SidePanel__address-icon-text"> Adresse</div>
+                    </div>
+                    <div class="SidePanel__address-text"> {{ store.payload.address }}</div>
+                  </div>
+                  <UiWysiwyg v-html="store.payload.description" />
+                </div>
+              </template>
+              
+              <template v-else-if="store.currentType === 'home'">
+                <div class="SidePanel__home">
+                  <!-- Contenu home -->
+                </div>
+              </template>
+            </slot>
           </div>
         </div>
       </div>
@@ -33,40 +77,25 @@
  * 
  * Panneau latéral coulissant réutilisable.
  * S'ouvre depuis la droite de l'écran.
+ * Utilise le store useSidePanelStore pour la gestion de l'état.
  */
 
 import { watch } from 'vue'
-import IconClose from 'assets/svg/plus.svg?raw' // Utilisera une icône de fermeture (croix = plus tourné)
+import { useSidePanelStore } from 'store/sidePanel'
+import IconPin from 'assets/svg/pin.svg?raw'
+import Carousel from 'components/builder/Carousel/index.vue'
+import UiWysiwyg from 'components/UiKit/Wysiwyg/index.vue'
+import UiSwiper from 'components/UiKit/Swiper/index.vue'
 
-interface SidePanelProps {
-  /** État d'ouverture du panneau */
-  isOpen: boolean
-  /** Titre du panneau */
-  title?: string
-  /** Fermer au clic sur l'overlay */
-  closeOnOverlay?: boolean
-}
-
-const props = withDefaults(defineProps<SidePanelProps>(), {
-  title: '',
-  closeOnOverlay: true,
-})
-
-const emit = defineEmits<{
-  close: []
-  'update:isOpen': [value: boolean]
-}>()
+const store = useSidePanelStore()
 
 function handleClose() {
-  if (props.closeOnOverlay) {
-    emit('close')
-    emit('update:isOpen', false)
-  }
+  store.close()
 }
 
 // Bloquer le scroll du body quand le panneau est ouvert
 watch(
-  () => props.isOpen,
+  () => store.isOpen,
   (isOpen) => {
     if (isOpen) {
       document.body.style.overflow = 'hidden'
@@ -99,8 +128,7 @@ watch(
 
   &__container
     position relative
-    width 50%
-    max-width 900px
+    width 1339px
     height 100%
     background $embruns
     display flex
@@ -114,12 +142,75 @@ watch(
     justify-content space-between
     r(padding, 60px 80px)
     border-bottom 1px solid rgba($fjord, 0.1)
-
+  &__image-wrapper
+    width 100%
+    height 100%
+    :deep(.swiper-wrapper)
+      gap 30px
+    .SidePanel__image
+      height 650px
+      width 1155px !important
+      background-color $fjord
+      object-fit cover
   &__title
     f-style('h3')
     color $fjord
     margin 0
-
+    margin-top 125px
+    margin-bottom 120px
+  &__qrcode
+    border-top 2px solid $fjord
+    border-bottom 2px solid $fjord
+    padding-top 60px
+    padding-bottom 60px
+    margin-bottom 80px
+    f(row, $justify: space-between)
+    .SidePanel__qrcode-label
+      f-style('h5')
+      width 637px
+    .SidePanel__qrcode-value
+      background-color $fjord
+      width 175px
+  &__address
+    f(column)
+    align-items flex-start
+    gap 10px
+    f-style('small-body')
+    color $fjord
+    .SidePanel__address-icon
+      f(row)
+      gap 10px
+      opacity 0.5
+    .SidePanel__address-icon-icon
+      width 25px
+      height 25px
+      display flex
+      --icon-accent white
+    .SidePanel__address-text
+      f-style('bold-infos')
+      text-align left
+  .SidePanel__content-dates-price
+    f(row)
+    margin-top 120px
+    margin-bottom 60px
+    .SidePanel__dates-item
+      f(row, $justify: space-between)
+      width 100%
+      gap 10px
+      .SidePanel__dates-start-label, .SidePanel__dates-end-label
+        f-style('small-body')
+        color $fjord
+        opacity 0.5
+      .SidePanel__dates-start-value, .SidePanel__dates-end-value
+        f-style('bold-infos')
+  .SidePanel__price
+    margin-bottom 60px
+    .SidePanel__price-label
+      f-style('small-body')
+      color $fjord
+      opacity 0.5
+    .SidePanel__price-value
+      f-style('bold-infos')
   &__close
     display flex
     align-items center
