@@ -14,7 +14,7 @@ const DIRS = {
 
 // https://vite.dev/config/
 export default defineConfig(async () => ({
-  base: './',
+  base: '/',
   plugins: [
     vue(),
     VueI18nPlugin({

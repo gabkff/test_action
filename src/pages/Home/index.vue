@@ -81,6 +81,7 @@
       >
         🗑️ Clear Cache
       </button>
+      <router-link to="/evenements">TEST LIEN EVENTS</router-link>
     </div>
 
     <!-- Les 4 boutons de coins -->
