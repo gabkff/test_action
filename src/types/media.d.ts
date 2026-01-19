@@ -10,11 +10,13 @@ declare interface Image {
 
 declare interface ImageDetail {
   optimized?: {
-    standard?: Record<string, string>;
-    webp?: Record<string, string>;
+    standard?: Record<string, string | undefined>;
+    webp?: Record<string, string | undefined>;
   };
   original?:{
     url?:string;
+    width?:number
+    height?:number
     sizes:{
       width?:number
       height?:number

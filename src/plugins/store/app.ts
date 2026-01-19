@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
+import { pinia } from 'plugins/store'
 import type { ApiResponse, ApiData, MetaData, CircuitEntry, EventEntry, HomeData } from 'types/api.types'
 import { mockApiData } from 'plugins/api/mock-data'
 import { cacheService } from 'plugins/api/cache.service'
@@ -16,7 +17,7 @@ export interface SiteContext {
   siteId: number
 }
 
-export const useAppStore = defineStore('app', () => {
+const useStore = defineStore('app', () => {
   // ============================================
   // STATE (aplati depuis ApiResponse)
   // ============================================
@@ -234,3 +235,6 @@ export const useAppStore = defineStore('app', () => {
     reset,
   }
 })
+
+export const store = useStore(pinia);
+export default store

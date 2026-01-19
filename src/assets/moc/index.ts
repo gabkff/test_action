@@ -114,22 +114,3 @@ export const wysiwygSimple: Wysiwyg = `
 `;
 /* eslint-enable no-useless-escape */
 
-/**  full SEO datas */
-export const seo: SeoData = (() => {
-  const title = 'sample seo title'
-  const description = 'sample seo title'
-  const image = {
-    width: 1280,
-    height: 700,
-    src: 'https://via.placeholder.com/1280x700?text=social',
-    alt: 'sample seo image',
-  }
-  const platform = { title, description, image }
-  return {
-    title, description,
-    socials: {
-      facebook: platform,
-      twitter: platform,
-    }
-  }
-})()

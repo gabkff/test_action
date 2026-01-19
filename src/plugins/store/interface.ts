@@ -2,10 +2,9 @@
  * InterfaceStore
  * our store about interface (window size, browser supports etc)
  */
-import { client, DEBUG, motion, server } from 'config';
+import { DEBUG, motion } from 'config';
 import { throttle } from 'lodash';
 import { defineStore } from 'pinia';
-import appStore from 'plugins/store/app';
 import { pinia } from 'plugins/store/index';
 import { computed, nextTick, ref } from 'vue';
 type Supports = {
@@ -28,10 +27,10 @@ const useStore = defineStore('interface', () => {
     ready: false,
     /** @argument {Object} viewport - uptodate viewport sizes */
     viewport: {
-      width: client ? window.innerWidth : 1900,
-      height: client ? window.innerHeight : 1200, // stay always the same
-      innerHeight: client ? window.innerHeight : 1200, // updates on scroll
-      webglHeight: client ? window.innerHeight : 1200
+      width: window.innerWidth,
+      height: window.innerHeight, // stay always the same
+      innerHeight: window.innerHeight, // updates on scroll
+      webglHeight: window.innerHeight
     },
     /** @argument {Object} device - Detectizr device */
     device: 'mobile',
@@ -50,16 +49,10 @@ const useStore = defineStore('interface', () => {
   }
 
   const init = async () => {
-    if (server) {
-      state.value.ready = true;
-      appStore.setInterfaceReady()
-
-      return;
-    }
 
     // add some dataset to html for usefull tests (`html[data-motion="true"] &`)
-    document.documentElement.dataset.client = client.toString()
-    document.documentElement.dataset.motion = motion.toString()
+    document.documentElement.dataset.client = 'true'
+    document.documentElement.dataset.motion = 'true'
     // document.documentElement.dataset.server = server.toString()
 
     // Patch for webgl resize on mobile
@@ -86,6 +79,8 @@ const useStore = defineStore('interface', () => {
     }, 0));
 
     useModernizr();
+    state.value.ready = true;
+    // appStore.setInterfaceReady()
   }
 
   const useModernizr = async () => {
@@ -121,12 +116,11 @@ const useStore = defineStore('interface', () => {
       document.documentElement.classList.add(name)
       document.documentElement.classList.add(state.value.device)
       document.documentElement.classList.add(`${motion ? '' : 'no-'}motion`)
-      document.documentElement.classList.add(`${client ? '' : 'no-'}client`)
-      document.documentElement.classList.add(`${server ? '' : 'no-'}server`)
+      document.documentElement.classList.add(`client`)
       document.documentElement.classList.add(`${webp_safe ? '' : 'no-'}webp-safe`)
       document.documentElement.classList.add(`${touch_safe ? '' : 'no-'}touch`)
       state.value.ready = true;
-      appStore.setInterfaceReady()
+      //appStore.setInterfaceReady()
     });
   }
 
@@ -164,4 +158,4 @@ export const store = useStore(pinia);
 export default store;
 
 // @ts-expect-error
-if(DEBUG && client) window.interface = store
+if(DEBUG) window.interface = store

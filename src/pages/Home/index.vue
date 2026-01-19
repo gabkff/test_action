@@ -154,7 +154,7 @@
 <script setup lang="ts">
 import { ref, reactive, computed } from 'vue'
 import { storeToRefs } from 'pinia'
-import { useAppStore } from 'store/app'
+import { store as appStore } from 'plugins/store/app'
 import { cacheService } from 'plugins/api/cache.service'
 import { assetsService } from 'plugins/api/assets.service'
 import { appConfig } from 'config'
@@ -163,8 +163,7 @@ import { appConfig } from 'config'
 // STORE & DATA
 // ============================================
 
-const store = useAppStore()
-const { isLoading, error, circuits, circuitsCount } = storeToRefs(store)
+const { isLoading, error, circuits, circuitsCount } = storeToRefs(appStore)
 
 // Récupère le premier circuit
 const firstCircuit = computed(() => {
@@ -232,7 +231,7 @@ const confirmModal = () => {
 
 /** Rafraîchit les données via le store */
 const refreshData = () => {
-  store.initData()
+  appStore.initData()
 }
 
 /** Vide le cache et recharge les données */
@@ -256,7 +255,7 @@ const clearCache = () => {
           kind: 'success',
           showCancel: false,
           confirmText: 'OK',
-          onConfirm: () => store.initData()
+          onConfirm: () => appStore.initData()
         })
       } catch (err) {
         console.error('Erreur lors du vidage du cache:', err)

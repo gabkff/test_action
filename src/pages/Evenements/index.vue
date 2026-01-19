@@ -58,9 +58,10 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useAppStore } from 'store/app'
+import { store as appStore } from 'plugins/store/app'
 import { useSidePanelStore } from 'store/sidePanel'
 import { storeToRefs } from 'pinia'
+import type { EventEntry } from 'types/api.types'
 import IconPlus from 'assets/svg/plus.svg?raw'
 import UiButton from 'components/UiKit/Button/index.vue'
 import UiAccordions from 'components/UiKit/Accordions/Items.vue'
@@ -68,9 +69,8 @@ import UiAccordionItem from 'components/UiKit/EventItem/index.vue'
 import UiNavBar from 'components/NavBar/index.vue'
 
 const { locale } = useI18n()
-const store = useAppStore()
 const sidePanelStore = useSidePanelStore()
-const { isLoading, events } = storeToRefs(store)
+const { isLoading, events } = storeToRefs(appStore)
 
 // Date sélectionnée (timestamp du début du jour)
 const selectedDate = ref<number>(getStartOfDay(new Date()).getTime())
@@ -138,7 +138,7 @@ const formattedSelectedDate = computed(() => {
  */
 const filteredEvents = computed(() => {
   const currentDay = selectedDate.value
-  return store.events.filter(event => {
+  return appStore.events.filter(event => {
     // Utilise 'posted' comme date d'événement temporairement
     const eventDateStart = event.date_start_timestamp * 1000
     const eventDateEnd = event.date_end_timestamp * 1000
@@ -160,11 +160,15 @@ const scrollListDown = () => {
   }
 }
 
-const toggleEvent = (id: string) => {
+const toggleEvent = (id: string | number) => {
   console.log('handleToggle', id)
-  const selectedEvent = events.value.find((e: EventEntry) => e.id === id)
+  const selectedEvent = (events.value as EventEntry[]).find((e) => e.id === id)
   console.log('selectedEvent', selectedEvent)
-  sidePanelStore.openEvent(selectedEvent)
+  if (selectedEvent) {
+    sidePanelStore.openEvent(selectedEvent)
+  } else {
+    console.warn('No event found for id:', id)
+  }
 }
 
 </script>

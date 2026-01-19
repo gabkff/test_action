@@ -8,11 +8,13 @@ import { Navigation} from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/effect-creative';
 import IconArrow from 'assets/svg/arrow.svg?raw'
-import type { AutoplayOptions } from 'swiper/types/modules/autoplay';
-import type { NavigationOptions } from 'swiper/types/modules/navigation';
-import type { PaginationOptions } from 'swiper/types/modules/pagination';
-import type { ScrollbarOptions } from 'swiper/types/modules/scrollbar';
-import type { SwiperOptions } from 'swiper/types/swiper-options';
+import type { 
+  SwiperOptions, 
+  AutoplayOptions, 
+  NavigationOptions, 
+  PaginationOptions, 
+  ScrollbarOptions 
+} from 'swiper/types';
 import { computed, defineComponent, nextTick, onBeforeUnmount, onMounted, PropType, reactive, toRefs, useSlots, watch } from 'vue';
 
 import { gsap, ScrollTrigger } from 'vendors/gsap';

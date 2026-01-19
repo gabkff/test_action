@@ -11,7 +11,7 @@ import { createPinia } from 'pinia'
 export const pinia = createPinia()
 
 // Ré-export des stores pour un accès facile
-export { useAppStore } from './app'
+export { store as appStore } from './app'
 export { useSidePanelStore } from './sidePanel'
 export type { SidePanelType, SidePanelData } from './sidePanel'
 

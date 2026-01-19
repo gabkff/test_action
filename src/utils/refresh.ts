@@ -1,7 +1,8 @@
 import { apiService } from 'plugins/api'
 import { assetsService } from 'plugins/api/assets.service'
 import { cacheService } from 'plugins/api/cache.service'
-import { useAppStore } from 'store/app'
+
+import { store as appStore } from 'plugins/store/app'
 import { appConfig } from 'config'
 
 let refreshInterval: number | null = null
@@ -22,7 +23,6 @@ export function startPeriodicRefresh() {
   refreshInterval = window.setInterval(async () => {
     try {
       console.log('🔄 Rafraîchissement automatique des données...')
-      const store = useAppStore()
 
       // Récupère les données en cache pour comparaison
       const cachedData = await cacheService.readDataFromFile()
@@ -37,7 +37,7 @@ export function startPeriodicRefresh() {
       )
 
       // Met à jour le store
-      store.setApiData(dataWithLocalAssets)
+      appStore.setApiData(dataWithLocalAssets)
       
       // Sauvegarde dans le cache
       await cacheService.writeDataToFile(dataWithLocalAssets)

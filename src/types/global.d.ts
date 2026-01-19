@@ -25,6 +25,11 @@ declare global {
     isPrerender: boolean
     __TAURI__?: unknown
   }
+  type Multiline = string
+  type HtmlText = string 
+  type Wysiwyg = string
+  type Timestamp = number
+  type Obj = Record<string, any>
 }
 
 // Augmentation des types d'environnement Vite

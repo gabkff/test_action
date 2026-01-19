@@ -80,7 +80,7 @@ export interface EventEntry {
   description: string | null
   images: Image[]
   event_url: string | null
-  event_qrcode: string | null
+  event_qr: string | null
 }
 
 // ============================================

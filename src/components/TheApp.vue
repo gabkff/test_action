@@ -1,4 +1,4 @@
-<template>
+ù<template>
   <div id="the-app" class="the-app">
     <!-- Header global (optionnel) -->
     <!-- <AppHeader /> -->
@@ -30,11 +30,8 @@
  */
 
 import { onMounted } from 'vue'
-import { useAppStore } from 'store/app'
-import { useSidePanelStore } from 'store/sidePanel'
+import { store as appStore } from 'plugins/store/app'
 import sidePanel from 'components/UiKit/SidePanel/index.vue'
-
-const appStore = useAppStore()
 
 onMounted(async () => {
   // Initialise les données (cache + API ou mock selon le mode)

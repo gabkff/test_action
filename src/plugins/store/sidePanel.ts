@@ -73,7 +73,7 @@ export const useSidePanelStore = defineStore('sidePanel', () => {
   /**
    * Ouvre le panneau pour afficher un événement
    */
-  function openEvent(event: Record<string, unknown>) {
+  function openEvent(event: Record<string, any>) {
     console.log('openEvent', event)
     open({
       type: 'event',

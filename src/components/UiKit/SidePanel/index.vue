@@ -23,7 +23,7 @@
                   <div class="SidePanel__title"> {{ store.payload.title }}</div>
                   <div class="SidePanel__image-wrapper">
                     <ui-swiper :options="{ slidesPerView: 1, spaceBetween: 30, centeredSlides: false }" :overflow="true" :navigation="true">
-                      <ui-picture v-for="image in store.payload.images" :key="image.meta" :images="image.images" class="SidePanel__image"/>
+                      <ui-picture v-for="image in store.payload.images as Image[]" :key="image.meta" :images="image.images" class="SidePanel__image"/>
                     </ui-swiper>
                   </div>
                   <div class="SidePanel__content-dates-price">
