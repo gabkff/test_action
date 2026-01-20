@@ -43,11 +43,6 @@ const MEDIA_TYPES = {
   VIDEO_EXTERNAL: 'video_external',
 }
 
-interface GalleryItem {
-  type: string
-  data: Record<string, unknown>
-}
-
 const BuilderGallery = defineComponent({
   name: 'BuilderGallery',
   props: {

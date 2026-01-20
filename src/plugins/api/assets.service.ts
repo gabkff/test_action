@@ -4,7 +4,6 @@ import { fetch as tauriFetch } from '@tauri-apps/plugin-http'
 import { convertFileSrc } from '@tauri-apps/api/core'
 import { appConfig } from 'config'
 import { getAuthHeaders } from 'utils/helpers'
-import type { ApiResponse, ApiData, CircuitEntry, CircuitStep, EventEntry } from 'types/api.types'
 
 // Constante pour le dossier assets
 const ASSETS_DIR = 'assets'
@@ -140,9 +139,9 @@ class AssetsService {
         return e.id
       })
 
-    const hasChanges = homeChanged || 
-      changedCircuits.length > 0 || 
-      changedEvents.length > 0 || 
+    const hasChanges = homeChanged ||
+      changedCircuits.length > 0 ||
+      changedEvents.length > 0 ||
       removedCircuitIds.length > 0 ||
       removedEventIds.length > 0
 
@@ -393,7 +392,7 @@ class AssetsService {
       for (const size of Object.keys(image.images.optimized.standard)) {
         const url = image.images.optimized.standard[size as keyof typeof image.images.optimized.standard]
         if (url) {
-          (image.images.optimized.standard as Record<string, string>)[size] = 
+          (image.images.optimized.standard as Record<string, string>)[size] =
             await this.downloadAndGetAssetUrl(url)
         }
       }
@@ -404,7 +403,7 @@ class AssetsService {
       for (const size of Object.keys(image.images.optimized.webp)) {
         const url = image.images.optimized.webp[size as keyof typeof image.images.optimized.webp]
         if (url) {
-          (image.images.optimized.webp as Record<string, string>)[size] = 
+          (image.images.optimized.webp as Record<string, string>)[size] =
             await this.downloadAndGetAssetUrl(url)
         }
       }
@@ -425,7 +424,7 @@ class AssetsService {
       const localPath = await join(this.assetsDir, fileName)
 
       const fileExists = await exists(localPath)
-      
+
       if (fileExists) {
         // Fichier en cache → on l'utilise
         console.log('📦 Asset en cache:', fileName)

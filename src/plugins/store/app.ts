@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import { pinia } from 'plugins/store'
-import type { ApiResponse, ApiData, MetaData, CircuitEntry, EventEntry, HomeData } from 'types/api.types'
 import { mockApiData } from 'plugins/api/mock-data'
 import { cacheService } from 'plugins/api/cache.service'
 import { assetsService } from 'plugins/api/assets.service'
@@ -67,23 +66,23 @@ const useStore = defineStore('app', () => {
   const eventsCount = computed(() => events.value.length)
 
   /** Récupère un circuit par son slug */
-  const getCircuitBySlug = (slug: string): CircuitEntry | undefined => {
+  const getCircuitBySlug = (slug: string): CircuitEntry | undefined | null => {
     console.log(circuits.value)
     return circuits.value.find(circuit => circuit.slug === slug)
   }
 
   /** Récupère un événement par son slug */
-  const getEventBySlug = (slug: string): EventEntry | undefined => {
+  const getEventBySlug = (slug: string): EventEntry | undefined | null => {
     return events.value.find(event => event.slug === slug)
   }
 
   /** Récupère un circuit par son ID */
-  const getCircuitById = (id: number): CircuitEntry | undefined => {
+  const getCircuitById = (id: number): CircuitEntry | undefined | null => {
     return circuits.value.find(circuit => circuit.id === id)
   }
 
   /** Récupère un événement par son ID */
-  const getEventById = (id: number): EventEntry | undefined => {
+  const getEventById = (id: number): EventEntry | undefined | null => {
     return events.value.find(event => event.id === id)
   }
 

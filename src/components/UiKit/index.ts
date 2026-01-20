@@ -19,7 +19,6 @@ import UiAccordions from './Accordions/Items.vue'
 import UiAccordionsItem from './Accordions/Item.vue'
 import UiWysiwyg from './Wysiwyg/index.vue'
 import UiVideo from './Video/index.vue'
-import UiMarquee from './Marquee/index.vue'
 import UiSwiper from './Swiper/index.vue'
 
 // Tous les composants enregistrés globalement
@@ -31,7 +30,6 @@ const components: Record<string, Component> = {
   'ui-accordions-item': UiAccordionsItem,
   'ui-wysiwyg': UiWysiwyg,
   'ui-video': UiVideo,
-  'ui-marquee': UiMarquee,
   'ui-swiper': UiSwiper,
 }
 
@@ -48,13 +46,12 @@ export function installUiKit(app: App): void {
 export default installUiKit
 
 // Export des composants individuels pour usage direct
-export { 
-  UiAnimation, 
-  UiButton, 
+export {
+  UiAnimation,
+  UiButton,
   UiPicture,
   UiAccordions,
   UiAccordionsItem,
   UiWysiwyg,
   UiVideo,
-  UiMarquee,
 }

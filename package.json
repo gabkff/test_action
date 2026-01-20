@@ -37,6 +37,7 @@
   "devDependencies": {
     "@intlify/unplugin-vue-i18n": "^6.0.8",
     "@tauri-apps/cli": "^2",
+    "@types/google.maps": "^3.58.1",
     "@types/lodash": "^4.17.20",
     "@types/node": "^24.3.0",
     "@typescript-eslint/eslint-plugin": "^8.53.0",
@@ -51,7 +52,7 @@
     "stylus": "^0.64.0",
     "typescript": "~5.6.2",
     "vite": "^6.0.3",
-    "vue-tsc": "^2.1.10",
+    "vue-tsc": "^3.2.2",
     "webpack": "^5.95.0"
   }
 }

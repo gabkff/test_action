@@ -322,7 +322,6 @@ import IconWalk from 'assets/svg/walk.svg?raw'
 import IconInfo from 'assets/svg/info.svg?raw'
 import { ref } from 'vue'
 
-const marqueeTexts = ['Element 1', 'Element 2', 'Element 3', 'Element 4']
 const selectedLang = ref('fr')
 const selectedView = ref('grid')
 function onLangChange(value: string, option: SelectorOption) {

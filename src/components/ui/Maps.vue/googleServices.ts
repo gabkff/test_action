@@ -1,5 +1,4 @@
 import { setOptions, importLibrary } from "@googlemaps/js-api-loader";
-import { getEnv } from 'config';
 import customStyles from './assets/map-styles.json';
 
 interface GoogleClients {
@@ -21,11 +20,11 @@ export async function initMap() {
     return clients.MapLibrary
   } else {
     setOptions({
-      key: getEnv('VITE_GOOGLE_MAP_KEY'),
+      key: import.meta.env.VITE_GOOGLE_MAP_KEY,
       v: "weekly",
     })
-    const { Map } = (await importLibrary('maps')) as google.maps.MapsLibrary;
-    clients.MapLibrary = Map
+    const googleMaps = (await importLibrary('maps')) as google.maps.MapsLibrary;
+    clients.MapLibrary = googleMaps
     return clients.MapLibrary
   }
 }

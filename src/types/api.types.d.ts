@@ -9,13 +9,13 @@
 // RESPONSE PRINCIPALE
 // ============================================
 
-export interface ApiResponse {
+declare interface ApiResponse {
   meta: MetaData
   data: ApiDataWrapper
 }
 
 /** Wrapper contenant les infos du site + les données */
-export interface ApiDataWrapper {
+declare interface ApiDataWrapper {
   lang: string
   ville: string
   siteId: number
@@ -23,7 +23,7 @@ export interface ApiDataWrapper {
 }
 
 /** Données utiles de l'application */
-export interface ApiData {
+declare interface ApiData {
   home: HomeData
   events: EventEntry[]
   circuits: CircuitEntry[]
@@ -33,13 +33,13 @@ export interface ApiData {
 // METADATA
 // ============================================
 
-export interface MetaData {
+declare interface MetaData {
   timestamp: number
   execution_time: string
   site: SiteInfo
 }
 
-export interface SiteInfo {
+declare interface SiteInfo {
   id: number
   name: string
   handle: string
@@ -51,7 +51,7 @@ export interface SiteInfo {
 // HOME
 // ============================================
 
-export interface HomeData {
+declare interface HomeData {
   id: number
   slug: string
   lastUpdate: number
@@ -63,7 +63,7 @@ export interface HomeData {
 // EVENTS
 // ============================================
 
-export interface EventEntry {
+declare interface EventEntry {
   id: number
   url: string
   title: string
@@ -87,7 +87,7 @@ export interface EventEntry {
 // CIRCUITS
 // ============================================
 
-export interface CircuitEntry {
+declare interface CircuitEntry {
   id: number
   url: string | null
   title: string
@@ -99,7 +99,7 @@ export interface CircuitEntry {
   steps: CircuitStep[]
 }
 
-export interface CircuitStep {
+declare interface CircuitStep {
   title: string
   description: string | null
   main_text: string
@@ -112,12 +112,12 @@ export interface CircuitStep {
   next_step: NextStepInfo
 }
 
-export interface GeoCoordinates {
+declare interface GeoCoordinates {
   latitude: number | null
   longitude: number | null
 }
 
-export interface NextStepInfo {
+declare interface NextStepInfo {
   transportation: string[]
   time: number
 }
@@ -126,7 +126,7 @@ export interface NextStepInfo {
 // DATES (communes)
 // ============================================
 
-export interface EntryDates {
+declare interface EntryDates {
   created: number
   updated: number
   posted: number
@@ -136,11 +136,16 @@ export interface EntryDates {
 // CONFIGURATION
 // ============================================
 
-export type AppMode = 'kiosk' | 'ipad'
+declare type AppMode = 'kiosk' | 'ipad'
 
-export interface AppConfig {
+declare interface AppConfig {
   mode: AppMode
   apiUrl: string
   refreshInterval?: number
   enableCache: boolean
+}
+
+declare interface GalleryItem {
+  type: string
+  data: Record<string, unknown>
 }

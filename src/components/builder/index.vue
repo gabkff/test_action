@@ -16,7 +16,6 @@ import BuilderCta from './Cta/index.vue'
 import BuilderEmbed from './Embed/index.vue'
 import BuilderGallery from './Gallery/index.vue'
 import BuilderIntroduction from './Introduction/index.vue'
-import BuilderMarquee from './Marquee/index.vue'
 import BuilderPushContent from './PushContent/index.vue'
 import BuilderText from './Text/index.vue'
 
@@ -29,7 +28,6 @@ const PageBuilder = defineComponent({
     BuilderEmbed,
     BuilderGallery,
     BuilderIntroduction,
-    BuilderMarquee,
     BuilderPushContent,
     BuilderText,
   },

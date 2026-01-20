@@ -119,11 +119,11 @@ watch(
 )
 
 function scrollUpDesc() {
-  console.log(descriptionEvent.value)
+  if (!descriptionEvent.value) return
   descriptionEvent.value.scrollTop -= 100
 }
 function scrollDownDesc() {
-  console.log(descriptionEvent.value)
+  if (!descriptionEvent.value) return
   descriptionEvent.value.scrollTop += 100
 }
 </script>

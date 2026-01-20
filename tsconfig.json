@@ -3,39 +3,89 @@
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
+    "declaration": true,
     "esModuleInterop": true,
-    "isolatedModules": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
     "jsx": "preserve",
-    "lib": ["ES2022", "DOM", "DOM.Iterable"],
-    "module": "ES2022",
-    "moduleResolution": "bundler",
+    "lib": [
+      "es2022",
+      "dom",
+      "dom.iterable",
+      "scripthost"
+    ],
+    "module": "es2022",
+    "moduleResolution": "node",
     "noEmit": true,
     "noImplicitAny": true,
     "paths": {
-      "@/*": ["./src/*"],
-      "src/*": ["./src/*"],
-      "assets/*": ["./src/assets/*"],
-      "config": ["./src/config"],
-      "config/*": ["./src/config/*"],
-      "pages/*": ["./src/pages/*"],
-      "components/*": ["./src/components/*"],
-      "ui/*": ["./src/components/ui/*"],
-      "UiKit/*": ["./src/components/UiKit/*"],
-      "plugins/*": ["./src/plugins/*"],
-      "store/*": ["./src/plugins/store/*"],
-      "router": ["./src/router/index"],
-      "router/*": ["./src/router/*"],
-      "utils/*": ["./src/utils/*"],
-      "types/*": ["./src/types/*"],
-      "i18n": ["./src/plugins/i18n/index"],
-      "i18n/*": ["./src/plugins/i18n/*"],
-      "vendors/*": ["./src/vendors/*"]
+      "@/*": [
+        "./src/*"
+      ],
+      "src/*": [
+        "./src/*"
+      ],
+      "assets/*": [
+        "./src/assets/*"
+      ],
+      "config": [
+        "./src/config"
+      ],
+      "config/*": [
+        "./src/config/*"
+      ],
+      "pages/*": [
+        "./src/pages/*"
+      ],
+      "components/*": [
+        "./src/components/*"
+      ],
+      "ui/*": [
+        "./src/components/ui/*"
+      ],
+      "UiKit/*": [
+        "./src/components/UiKit/*"
+      ],
+      "plugins/*": [
+        "./src/plugins/*"
+      ],
+      "store/*": [
+        "./src/plugins/store/*"
+      ],
+      "router": [
+        "./src/router/index"
+      ],
+      "router/*": [
+        "./src/router/*"
+      ],
+      "utils/*": [
+        "./src/utils/*"
+      ],
+      "types/*": [
+        "./src/types/*"
+      ],
+      "i18n": [
+        "./src/plugins/i18n/index"
+      ],
+      "i18n/*": [
+        "./src/plugins/i18n/*"
+      ],
+      "vendors/*": [
+        "./src/vendors/*"
+      ],
+      "*": [
+        "./src/types/*.ts",
+        "./src/types/*.d.ts"
+      ]
     },
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
-    "target": "ES2022",
+    "strictBindCallApply": true,
+    "strictFunctionTypes": true,
+    "strictNullChecks": true,
+    "target": "es2022",
     "typeRoots": [
       "./node_modules/@types",
       "./src/types"
@@ -43,7 +93,8 @@
     "types": [
       "node",
       "vite/client",
-      "lodash"
+      "lodash",
+      "google.maps"
     ],
     "useDefineForClassFields": true
   },
@@ -52,11 +103,16 @@
     "./src/**/*.d.ts",
     "./src/**/*.tsx",
     "./src/**/*.vue",
-    "./src/types/*.d.ts"
+    "./src/types/*.d.ts",
+    "./src/types/*.ts"
   ],
   "exclude": [
     "node_modules",
     "dist"
   ],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ]
 }

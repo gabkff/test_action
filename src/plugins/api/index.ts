@@ -1,5 +1,4 @@
 import { fetch as tauriFetch } from '@tauri-apps/plugin-http'
-import type { ApiResponse } from 'types/api.types'
 import { mockApiData } from './mock-data'
 import { getAuthHeaders } from 'utils/helpers'
 

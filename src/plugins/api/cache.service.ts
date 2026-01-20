@@ -1,6 +1,5 @@
 import { appCacheDir, join } from '@tauri-apps/api/path'
 import { readTextFile, writeTextFile, exists, mkdir, remove } from '@tauri-apps/plugin-fs'
-import type { ApiResponse } from 'types/api.types'
 
 const DATA_FILE = 'data.json'
 
@@ -27,12 +26,12 @@ class CacheService {
   async readDataFromFile(): Promise<ApiResponse | null> {
     try {
       const filePath = await this.getDataFilePath()
-      
+
       if (!await exists(filePath)) {
         console.log('📂 Aucun fichier cache trouvé')
         return null
       }
-      
+
       const content = await readTextFile(filePath)
       const data = JSON.parse(content) as ApiResponse
       console.log('📂 Données chargées depuis le fichier cache')
@@ -47,12 +46,12 @@ class CacheService {
   async writeDataToFile(data: ApiResponse): Promise<void> {
     try {
       const cacheDir = await this.getCacheDir()
-      
+
       // Créer le dossier cache s'il n'existe pas
       if (!await exists(cacheDir)) {
         await mkdir(cacheDir, { recursive: true })
       }
-      
+
       const filePath = await this.getDataFilePath()
       await writeTextFile(filePath, JSON.stringify(data, null, 2))
       console.log('💾 Données sauvegardées dans le fichier cache')

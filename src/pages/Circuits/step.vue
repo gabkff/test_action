@@ -1,5 +1,5 @@
 <template>
-    <div class="circuits-etape" v-if="ready">
+    <div class="circuits-etape" v-if="ready && current">
       <div class="circuits-etape__container">
         <h2 class="circuits-etape__name">{{ $t('circuits.name') }} 1</h2>
         <h1 class="circuits-etape__title">{{ current.title }}</h1>
@@ -15,25 +15,24 @@ import { store as appStore } from 'plugins/store/app'
 const route = useRoute()
 const router = useRouter()
 const ready = ref(false)
-const current = ref(null)
-const currentCircuit = computed(() => {
-    return appStore.circuits
-})
+const current = ref<CircuitEntry | null>(null)
+
 // Validation du slug et redirection si invalide
 watchEffect(() => {
   // On attend que l'app soit prête (données chargées)
-  if (!appStore.isAppReady) return
+  if (!appStore.isAppReady || !appStore.circuits) return
   const slug = route.params.slug as string
   const circuit = appStore.getCircuitBySlug(slug)
-  current.value = circuit
+  
   if (!circuit) {
     console.warn(`⚠️ Circuit introuvable pour le slug: ${slug} -> Redirection Home`)
     router.replace({ name: 'home' })
   } else {
     console.log(`✅ Circuit trouvé:`, circuit.title)
+    current.value = circuit
     ready.value = true
   }
-  
+
 })
 
 </script>
