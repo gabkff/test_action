@@ -80,7 +80,7 @@ class ApiService {
       return await this.fetchFromApi()
     } catch (error) {
       console.error('❌ Erreur lors de la récupération des données:', error)
-      
+
       // Fallback sur les données mock
       console.log('🎭 Fallback sur les données mock après erreur API')
       return this.getMockData()
@@ -99,17 +99,16 @@ class ApiService {
       ...getAuthHeaders()
     }
 
-    const response = await tauriFetch(url, {
-      method: 'GET',
-      headers,
-    })
+    const response = window.__TAURI__
+      ? await tauriFetch(url, { method: 'GET', headers })
+      : await fetch(url, { method: 'GET', headers })
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`)
     }
 
     const data = await response.json()
-    
+
     // Vérifie que les données sont valides
     if (!data || !data.data) {
       throw new Error('Données API invalides ou vides')
@@ -125,7 +124,7 @@ class ApiService {
    */
   async refresh(): Promise<ApiResponse> {
     console.log('🔄 Rafraîchissement des données depuis l\'API')
-    
+
     // Si mode mock, retourne les mock
     if (this.useMockData) {
       return this.getMockData()
@@ -135,7 +134,7 @@ class ApiService {
       return await this.fetchFromApi()
     } catch (error) {
       console.error('❌ Erreur lors du refresh:', error)
-      
+
       // Fallback sur les données mock
       console.log('🎭 Fallback sur les données mock après erreur refresh')
       return this.getMockData()

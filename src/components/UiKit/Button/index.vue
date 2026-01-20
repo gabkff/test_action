@@ -28,6 +28,12 @@
         v-html="icon"
         class="UiButton__icon"
       />
+      <i
+        v-if="theme === 'arrow'"
+        v-html="IconArrow"
+        class="UiButton__arrow"
+        :class="'UiButton__arrow--' + direction"
+      />
     </span>
     <span v-if="loading" class="UiButton__loader" />
   </component>
@@ -41,8 +47,9 @@
  */
 
 import { computed } from 'vue'
+import IconArrow from 'assets/svg/arrow.svg?raw'
 
-type ButtonTheme = 'primary' | 'secondary' | 'link' | 'icon' | 'reset' | 'date'
+type ButtonTheme = 'primary' | 'secondary' | 'link' | 'icon' | 'reset' | 'date' | 'arrow'
 
 interface ButtonProps {
   /** Texte du bouton */
@@ -65,6 +72,10 @@ interface ButtonProps {
   icon?: string
   /** Position de l'icône */
   iconPosition?: 'left' | 'right'
+  /** Pour reverse arrow (gauche/droite) */
+  reverse?: boolean
+  /** Direction de l'arrow */
+  direction?: 'up' | 'down' | 'left' | 'right'
 }
 
 const props = withDefaults(defineProps<ButtonProps>(), {
@@ -78,6 +89,8 @@ const props = withDefaults(defineProps<ButtonProps>(), {
   big: false,
   icon: undefined,
   iconPosition: 'left',
+  reverse: false,
+  direction: 'right'
 })
 
 const emit = defineEmits<{
@@ -217,7 +230,25 @@ const onClick = (event: MouseEvent) => {
     display flex
     align-items center
     gap 30px
-
+  &--arrow
+    r(width, 128px)
+    r(height, 120px)
+    border 1px solid rgba($fjord, 0.3)
+    border-radius $radius-lg
+    &:hover
+      background $fjord
+      color white
+    &.is-active
+      background $fjord
+      color white
+  &__arrow--up
+    transform rotate(-90deg)
+  &__arrow--down
+    transform rotate(90deg)
+  &__arrow--left
+    transform rotate(180deg)
+  &__arrow--right
+    transform rotate(180deg)
   &--big &__content
     gap 60px
 
@@ -225,6 +256,14 @@ const onClick = (event: MouseEvent) => {
     width 20px
     height 20px
     flex-shrink 0
+
+  &__arrow
+    width 50px
+    height 50px
+    svg
+      width 100%
+      height 100%
+    
 
   &--big &__icon
     width 40px

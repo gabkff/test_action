@@ -17,6 +17,7 @@
     "lint": "eslint 'src/**/*.{js,ts,vue}' --fix"
   },
   "dependencies": {
+    "@googlemaps/js-api-loader": "^2.0.2",
     "@tauri-apps/api": "^2",
     "@tauri-apps/plugin-fs": "^2.4.4",
     "@tauri-apps/plugin-http": "^2.5.4",

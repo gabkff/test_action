@@ -317,6 +317,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@googlemaps/js-api-loader@npm:^2.0.2":
+  version: 2.0.2
+  resolution: "@googlemaps/js-api-loader@npm:2.0.2"
+  dependencies:
+    "@types/google.maps": ^3.53.1
+  checksum: 3a8b4d964a4a3aa427bdbb2b62f6d7a25c89d95486bf01fe3f8d6cba5a8f5b9fb76d04b964ed623d7adf92fa89283db649e096696860ecd7d4d3e9b74b12fe85
+  languageName: node
+  linkType: hard
+
 "@humanfs/core@npm:^0.19.1":
   version: 0.19.1
   resolution: "@humanfs/core@npm:0.19.1"
@@ -992,6 +1001,13 @@ __metadata:
   version: 1.0.8
   resolution: "@types/estree@npm:1.0.8"
   checksum: bd93e2e415b6f182ec4da1074e1f36c480f1d26add3e696d54fb30c09bc470897e41361c8fd957bf0985024f8fbf1e6e2aff977d79352ef7eb93a5c6dcff6c11
+  languageName: node
+  linkType: hard
+
+"@types/google.maps@npm:^3.53.1":
+  version: 3.58.1
+  resolution: "@types/google.maps@npm:3.58.1"
+  checksum: 7ad5bd9566ffa0396485c432368e45c43e3fe1ecc2b89324f257a49d9abbe03dfe046a771d82ae1808fa0fb6e04e6ffca870c7f2295fef73a6015a678b067364
   languageName: node
   linkType: hard
 
@@ -4262,6 +4278,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "tcn-app@workspace:."
   dependencies:
+    "@googlemaps/js-api-loader": ^2.0.2
     "@intlify/unplugin-vue-i18n": ^6.0.8
     "@tauri-apps/api": ^2
     "@tauri-apps/cli": ^2

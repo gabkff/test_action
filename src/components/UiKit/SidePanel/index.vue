@@ -5,7 +5,7 @@
         <div class="SidePanel__overlay" @click="handleClose" />
         
         <div class="SidePanel__container">
-          
+          <UiNavBar key="nav" />
           <div class="SidePanel__content">
             <!-- Contenu dynamique basé sur le type -->
             <slot :type="store.currentType" :payload="store.payload">
@@ -54,7 +54,14 @@
                     </div>
                     <div class="SidePanel__address-text"> {{ store.payload.address }}</div>
                   </div>
-                  <UiWysiwyg v-html="store.payload.description" />
+                  <!-- Flèches -->
+                  <div class="SidePanel__scroll-arrows">
+                    <UiButton theme="arrow" :direction="'up'" @click="scrollUpDesc()"/>
+                    <UiButton theme="arrow" :direction="'down'" @click="scrollDownDesc()"/>
+                  </div>
+                  <div class="SidePanel__description" ref="descriptionEventRef">
+                    <UiWysiwyg v-html="store.payload.description"/>
+                  </div>
                 </div>
               </template>
               
@@ -66,7 +73,9 @@
             </slot>
           </div>
         </div>
+        
       </div>
+      
     </Transition>
   </Teleport>
 </template>
@@ -80,14 +89,18 @@
  * Utilise le store useSidePanelStore pour la gestion de l'état.
  */
 
-import { watch } from 'vue'
+import { watch, useTemplateRef } from 'vue'
 import { useSidePanelStore } from 'store/sidePanel'
 import IconPin from 'assets/svg/pin.svg?raw'
 import Carousel from 'components/builder/Carousel/index.vue'
 import UiWysiwyg from 'components/UiKit/Wysiwyg/index.vue'
 import UiSwiper from 'components/UiKit/Swiper/index.vue'
+import UiButton from 'components/UiKit/Button/index.vue'
+import UiNavBar from 'components/NavBar/index.vue'
 
 const store = useSidePanelStore()
+
+const descriptionEvent = useTemplateRef<HTMLElement | null>('descriptionEventRef')
 
 function handleClose() {
   store.close()
@@ -104,6 +117,15 @@ watch(
     }
   }
 )
+
+function scrollUpDesc() {
+  console.log(descriptionEvent.value)
+  descriptionEvent.value.scrollTop -= 100
+}
+function scrollDownDesc() {
+  console.log(descriptionEvent.value)
+  descriptionEvent.value.scrollTop += 100
+}
 </script>
 
 <style lang="stylus" scoped>
@@ -130,11 +152,17 @@ watch(
     position relative
     width 1339px
     height 100%
-    background $embruns
+    background white
     display flex
     flex-direction column
-    overflow hidden
     box-shadow -10px 0 40px rgba(0, 0, 0, 0.15)
+    .NavBar
+        position absolute
+        top 100px
+        left -95px 
+        transform scaleX(-1)
+      :deep(.NavBar__container)
+        transform scaleX(-1)
 
   &__header
     display flex
@@ -189,6 +217,9 @@ watch(
     .SidePanel__address-text
       f-style('bold-infos')
       text-align left
+  &__description
+    height 1580px
+    overflow-y scroll
   .SidePanel__content-dates-price
     f(row)
     margin-top 120px
@@ -251,7 +282,12 @@ watch(
   &__footer
     r(padding, 40px 80px)
     border-top 1px solid rgba($fjord, 0.1)
-
+  &__scroll-arrows
+    f(row, $justify: flex-end)
+    gap 29px
+    &__icon--arrow
+      height 120px
+      width 128x
 // Transitions
 .panel-enter-active,
 .panel-leave-active

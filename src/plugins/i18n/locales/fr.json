@@ -52,6 +52,9 @@
     "qrcode": "QRCode de l'évènement",
     "access_site": "Scannez le code pour accéder au site internet de l'évènement"
   },
+  "circuits": {
+    "name": "Circuit"
+  },
   "errors": {
     "notFound": "Page non trouvée",
     "serverError": "Erreur serveur",
@@ -59,4 +62,3 @@
     "unauthorized": "Non autorisé"
   }
 }
-

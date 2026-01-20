@@ -1,4 +1,4 @@
-ù<template>
+<template>
   <div id="the-app" class="the-app">
     <!-- Header global (optionnel) -->
     <!-- <AppHeader /> -->

@@ -99,11 +99,8 @@ const otherLang = computed(() => {
  * Gestion du clic sur Home
  */
 function handleHome() {
-  // Option 1: Naviguer vers la home
+  sidePanelStore.close()
   router.push({ name: 'home' })
-  
-  // Option 2: Ouvrir le panneau home (décommenter si besoin)
-  // sidePanelStore.openHome()
 }
 
 /**
@@ -141,6 +138,7 @@ function handleLanguage() {
     r(padding, 50px 40px)
     width 100%
     background white
+    transform scaleX(1)
 
   &__item
     width 86px
