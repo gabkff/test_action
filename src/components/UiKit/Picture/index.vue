@@ -147,6 +147,7 @@ onMounted(() => {
   overflow hidden
   display block
   line-height 0
+  border-radius 12px
 
 .container
   display inline-block

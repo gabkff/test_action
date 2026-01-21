@@ -73,6 +73,8 @@ const { isLoading, events } = storeToRefs(appStore)
 
 // Date sélectionnée (timestamp du début du jour)
 const selectedDate = ref<number>(getStartOfDay(new Date()).getTime())
+console.log('selectedDate', selectedDate.value)
+console.log('ne', new Date())
 const listRef = ref<HTMLElement | null>(null)
 
 /**
@@ -137,11 +139,14 @@ const formattedSelectedDate = computed(() => {
  */
 const filteredEvents = computed(() => {
   const currentDay = selectedDate.value
+  const forCompare = new Date(currentDay)
+  forCompare.setHours(0, 0, 0, 0)
   return appStore.events.filter(event => {
-    // Utilise 'posted' comme date d'événement temporairement
-    const eventDateStart = event.date_start_timestamp * 1000
-    const eventDateEnd = event.date_end_timestamp * 1000
-    return currentDay >= eventDateStart && currentDay <= eventDateEnd
+    const eventDateStart = new Date(event.datetime_start_timestamp * 1000)
+    eventDateStart.setHours(0, 0, 0, 0)
+    const eventDateEnd = new Date(event.datetime_end_timestamp * 1000)
+    eventDateEnd.setHours(0, 0, 0, 0)
+    return forCompare >= eventDateStart && forCompare <= eventDateEnd
   })
 })
 

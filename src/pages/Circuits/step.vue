@@ -23,7 +23,10 @@
         
       </div>
       <ui-button theme="primary" :label="'VOIR DETAIL'" @click="sidePanelStore.openCircuitStep({ title: current.title, step: currentStep, index: currentStepIndex + 1, qr: current.base64_qr})" />
-
+      <div class="circuits-etape__view_container" v-if="currentStep &&currentStep.images">
+        <ui-picture :images="currentStep.images" :data-index="currentStepIndex" cover="cover"/>
+        <div>{{currentStep.images}}</div>
+      </div>
     </div>
   </template>
   
@@ -90,13 +93,25 @@ function onViewChange(value: ViewCircuit) {
       color $aube
       margin-bottom 90px
     &__header_wrapper
-      f(row)
-      margin-bottom 60px
+      f(row, $align: flex-start)
+      margin-bottom 100px
     &__description
-      f(row)
-      margin-left auto
       f-style('small-body')
       color white
-      margin-bottom 264px
+    &__actions
+      f(column, $justify: flex-start)
+      gap 60px
+      width 43%
+      .UiButton
+        width fit-content
+    &__view_container
+      .UiPicture
+        width 1026px
+        height 1212px
+        &[data-index="0"]
+          width 1273px
+          height 1367px
+          
+      
 
 </style>

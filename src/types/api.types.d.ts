@@ -73,9 +73,9 @@ declare interface EventEntry {
   entry_type: string
   dates: EntryDates
   date_start: string
-  date_start_timestamp: number
+  datetime_start_timestamp: number
   date_end: string
-  date_end_timestamp: number
+  datetime_end_timestamp: number
   price_range: string | null
   description: string | null
   images: Image[]
