@@ -119,6 +119,7 @@ function handleLanguage() {
   flex-direction column
   align-items flex-start
   r(width, 124px)
+  z-index 1
   &__cap
     width 100%
     r(height, 132px)
@@ -129,6 +130,10 @@ function handleLanguage() {
     
     &--bottom
       background-image url('@/assets/svg/bottom.svg')
+      margin-top -1px
+    
+    &--top
+      margin-bottom -1px
 
   &__container
     display flex

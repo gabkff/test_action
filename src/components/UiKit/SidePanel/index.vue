@@ -16,7 +16,7 @@
                   <!-- Slots pour le contenu langue -->
                 </div>
               </template>
-              
+              <Circuit v-else-if="store.currentType === 'circuitStep'" :data="store.payload" />
               <template v-else-if="store.currentType === 'event'">
                 <div class="SidePanel__event">
                   <!-- Contenu événement -->
@@ -97,6 +97,7 @@ import UiWysiwyg from 'components/UiKit/Wysiwyg/index.vue'
 import UiSwiper from 'components/UiKit/Swiper/index.vue'
 import UiButton from 'components/UiKit/Button/index.vue'
 import UiNavBar from 'components/NavBar/index.vue'
+import Circuit from './blocks/circuit.vue'
 
 const store = useSidePanelStore()
 
@@ -157,6 +158,7 @@ function scrollDownDesc() {
     flex-direction column
     box-shadow -10px 0 40px rgba(0, 0, 0, 0.15)
     .NavBar
+        z-index 1
         position absolute
         top 100px
         left -95px 
@@ -278,6 +280,7 @@ function scrollDownDesc() {
     flex 1
     overflow-y auto
     r(padding, 60px 80px)
+    z-index 10
 
   &__footer
     r(padding, 40px 80px)

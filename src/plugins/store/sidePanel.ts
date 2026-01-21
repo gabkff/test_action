@@ -6,10 +6,10 @@
  */
 
 import { defineStore } from 'pinia'
-import { ref,  computed, reactive } from 'vue'
+import { ref, computed, reactive } from 'vue'
 
 // Types de contenu supportés par le SidePanel
-export type SidePanelType = 'event' | 'home' | 'language' | 'info' | 'custom'
+export type SidePanelType = 'event' | 'home' | 'language' | 'info' | 'custom' | 'circuitStep'
 
 export interface SidePanelData {
   /** Type de contenu à afficher */
@@ -26,16 +26,16 @@ export const useSidePanelStore = defineStore('sidePanel', () => {
   // ============================================
   // STATE
   // ============================================
-  
+
   /** État d'ouverture du panneau */
   const isOpen = ref(false)
-  
+
   /** Type de contenu actuel */
   const currentType = ref<SidePanelType | null>(null)
-  
+
   /** Titre du panneau */
   const title = ref<string>('')
-  
+
   /** Données du contenu */
   const payload = ref<Record<string, unknown>>({})
 
@@ -45,7 +45,7 @@ export const useSidePanelStore = defineStore('sidePanel', () => {
   // ============================================
   // GETTERS
   // ============================================
-  
+
   /** Données complètes du panneau */
   const panelData = computed<SidePanelData | null>(() => {
     if (!currentType.value) return null
@@ -59,7 +59,7 @@ export const useSidePanelStore = defineStore('sidePanel', () => {
   // ============================================
   // ACTIONS
   // ============================================
-  
+
   /**
    * Ouvre le panneau avec un type et des données spécifiques
    */
@@ -79,6 +79,15 @@ export const useSidePanelStore = defineStore('sidePanel', () => {
       type: 'event',
       title: event.title as string || '',
       payload: event,
+    })
+  }
+
+  function openCircuitStep(step: Record<string, any>) {
+    console.log('openCircuitStep', step)
+    open({
+      type: 'circuitStep',
+      title: step.title as string || '',
+      payload: step,
     })
   }
 
@@ -130,6 +139,7 @@ export const useSidePanelStore = defineStore('sidePanel', () => {
     // Actions
     open,
     openEvent,
+    openCircuitStep,
     openHome,
     openLanguage,
     close,

@@ -53,7 +53,14 @@
     "access_site": "Scannez le code pour accéder au site internet de l'évènement"
   },
   "circuits": {
-    "name": "Circuit"
+    "name": "Circuit",
+    "step": "Arrêt #{number}",
+    "activity_time": "Durée de l'activité",
+    "best_season": "Meilleure saison",
+    "need": "Indispensable",
+    "description": "Description",
+    "type": "Type",
+    "qrcode": "Scannez le code pour télécharger ce parcours et le conserver"
   },
   "errors": {
     "notFound": "Page non trouvée",
