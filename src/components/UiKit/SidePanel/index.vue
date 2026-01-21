@@ -279,6 +279,7 @@ function scrollDownDesc() {
   &__content
     flex 1
     overflow-y auto
+    overflow-x hidden
     r(padding, 60px 80px)
     z-index 10
 

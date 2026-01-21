@@ -11,14 +11,32 @@
 import { ref, onMounted } from 'vue'
 import {initMap, mapStyle} from './googleServices'
 const el = ref(null)
+const props = defineProps({
+    center: {
+        type: Object,
+        required: true,
+    },
+    zoom: {
+        type: Number,
+        required: false,
+        default: 8,
+    },
+    lock: {
+        type: Boolean,
+        default: false,
+    }
+})
 
 onMounted(async () => {
     if (!el.value) return
     const { Map } = await initMap()
+    console.log(props.center)
     const map = new Map(el.value as HTMLElement, {
-        center: { lat: -34.397, lng: 150.644 },
-        zoom: 8,
-        styles: mapStyle
+        center: { lat:props.center.latitude, lng:props.center.longitude },
+        zoom: props.zoom,
+        styles: mapStyle,
+        disableDefaultUI: true,
+        gestureHandling: props.lock ? 'none' : 'auto',
     })
 })
 

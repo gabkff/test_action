@@ -72,8 +72,6 @@ interface ButtonProps {
   icon?: string
   /** Position de l'icône */
   iconPosition?: 'left' | 'right'
-  /** Pour reverse arrow (gauche/droite) */
-  reverse?: boolean
   /** Direction de l'arrow */
   direction?: 'up' | 'down' | 'left' | 'right'
 }
@@ -89,7 +87,6 @@ const props = withDefaults(defineProps<ButtonProps>(), {
   big: false,
   icon: undefined,
   iconPosition: 'left',
-  reverse: false,
   direction: 'right'
 })
 
@@ -198,6 +195,7 @@ const onClick = (event: MouseEvent) => {
   &--big
     border-radius $radius-lg
     padding 60px 45px
+    f-style('btn-large')
 
   &--reset
     background none

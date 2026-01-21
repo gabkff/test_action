@@ -60,6 +60,7 @@
     "need": "Indispensable",
     "description": "Description",
     "type": "Type",
+    "scan": "Scanner le circuit",
     "qrcode": "Scannez le code pour télécharger ce parcours et le conserver"
   },
   "errors": {

@@ -38,9 +38,11 @@
             </div>
         </div>
 
-        <div class="SidePanel__circuit__qrcode">
+        <div class="SidePanel__circuit__qrcode" v-if="data.qr">
             <div class="SidePanel__circuit__qrcode-label">{{ $t('circuits.qrcode') }}</div>
-            <div class="SidePanel__circuit__qrcode-value"> QRCODE</div>
+            <div class="SidePanel__circuit__qrcode-value">
+                <img :src="data.qr" alt="QR Code" class="SidePanel__circuit__qrcode-value-img"/>
+            </div>
         </div>
         <!-- Flèches -->
         <div class="SidePanel__circuit__scroll">
@@ -54,7 +56,7 @@
             <UiWysiwyg v-html="data.description"/>
         </div>
         <div class="SidePanel__circuit__map">
-            <UiMap/>
+            <UiMap :lock="true" :center="data.step.map" :zoom="10"/>
         </div>
     </div>
 </template>
@@ -142,6 +144,9 @@ function scrollDownDesc() {
         .SidePanel__circuit__qrcode-value
             background-color $fjord
             width 175px
+            img
+                width 100%
+                height 100%
     &__scroll
         f(row, $justify: space-between)
         margin-bottom 80px

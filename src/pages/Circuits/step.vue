@@ -3,17 +3,40 @@
       <div class="circuits-etape__container">
         <h2 class="circuits-etape__name">{{ $t('circuits.name') }} 1</h2>
         <h1 class="circuits-etape__title">{{ current.title }}</h1>
+      
+        <div class="circuits-etape__header_wrapper">
+          <UiSelector
+            v-model="currentView"
+            :options="[
+              { value: 'map', icon: IconMap, label: 'carte'},
+              { value: 'list', label: 'liste', icon: IconList }
+            ]"
+            @change="onViewChange"
+          />
+          <div class="circuits-etape__actions">
+            <ui-button theme="primary" :big="true" :icon="IconQr" :iconPosition="'right'" :label="$t('circuits.scan')" @click="sidePanelStore.openCircuitStep({ title: current.title, step: currentStep, index: currentStepIndex + 1, qr: current.base64_qr})" />
+            <div v-if="current.description" class="circuits-etape__description">
+              <p>{{ current.description }}</p>
+            </div>
+          </div>
+        </div>
+        
       </div>
-      <ui-button theme="primary" :label="'VOIR DETAIL'" @click="sidePanelStore.openCircuitStep({ title: current.title, step: currentStep, index: currentStepIndex + 1})" />
-      <div>{{ currentStep }}</div>
+      <ui-button theme="primary" :label="'VOIR DETAIL'" @click="sidePanelStore.openCircuitStep({ title: current.title, step: currentStep, index: currentStepIndex + 1, qr: current.base64_qr})" />
+
     </div>
   </template>
   
 <script setup lang="ts">
+declare type ViewCircuit = 'list' | 'map'
 import { onMounted, watchEffect, ref, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useSidePanelStore } from 'store/sidePanel'
 import { store as appStore } from 'plugins/store/app'
+import UiSelector from 'components/ui/Selector.vue'
+import IconMap from 'assets/svg/pin.svg?raw'
+import IconList from 'assets/svg/list.svg?raw'
+import IconQr from 'assets/svg/qrcode.svg?raw'
 
 const route = useRoute()
 const router = useRouter()
@@ -22,6 +45,7 @@ const current = ref<CircuitEntry | null>(null)
 const currentStepIndex = ref<number>(0)
 const sidePanelStore = useSidePanelStore()
 const currentStep = ref<CircuitStep | null>(null)
+const currentView = ref<ViewCircuit>('list')
 
 // Validation du slug et redirection si invalide
 watchEffect(() => {
@@ -40,8 +64,12 @@ watchEffect(() => {
     currentStep.value = circuit.steps[currentStepIndex.value]
     ready.value = true
   }
-
 })
+
+function onViewChange(value: string) {
+    console.log('View changed to:', value)
+    currentView.value = value as ViewCircuit
+}
 
 </script>
   
@@ -61,4 +89,14 @@ watchEffect(() => {
       f-style('h1')
       color $aube
       margin-bottom 90px
+    &__header_wrapper
+      f(row)
+      margin-bottom 60px
+    &__description
+      f(row)
+      margin-left auto
+      f-style('small-body')
+      color white
+      margin-bottom 264px
+
 </style>
