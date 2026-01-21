@@ -114,7 +114,7 @@ const webpSrcset = computed(() => {
  * Srcset pour les images standard (optimisées)
  */
 const standardSrcset = computed(() => {
-  const standard = props.images?.images?.optimized?.standard
+  const standard = props.images?.images?.optimized?.standard || (props.images as ImageDetail)?.optimized?.standard
   console.log('standard', props.images)
   if (!standard) return null
   

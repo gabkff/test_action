@@ -22,8 +22,8 @@
                   <!-- Contenu événement -->
                   <div class="SidePanel__title"> {{ store.payload.title }}</div>
                   <div class="SidePanel__image-wrapper">
-                    <ui-swiper :options="{ slidesPerView: 1, spaceBetween: 30, centeredSlides: false }" :overflow="true" :navigation="true">
-                      <ui-picture v-for="image in store.payload.images as Image[]" :key="image.meta" :images="image.images" class="SidePanel__image"/>
+                    <ui-swiper :options="{ slidesPerView: 1, spaceBetween: 30, centeredSlides: false }" :overflow="true" :navigation="[store.payload.main_image, ...store.payload.images as ImageDetail[]].length > 1">
+                      <ui-picture v-for="image in [store.payload.main_image, ...store.payload.images as ImageDetail[]] as Image[]" :key="image.meta" :images="image.images" class="SidePanel__image"/>
                     </ui-swiper>
                   </div>
                   <div class="SidePanel__content-dates-price">
