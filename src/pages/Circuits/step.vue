@@ -24,7 +24,7 @@
       </div>
       <ui-button theme="primary" :label="'VOIR DETAIL'" @click="sidePanelStore.openCircuitStep({ title: current.title, step: currentStep, index: currentStepIndex + 1, qr: current.base64_qr})" />
       <div class="circuits-etape__view_container" v-if="currentStep &&currentStep.images">
-        <ui-picture :images="currentStep.images" :data-index="currentStepIndex" cover="cover"/>
+        <ui-picture :images="currentStep.images[0]" :data-index="currentStepIndex" cover="cover"/>
         <div>{{currentStep.images}}</div>
       </div>
     </div>
