@@ -11,7 +11,7 @@
               { value: 'map', icon: IconMap, label: 'carte'},
               { value: 'list', label: 'liste', icon: IconList }
             ]"
-            @change="onViewChange"
+            @change="(value) =>onViewChange(value as ViewCircuit)"
           />
           <div class="circuits-etape__actions">
             <ui-button theme="primary" :big="true" :icon="IconQr" :iconPosition="'right'" :label="$t('circuits.scan')" @click="sidePanelStore.openCircuitStep({ title: current.title, step: currentStep, index: currentStepIndex + 1, qr: current.base64_qr})" />
@@ -66,9 +66,9 @@ watchEffect(() => {
   }
 })
 
-function onViewChange(value: string) {
+function onViewChange(value: ViewCircuit) {
     console.log('View changed to:', value)
-    currentView.value = value as ViewCircuit
+    currentView.value = value
 }
 
 </script>

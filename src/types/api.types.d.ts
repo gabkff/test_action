@@ -97,6 +97,7 @@ declare interface CircuitEntry {
   image: Image | null
   description: string | null
   steps: CircuitStep[]
+  base64_qr: string | null
 }
 
 declare interface CircuitStep {
