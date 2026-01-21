@@ -22,7 +22,7 @@
                 <div class="SidePanel__circuit__content-info-item-value"> 
                     <template v-for="(season, seasondex) in data.step.seasons" :key="season">
                         <span>{{ season }}</span>
-                        <template v-if="seasondex < data.step.seasons.length - 1">,&nbsp;</template>
+                        <template v-if="seasondex as number < (data.step.seasons.length - 1)">,&nbsp;</template>
                     </template>
                 </div>
             </div>
@@ -60,7 +60,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, useTemplateRef } from 'vue'
+import { useTemplateRef } from 'vue'
 import UiButton from 'components/UiKit/Button/index.vue'
 import IconBoot from 'assets/svg/boot.svg?raw'
 import UiMap from 'components/ui/Maps/index.vue'
