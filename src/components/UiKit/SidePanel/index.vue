@@ -5,7 +5,7 @@
         <div class="SidePanel__overlay" @click="handleClose" />
         
         <div class="SidePanel__container">
-          <UiNavBar key="nav" />
+          <UiNavBar key="nav" :panel="true"/>
           <div class="SidePanel__content">
             <!-- Contenu dynamique basé sur le type -->
             <slot :type="store.currentType" :payload="store.payload">
@@ -64,7 +64,7 @@
                   </div>
                 </div>
               </template>
-              
+              <QrCode v-else-if="store.currentType === 'qrCode'" :data="store.payload" />
               <template v-else-if="store.currentType === 'home'">
                 <div class="SidePanel__home">
                   <!-- Contenu home -->
@@ -98,7 +98,7 @@ import UiSwiper from 'components/UiKit/Swiper/index.vue'
 import UiButton from 'components/UiKit/Button/index.vue'
 import UiNavBar from 'components/NavBar/index.vue'
 import Circuit from './blocks/circuit.vue'
-
+import QrCode from './blocks/qrCode.vue'
 const store = useSidePanelStore()
 
 const descriptionEvent = useTemplateRef<HTMLElement | null>('descriptionEventRef')

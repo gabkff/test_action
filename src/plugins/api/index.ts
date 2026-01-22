@@ -95,7 +95,7 @@ class ApiService {
 
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',
-      //...getAuthHeaders()
+      ...getAuthHeaders()
     }
 
     const response = window.__TAURI__

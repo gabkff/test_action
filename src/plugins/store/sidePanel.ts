@@ -9,7 +9,7 @@ import { defineStore } from 'pinia'
 import { ref, computed, reactive } from 'vue'
 
 // Types de contenu supportés par le SidePanel
-export type SidePanelType = 'event' | 'home' | 'language' | 'info' | 'custom' | 'circuitStep'
+export type SidePanelType = 'event' | 'home' | 'language' | 'info' | 'custom' | 'circuitStep' | 'qrCode'
 
 export interface SidePanelData {
   /** Type de contenu à afficher */
@@ -91,6 +91,14 @@ export const useSidePanelStore = defineStore('sidePanel', () => {
     })
   }
 
+  function openQrCode(circuit: Record<string, any>) {
+    open({
+      type: 'qrCode',
+      title: circuit.title as string || '',
+      payload: circuit,
+    })
+  }
+
   /**
    * Ouvre le panneau home
    */
@@ -142,6 +150,7 @@ export const useSidePanelStore = defineStore('sidePanel', () => {
     openCircuitStep,
     openHome,
     openLanguage,
+    openQrCode,
     close,
     reset,
   }

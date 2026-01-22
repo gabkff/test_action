@@ -54,14 +54,22 @@
   },
   "circuits": {
     "name": "Circuit",
+    "index": "Circuit {index}",
     "step": "Arrêt #{number}",
+    "step_total": "Arrêt {number} / {total}",
     "activity_time": "Durée de l'activité",
     "best_season": "Meilleure saison",
     "need": "Indispensable",
     "description": "Description",
     "type": "Type",
     "scan": "Scanner le circuit",
-    "qrcode": "Scannez le code pour télécharger ce parcours et le conserver"
+    "from_here": "Depuis cet emplacement",
+    "previous_step": "Arrêt précédent",
+    "itinerary_time": "Temps de route",
+    "next_step": "Arrêt suivant",
+    "qrcode": "Scannez le code pour télécharger ce parcours et le conserver",
+    "qrcode_panel": "Scannez le code dès maintenant pour télécharger le parcours et le conserver",
+    "more": "Plus d'infos"
   },
   "errors": {
     "notFound": "Page non trouvée",

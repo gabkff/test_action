@@ -98,6 +98,10 @@ declare interface CircuitEntry {
   description: string | null
   steps: CircuitStep[]
   base64_qr: string | null
+  commute_to_circuit: {
+    time: number
+    transportation: string[]
+  }
 }
 
 declare interface CircuitStep {

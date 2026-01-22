@@ -67,9 +67,14 @@ const useStore = defineStore('app', () => {
 
   /** Récupère un circuit par son slug */
   const getCircuitBySlug = (slug: string): CircuitEntry | undefined | null => {
-    console.log(circuits.value)
     return circuits.value.find(circuit => circuit.slug === slug)
   }
+
+  /** Récupère un circuit par son index */
+  const getCircuitIndex = (slug: string): number | undefined | null => {
+    return circuits.value.findIndex(circuit => circuit.slug === slug)
+  }
+
 
   /** Récupère un événement par son slug */
   const getEventBySlug = (slug: string): EventEntry | undefined | null => {
@@ -222,6 +227,7 @@ const useStore = defineStore('app', () => {
     circuitsCount,
     eventsCount,
     getCircuitBySlug,
+    getCircuitIndex,
     getEventBySlug,
     getCircuitById,
     getEventById,

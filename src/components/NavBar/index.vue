@@ -9,9 +9,9 @@
         type="button" 
         class="NavBar__item"
         :class="{ 'is-active': currentRoute === 'home' }"
-        @click="handleHome"
+        @click="panel ? handleClose() : handleHome()"
       >
-        <i class="NavBar__icon" v-html="IconHouse" />
+        <i class="NavBar__icon" v-html="panel ? IconClose : IconHouse" />
       </button>
       
       <!-- Flèche haut (scroll up) -->
@@ -33,7 +33,25 @@
       >
         <i class="NavBar__icon NavBar__icon--arrow" v-html="IconArrow" />
       </button>
-      
+
+      <button 
+        v-if="previous"
+        type="button" 
+        class="NavBar__item NavBar__item--arrow NavBar__item--arrow-previous"
+        @click="$emit('previous')"
+      >
+        <i class="NavBar__icon NavBar__icon--arrow" v-html="IconArrow" />
+      </button>
+
+      <button 
+        v-if="next"
+        type="button" 
+        class="NavBar__item NavBar__item--arrow NavBar__item--arrow-next"
+        @click="$emit('next')"
+      >
+        <i class="NavBar__icon NavBar__icon--arrow" v-html="IconArrow" />
+      </button>
+
       <!-- Bouton Langue -->
       <button 
         type="button" 
@@ -65,10 +83,14 @@ import { useSidePanelStore } from 'store/sidePanel'
 import { AVAILABLE_LOCALES } from 'config'
 import IconHouse from 'assets/svg/house.svg?raw'
 import IconArrow from 'assets/svg/arrow.svg?raw'
+import IconClose from 'assets/svg/cross.svg?raw'
 
 interface NavBarProps {
   /** Affiche les flèches de défilement */
   showScrollArrows?: boolean
+  next?: boolean
+  previous?: boolean
+  panel?: boolean
 }
 
 withDefaults(defineProps<NavBarProps>(), {
@@ -78,6 +100,8 @@ withDefaults(defineProps<NavBarProps>(), {
 defineEmits<{
   scrollup: []
   scrolldown: []
+  next: []
+  previous: []
 }>()
 
 const route = useRoute()
@@ -101,6 +125,13 @@ const otherLang = computed(() => {
 function handleHome() {
   sidePanelStore.close()
   router.push({ name: 'home' })
+}
+
+/**
+ * Gestion du clic sur close
+ */
+function handleClose() {
+  sidePanelStore.close()
 }
 
 /**
@@ -191,6 +222,12 @@ function handleLanguage() {
     &-down
       .NavBar__icon--arrow
         transform rotate(90deg)
+    &-previous
+      .NavBar__icon--arrow
+        transform rotate(180deg)
+    &-next
+      .NavBar__icon--arrow
+        transform rotate(0deg)
 
   &__icon--arrow
     width 60px

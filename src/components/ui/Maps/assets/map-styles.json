@@ -1,131 +1,68 @@
-[
-  {
-    "featureType": "poi",
-    "elementType": "labels.icon",
-    "stylers": [
-      {
-        "visibility": "off"
+{
+  "variant": "light",
+  "styles": [
+    {
+      "id": "infrastructure",
+      "label": {
+        "textFillColor": "#746855",
+        "textStrokeColor": "#242f3e"
       }
-    ]
-  },
-  {
-    "elementType": "geometry",
-    "stylers": [
-      {
-        "color": "#121212"
-      }
-    ]
-  },
-  {
-    "elementType": "labels.text.fill",
-    "stylers": [
-      {
-        "color": "#746855"
-      }
-    ]
-  },
-  {
-    "elementType": "labels.text.stroke",
-    "stylers": [
-      {
-        "color": "#242f3e"
-      }
-    ]
-  },
-  {
-    "featureType": "administrative",
-    "elementType": "geometry.stroke",
-    "stylers": [
-      {
-        "color": "#ff66a3"
+    },
+    {
+      "id": "infrastructure.roadNetwork",
+      "geometry": {
+        "fillColor": "#f0ecea",
+        "strokeColor": "#f0ecea"
       },
-      {
-        "weight": 1
+      "label": {
+        "visible": false
       }
-    ]
-  },
-  {
-    "featureType": "administrative.country",
-    "elementType": "geometry.stroke",
-    "stylers": [
-      {
-        "color": "#ff66a3"
+    },
+    {
+      "id": "natural",
+      "label": {
+        "textFillColor": "#746855",
+        "textStrokeColor": "#242f3e"
+      }
+    },
+    {
+      "id": "natural.land",
+      "geometry": {
+        "fillColor": "#f7f3f1"
+      }
+    },
+    {
+      "id": "natural.water",
+      "geometry": {
+        "fillColor": "#e8e4e2"
       },
-      {
-        "weight": 2
+      "label": {
+        "textFillColor": "#908c8a",
+        "textStrokeColor": "#908c8a"
       }
-    ]
-  },
-  {
-    "featureType": "landscape",
-    "elementType": "geometry",
-    "stylers": [
-      {
-        "color": "#000000"
+    },
+    {
+      "id": "pointOfInterest",
+      "geometry": {
+        "visible": false
+      },
+      "label": {
+        "visible": false,
+        "textFillColor": "#746855",
+        "textStrokeColor": "#242f3e"
       }
-    ]
-  },
-  {
-    "featureType": "poi",
-    "elementType": "geometry",
-    "stylers": [
-      {
-        "color": "#1a1a1a"
+    },
+    {
+      "id": "political",
+      "geometry": {
+        "visible": false
+      },
+      "label": {
+        "visible": false,
+        "pinFillColor": "#9f9b99",
+        "textFillColor": "#9f9b99",
+        "textStrokeColor": "#9f9b99"
       }
-    ]
-  },
-  {
-    "featureType": "poi",
-    "elementType": "labels.text.fill",
-    "stylers": [
-      {
-        "color": "#848e94"
-      }
-    ]
-  },
-  {
-    "featureType": "road",
-    "elementType": "geometry",
-    "stylers": [
-      {
-        "color": "#2c2c2c"
-      }
-    ]
-  },
-  {
-    "featureType": "road",
-    "elementType": "geometry.stroke",
-    "stylers": [
-      {
-        "color": "#212121"
-      }
-    ]
-  },
-  {
-    "featureType": "road",
-    "elementType": "labels.text.fill",
-    "stylers": [
-      {
-        "color": "#8a8a8a"
-      }
-    ]
-  },
-  {
-    "featureType": "water",
-    "elementType": "geometry",
-    "stylers": [
-      {
-        "color": "#000000"
-      }
-    ]
-  },
-  {
-    "featureType": "water",
-    "elementType": "labels.text.fill",
-    "stylers": [
-      {
-        "color": "#3d3d3d"
-      }
-    ]
-  }
-]
+    }
+  ]
+}

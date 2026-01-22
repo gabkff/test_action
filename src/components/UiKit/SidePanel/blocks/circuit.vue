@@ -56,7 +56,21 @@
             <UiWysiwyg v-html="data.description"/>
         </div>
         <div class="SidePanel__circuit__map">
-            <UiMap :lock="true" :center="data.step.map" :zoom="10"/>
+            <UiMap :lock="true" :center="data.step.map" :zoom="14" :encodedPolyline="data.step.next_step.polyline" 
+            :markers="[
+      { 
+        position: { lat: data.step.map.latitude, lng: data.step.map.longitude },
+        color: '#0000FF',
+        size: 3,
+        borderColor: '#FFFFFF',
+        borderWidth: 3
+      },
+      { 
+        position: { lat: 45.5087, lng: -73.5540 },
+        color: '#00FF00',
+        size: 20
+      }
+    ]"/>
         </div>
     </div>
 </template>
@@ -112,6 +126,8 @@ function scrollDownDesc() {
             width 1155px !important
             background-color $fjord
             object-fit cover
+    &__header
+        f-style('default')
     &__content-info
         f(row, $justify: flex-start)
         margin-top 120px

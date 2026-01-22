@@ -8,11 +8,13 @@ interface GoogleClients {
   // const { AdvancedMarkerView } = await google.maps.importLibrary("marker") as google.maps.MarkerLibrary;
   Marker?: typeof google.maps.marker.AdvancedMarkerElement
   PinElement?: typeof google.maps.marker.PinElement
+  GeometryLibrary?: typeof google.maps.geometry.encoding
 }
 const clients: GoogleClients = {
   MapLibrary: undefined,
   Marker: undefined,
   PinElement: undefined,
+  GeometryLibrary: undefined,
 }
 
 export async function initMap() {
@@ -49,12 +51,23 @@ export async function usePinElement() {
   }
 }
 
+export async function useGeometry() {
+  if (clients.GeometryLibrary) {
+    return clients.GeometryLibrary
+  } else {
+    const { encoding } = (await importLibrary('geometry')) as { encoding: typeof google.maps.geometry.encoding };
+    clients.GeometryLibrary = encoding
+    return clients.GeometryLibrary
+  }
+}
+
 export const mapStyle = customStyles
 
 export default {
   initMap,
   useMarker,
   usePinElement,
+  useGeometry,
   mapStyle
 }
 
