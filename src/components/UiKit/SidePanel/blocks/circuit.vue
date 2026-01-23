@@ -47,7 +47,7 @@
          <!-- Zone scrollable -->
          <div class="SidePanel__circuit__scroll" ref="descriptionEventRef">
             <!-- Flèches de navigation -->
-            <div class="SidePanel__circuit__scroll-arrows">
+            <div class="SidePanel__circuit__scroll-arrows" v-if="isScrollable">
                 <UiButton theme="arrow" :direction="'up'" @click="scrollUpDesc()"/>
                 <UiButton theme="arrow" :direction="'down'" @click="scrollDownDesc()"/>
             </div>
@@ -56,7 +56,7 @@
                     <UiWysiwyg v-html="data.step.main_text"/>
                 </div>
                 <div class="SidePanel__circuit__map">
-                    <UiMap :lock="true" :center="data.step.map" :zoom="14" :encodedPolyline="data.step.next_step.polyline" 
+                    <UiMap :lock="true" :center="data.step.map" :zoom="15" :encodedPolyline="data.step.next_step.polyline" 
                     :markers="[
                                 { 
                                     position: { lat: data.step.map.latitude, lng: data.step.map.longitude },
@@ -78,7 +78,7 @@
 </template>
 
 <script setup lang="ts">
-import { useTemplateRef } from 'vue'
+import { useTemplateRef, computed } from 'vue'
 import UiButton from 'components/UiKit/Button/index.vue'
 import IconBoot from 'assets/svg/boot.svg?raw'
 import UiMap from 'components/ui/Maps/index.vue'
@@ -90,6 +90,21 @@ const props = defineProps({
   },
 })
 const descriptionEvent = useTemplateRef<HTMLElement | null>('descriptionEventRef')
+
+const isScrollable = computed(() =>  {
+    if (!descriptionEvent.value) return false
+    console.log('descriptionEvent.value.scrollHeight', descriptionEvent.value.scrollHeight)
+    console.log('clientHeight', descriptionEvent.value.clientHeight)
+    return descriptionEvent.value.scrollHeight > descriptionEvent.value.clientHeight
+})
+const trajetPrecedent = computed(() => {
+    if (!props.data.step) return null
+    return props.data.step.previous_step
+})
+const trajetSuivant = computed(() => {
+    if (!props.data.step.next_step) return null
+    return props.data.step.next_step
+})
 function scrollUpDesc() {
   console.log('scrollUpDesc', descriptionEvent.value)
   if (!descriptionEvent.value) return
@@ -177,6 +192,9 @@ function scrollDownDesc() {
         overflow-x hidden
         min-height 0
         position relative
+        flex 1
+    &__scroll-content
+        width 100%
         flex 1
     &__map
         height 600px

@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
+import { useRouter } from 'vue-router'
 import { pinia } from 'plugins/store'
 import { mockApiData } from 'plugins/api/mock-data'
 import { cacheService } from 'plugins/api/cache.service'
@@ -8,7 +9,7 @@ import { apiService } from 'plugins/api'
 import { appConfig } from 'config'
 
 const isTauriEnvironment = typeof window !== 'undefined' && '__TAURI_INTERNALS__' in window
-
+const router = useRouter()
 /** Infos du site extraites du wrapper */
 export interface SiteContext {
   lang: string
@@ -35,6 +36,8 @@ const useStore = defineStore('app', () => {
   const error = ref<string | null>(null)
   const lastUpdate = ref<number>(0)
   const isAppReady = ref(false)
+  const current = ref<CircuitEntry | null>(null)
+  const currentStepIndex = ref<number>(0)
 
   // ============================================
   // GETTERS - Accès direct aux données
@@ -55,6 +58,26 @@ const useStore = defineStore('app', () => {
     return data.value?.circuits ?? []
   })
 
+  const currentPreviousParcours = computed(() => {
+    if (!current.value || currentStepIndex.value === 0) return []
+    const previous = [];
+    
+    for (let i = currentStepIndex.value - 1; i >= 0; i--) {
+      previous.push(current.value.steps[i].next_step)
+    }
+
+    return previous
+  })
+  const currentNextParcours = computed(() => {
+    if (!current.value) return []
+    if (currentStepIndex.value === current.value.steps.length - 1) return []
+    const next = []
+    for (let i = currentStepIndex.value + 1; i < current.value.steps.length; i++) {
+      next.push(current.value.steps[i].next_step)
+    }
+    return next
+  })
+
   // ============================================
   // GETTERS - Helpers
   // ============================================
@@ -67,7 +90,9 @@ const useStore = defineStore('app', () => {
 
   /** Récupère un circuit par son slug */
   const getCircuitBySlug = (slug: string): CircuitEntry | undefined | null => {
-    return circuits.value.find(circuit => circuit.slug === slug)
+    const circuit = circuits.value.find(circuit => circuit.slug === slug)
+    if (!circuit) return null
+    setCurrentCircuit(circuit)
   }
 
   /** Récupère un circuit par son index */
@@ -207,6 +232,23 @@ const useStore = defineStore('app', () => {
     error.value = null
     lastUpdate.value = 0
   }
+  function setCircuitBySlug (slug: string, redirectIfnotFound: boolean = false) {
+    const circuit = circuits.value.find(circuit => circuit.slug === slug)
+    if (!circuit && redirectIfnotFound) {
+      router.replace({ name: 'home' })
+    }
+    if (!circuit) return null
+    setCurrentCircuit(circuit)
+  }
+
+  function setCurrentCircuit(circuit: CircuitEntry) {
+    current.value = circuit
+    currentStepIndex.value = 0
+  }
+
+  function setCurrentStepIndex(stepIndex: number) {
+    currentStepIndex.value = stepIndex
+  }
 
   return {
     // State
@@ -222,6 +264,10 @@ const useStore = defineStore('app', () => {
     home,
     events,
     circuits,
+    currentPreviousParcours,
+    currentNextParcours,
+    current,
+    currentStepIndex,
 
     // Getters - Helpers
     circuitsCount,
@@ -239,6 +285,9 @@ const useStore = defineStore('app', () => {
     setError,
     clearError,
     setAppReady,
+    setCurrentCircuit,
+    setCurrentStepIndex,
+    setCircuitBySlug,
     reset,
   }
 })

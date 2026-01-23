@@ -4,7 +4,7 @@
         <h2 class="circuits-etape__name" :data-circuit-theme="circuitIndex">{{ $t('circuits.name') }} 1</h2>
         <h1 class="circuits-etape__title" :data-circuit-theme="circuitIndex">{{ current.title }}</h1>
       
-        <div class="circuits-etape__header_wrapper" v-if="currentStepIndex < current.steps.length - 1">
+        <div class="circuits-etape__header_wrapper" v-if="currentStepIndex < current.steps.length">
           <UiSelector
             v-model="currentView"
             :options="[
@@ -30,10 +30,10 @@
         </div>
         
       </div>
-      <div class="circuits-etape__view_container" v-if="currentStep &&currentStep.images">
+      <div class="circuits-etape__view_container" v-if="currentStep &&currentStep.images" :data-view="currentView">
         
-        <ui-picture :images="currentStep.images[0]" :data-index="currentStepIndex" cover="cover"/>
-        <div class="circuits-etape__background" v-html="IconLine" :data-circuit-theme="circuitIndex"></div>
+        <ui-picture :images="currentStep.images[0]" :data-index="currentStepIndex" cover="cover" v-if="currentView === 'list'"/>
+        <div class="circuits-etape__background" v-html="IconLine" :data-circuit-theme="circuitIndex" v-if="currentView === 'list'"></div>
         <div class="circuits-etape__step_container_wrapper">
         <div class="circuits-etape__step_container">
           <UiNavBar key="navbar"  class="circuits-etape__navbar" :next="currentStepIndex < current.steps.length ? true : false" :previous="currentStepIndex > 0 ? true : false" @next="setStep('next')" @previous="setStep('previous')"/>
@@ -61,27 +61,53 @@
             @click="sidePanelStore.openCircuitStep({ title: current.title, step: currentStep, index: currentStepIndex + 1, qr: current.base64_qr})"
           />
         </div>
-        <div class="circuits-etape__step_container_steps" v-if="currentStepIndex > 0">
-          <div class="circuits-etape__step_container_steps_content">
-            <div class="circuits-etape__step_container_steps_content_wrapper">
-              <div class="circuits-etape__step_container_steps_content_wrapper_label"> {{ $t('circuits.previous_step') }} </div>
-              <div class="circuits-etape__step_container_steps_content_wrapper_title"> 
-                {{ current.steps[currentStepIndex - 1].title }} 
+        <div class="circuits-etape__step_container_steps_wrapper" :data-view="currentView">
+          <div class="circuits-etape__step_container_steps" v-if="currentView === 'map' && (currentStepIndex +1) < current.steps.length - 1">
+            <div class="circuits-etape__step_container_steps_content">
+              <div class="circuits-etape__step_container_steps_content_wrapper">
+                <div class="circuits-etape__step_container_steps_content_wrapper_label"> {{ $t('circuits.next_step') }} </div>
+                <div class="circuits-etape__step_container_steps_content_wrapper_title"> 
+                  {{ current.steps[currentStepIndex + 1].title }} 
+                </div>
               </div>
+              <UiButton 
+                theme="secondary" 
+                :icon="IconArrow" 
+                :big="true" 
+                class="circuits-etape__step_container_steps_content_button circuits-etape__step_container_steps_content_button--next" 
+                :data-view="currentView"
+                @click="setStep('next')"
+              />
             </div>
-            <UiButton 
-              theme="secondary" 
-              :icon="IconArrow" 
-              :big="true" 
-              class="circuits-etape__step_container_steps_content_button" 
-              @click="setStep('previous')"
-            />
+            <div class="circuits-etape__step_content_itinerary">
+                <div class="circuits-etape__step_content_itinerary_label">{{ $t('circuits.itinerary_time') }}</div>
+                <UiTag :label="current.steps[currentStepIndex + 1].next_step.time + 'min'" :icon="current.steps[currentStepIndex + 1].next_step.transportation.includes('pieds') ? IconWalk : IconCar" data-index="1" :data-view="currentView"/>
+            </div>
           </div>
-          <div class="circuits-etape__step_content_itinerary">
-              <div class="circuits-etape__step_content_itinerary_label">{{ $t('circuits.itinerary_time') }}</div>
-              <UiTag :label="current.steps[currentStepIndex - 1].next_step.time + 'min'" :icon="current.steps[currentStepIndex - 1].next_step.transportation.includes('pieds') ? IconWalk : IconCar" data-index="1"/>
+          <div class="circuits-etape__step_container_steps" v-if="currentStepIndex > 0">
+            <div class="circuits-etape__step_container_steps_content" :data-view="currentView">
+              <div class="circuits-etape__step_container_steps_content_wrapper">
+                <div class="circuits-etape__step_container_steps_content_wrapper_label"> {{ $t('circuits.previous_step') }} </div>
+                <div class="circuits-etape__step_container_steps_content_wrapper_title"> 
+                  {{ current.steps[currentStepIndex - 1].title }} 
+                </div>
+              </div>
+              <UiButton 
+                theme="secondary" 
+                :icon="IconArrow" 
+                :big="true" 
+                class="circuits-etape__step_container_steps_content_button" 
+                :data-view="currentView"
+                @click="setStep('previous')"
+              />
             </div>
+            <div class="circuits-etape__step_content_itinerary">
+                <div class="circuits-etape__step_content_itinerary_label">{{ $t('circuits.itinerary_time') }}</div>
+                <UiTag :label="current.steps[currentStepIndex - 1].next_step.time + 'min'" :icon="current.steps[currentStepIndex - 1].next_step.transportation.includes('pieds') ? IconWalk : IconCar" data-index="1" :data-view="currentView"/>
+            </div>
+          </div>
         </div>
+        <UiMap :zoom="15" :center="currentStep.map" v-if="currentStep.map"/>
       </div>
       </div>
     </div>
@@ -89,13 +115,14 @@
   
 <script setup lang="ts">
 declare type ViewCircuit = 'list' | 'map'
-import { onMounted, watchEffect, ref, computed, ComputedRef } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { watchEffect, ref, computed, ComputedRef } from 'vue'
+import { useRoute } from 'vue-router'
 import { useSidePanelStore } from 'store/sidePanel'
 import { store as appStore } from 'plugins/store/app'
 import UiSelector from 'components/ui/Selector.vue'
 import UiNavBar from 'components/NavBar/index.vue'
 import UiTag from 'components/UiKit/Tag/index.vue'
+import UiMap from 'components/ui/Maps/index.vue'
 import IconMap from 'assets/svg/pin.svg?raw'
 import IconList from 'assets/svg/list.svg?raw'
 import IconQr from 'assets/svg/qrcode.svg?raw'
@@ -107,29 +134,25 @@ import IconArrow from 'assets/svg/arrow.svg?raw'
 import { UiButton } from '@/components/UiKit'
 
 const route = useRoute()
-const router = useRouter()
 const ready = ref(false)
-const current = ref<CircuitEntry | null>(null)
-const currentStepIndex = ref<number>(0)
 const sidePanelStore = useSidePanelStore()
 const currentView = ref<ViewCircuit>('list')
 
 // Validation du slug et redirection si invalide
+// a voir si pas on mounted plutôt
 watchEffect(() => {
   // On attend que l'app soit prête (données chargées)
   if (!appStore.isAppReady || !appStore.circuits) return
   const slug = route.params.slug as string
-  const circuit = appStore.getCircuitBySlug(slug)
-  
-  if (!circuit) {
-    console.warn(`⚠️ Circuit introuvable pour le slug: ${slug} -> Redirection Home`)
-    router.replace({ name: 'home' })
-  } else {
-    console.log(`✅ Circuit trouvé:`, circuit.title)
-    current.value = circuit
-    currentStepIndex.value = 0
-    ready.value = true
-  }
+  appStore.setCircuitBySlug(slug, true)
+  ready.value = true
+})
+const current = computed(() => {
+  return appStore.current
+})
+
+const currentStepIndex = computed(() => {
+  return appStore.currentStepIndex
 })
 
 const currentStep: ComputedRef<CircuitStep | undefined> = computed(() => {
@@ -147,9 +170,9 @@ function onViewChange(value: ViewCircuit) {
 
 function setStep(direction: 'next' | 'previous') {
   if (direction === 'next') {
-    currentStepIndex.value++
+    appStore.setCurrentStepIndex(currentStepIndex.value + 1)
   } else {
-    currentStepIndex.value--
+    appStore.setCurrentStepIndex(currentStepIndex.value - 1)
   }
 }
 
@@ -220,6 +243,14 @@ function setStep(direction: 'next' | 'previous') {
     &__view_container
       position relative
       height 2782px
+      &[data-view="map"]
+        background-color $embruns
+        .maps
+          position fixed !important
+          left 0
+          top 60vh
+          height 40vh
+          width 100vw
       .UiPicture
         width 1026px
         height 1212px
@@ -288,8 +319,28 @@ function setStep(direction: 'next' | 'previous') {
       top 198px
       right 210px
       z-index 3
-    &__step_container_steps
+    &__step_container_steps_wrapper
+      f(column, $justify: flex-start)
+      gap 20px
       width 838px
+      &[data-view="map"]
+        position fixed
+        left 100px
+        top 1115px
+        .circuits-etape__step_container_steps
+          color $fjord
+          border 1px solid rgba($fjord, 0.5)
+          .UiButton
+            background-color $embruns
+            color $fjord
+            border 1px solid rgba($fjord, 0.5)
+          .circuits-etape__step_content_itinerary_label
+            color $fjord
+          .UiTag
+            color $fjord !important
+            border-color rgba($fjord, 0.5) !important
+
+    &__step_container_steps
       color white
       padding 30px
       border solid 2px rgba($light, .5)
@@ -303,6 +354,11 @@ function setStep(direction: 'next' | 'previous') {
         border 1px solid rgba($light, .5)
         :deep(.UiButton__icon)
           transform rotate(180deg)
+      &[data-view="map"]
+        color $fjord
+      .circuits-etape__step_container_steps_content_button--next
+        :deep(.UiButton__icon)
+          transform rotate(0deg)
     &__step_container_steps_content_wrapper
       f(column, $justify: flex-start)
       gap 15px

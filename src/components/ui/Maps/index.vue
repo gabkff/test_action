@@ -55,7 +55,7 @@ const props = defineProps({
 onMounted(async () => {
     if (!el.value) return
     const { Map } = await initMap()
-    console.log(props.center)
+    console.log("cocou",props.center)
     const map = new Map(el.value as HTMLElement, {
         center: { lat:props.center.latitude, lng:props.center.longitude },
         zoom: props.zoom,
