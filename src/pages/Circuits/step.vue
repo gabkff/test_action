@@ -62,7 +62,7 @@
           />
         </div>
         <div class="circuits-etape__step_container_steps_wrapper" :data-view="currentView">
-          <div class="circuits-etape__step_container_steps" v-if="currentView === 'map' && (currentStepIndex +1) < current.steps.length - 1">
+          <div class="circuits-etape__step_container_steps" v-if="currentView === 'map' && (currentStepIndex +1) < current.steps.length">
             <div class="circuits-etape__step_container_steps_content">
               <div class="circuits-etape__step_container_steps_content_wrapper">
                 <div class="circuits-etape__step_container_steps_content_wrapper_label"> {{ $t('circuits.next_step') }} </div>
@@ -107,7 +107,12 @@
             </div>
           </div>
         </div>
-        <UiMap :zoom="15" :center="currentStep.map" v-if="currentStep.map"/>
+        <UiMap 
+          :zoom="15"
+          :center="currentStep.map"
+          v-if="currentStep.map"
+          :encodedPolyline="[{line: nextStepPolyline, style: 'next'}, {line: previousStepPolyline, style: 'previous'}]"
+        />
       </div>
       </div>
     </div>
@@ -155,6 +160,20 @@ const currentStepIndex = computed(() => {
   return appStore.currentStepIndex
 })
 
+const nextStep = computed(() => {
+  return appStore.currentNextParcours
+})
+const nextStepPolyline = computed(() => {
+  console.log('nextStepPolyline', nextStep.value.length)
+  return nextStep.value.map(step => step.polyline)
+})
+const previousStepPolyline = computed(() => {
+  console.log('previousStepPolyline', previousStep.value.length)
+  return previousStep.value.map(step => step.polyline)
+})
+const previousStep = computed(() => {
+  return appStore.currentPreviousParcours
+})
 const currentStep: ComputedRef<CircuitStep | undefined> = computed(() => {
   return current.value?.steps[currentStepIndex.value]
 })

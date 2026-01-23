@@ -125,6 +125,7 @@ declare interface GeoCoordinates {
 declare interface NextStepInfo {
   transportation: string[]
   time: number
+  polyline: string
 }
 
 // ============================================

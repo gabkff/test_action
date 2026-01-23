@@ -56,7 +56,7 @@
                     <UiWysiwyg v-html="data.step.main_text"/>
                 </div>
                 <div class="SidePanel__circuit__map">
-                    <UiMap :lock="true" :center="data.step.map" :zoom="15" :encodedPolyline="data.step.next_step.polyline" 
+                    <UiMap :lock="true" :center="data.step.map" :zoom="15" :encodedPolyline="[{line: data.step.next_step.polyline, style: 'next'}, {line: data.step.previous_step.polyline, style: 'previous'}]" 
                     :markers="[
                                 { 
                                     position: { lat: data.step.map.latitude, lng: data.step.map.longitude },
