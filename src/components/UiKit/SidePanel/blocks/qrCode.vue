@@ -23,6 +23,7 @@ defineProps<{
         f(column, $justify: flex-start, $align: center)
         margin-left auto
         margin-right auto
+        height 100%
         &-text
             height 100%
             f(column, $justify: center, $align: center)

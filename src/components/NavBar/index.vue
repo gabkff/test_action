@@ -35,19 +35,19 @@
       </button>
 
       <button 
-        v-if="previous"
-        type="button" 
-        class="NavBar__item NavBar__item--arrow NavBar__item--arrow-previous"
-        @click="$emit('previous')"
-      >
-        <i class="NavBar__icon NavBar__icon--arrow" v-html="IconArrow" />
-      </button>
-
-      <button 
         v-if="next"
         type="button" 
         class="NavBar__item NavBar__item--arrow NavBar__item--arrow-next"
         @click="$emit('next')"
+      >
+        <i class="NavBar__icon NavBar__icon--arrow" v-html="IconArrow" />
+      </button>
+      
+      <button 
+        v-if="previous"
+        type="button" 
+        class="NavBar__item NavBar__item--arrow NavBar__item--arrow-previous"
+        @click="$emit('previous')"
       >
         <i class="NavBar__icon NavBar__icon--arrow" v-html="IconArrow" />
       </button>
@@ -80,6 +80,7 @@ import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useSidePanelStore } from 'store/sidePanel'
+import { useI18nStore } from 'plugins/i18n/store'
 import { AVAILABLE_LOCALES } from 'config'
 import IconHouse from 'assets/svg/house.svg?raw'
 import IconArrow from 'assets/svg/arrow.svg?raw'
@@ -108,7 +109,7 @@ const route = useRoute()
 const router = useRouter()
 const { locale } = useI18n()
 const sidePanelStore = useSidePanelStore()
-
+const i18nStore = useI18nStore()
 // Route courante pour l'état actif
 const currentRoute = computed(() => route.name as string)
 
@@ -138,7 +139,7 @@ function handleClose() {
  * Gestion du clic sur Langue
  */
 function handleLanguage() {
-  sidePanelStore.openLanguage()
+  i18nStore.setLocale(otherLang.value)
 }
 </script>
 

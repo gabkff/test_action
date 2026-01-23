@@ -278,10 +278,10 @@ function scrollDownDesc() {
 
   &__content
     flex 1
-    overflow-y auto
-    overflow-x hidden
+    overflow visible
     r(padding, 60px 80px)
     z-index 10
+    height calc('100vh - 120px')
 
   &__footer
     r(padding, 40px 80px)

@@ -1,6 +1,5 @@
 <template>
     <div class="SidePanel__circuit">
-        <!-- Contenu événement -->
         <div class="SidePanel__circuit__header"> {{$t('circuits.name') + '-' + data.title }} </div>
         <div class="SidePanel__circuit__step"> 
             <ui-button theme="icon" :icon="IconBoot" v-if="data.step.activity_type === 'Promenade'"/>
@@ -45,32 +44,35 @@
             </div>
         </div>
         <!-- Flèches -->
-        <div class="SidePanel__circuit__scroll">
-            <div class="SidePanel__circuit__scroll-title"> {{ data.step.description}}</div>
+         <!-- Zone scrollable -->
+         <div class="SidePanel__circuit__scroll" ref="descriptionEventRef">
+            <!-- Flèches de navigation -->
             <div class="SidePanel__circuit__scroll-arrows">
                 <UiButton theme="arrow" :direction="'up'" @click="scrollUpDesc()"/>
                 <UiButton theme="arrow" :direction="'down'" @click="scrollDownDesc()"/>
             </div>
-        </div>
-        <div class="SidePanel__description" ref="descriptionEventRef">
-            <UiWysiwyg v-html="data.description"/>
-        </div>
-        <div class="SidePanel__circuit__map">
-            <UiMap :lock="true" :center="data.step.map" :zoom="14" :encodedPolyline="data.step.next_step.polyline" 
-            :markers="[
-      { 
-        position: { lat: data.step.map.latitude, lng: data.step.map.longitude },
-        color: '#0000FF',
-        size: 3,
-        borderColor: '#FFFFFF',
-        borderWidth: 3
-      },
-      { 
-        position: { lat: 45.5087, lng: -73.5540 },
-        color: '#00FF00',
-        size: 20
-      }
-    ]"/>
+            <div class="SidePanel__circuit__scroll-content">
+                <div class="SidePanel__circuit__scroll-text"> 
+                    <UiWysiwyg v-html="data.step.main_text"/>
+                </div>
+                <div class="SidePanel__circuit__map">
+                    <UiMap :lock="true" :center="data.step.map" :zoom="14" :encodedPolyline="data.step.next_step.polyline" 
+                    :markers="[
+                                { 
+                                    position: { lat: data.step.map.latitude, lng: data.step.map.longitude },
+                                    color: '#0000FF',
+                                    size: 3,
+                                    borderColor: '#FFFFFF',
+                                    borderWidth: 3
+                                },
+                                { 
+                                    position: { lat: 45.5087, lng: -73.5540 },
+                                    color: '#00FF00',
+                                    size: 20
+                                }
+                            ]"/>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -89,6 +91,7 @@ const props = defineProps({
 })
 const descriptionEvent = useTemplateRef<HTMLElement | null>('descriptionEventRef')
 function scrollUpDesc() {
+  console.log('scrollUpDesc', descriptionEvent.value)
   if (!descriptionEvent.value) return
   descriptionEvent.value.scrollTop -= 100
 }
@@ -101,6 +104,10 @@ function scrollDownDesc() {
 <style lang="stylus" scoped>
 .SidePanel__circuit
     color $fjord
+    display flex
+    flex-direction column
+    overflow visible
+    height 100%
     &__header
         f-style('body')
     &__step
@@ -118,11 +125,11 @@ function scrollDownDesc() {
         margin-bottom 120px
     &__image-wrapper
         width 100%
-        height 100%
+        height 650px
         :deep(.swiper-wrapper)
             gap 30px
         .SidePanel__circuit__image
-            height 650px
+            height 100%
             width 1155px !important
             background-color $fjord
             object-fit cover
@@ -164,12 +171,26 @@ function scrollDownDesc() {
                 width 100%
                 height 100%
     &__scroll
-        f(row, $justify: space-between)
+        f(column, $justify: flex-start, $align: flex-start)
         margin-bottom 80px
-        .SidePanel__circuit__scroll-title
-            f-style('h5')
-        .SidePanel__circuit__scroll-title:first-letter
-            text-transform uppercase
+        overflow-y scroll
+        overflow-x hidden
+        min-height 0
+        position relative
+        flex 1
     &__map
         height 600px
+        width 100%
+    &__scroll-text
+        margin-bottom 120px
+    &__scroll-arrows
+        position sticky
+        z-index 10
+        top 0
+        left 100%
+        f(row, $justify: flex-start)
+        gap 29px
+        pointer-events none
+        :deep(.UiButton)
+            pointer-events all
 </style>

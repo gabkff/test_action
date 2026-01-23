@@ -1,10 +1,10 @@
 <template>
-    <div class="circuits-etape" v-if="ready && current">
+    <div class="circuits-etape" v-if="ready && current" :data-circuit-theme="circuitIndex">
       <div class="circuits-etape__container">
-        <h2 class="circuits-etape__name">{{ $t('circuits.name') }} 1</h2>
-        <h1 class="circuits-etape__title">{{ current.title }}</h1>
+        <h2 class="circuits-etape__name" :data-circuit-theme="circuitIndex">{{ $t('circuits.name') }} 1</h2>
+        <h1 class="circuits-etape__title" :data-circuit-theme="circuitIndex">{{ current.title }}</h1>
       
-        <div class="circuits-etape__header_wrapper">
+        <div class="circuits-etape__header_wrapper" v-if="currentStepIndex < current.steps.length - 1">
           <UiSelector
             v-model="currentView"
             :options="[
@@ -12,6 +12,7 @@
               { value: 'list', label: 'liste', icon: IconList }
             ]"
             @change="(value) =>onViewChange(value as ViewCircuit)"
+            :data-circuit-theme="circuitIndex"
           />
           <div class="circuits-etape__actions">
             <ui-button 
@@ -30,14 +31,15 @@
         
       </div>
       <div class="circuits-etape__view_container" v-if="currentStep &&currentStep.images">
+        
         <ui-picture :images="currentStep.images[0]" :data-index="currentStepIndex" cover="cover"/>
-        <div class="circuits-etape__background" v-html="IconLine"></div>
+        <div class="circuits-etape__background" v-html="IconLine" :data-circuit-theme="circuitIndex"></div>
         <div class="circuits-etape__step_container_wrapper">
         <div class="circuits-etape__step_container">
-          <UiNavBar key="navbar"  class="circuits-etape__navbar" :next="currentStepIndex < current.steps.length - 1 ? true : false" :previous="currentStepIndex > 0 ? true : false" @next="setStep('next')" @previous="setStep('previous')"/>
+          <UiNavBar key="navbar"  class="circuits-etape__navbar" :next="currentStepIndex < current.steps.length ? true : false" :previous="currentStepIndex > 0 ? true : false" @next="setStep('next')" @previous="setStep('previous')"/>
           <div class="circuits-etape__step_content">
             <div class="circuits-etape__step_content_header">
-              <ui-button theme="icon" :icon="IconMap" v-if="currentStep.activity_type as any === 'Promenade'"/>
+              <ui-button theme="icon" :icon="IconMap"/>
               <div class="circuits-etape__step_content_step_total">{{ $t('circuits.step_total', { number: currentStepIndex + 1, total: current.steps.length }) }} </div>
             </div>
            <h2 class="circuits-etape__step_content_title">{{ currentStep.title }}</h2>
@@ -77,7 +79,7 @@
           </div>
           <div class="circuits-etape__step_content_itinerary">
               <div class="circuits-etape__step_content_itinerary_label">{{ $t('circuits.itinerary_time') }}</div>
-              <UiTag :label="currentStep.next_step.time + 'min'" :icon="currentStep.next_step.transportation.includes('pieds') ? IconWalk : IconCar" data-index="1"/>
+              <UiTag :label="current.steps[currentStepIndex - 1].next_step.time + 'min'" :icon="current.steps[currentStepIndex - 1].next_step.transportation.includes('pieds') ? IconWalk : IconCar" data-index="1"/>
             </div>
         </div>
       </div>
@@ -158,6 +160,14 @@ function setStep(direction: 'next' | 'previous') {
     background-color $fjord
     min-height 100vh
     height 100%
+    &[data-circuit-theme="1"]
+      background-color $penombre
+      &__title
+        color $crepuscule
+    &[data-circuit-theme="2"]
+      background-color $epinette
+      &__title
+        color $bouleau
     &__container
       container()
       margin-top 100px
@@ -165,13 +175,39 @@ function setStep(direction: 'next' | 'previous') {
     &__name
       f-style('h5')
       color $aube
+      &[data-circuit-theme="1"]
+        color $crepuscule
+      &[data-circuit-theme="2"]
+        color $bouleau
     &__title
       f-style('h1')
       color $aube
       margin-bottom 90px
+      &[data-circuit-theme="1"]
+        color $crepuscule
+      &[data-circuit-theme="2"]
+        color $bouleau
     &__header_wrapper
       f(row, $align: flex-start)
       margin-bottom 100px
+      .UiSelector
+        background $aube
+        :deep(.UiSelector__container)
+          color $aube
+          .is-active
+            color $aube !important
+        &[data-circuit-theme="1"]
+          background-color $crepuscule
+          :deep(.UiSelector__container)
+            color $crepuscule
+            .is-active
+              color $crepuscule !important
+        &[data-circuit-theme="2"]
+          background-color $bouleau
+          :deep(.UiSelector__container)
+            color $bouleau
+            .is-active
+              color $bouleau !important
     &__description
       f-style('small-body')
       color white
@@ -239,6 +275,11 @@ function setStep(direction: 'next' | 'previous') {
       top 273px
       left 0
       z-index 2
+      color $aube
+      &[data-circuit-theme="1"]
+        color $crepuscule
+      &[data-circuit-theme="2"]
+        color $bouleau
     &__step_see_more
       width 100%
       margin-top auto
@@ -267,6 +308,7 @@ function setStep(direction: 'next' | 'previous') {
       gap 15px
     &__step_container_steps_content_wrapper_title
       f-style('subtitle')
+      margin-right 15px
     &__step_container_steps_content_wrapper_label
       f-style('small-body')
     &__step_content_itinerary_label
