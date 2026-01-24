@@ -62,7 +62,7 @@
           />
         </div>
         <div class="circuits-etape__step_container_steps_wrapper" :data-view="currentView">
-          <div class="circuits-etape__step_container_steps" v-if="currentView === 'map' && (currentStepIndex +1) < current.steps.length">
+          <div class="circuits-etape__step_container_steps" v-if="currentView === 'map' && currentNextParcours.length > 0">
             <div class="circuits-etape__step_container_steps_content">
               <div class="circuits-etape__step_container_steps_content_wrapper">
                 <div class="circuits-etape__step_container_steps_content_wrapper_label"> {{ $t('circuits.next_step') }} </div>
@@ -111,6 +111,7 @@
           :zoom="15"
           :center="currentStep.map"
           v-if="currentStep.map"
+          :markers="markers"
           :encodedPolyline="[{line: nextStepPolyline, style: 'next'}, {line: previousStepPolyline, style: 'previous'}]"
         />
       </div>
@@ -136,12 +137,13 @@ import IconWalk from 'assets/svg/walk.svg?raw'
 import IconCar from 'assets/svg/car.svg?raw'
 import IconPlus from 'assets/svg/plus.svg?raw'
 import IconArrow from 'assets/svg/arrow.svg?raw'
+import IconPin from 'assets/svg/pin.svg?raw'
 import { UiButton } from '@/components/UiKit'
 
 const route = useRoute()
 const ready = ref(false)
 const sidePanelStore = useSidePanelStore()
-const currentView = ref<ViewCircuit>('list')
+const currentView = ref<ViewCircuit>('map')
 
 // Validation du slug et redirection si invalide
 // a voir si pas on mounted plutôt
@@ -160,19 +162,14 @@ const currentStepIndex = computed(() => {
   return appStore.currentStepIndex
 })
 
-const nextStep = computed(() => {
-  return appStore.currentNextParcours
-})
 const nextStepPolyline = computed(() => {
-  console.log('nextStepPolyline', nextStep.value.length)
-  return nextStep.value.map(step => step.polyline)
+  return appStore.nextStepPolyline
 })
 const previousStepPolyline = computed(() => {
-  console.log('previousStepPolyline', previousStep.value.length)
-  return previousStep.value.map(step => step.polyline)
+  return appStore.previousStepPolyline
 })
-const previousStep = computed(() => {
-  return appStore.currentPreviousParcours
+const currentNextParcours = computed(() => {
+  return appStore.currentNextParcours
 })
 const currentStep: ComputedRef<CircuitStep | undefined> = computed(() => {
   return current.value?.steps[currentStepIndex.value]
@@ -180,6 +177,18 @@ const currentStep: ComputedRef<CircuitStep | undefined> = computed(() => {
 
 const circuitIndex = computed(() => {
   return appStore.getCircuitIndex(current.value?.slug as string) ?? null
+})
+
+const markers: any = computed(() => {
+  const markers = []
+  if (!current.value?.steps || current.value?.steps.length === 0) return undefined
+  for (const step of current.value?.steps) {
+    markers.push({
+      position: { lat: step.map.latitude, lng: step.map.longitude },
+      icon: IconPin
+    })
+  }
+  return markers
 })
 
 function onViewChange(value: ViewCircuit) {

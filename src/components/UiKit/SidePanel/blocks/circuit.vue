@@ -1,39 +1,39 @@
 <template>
-    <div class="SidePanel__circuit">
-        <div class="SidePanel__circuit__header"> {{$t('circuits.name') + '-' + data.title }} </div>
+    <div class="SidePanel__circuit" v-if="current && currentStep">
+        <div class="SidePanel__circuit__header"> {{$t('circuits.name') + '-' + current.title }} </div>
         <div class="SidePanel__circuit__step"> 
-            <ui-button theme="icon" :icon="IconBoot" v-if="data.step.activity_type === 'Promenade'"/>
+            <ui-button theme="icon" :icon="IconBoot" v-if="currentStep.activity_type === 'Promenade'"/>
             <div>{{ $t('circuits.step', { number: data.index }) }} </div>
         </div>
-        <div class="SidePanel__circuit__title"> {{ data.step.title }}</div>
+        <div class="SidePanel__circuit__title"> {{ currentStep.title }}</div>
         <div class="SidePanel__circuit__image-wrapper">
         <ui-swiper :options="{ slidesPerView: 1, spaceBetween: 30, centeredSlides: false }" :overflow="true" :navigation="true">
-            <ui-picture v-for="image in data.step.images as Image[]" :key="image.meta" :images="image.images" class="SidePanel__circuit__image"/>
+            <ui-picture v-for="image in currentStep.images as Image[]" :key="image.meta" :images="image.images" class="SidePanel__circuit__image"/>
         </ui-swiper>
         </div>
         <div class="SidePanel__circuit__content-info">
-            <div class="SidePanel__circuit__content-info-item" v-if="data.step.estimated_time">
+            <div class="SidePanel__circuit__content-info-item" v-if="currentStep.estimated_time">
                 <div class="SidePanel__circuit__content-info-item-label">{{ $t('circuits.activity_time') }}</div>
-                <div class="SidePanel__circuit__content-info-item-value"> {{ data.step.estimated_time }}</div>
+                <div class="SidePanel__circuit__content-info-item-value"> {{ currentStep.estimated_time }}</div>
             </div>
-            <div class="SidePanel__circuit__content-info-item" v-if="data.step.seasons">
+            <div class="SidePanel__circuit__content-info-item" v-if="currentStep.seasons">
                 <div class="SidePanel__circuit__content-info-item-label">{{ $t('circuits.best_season') }}</div>
                 <div class="SidePanel__circuit__content-info-item-value"> 
-                    <template v-for="(season, seasondex) in data.step.seasons" :key="season">
+                    <template v-for="(season, seasondex) in currentStep.seasons" :key="season">
                         <span>{{ season }}</span>
-                        <template v-if="seasondex as number < (data.step.seasons.length - 1)">,&nbsp;</template>
+                        <template v-if="seasondex as number < (currentStep.seasons.length - 1)">,&nbsp;</template>
                     </template>
                 </div>
             </div>
-            <div class="SidePanel__circuit__content-info-item" v-if="data.step.essentials">
+            <div class="SidePanel__circuit__content-info-item" v-if="currentStep.essentials">
                 <div class="SidePanel__circuit__content-info-item-label">{{ $t('circuits.need') }}</div>
                 <div class="SidePanel__circuit__content-info-item-value"> 
-                {{ data.step.essentials }}
+                {{ currentStep.essentials }}
                 </div>
             </div>
-            <div class="SidePanel__circuit__content-info-item" v-if="data.step.activity_type">
+            <div class="SidePanel__circuit__content-info-item" v-if="currentStep.activity_type">
                 <div class="SidePanel__circuit__content-info-item-label">{{ $t('circuits.type') }}</div>
-                <div class="SidePanel__circuit__content-info-item-value"> {{ data.step.activity_type }}</div>
+                <div class="SidePanel__circuit__content-info-item-value"> {{ currentStep.activity_type }}</div>
             </div>
         </div>
 
@@ -53,24 +53,19 @@
             </div>
             <div class="SidePanel__circuit__scroll-content">
                 <div class="SidePanel__circuit__scroll-text"> 
-                    <UiWysiwyg v-html="data.step.main_text"/>
+                    <UiWysiwyg v-html="currentStep.main_text"/>
                 </div>
                 <div class="SidePanel__circuit__map">
-                    <UiMap :lock="true" :center="data.step.map" :zoom="15" :encodedPolyline="[{line: data.step.next_step.polyline, style: 'next'}, {line: data.step.previous_step.polyline, style: 'previous'}]" 
-                    :markers="[
-                                { 
-                                    position: { lat: data.step.map.latitude, lng: data.step.map.longitude },
-                                    color: '#0000FF',
-                                    size: 3,
-                                    borderColor: '#FFFFFF',
-                                    borderWidth: 3
-                                },
-                                { 
-                                    position: { lat: 45.5087, lng: -73.5540 },
-                                    color: '#00FF00',
-                                    size: 20
-                                }
-                            ]"/>
+                    <UiMap
+                        ref="mapRef"
+                        id="sidepanel-map"
+                        :lock="true"
+                        :zoom="15"
+                        :center="currentStep.map"
+                        v-if="currentStep.map"
+                        :encodedPolyline="[{line: nextStepPolyline, style: 'next'}, {line: previousStepPolyline, style: 'previous'}]"
+                        :markers="markers"
+                    />
                 </div>
             </div>
         </div>
@@ -78,9 +73,11 @@
 </template>
 
 <script setup lang="ts">
-import { useTemplateRef, computed } from 'vue'
+import { useTemplateRef, computed, ComputedRef } from 'vue'
+import { store as appStore } from 'plugins/store/app'
 import UiButton from 'components/UiKit/Button/index.vue'
 import IconBoot from 'assets/svg/boot.svg?raw'
+import IconPin from 'assets/svg/pin.svg?raw'
 import UiMap from 'components/ui/Maps/index.vue'
 import UiWysiwyg from 'components/UiKit/Wysiwyg/index.vue'
 const props = defineProps({
@@ -89,6 +86,35 @@ const props = defineProps({
     required: true,
   },
 })
+const current = computed(() => {
+  return appStore.current
+})
+
+const markers: any = computed(() => {
+  const markers = []
+  if (!current.value?.steps || current.value?.steps.length === 0) return undefined
+  for (const step of current.value?.steps) {
+    markers.push({
+      position: { lat: step.map.latitude, lng: step.map.longitude },
+      icon: IconPin
+    })
+  }
+  return markers
+})
+
+const nextStepPolyline = computed(() => {
+  return appStore.nextStepPolyline
+})
+const previousStepPolyline = computed(() => {
+  return appStore.previousStepPolyline
+})
+const currentNextParcours = computed(() => {
+  return appStore.currentNextParcours
+})
+const currentStep: ComputedRef<CircuitStep | null | undefined> = computed(() => {
+  return appStore.currentStep
+})
+
 const descriptionEvent = useTemplateRef<HTMLElement | null>('descriptionEventRef')
 
 const isScrollable = computed(() =>  {
@@ -97,14 +123,7 @@ const isScrollable = computed(() =>  {
     console.log('clientHeight', descriptionEvent.value.clientHeight)
     return descriptionEvent.value.scrollHeight > descriptionEvent.value.clientHeight
 })
-const trajetPrecedent = computed(() => {
-    if (!props.data.step) return null
-    return props.data.step.previous_step
-})
-const trajetSuivant = computed(() => {
-    if (!props.data.step.next_step) return null
-    return props.data.step.next_step
-})
+
 function scrollUpDesc() {
   console.log('scrollUpDesc', descriptionEvent.value)
   if (!descriptionEvent.value) return

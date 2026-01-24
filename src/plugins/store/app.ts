@@ -38,6 +38,7 @@ const useStore = defineStore('app', () => {
   const isAppReady = ref(false)
   const current = ref<CircuitEntry | null>(null)
   const currentStepIndex = ref<number>(0)
+  const currentStep = ref<CircuitStep | undefined | null>(null)
 
   // ============================================
   // GETTERS - Accès direct aux données
@@ -76,6 +77,15 @@ const useStore = defineStore('app', () => {
       next.push(current.value.steps[i].next_step)
     }
     return next
+  })
+
+  const nextStepPolyline = computed(() => {
+    if (currentNextParcours.value.length === 0) return []
+    return currentNextParcours.value.map(step => step.polyline)
+  })
+  const previousStepPolyline = computed(() => {
+    if (currentPreviousParcours.value.length === 0) return []
+    return currentPreviousParcours.value.map(step => step.polyline)
   })
 
   // ============================================
@@ -244,10 +254,12 @@ const useStore = defineStore('app', () => {
   function setCurrentCircuit(circuit: CircuitEntry) {
     current.value = circuit
     currentStepIndex.value = 0
+    currentStep.value = circuit.steps[0]
   }
 
   function setCurrentStepIndex(stepIndex: number) {
     currentStepIndex.value = stepIndex
+    currentStep.value = current.value?.steps[stepIndex]
   }
 
   return {
@@ -267,8 +279,10 @@ const useStore = defineStore('app', () => {
     currentPreviousParcours,
     currentNextParcours,
     current,
+    currentStep,
     currentStepIndex,
-
+    nextStepPolyline,
+    previousStepPolyline,
     // Getters - Helpers
     circuitsCount,
     eventsCount,
