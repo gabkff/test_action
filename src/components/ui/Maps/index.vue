@@ -272,6 +272,9 @@
         
         if (!props.lock && !bounds.isEmpty()) {
             map.fitBounds(bounds)
+        } else if (props.lock) {
+            map.setCenter(props.center)
+            map.setZoom(19)
         }
     }
     
@@ -373,7 +376,8 @@
         
         // Créer les nouveaux markers
         for (const markerData of markersList) {
-            const markerElement = createMarkerElement(markerData)
+            const index = markersList.indexOf(markerData)
+            const markerElement = createMarkerElement(markerData, index)
             console.log('markerElement', markerElement)
             console.log('markerData', markerData)
             const pin = new PinElement({
@@ -388,7 +392,7 @@
                 position: markerData.position,
                 content: markerElement,
                 //content: pin,
-                title: 'arrêt'
+                title: 'arrêt #' + index
             })
             markers.value.push(marker)
         }
@@ -397,7 +401,7 @@
     }
     
     // Crée l'élément HTML du marker
-    function createMarkerElement(markerData: any) {
+    function createMarkerElement(markerData: any, index: number) {
         const container = document.createElement('div')
         container.className = 'custom-marker-container'
         container.style.display = 'flex'
@@ -407,7 +411,7 @@
         
         // Label au-dessus
         const label = document.createElement('div')
-        label.textContent = 'Arrêt'
+        label.textContent = 'Arrêt #' + (index +1)
         label.className = 'custom-marker-label'
         container.appendChild(label)
         
@@ -455,20 +459,15 @@
     display flex
     align-items center
     justify-content center
-    width 40px
-    height 40px
-    min-height 40px
-    min-width 40px
+    width 110px
+    height 110px
     border-radius 50%
-    background-color #FF0000
-    border 3px solid #FFFFFF
-    box-shadow 0 2px 6px rgba(0, 0, 0, 0.3)
+    background-color $fjord
 :deep(.custom-marker-icon)
     display flex
     align-items center
     justify-content center
-    width 24px
-    height 24px
+    color white
     svg
         width 100%
         height 100%
