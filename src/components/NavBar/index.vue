@@ -139,7 +139,7 @@ function handleClose() {
  * Gestion du clic sur Langue
  */
 function handleLanguage() {
-  i18nStore.setLocale(otherLang.value)
+  i18nStore.setLocale(otherLang.value as LocaleKey)
 }
 </script>
 

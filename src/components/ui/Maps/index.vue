@@ -14,7 +14,7 @@
     import {initMap, mapStyle, useGeometry, useMarker, usePinElement} from './googleServices'
     
     const el = ref<HTMLElement | null>(null)
-    let map = null
+    let map: google.maps.Map | null = null
     
     // Stocker toutes les polylines avec leur identifiant unique
     const polylines = ref<Map<string, {
@@ -35,6 +35,10 @@
         center: {
             type: Object,
             required: true,
+            default: () => ({
+                latitude: 0,
+                longitude: 0
+            })
         },
         zoom: {
             type: Number,
@@ -211,7 +215,7 @@
     }
     
     // Crée le style pour une polyline
-    function getPolylineStyle(style: 'previous' | 'next') {
+    function getPolylineStyle(style: string) {
         if (style === 'previous') {
             return {
                 strokeColor: props.polylineOptions.strokeColor,
@@ -273,7 +277,7 @@
         if (!props.lock && !bounds.isEmpty()) {
             map.fitBounds(bounds)
         } else if (props.lock) {
-            map.setCenter(props.center)
+            map.setCenter({ lat: props.center.latitude, lng: props.center.longitude })
             map.setZoom(19)
         }
     }
@@ -372,7 +376,7 @@
             }
         })
         console.log('resolve')
-        if (!markersList || markersList.length === 0) return
+        if (!markersList || markersList.length === 0 || !PinElement) return
         
         // Créer les nouveaux markers
         for (const markerData of markersList) {

@@ -110,7 +110,7 @@ declare interface CircuitStep {
   main_text: string
   essentials: string | null
   estimated_time: string
-  activity_type: string[]
+  activity_type: string | string[] | null
   seasons: string[]
   map: GeoCoordinates
   images: Image[]
@@ -155,3 +155,5 @@ declare interface GalleryItem {
   type: string
   data: Record<string, unknown>
 }
+
+declare type LocaleKey = 'fr' | 'en'

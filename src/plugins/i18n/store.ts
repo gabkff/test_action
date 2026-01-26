@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
-import type { LocaleKey } from './index'
 import { DEFAULT_LOCALE, AVAILABLE_LOCALES } from 'config'
 
 /**
