@@ -7,7 +7,7 @@
         </div>
         <div class="SidePanel__circuit__title"> {{ currentStep.title }}</div>
         <div class="SidePanel__circuit__image-wrapper">
-        <ui-swiper :options="{ slidesPerView: 1, spaceBetween: 30, centeredSlides: false }" :overflow="true" :navigation="true">
+        <ui-swiper :options="{ slidesPerView: 'auto', spaceBetween: 30, centeredSlides: false }" :overflow="true" :navigation="true">
             <ui-picture v-for="image in currentStep.images as Image[]" :key="image.meta" :images="image.images" class="SidePanel__circuit__image"/>
         </ui-swiper>
         </div>
@@ -119,8 +119,6 @@ const descriptionEvent = useTemplateRef<HTMLElement | null>('descriptionEventRef
 
 const isScrollable = computed(() =>  {
     if (!descriptionEvent.value) return false
-    console.log('descriptionEvent.value.scrollHeight', descriptionEvent.value.scrollHeight)
-    console.log('clientHeight', descriptionEvent.value.clientHeight)
     return descriptionEvent.value.scrollHeight > descriptionEvent.value.clientHeight
 })
 
@@ -140,12 +138,17 @@ function scrollDownDesc() {
     color $fjord
     display flex
     flex-direction column
-    overflow visible
+    overflow-y visible
+    overflow-x hidden
     height 100%
     &__header
         f-style('body')
+        r(padding-left, 60px 60px)
+        r(padding-right, 60px 60px)
     &__step
         f(row, $justify: flex-start)
+        r(padding-left, 60px 60px)
+        r(padding-right, 60px 60px)
         gap 40px
         margin-top 120px
         f-style('subtitle')
@@ -153,6 +156,8 @@ function scrollDownDesc() {
             width 94px
             height 94px
     &__title
+        r(padding-left, 60px 60px)
+        r(padding-right, 60px 60px)
         f-style('h3')
         margin 0
         margin-top 125px
@@ -160,8 +165,6 @@ function scrollDownDesc() {
     &__image-wrapper
         width 100%
         height 650px
-        :deep(.swiper-wrapper)
-            gap 30px
         .SidePanel__circuit__image
             height 100%
             width 1155px !important
@@ -171,6 +174,8 @@ function scrollDownDesc() {
         f-style('default')
     &__content-info
         f(row, $justify: flex-start)
+        r(padding-left, 60px 60px)
+        r(padding-right, 60px 60px)
         margin-top 120px
         width 100%
         flex-wrap wrap
@@ -194,6 +199,8 @@ function scrollDownDesc() {
         padding-top 60px
         padding-bottom 60px
         margin-bottom 80px
+        margin-left 60px
+        margin-right 60px
         f(row, $justify: space-between)
         .SidePanel__circuit__qrcode-label
             f-style('h5')
@@ -206,7 +213,9 @@ function scrollDownDesc() {
                 height 100%
     &__scroll
         f(column, $justify: flex-start, $align: flex-start)
-        margin-bottom 80px
+        padding-bottom 80px
+        r(margin-right, 60px 60px)
+        r(margin-left, 60px 60px)
         overflow-y scroll
         overflow-x hidden
         min-height 0

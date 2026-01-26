@@ -498,9 +498,11 @@ export default defineComponent({
   .UiSwiper
     overflow visible
     position relative
+    height 100%
     
   .swiper-container
     overflow hidden
+    height 100%
     &.-overflow
       overflow visible
   
