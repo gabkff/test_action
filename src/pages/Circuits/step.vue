@@ -62,7 +62,7 @@
               {{  nextEvent.label }}
             </div>
             <div class="circuits-etape__last_step_event_content"
-              :style="{ backgroundImage: `url(${nextEvent.event.main_image.images.original.url})` }"
+              :style="{ backgroundImage: `url(${nextEvent.event.main_image?.images?.original?.url})` }"
             >
             <div class="circuits-etape__last_step_event_content_container">
               <div class="circuits-etape__last_step_event_content_description" v-if="nextEvent.event.time_start || nextEvent.event.time_end">

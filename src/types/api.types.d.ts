@@ -81,6 +81,7 @@ declare interface EventEntry {
   price_range: string | null
   description: string | null
   images: Image[]
+  main_image: Image
   event_url: string | null
   event_qr: string | null
 }
