@@ -88,6 +88,11 @@ const useStore = defineStore('app', () => {
     return currentPreviousParcours.value.map(step => step.polyline)
   })
 
+  const nextCircuit = computed(() => {
+    if (!current.value) return null
+    return circuits.value.find(circuit => circuit.slug !== current.value!.slug)
+  })
+
   // ============================================
   // GETTERS - Helpers
   // ============================================
@@ -283,6 +288,7 @@ const useStore = defineStore('app', () => {
     currentStepIndex,
     nextStepPolyline,
     previousStepPolyline,
+    nextCircuit,
     // Getters - Helpers
     circuitsCount,
     eventsCount,

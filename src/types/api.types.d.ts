@@ -71,6 +71,8 @@ declare interface EventEntry {
   times: string
   address: string
   entry_type: string
+  time_start: string | null
+  time_end: string | null
   dates: EntryDates
   date_start: string
   datetime_start_timestamp: number

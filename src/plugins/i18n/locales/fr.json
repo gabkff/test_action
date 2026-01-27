@@ -19,7 +19,11 @@
     "pageNotFound": "Page non trouvée",
     "createdAt": "Créée le",
     "updatedAt": "Mise à jour",
-    "availableTranslations": "Traductions disponibles"
+    "availableTranslations": "Traductions disponibles",
+    "go_further": "Aller plus loin",
+    "other_born": "Retrouvez nos autres bornes à Tadoussac et Natashquan",
+    "discover_more": "Découvrez aussi",
+    "link_discover": "Découvrir"
   },
   "home": {
     "title": "Page d'accueil",
@@ -38,6 +42,7 @@
     "services": "Services"
   },
   "events": {
+    "see_all": "Tous les évènements",
     "title": "activités & évènements",
     "description": "Vous recherchez quelque chose à faire? <br>Ne cherchez plus, voici tous les évènements à venir dans le coin pour les 5 prochains jours !",
     "create": "Créer un événement",
@@ -50,12 +55,16 @@
     "price": "Prix",
     "url": "URL de l'évènement",
     "qrcode": "QRCode de l'évènement",
-    "access_site": "Scannez le code pour accéder au site internet de l'évènement"
+    "access_site": "Scannez le code pour accéder au site internet de l'évènement",
+    "time_start": "À partir de {time}",
+    "time_start_end": "De {start} à {end}"
   },
   "circuits": {
+    "event_today": "Aujourd'hui, {date}",
     "name": "Circuit",
     "index": "Circuit {index}",
     "step": "Arrêt #{number}",
+    "total_step": "{number} Arrêts",
     "step_total": "Arrêt {number} / {total}",
     "activity_time": "Durée de l'activité",
     "best_season": "Meilleure saison",
@@ -69,7 +78,9 @@
     "next_step": "Arrêt suivant",
     "qrcode": "Scannez le code pour télécharger ce parcours et le conserver",
     "qrcode_panel": "Scannez le code dès maintenant pour télécharger le parcours et le conserver",
-    "more": "Plus d'infos"
+    "more": "Plus d'infos",
+    "recommendations": "Est-ce que vous aimez nos recommandations ?",
+    "recommendations_text": "Plus d’informations à retrouver sur notre site toursimecote-nord.com"
   },
   "errors": {
     "notFound": "Page non trouvée",

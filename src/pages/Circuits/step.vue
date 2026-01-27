@@ -1,9 +1,9 @@
 <template>
-    <div class="circuits-etape" v-if="ready && current" :data-circuit-theme="circuitIndex">
+    <div class="circuits-etape" v-if="ready && current" :data-circuit-theme="dataCircuitTheme">
       <div class="circuits-etape__container">
-        <h2 class="circuits-etape__name" :data-circuit-theme="circuitIndex">{{ $t('circuits.name') }} 1</h2>
-        <h1 class="circuits-etape__title" :data-circuit-theme="circuitIndex">{{ current.title }}</h1>
-      
+        <h2 class="circuits-etape__name" :data-circuit-theme="dataCircuitTheme">{{ $t('circuits.name') }} 1</h2>
+        <h1 class="circuits-etape__title" :data-circuit-theme="dataCircuitTheme">{{ current.title }}</h1>
+        
         <div class="circuits-etape__header_wrapper" v-if="currentStepIndex < current.steps.length">
           <UiSelector
             v-model="currentView"
@@ -12,7 +12,7 @@
               { value: 'list', label: 'liste', icon: IconList }
             ]"
             @change="(value) =>onViewChange(value as ViewCircuit)"
-            :data-circuit-theme="circuitIndex"
+            :data-circuit-theme="dataCircuitTheme"
           />
           <div class="circuits-etape__actions">
             <ui-button 
@@ -28,12 +28,106 @@
             </div>
           </div>
         </div>
-        
+        <div v-else>
+          <div class="circuits-etape__last_step_container">
+            <div class="circuits-etape__last_step_background" v-html="IconLine" :data-circuit-theme="circuitIndex"></div>
+            <div class="circuits-etape__last_step_qr_container">
+              <UiNavBar key="navbarend"  class="circuits-etape__last_step_navbar" :next="false" :previous="true"  @previous="setStep('previous')"/>
+              <div class="circuits-etape__last_step_content">
+                <div class="circuits-etape__last_step_content_header">
+                  {{ $t('circuits.qrcode_panel') }} 
+                </div>
+                <div class="circuits-etape__last_step_content_qr">
+                  <img :src="current.base64_qr as string" alt="QR Code" class="circuits-etape__step_content_itinerary_img"/>
+                </div>
+
+            </div>
+          </div>
+          <div class="circuits-etape__last_step_recommendations">
+              <div class="circuits-etape__last_step_recommendations_header">
+                {{ $t('circuits.recommendations') }} 
+              </div>
+              <div class="circuits-etape__last_step_recommendations_content">
+                <div class="circuits-etape__last_step_recommendations_content_text">
+                  {{ $t('circuits.recommendations_text') }}
+                </div>
+                <div class="circuits-etape__last_step_recommendations_content_button">
+                  <ui-button theme="primary" :big="true" :icon="IconPouce" class="circuits-etape__last_step_recommendations_content_button_pouce"/>
+                  <ui-button theme="primary" :icon="IconPouce" class="circuits-etape__last_step_recommendations_content_button_pouce" :data-down="true"/>
+                </div>
+              </div>
+          </div>
+          <div class="circuits-etape__last_step_event" v-if="nextEvent?.event">
+            <div class="circuits-etape__last_step_event_header">
+              {{  nextEvent.label }}
+            </div>
+            <div class="circuits-etape__last_step_event_content"
+              :style="{ backgroundImage: `url(${nextEvent.event.main_image.images.original.url})` }"
+            >
+            <div class="circuits-etape__last_step_event_content_container">
+              <div class="circuits-etape__last_step_event_content_description" v-if="nextEvent.event.time_start || nextEvent.event.time_end">
+                <div class="circuits-etape__last_step_event_content_description_time" v-if="nextEvent.event.time_start && !nextEvent.event.time_end">
+                  {{ $t('events.time_start', { time: nextEvent.event.time_start }) }}
+                </div>
+                <div class="circuits-etape__last_step_event_content_description_time" v-else>
+                  {{ $t('events.time_start_end', { start: nextEvent.event.time_start, end: nextEvent.event.time_end }) }}
+                </div>
+              </div>
+              <div class="circuits-etape__last_step_event_content_title">
+                {{ nextEvent.event.title }}
+              </div>
+              <UiButton 
+                theme="primary"
+                :big="true"
+                :icon="IconPlus"
+                :iconPosition="'right'"
+                :label="$t('events.see_all')"
+                class="circuits-etape__last_step_event_content_button"
+                @click="router.push(`/evenements`)"
+              />
+            </div>
+            </div>
+          </div>  
+          <div class="circuits-etape__last_step_event_other_born">
+            <div class="circuits-etape__last_step_event_other_born_img">
+              <img :src="imgBorn" alt="Borne" />
+            </div>
+            <div class="circuits-etape__last_step_event_other_born_text">
+              <div class="circuits-etape__last_step_event_other_born_text_header">
+                {{ $t('common.go_further') }}
+              </div>
+              <div class="circuits-etape__last_step_event_other_born_text_content">
+                {{ $t('common.other_born') }}
+              </div>
+            </div>
+          </div>
+          <div class="circuits-etape__last_step_event_next_circuit" v-if="nextCircuit">
+            <div class="circuits-etape__last_step_event_next_circuit_header">
+              {{ $t('common.discover_more') }}
+            </div>
+            <div class="circuits-etape__last_step_event_next_circuit_content" :data-circuit-theme="nextCircuitIndex">
+              <ui-picture :images="nextCircuit?.image?.images" cover="cover" />
+              <div class="circuits-etape__last_step_event_next_circuit_content_text">
+                <div class="circuits-etape__last_step_event_next_circuit_content_text_title">
+                  {{ nextCircuit.title }}
+                </div>
+                <div class="circuits-etape__last_step_event_next_circuit_content_text_description">
+                  <ui-wysiwyg v-html="nextCircuit.description" />
+                  <div class="circuits-etape__last_step_event_next_circuit_content_text_action">
+                    <ui-tag :label="$t('circuits.total_step', { number: nextCircuit.steps.length })" />
+                    <ui-button theme="primary" :label="$t('common.link_discover')" :icon="IconPlus" :iconPosition="'right'" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="circuits-etape__view_container" v-if="currentStep &&currentStep.images" :data-view="currentView">
         
         <ui-picture :images="currentStep.images[0]" :data-index="currentStepIndex" cover="cover" v-if="currentView === 'list'"/>
-        <div class="circuits-etape__background" v-html="IconLine" :data-circuit-theme="circuitIndex" v-if="currentView === 'list'"></div>
+        <div class="circuits-etape__background" v-html="IconLine" :data-circuit-theme="dataCircuitTheme" v-if="currentView === 'list'"></div>
         <div class="circuits-etape__step_container_wrapper">
         <div class="circuits-etape__step_container">
           <UiNavBar key="navbar"  class="circuits-etape__navbar" :next="currentStepIndex < current.steps.length ? true : false" :previous="currentStepIndex > 0 ? true : false" @next="setStep('next')" @previous="setStep('previous')"/>
@@ -122,9 +216,10 @@
 <script setup lang="ts">
 declare type ViewCircuit = 'list' | 'map'
 import { watchEffect, ref, computed, ComputedRef } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { useSidePanelStore } from 'store/sidePanel'
 import { store as appStore } from 'plugins/store/app'
+import i18n from 'plugins/i18n'
 import UiSelector from 'components/ui/Selector.vue'
 import UiNavBar from 'components/NavBar/index.vue'
 import UiTag from 'components/UiKit/Tag/index.vue'
@@ -138,9 +233,12 @@ import IconCar from 'assets/svg/car.svg?raw'
 import IconPlus from 'assets/svg/plus.svg?raw'
 import IconArrow from 'assets/svg/arrow.svg?raw'
 import IconPin from 'assets/svg/pin.svg?raw'
+import IconPouce from 'assets/svg/pouce.svg?raw'
+import imgBorn from 'assets/img/borne.png'
 import { UiButton } from '@/components/UiKit'
 
 const route = useRoute()
+const router = useRouter()
 const ready = ref(false)
 const sidePanelStore = useSidePanelStore()
 const currentView = ref<ViewCircuit>('map')
@@ -179,6 +277,14 @@ const circuitIndex = computed(() => {
   return appStore.getCircuitIndex(current.value?.slug as string) ?? null
 })
 
+const nextCircuitIndex = computed(() => {
+  return appStore.getCircuitIndex(appStore.nextCircuit?.slug as string) ?? null
+})
+
+const nextCircuit = computed(() => {
+  return appStore.nextCircuit
+})
+
 const markers: any = computed(() => {
   const markers = []
   if (!current.value?.steps || current.value?.steps.length === 0) return undefined
@@ -191,8 +297,38 @@ const markers: any = computed(() => {
   return markers
 })
 
+const dataCircuitTheme = computed(() => {
+  if (!current.value) return 1
+  return currentStepIndex.value > current.value?.steps.length - 1 ? 'last' : circuitIndex.value
+})
+
+const nextEvent: ComputedRef<{event: EventEntry | null, label: string} | null> = computed(() => {
+  const today = Date.now() / 1000  
+
+  let nextEvent = null
+  let smallDiff = Infinity
+  appStore.events.forEach(event => {
+    const dateStart = event.datetime_start_timestamp
+    const dateEnd = event.datetime_end_timestamp
+    if (today >= dateStart && today <= dateEnd) {
+      nextEvent = event
+      smallDiff = 0
+      return
+    }
+    const diff = Math.abs(dateStart - today)
+    if (diff < smallDiff) {
+      smallDiff = diff
+      nextEvent = event
+    }
+  })
+  if (smallDiff === 0) {
+    return {event: nextEvent, label: i18n.global.t('circuits.event_today', { date: new Date().toLocaleDateString('fr-CA', { weekday: 'long', day: 'numeric', month: 'long' }) })}
+  } else {
+    return {event: nextEvent, label: new Date(nextEvent!.datetime_start_timestamp * 1000).toLocaleDateString('fr-CA', { weekday: 'long', day: 'numeric', month: 'long' })} 
+  }
+})
+
 function onViewChange(value: ViewCircuit) {
-    console.log('View changed to:', value)
     currentView.value = value
 }
 
@@ -211,6 +347,11 @@ function setStep(direction: 'next' | 'previous') {
     background-color $fjord
     min-height 100vh
     height 100%
+    trans(background-color, 0.3s ease)
+    &[data-circuit-theme="last"]
+      background-color $embruns
+      &__title
+        color $fjord
     &[data-circuit-theme="1"]
       background-color $penombre
       &__title
@@ -230,14 +371,19 @@ function setStep(direction: 'next' | 'previous') {
         color $crepuscule
       &[data-circuit-theme="2"]
         color $bouleau
+      &[data-circuit-theme="last"]
+        color $fjord
     &__title
       f-style('h1')
       color $aube
       margin-bottom 90px
+      trans(color, 0.3s ease)
       &[data-circuit-theme="1"]
         color $crepuscule
       &[data-circuit-theme="2"]
         color $bouleau
+      &[data-circuit-theme="last"]
+        color $fjord
     &__header_wrapper
       f(row, $align: flex-start)
       margin-bottom 100px
@@ -409,4 +555,174 @@ function setStep(direction: 'next' | 'previous') {
         position absolute
         right -95px
         top 50px
+    &__last_step_navbar
+      position absolute
+      right -95px
+      top 50px
+    &__last_step_background
+      position absolute
+      left 0
+      top 35%
+      bottom 25%
+      color $aube
+      &[data-circuit-theme="1"]
+        color $crepuscule
+      &[data-circuit-theme="2"]
+        color $bouleau
+    &__last_step_qr_container
+      background white
+      r(padding, 30px)
+      r(width, 880px)
+      r(padding, 30px)
+      position absolute
+      top 878px
+      right 273px
+    &__last_step_content_header
+      f-style('h5')
+      width 70%
+      color $fjord
+      margin-bottom 140px
+    &__last_step_content_qr
+      width 100%
+      height 100%
+      margin-bottom 80px
+      f(row, $justify: center, $align: center)
+      img
+        r(size, 369px)
+    &__last_step_recommendations
+      background white
+      f(column, $justify: flex-start)
+      r(width, 791px)
+      r(padding, 60px)
+      position absolute
+      top 1193px
+      left 150px
+    &__last_step_recommendations_header
+      f-style('h5')
+      color $fjord
+      margin-bottom 30px
+    &__last_step_recommendations_content_text
+      f-style('default')
+      color $fjord
+      margin-bottom 80px
+    &__last_step_event
+      r(width, 850px)
+      position absolute
+      top 1941px
+      left 150px
+    &__last_step_event_header
+      font-family $ff-title
+      font-weight $fw-extrabold
+      text-transform uppercase
+      color $fjord
+      margin-bottom 45px
+      r(font-size, 90px 40px)
+    &__last_step_recommendations_content_button
+      f(row, $justify: flex-start)
+      gap 20px
+      .UiButton
+        size 210px
+        :deep(.UiButton__icon)
+          size 89px
+        &[data-down="true"]
+          :deep(.UiButton__icon)
+            transform rotate(-180deg)
+    &__last_step_event_content
+      background-size cover
+      background-position center
+      r(height, 650px)
+      color $ecume
+      f(column, $justify: flex-end)
+      z-index 2
+    &__last_step_event_content_container
+      background-color rgba(0,0,0,0.7)
+      r(padding, 30px)
+      height 100%
+      color $ecume
+      f(column, $justify: flex-end)
+    &__last_step_event_content_description_time
+      font-size 32px
+      line-height 1.2
+      margin-bottom 18px
+      ::first-letter
+        text-transform uppercase
+    &__last_step_event_content_title
+      font-family $ff-text
+      font-size 50px
+      line-height 1.2
+      font-weight $fw-bold
+      margin-bottom 45px
+    &__last_step_event_content_button
+      width fit-content
+    &__last_step_event_other_born
+      position absolute
+      top 2837px
+      left 260px
+      padding 60px
+      r(width, 765px)
+      background-color white
+      border-radius $radius-lg
+      f(row, $justify: flex-start, $align: flex-start)
+      gap 60px
+    &__last_step_event_other_born_img
+      r(width, 154px)
+      flex-shrink 0
+    &__last_step_event_other_born_text
+      margin auto
+      f(column, $justify: flex-start, $align: flex-start)
+      gap 15px
+      color $fjord
+    &__last_step_event_other_born_text_header
+      opacity 0.5
+      f-style('default')
+    &__last_step_event_other_born_text_content
+      f-style('h5')
+    &__last_step_event_next_circuit
+      position absolute
+      top 1865px
+      right 269px
+      r(width, 790px)
+      f(column, $justify: flex-start, $align: flex-start)
+      gap 50px
+    &__last_step_event_next_circuit_header
+      f-style('h5')
+      color $fjord
+    &__last_step_event_next_circuit_content
+      padding 10px
+      padding-bottom 30px
+      f(column, $justify: flex-start, $align: flex-start)
+      gap 5px
+      border-radius $radius-lgxl
+      background-color $fjord
+      &[data-circuit-theme="1"]
+        background-color $penombre
+        .circuits-etape__last_step_event_next_circuit_content_text_title,
+        .circuits-etape__last_step_event_next_circuit_content_text_description
+          color $crepuscule
+      &[data-circuit-theme="2"]
+        background-color $epinette
+        .circuits-etape__last_step_event_next_circuit_content_text_title,
+        .circuits-etape__last_step_event_next_circuit_content_text_description
+          color $bouleau
+      .UiPicture
+        r(height, 800px)
+        width 100%
+    &__last_step_event_next_circuit_content_text
+      padding 20px
+      width 100%
+    &__last_step_event_next_circuit_content_text_title
+      f-style('h2')
+      margin-bottom 30px
+    &__last_step_event_next_circuit_content_text_description
+      f-style('h6')
+      f(column, $justify: flex-end)
+      gap 20px
+      color $fjord
+      margin-left auto
+      text-align right
+    &__last_step_event_next_circuit_content_text_action
+      f(row, $justify: flex-end)
+      gap 15px
+      .UiButton
+        width fit-content
 </style>
