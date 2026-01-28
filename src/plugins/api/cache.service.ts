@@ -1,11 +1,18 @@
 import { appCacheDir, join } from '@tauri-apps/api/path'
 import { readTextFile, writeTextFile, exists, mkdir, remove } from '@tauri-apps/plugin-fs'
 
-const DATA_FILE = 'data.json'
+const DATA_FILE = 'data_v2.json'
+
+/**
+ * Interface pour le cache multi-langues
+ */
+export interface MultiLanguageData {
+  [locale: string]: ApiResponse
+}
 
 /**
  * Service de cache utilisant le système de fichiers (Tauri)
- * Stocke les données API dans appCacheDir/data.json
+ * Stocke les données API dans appCacheDir/data_v2.json
  * - macOS: ~/Library/Caches/com.tcn.app/
  * - Windows: C:\Users\User\AppData\Local\com.tcn.app\
  */
@@ -16,14 +23,14 @@ class CacheService {
     return await appCacheDir()
   }
 
-  /** Chemin complet vers le fichier data.json */
+  /** Chemin complet vers le fichier data_v2.json */
   private async getDataFilePath(): Promise<string> {
     const cacheDir = await this.getCacheDir()
     return await join(cacheDir, DATA_FILE)
   }
 
-  /** Lit les données depuis le fichier data.json */
-  async readDataFromFile(): Promise<ApiResponse | null> {
+  /** Lit les données depuis le fichier cache */
+  async readDataFromFile(): Promise<MultiLanguageData | null> {
     try {
       const filePath = await this.getDataFilePath()
 
@@ -33,8 +40,8 @@ class CacheService {
       }
 
       const content = await readTextFile(filePath)
-      const data = JSON.parse(content) as ApiResponse
-      console.log('📂 Données chargées depuis le fichier cache')
+      const data = JSON.parse(content) as MultiLanguageData
+      console.log('📂 Données multi-langues chargées depuis le fichier cache')
       return data
     } catch (error) {
       console.error('❌ Erreur lecture fichier cache:', error)
@@ -42,8 +49,8 @@ class CacheService {
     }
   }
 
-  /** Écrit les données dans le fichier data.json */
-  async writeDataToFile(data: ApiResponse): Promise<void> {
+  /** Écrit les données dans le fichier cache */
+  async writeDataToFile(data: MultiLanguageData): Promise<void> {
     try {
       const cacheDir = await this.getCacheDir()
 
@@ -54,7 +61,7 @@ class CacheService {
 
       const filePath = await this.getDataFilePath()
       await writeTextFile(filePath, JSON.stringify(data, null, 2))
-      console.log('💾 Données sauvegardées dans le fichier cache')
+      console.log('💾 Données multi-langues sauvegardées dans le fichier cache')
     } catch (error) {
       console.error('❌ Erreur écriture fichier cache:', error)
     }

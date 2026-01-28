@@ -1,588 +1,1341 @@
 {
   "meta": {
-    "timestamp": 1768622341000,
-    "execution_time": "Time: 00:00.403, Memory: 12.00 MB",
-    "site": {
-      "id": 7,
-      "name": "Borne tadoussac FR",
-      "handle": "borne_tadoussac_fr",
-      "language": "fr-CA",
-      "primary": false
-    }
+      "timestamp": 1769570193000,
+      "execution_time": "Time: 00:01.419, Memory: 64.50 MB",
+      "site": {
+          "id": 7,
+          "name": "Borne tadoussac FR",
+          "handle": "borne_tadoussac_fr",
+          "language": "fr-CA",
+          "primary": false
+      }
   },
   "data": {
-    "lang": "fr",
-    "ville": "tadoussac",
-    "siteId": 7,
-    "data": {
+      "lang": "fr",
+      "ville": "tadoussac",
       "siteId": 7,
-      "siteHandle": "borne_tadoussac_fr",
-      "siteName": "Borne tadoussac FR",
-      "home": {
-        "id": 12647,
-        "slug": "accueil-borne",
-        "lastUpdate": 1768618827000,
-        "title": "Accueil borne",
-        "instagram_account": null,
-        "weather": {
-          "current_temperature": -15.4,
-          "apparent_temperature": -23.7,
-          "wmo_code": 0
-        },
-        "I18n": "",
-        "featured_partners": [],
-        "inspirational_text": "",
-        "tides": {
-          "current_direction": "UP",
-          "next_event_type": "HIGH TIDE",
-          "next_event_timestamp": 1768632815,
-          "next_event_height": "0.95",
-          "previous_event_type": null,
-          "previous_event_timestamp": null,
-          "previous_event_height": null
-        }
-      },
-      "events": [
-        {
-          "id": 13735,
-          "url": "https://tcn.dev.kffein.work/evenement-borne/test-event",
-          "title": "test event",
-          "slug": "test-event",
-          "entry_type": "template_bornes_event",
-          "dates": {
-            "created": 1768493933000,
-            "updated": 1768622337000,
-            "posted": 1768493940000
+      "data": {
+          "siteId": 7,
+          "siteHandle": "borne_tadoussac_fr",
+          "siteName": "Borne tadoussac FR",
+          "home": {
+              "id": 12647,
+              "slug": "accueil-borne",
+              "lastUpdate": 1769569234000,
+              "title": "Accueil borne",
+              "main_image": {
+                  "meta": {
+                      "title": "Souvenirs du large Jocelyn Praud c H857 c Jocelyn Praud"
+                  },
+                  "images": {
+                      "optimized": {
+                          "standard": {
+                              "576": "https://tcn.dev.kffein.work/upload/images/_576x432_crop_center-center_100_line/Souvenirs-du-large-Jocelyn-Praud_cH857_cJocelynPraud.jpg",
+                              "768": "https://tcn.dev.kffein.work/upload/images/_768x576_crop_center-center_100_line/Souvenirs-du-large-Jocelyn-Praud_cH857_cJocelynPraud.jpg",
+                              "992": "https://tcn.dev.kffein.work/upload/images/_992x558_crop_center-center_100_line/Souvenirs-du-large-Jocelyn-Praud_cH857_cJocelynPraud.jpg",
+                              "1200": "https://tcn.dev.kffein.work/upload/images/_1200x675_crop_center-center_100_line/Souvenirs-du-large-Jocelyn-Praud_cH857_cJocelynPraud.jpg"
+                          },
+                          "webp": {
+                              "576": "https://tcn.dev.kffein.work/upload/images/_576x432_crop_center-center_100_line/Souvenirs-du-large-Jocelyn-Praud_cH857_cJocelynPraud.jpg.webp",
+                              "768": "https://tcn.dev.kffein.work/upload/images/_768x576_crop_center-center_100_line/Souvenirs-du-large-Jocelyn-Praud_cH857_cJocelynPraud.jpg.webp",
+                              "992": "https://tcn.dev.kffein.work/upload/images/_992x558_crop_center-center_100_line/Souvenirs-du-large-Jocelyn-Praud_cH857_cJocelynPraud.jpg.webp",
+                              "1200": "https://tcn.dev.kffein.work/upload/images/_1200x675_crop_center-center_100_line/Souvenirs-du-large-Jocelyn-Praud_cH857_cJocelynPraud.jpg.webp"
+                          }
+                      },
+                      "original": {
+                          "url": "https://tcn.dev.kffein.work/upload/images/Souvenirs-du-large-Jocelyn-Praud_cH857_cJocelynPraud.jpg",
+                          "sizes": {
+                              "width": 2000,
+                              "height": 1333
+                          }
+                      },
+                      "focalPoint": {
+                          "x": 0.5,
+                          "y": 0.5
+                      }
+                  }
+              },
+              "instagram_account": null,
+              "weather": {
+                  "current_temperature": -15.5,
+                  "apparent_temperature": -23.2,
+                  "wmo_code": 3
+              },
+              "I18n": "",
+              "featured_partners": [
+                  {
+                      "title": "Du Fleuve - Excursions en kayak de mer",
+                      "city": "Les Escoumins",
+                      "image": null
+                  },
+                  {
+                      "title": "Café l'Abri Côtier",
+                      "city": "Tadoussac",
+                      "image": {
+                          "meta": {
+                              "title": "2373_1_20241007151811-0e2a0377-copie"
+                          },
+                          "images": {
+                              "optimized": {
+                                  "standard": {
+                                      "576": "https://tcn.dev.kffein.work/upload/membres/images/_576x432_crop_center-center_100_line/2373_1_20241007151811-0e2a0377-copie.jpg"
+                                  },
+                                  "webp": {
+                                      "576": "https://tcn.dev.kffein.work/upload/membres/images/_576x432_crop_center-center_100_line/2373_1_20241007151811-0e2a0377-copie.jpg.webp"
+                                  }
+                              },
+                              "original": {
+                                  "url": "https://tcn.dev.kffein.work/upload/membres/images/2373_1_20241007151811-0e2a0377-copie.jpg",
+                                  "sizes": {
+                                      "width": 910,
+                                      "height": 533
+                                  }
+                              },
+                              "focalPoint": {
+                                  "x": 0.5,
+                                  "y": 0.5
+                              }
+                          }
+                      }
+                  },
+                  {
+                      "title": "Hôtel Comfort Inn Baie-Comeau",
+                      "city": "Baie-Comeau",
+                      "image": {
+                          "meta": {
+                              "title": "150_1_softsystem_images-priviliegies-comfortinn-jpg"
+                          },
+                          "images": {
+                              "optimized": {
+                                  "standard": [],
+                                  "webp": []
+                              },
+                              "original": {
+                                  "url": "https://tcn.dev.kffein.work/upload/membres/images/150_1_softsystem_images-priviliegies-comfortinn-jpg.jpg",
+                                  "sizes": {
+                                      "width": 910,
+                                      "height": 533
+                                  }
+                              },
+                              "focalPoint": []
+                          }
+                      }
+                  },
+                  {
+                      "title": "Comité ZIP de la rive nord de l'estuaire",
+                      "city": "Baie-Comeau",
+                      "image": {
+                          "meta": {
+                              "title": "151_1_20190111111614-img-0060"
+                          },
+                          "images": {
+                              "optimized": {
+                                  "standard": [],
+                                  "webp": []
+                              },
+                              "original": {
+                                  "url": "https://tcn.dev.kffein.work/upload/membres/images/151_1_20190111111614-img-0060.jpg",
+                                  "sizes": {
+                                      "width": 910,
+                                      "height": 533
+                                  }
+                              },
+                              "focalPoint": []
+                          }
+                      }
+                  },
+                  {
+                      "title": "Complexe hôtelier Escoumins",
+                      "city": "Les Escoumins",
+                      "image": {
+                          "meta": {
+                              "title": "152_1_20191031090904-085"
+                          },
+                          "images": {
+                              "optimized": {
+                                  "standard": [],
+                                  "webp": []
+                              },
+                              "original": {
+                                  "url": "https://tcn.dev.kffein.work/upload/membres/images/152_1_20191031090904-085.jpg",
+                                  "sizes": {
+                                      "width": 910,
+                                      "height": 533
+                                  }
+                              },
+                              "focalPoint": []
+                          }
+                      }
+                  },
+                  {
+                      "title": "Essipit",
+                      "city": "Essipit",
+                      "image": {
+                          "meta": {
+                              "title": "153_1_20210517131734-terrain-sur-plateforme-dans-la-pointe"
+                          },
+                          "images": {
+                              "optimized": {
+                                  "standard": [],
+                                  "webp": []
+                              },
+                              "original": {
+                                  "url": "https://tcn.dev.kffein.work/upload/membres/images/153_1_20210517131734-terrain-sur-plateforme-dans-la-pointe.jpg",
+                                  "sizes": {
+                                      "width": 910,
+                                      "height": 533
+                                  }
+                              },
+                              "focalPoint": []
+                          }
+                      }
+                  },
+                  {
+                      "title": "Camping Manic 2",
+                      "city": "Baie-Comeau",
+                      "image": {
+                          "meta": {
+                              "title": "135_1_20230425140616-image00044"
+                          },
+                          "images": {
+                              "optimized": {
+                                  "standard": [],
+                                  "webp": []
+                              },
+                              "original": {
+                                  "url": "https://tcn.dev.kffein.work/upload/membres/images/135_1_20230425140616-image00044.jpeg",
+                                  "sizes": {
+                                      "width": 910,
+                                      "height": 533
+                                  }
+                              },
+                              "focalPoint": []
+                          }
+                      }
+                  },
+                  {
+                      "title": "Hôtel Le Manoir Baie-Comeau",
+                      "city": "Baie-Comeau",
+                      "image": {
+                          "meta": {
+                              "title": "137_1_20211214094245-sebastien-st-jean-7"
+                          },
+                          "images": {
+                              "optimized": {
+                                  "standard": [],
+                                  "webp": []
+                              },
+                              "original": {
+                                  "url": "https://tcn.dev.kffein.work/upload/membres/images/137_1_20211214094245-sebastien-st-jean-7.jpg",
+                                  "sizes": {
+                                      "width": 910,
+                                      "height": 533
+                                  }
+                              },
+                              "focalPoint": []
+                          }
+                      }
+                  },
+                  {
+                      "title": "Bistro La Marée Haute",
+                      "city": "Baie-Comeau",
+                      "image": {
+                          "meta": {
+                              "title": "138_1_20211214095125-sebastien-st-jean-3"
+                          },
+                          "images": {
+                              "optimized": {
+                                  "standard": [],
+                                  "webp": []
+                              },
+                              "original": {
+                                  "url": "https://tcn.dev.kffein.work/upload/membres/images/138_1_20211214095125-sebastien-st-jean-3.jpg",
+                                  "sizes": {
+                                      "width": 910,
+                                      "height": 533
+                                  }
+                              },
+                              "focalPoint": []
+                          }
+                      }
+                  },
+                  {
+                      "title": "Centre Archéo Topo",
+                      "city": "Les Bergeronnes",
+                      "image": {
+                          "meta": {
+                              "title": "139_1_20240605094746-20240605-093706"
+                          },
+                          "images": {
+                              "optimized": {
+                                  "standard": [],
+                                  "webp": []
+                              },
+                              "original": {
+                                  "url": "https://tcn.dev.kffein.work/upload/membres/images/139_1_20240605094746-20240605-093706.jpg",
+                                  "sizes": {
+                                      "width": 910,
+                                      "height": 533
+                                  }
+                              },
+                              "focalPoint": []
+                          }
+                      }
+                  }
+              ],
+              "inspirational_text": "",
+              "tides": {
+                  "current_direction": "DOWN",
+                  "next_event_type": "LOW TIDE",
+                  "next_event_timestamp": 1769588451,
+                  "next_event_height": "-1.19",
+                  "previous_event_type": "HIGH TIDE",
+                  "previous_event_timestamp": 1769567069,
+                  "previous_event_height": "0.72"
+              }
           },
-          "address": "Tadoussac",
-          "date_start": "15/01/2026",
-          "date_start_timestamp": 1768453200,
-          "date_end": "31/01/2026",
-          "date_end_timestamp": 1769835600,
-          "times": "13h",
-          "price_range": "gratuit",
-          "description": "\u003Ch3\u003EDescription\u003C/h3\u003E\u003Cp\u003ELe plus grand des petits festivals transforme tout le village de Tadoussac en une gigantesque fête. Les mélomanes viennent de près ou de loin pour assister à quelques-uns des 70 spectacles proposés pendant les quatre jours de l'événement. Près de 40 artistes du Québec, du Canada francophone et d'Europe se produiront sur l'une des scènes installées dans le village. Venez vous joindre à la fête et profitez du cadre\u003C/p\u003E\u003Cp\u003E\u003Cstrong\u003EServices et commodités\u003C/strong\u003E\u003C/p\u003E\u003Cul\u003E\u003Cli\u003EAccès gratuit à internet\u003C/li\u003E\u003Cli\u003EActivité payante\u003C/li\u003E\u003Cli\u003EVue sur un plan d'eau\u003C/li\u003E\u003C/ul\u003E",
-          "images": [
-            {
-              "meta": {
-                "title": "2092_1_20260113144059-20240927083751-co-ads"
-              },
-              "images": {
-                "optimized": {
-                  "standard": {
-                    "500": "https://tcn.dev.kffein.work/upload/images/_500x450_crop_center-center_line/2092_1_20260113144059-20240927083751-co-ads_2026-01-15-050457_rzcl.jpg"
+          "events": [
+              {
+                  "id": 14744,
+                  "url": "https://tcn.dev.kffein.work/evenement-borne/cinoche-festival-3",
+                  "title": "Cinoche festival",
+                  "slug": "cinoche-festival-3",
+                  "entry_type": "template_bornes_event",
+                  "dates": {
+                      "created": 1769029238000,
+                      "updated": 1769530812000,
+                      "posted": 1769025720000
                   },
-                  "webp": {
-                    "500": "https://tcn.dev.kffein.work/upload/images/_500x450_crop_center-center_line/2092_1_20260113144059-20240927083751-co-ads_2026-01-15-050457_rzcl.jpg.webp"
-                  }
-                },
-                "original": {
-                  "url": "https://tcn.dev.kffein.work/upload/images/2092_1_20260113144059-20240927083751-co-ads_2026-01-15-050457_rzcl.jpg",
-                  "sizes": {
-                    "width": 500,
-                    "height": 450
-                  }
-                },
-                "focalPoint": {
-                  "x": 0.5,
-                  "y": 0.5
-                }
-              }
-            },
-            {
-              "meta": {
-                "title": "2092_1_20260113144059-20240927083751-co-ads"
-              },
-              "images": {
-                "optimized": {
-                  "standard": {
-                    "500": "https://tcn.dev.kffein.work/upload/images/_500x450_crop_center-center_line/2092_1_20260113144059-20240927083751-co-ads.jpg"
+                  "address": "Baie-Comeau",
+                  "date_start": "15/01/2026",
+                  "time_start": "10:00",
+                  "datetime_start_timestamp": 1768489200,
+                  "date_end": "31/01/2026",
+                  "time_end": "22:00",
+                  "datetime_end_timestamp": 1769914800,
+                  "price_range": "Étudiants 12 ans et moins : 7$, Aînés (60 ans et plus) : 9$, Étudiants 25 ans et moins : 9$, Adultes : 10,50$. Passeports disponibles",
+                  "description": "<p>Cinoche présentera sa 37<sup>e</sup> édition du 15 au 25 janvier prochains au Ciné-Centre Baie-Comeau. Le festival proposera 37 films en provenance de 19 pays, dont 24 en compétition officielle. À travers une programmation riche et diversifiée, où la quête d’identité se décline sous de multiples formes, le public pourra également rencontrer quatre invités principaux, assister à plusieurs causeries et conférences, participer aux matinées familiales et prendre part à d’autres activités parallèles.</p>",
+                  "main_image": {
+                      "meta": {
+                          "title": "615348317 1493738756093240 8623747099286935186 n"
+                      },
+                      "images": {
+                          "optimized": {
+                              "standard": {
+                                  "851": "https://tcn.dev.kffein.work/upload/images/_851x315_crop_center-center_line/615348317_1493738756093240_8623747099286935186_n.png"
+                              },
+                              "webp": {
+                                  "851": "https://tcn.dev.kffein.work/upload/images/_851x315_crop_center-center_line/615348317_1493738756093240_8623747099286935186_n.png.webp"
+                              }
+                          },
+                          "original": {
+                              "url": "https://tcn.dev.kffein.work/upload/images/615348317_1493738756093240_8623747099286935186_n.png",
+                              "sizes": {
+                                  "width": 851,
+                                  "height": 315
+                              }
+                          },
+                          "focalPoint": {
+                              "x": 0.5,
+                              "y": 0.5
+                          }
+                      }
                   },
-                  "webp": {
-                    "500": "https://tcn.dev.kffein.work/upload/images/_500x450_crop_center-center_line/2092_1_20260113144059-20240927083751-co-ads.jpg.webp"
-                  }
-                },
-                "original": {
-                  "url": "https://tcn.dev.kffein.work/upload/images/2092_1_20260113144059-20240927083751-co-ads.jpg",
-                  "sizes": {
-                    "width": 500,
-                    "height": 450
-                  }
-                },
-                "focalPoint": {
-                  "x": 0.5,
-                  "y": 0.5
-                }
-              }
-            },
-            {
-              "meta": {
-                "title": "20241120145808 hebergement cote nord hotel chalet"
+                  "images": [
+                      {
+                          "meta": {
+                              "title": "Capture decran le 2026 01 21 a 15 01 05"
+                          },
+                          "images": {
+                              "optimized": {
+                                  "standard": {
+                                      "416": "https://tcn.dev.kffein.work/upload/images/_416x306_crop_center-center_line/Capture-decran-le-2026-01-21-a-15.01.05.png"
+                                  },
+                                  "webp": {
+                                      "416": "https://tcn.dev.kffein.work/upload/images/_416x306_crop_center-center_line/Capture-decran-le-2026-01-21-a-15.01.05.png.webp"
+                                  }
+                              },
+                              "original": {
+                                  "url": "https://tcn.dev.kffein.work/upload/images/Capture-decran-le-2026-01-21-a-15.01.05.png",
+                                  "sizes": {
+                                      "width": 416,
+                                      "height": 306
+                                  }
+                              },
+                              "focalPoint": {
+                                  "x": 0.5,
+                                  "y": 0.5
+                              }
+                          }
+                      },
+                      {
+                          "meta": {
+                              "title": "Capture decran le 2026 01 21 a 15 00 28"
+                          },
+                          "images": {
+                              "optimized": {
+                                  "standard": {
+                                      "576": "https://tcn.dev.kffein.work/upload/images/_576x432_crop_center-center_100_line/Capture-decran-le-2026-01-21-a-15.00.28.png",
+                                      "768": "https://tcn.dev.kffein.work/upload/images/_768x576_crop_center-center_100_line/Capture-decran-le-2026-01-21-a-15.00.28.png",
+                                      "992": "https://tcn.dev.kffein.work/upload/images/_992x558_crop_center-center_100_line/Capture-decran-le-2026-01-21-a-15.00.28.png",
+                                      "1200": "https://tcn.dev.kffein.work/upload/images/_1200x675_crop_center-center_100_line/Capture-decran-le-2026-01-21-a-15.00.28.png"
+                                  },
+                                  "webp": {
+                                      "576": "https://tcn.dev.kffein.work/upload/images/_576x432_crop_center-center_100_line/Capture-decran-le-2026-01-21-a-15.00.28.png.webp",
+                                      "768": "https://tcn.dev.kffein.work/upload/images/_768x576_crop_center-center_100_line/Capture-decran-le-2026-01-21-a-15.00.28.png.webp",
+                                      "992": "https://tcn.dev.kffein.work/upload/images/_992x558_crop_center-center_100_line/Capture-decran-le-2026-01-21-a-15.00.28.png.webp",
+                                      "1200": "https://tcn.dev.kffein.work/upload/images/_1200x675_crop_center-center_100_line/Capture-decran-le-2026-01-21-a-15.00.28.png.webp"
+                                  }
+                              },
+                              "original": {
+                                  "url": "https://tcn.dev.kffein.work/upload/images/Capture-decran-le-2026-01-21-a-15.00.28.png",
+                                  "sizes": {
+                                      "width": 2682,
+                                      "height": 1634
+                                  }
+                              },
+                              "focalPoint": {
+                                  "x": 0.5,
+                                  "y": 0.5
+                              }
+                          }
+                      },
+                      {
+                          "meta": {
+                              "title": "La venue de lavenir bandeau"
+                          },
+                          "images": {
+                              "optimized": {
+                                  "standard": {
+                                      "576": "https://tcn.dev.kffein.work/upload/images/_576x432_crop_center-center_100_line/la_venue_de_lavenir_bandeau.jpg"
+                                  },
+                                  "webp": {
+                                      "576": "https://tcn.dev.kffein.work/upload/images/_576x432_crop_center-center_100_line/la_venue_de_lavenir_bandeau.jpg.webp"
+                                  }
+                              },
+                              "original": {
+                                  "url": "https://tcn.dev.kffein.work/upload/images/la_venue_de_lavenir_bandeau.jpg",
+                                  "sizes": {
+                                      "width": 1800,
+                                      "height": 500
+                                  }
+                              },
+                              "focalPoint": {
+                                  "x": 0.5,
+                                  "y": 0.5
+                              }
+                          }
+                      }
+                  ],
+                  "event_url": "https://www.festivalcinoche.ca/",
+                  "event_qr": null
               },
-              "images": {
-                "optimized": {
-                  "standard": {
-                    "576": "https://tcn.dev.kffein.work/upload/images/_576x432_crop_center-center_100_line/20241120145808-hebergement-cote-nord-hotel-chalet.jpg",
-                    "768": "https://tcn.dev.kffein.work/upload/images/_768x576_crop_center-center_100_line/20241120145808-hebergement-cote-nord-hotel-chalet.jpg",
-                    "992": "https://tcn.dev.kffein.work/upload/images/_992x558_crop_center-center_100_line/20241120145808-hebergement-cote-nord-hotel-chalet.jpg",
-                    "1200": "https://tcn.dev.kffein.work/upload/images/_1200x675_crop_center-center_100_line/20241120145808-hebergement-cote-nord-hotel-chalet.jpg"
+              {
+                  "id": 14722,
+                  "url": "https://tcn.dev.kffein.work/evenement-borne/cinoche-festival",
+                  "title": "Cinoche festival",
+                  "slug": "cinoche-festival",
+                  "entry_type": "template_bornes_event",
+                  "dates": {
+                      "created": 1769025128000,
+                      "updated": 1769453619000,
+                      "posted": 1769025720000
                   },
-                  "webp": {
-                    "576": "https://tcn.dev.kffein.work/upload/images/_576x432_crop_center-center_100_line/20241120145808-hebergement-cote-nord-hotel-chalet.jpg.webp",
-                    "768": "https://tcn.dev.kffein.work/upload/images/_768x576_crop_center-center_100_line/20241120145808-hebergement-cote-nord-hotel-chalet.jpg.webp",
-                    "992": "https://tcn.dev.kffein.work/upload/images/_992x558_crop_center-center_100_line/20241120145808-hebergement-cote-nord-hotel-chalet.jpg.webp",
-                    "1200": "https://tcn.dev.kffein.work/upload/images/_1200x675_crop_center-center_100_line/20241120145808-hebergement-cote-nord-hotel-chalet.jpg.webp"
-                  }
-                },
-                "original": {
-                  "url": "https://tcn.dev.kffein.work/upload/images/20241120145808-hebergement-cote-nord-hotel-chalet.jpg",
-                  "sizes": {
-                    "width": 1920,
-                    "height": 764
-                  }
-                },
-                "focalPoint": {
-                  "x": 0.5,
-                  "y": 0.5
-                }
+                  "address": "Baie-Comeau",
+                  "date_start": "15/01/2026",
+                  "time_start": "10:00",
+                  "datetime_start_timestamp": 1768489200,
+                  "date_end": "31/01/2026",
+                  "time_end": "22:00",
+                  "datetime_end_timestamp": 1769914800,
+                  "price_range": "Étudiants 12 ans et moins : 7$, Aînés (60 ans et plus) : 9$, Étudiants 25 ans et moins : 9$, Adultes : 10,50$. Passeports disponibles",
+                  "description": "<p>Cinoche présentera sa 37<sup>e</sup> édition du 15 au 25 janvier prochains au Ciné-Centre Baie-Comeau. Le festival proposera 37 films en provenance de 19 pays, dont 24 en compétition officielle. À travers une programmation riche et diversifiée, où la quête d’identité se décline sous de multiples formes, le public pourra également rencontrer quatre invités principaux, assister à plusieurs causeries et conférences, participer aux matinées familiales et prendre part à d’autres activités parallèles.</p>",
+                  "main_image": {
+                      "meta": {
+                          "title": "615348317 1493738756093240 8623747099286935186 n"
+                      },
+                      "images": {
+                          "optimized": {
+                              "standard": {
+                                  "851": "https://tcn.dev.kffein.work/upload/images/_851x315_crop_center-center_line/615348317_1493738756093240_8623747099286935186_n.png"
+                              },
+                              "webp": {
+                                  "851": "https://tcn.dev.kffein.work/upload/images/_851x315_crop_center-center_line/615348317_1493738756093240_8623747099286935186_n.png.webp"
+                              }
+                          },
+                          "original": {
+                              "url": "https://tcn.dev.kffein.work/upload/images/615348317_1493738756093240_8623747099286935186_n.png",
+                              "sizes": {
+                                  "width": 851,
+                                  "height": 315
+                              }
+                          },
+                          "focalPoint": {
+                              "x": 0.5,
+                              "y": 0.5
+                          }
+                      }
+                  },
+                  "images": [
+                      {
+                          "meta": {
+                              "title": "Capture decran le 2026 01 21 a 15 01 05"
+                          },
+                          "images": {
+                              "optimized": {
+                                  "standard": {
+                                      "416": "https://tcn.dev.kffein.work/upload/images/_416x306_crop_center-center_line/Capture-decran-le-2026-01-21-a-15.01.05.png"
+                                  },
+                                  "webp": {
+                                      "416": "https://tcn.dev.kffein.work/upload/images/_416x306_crop_center-center_line/Capture-decran-le-2026-01-21-a-15.01.05.png.webp"
+                                  }
+                              },
+                              "original": {
+                                  "url": "https://tcn.dev.kffein.work/upload/images/Capture-decran-le-2026-01-21-a-15.01.05.png",
+                                  "sizes": {
+                                      "width": 416,
+                                      "height": 306
+                                  }
+                              },
+                              "focalPoint": {
+                                  "x": 0.5,
+                                  "y": 0.5
+                              }
+                          }
+                      },
+                      {
+                          "meta": {
+                              "title": "Capture decran le 2026 01 21 a 15 00 28"
+                          },
+                          "images": {
+                              "optimized": {
+                                  "standard": {
+                                      "576": "https://tcn.dev.kffein.work/upload/images/_576x432_crop_center-center_100_line/Capture-decran-le-2026-01-21-a-15.00.28.png",
+                                      "768": "https://tcn.dev.kffein.work/upload/images/_768x576_crop_center-center_100_line/Capture-decran-le-2026-01-21-a-15.00.28.png",
+                                      "992": "https://tcn.dev.kffein.work/upload/images/_992x558_crop_center-center_100_line/Capture-decran-le-2026-01-21-a-15.00.28.png",
+                                      "1200": "https://tcn.dev.kffein.work/upload/images/_1200x675_crop_center-center_100_line/Capture-decran-le-2026-01-21-a-15.00.28.png"
+                                  },
+                                  "webp": {
+                                      "576": "https://tcn.dev.kffein.work/upload/images/_576x432_crop_center-center_100_line/Capture-decran-le-2026-01-21-a-15.00.28.png.webp",
+                                      "768": "https://tcn.dev.kffein.work/upload/images/_768x576_crop_center-center_100_line/Capture-decran-le-2026-01-21-a-15.00.28.png.webp",
+                                      "992": "https://tcn.dev.kffein.work/upload/images/_992x558_crop_center-center_100_line/Capture-decran-le-2026-01-21-a-15.00.28.png.webp",
+                                      "1200": "https://tcn.dev.kffein.work/upload/images/_1200x675_crop_center-center_100_line/Capture-decran-le-2026-01-21-a-15.00.28.png.webp"
+                                  }
+                              },
+                              "original": {
+                                  "url": "https://tcn.dev.kffein.work/upload/images/Capture-decran-le-2026-01-21-a-15.00.28.png",
+                                  "sizes": {
+                                      "width": 2682,
+                                      "height": 1634
+                                  }
+                              },
+                              "focalPoint": {
+                                  "x": 0.5,
+                                  "y": 0.5
+                              }
+                          }
+                      },
+                      {
+                          "meta": {
+                              "title": "La venue de lavenir bandeau"
+                          },
+                          "images": {
+                              "optimized": {
+                                  "standard": {
+                                      "576": "https://tcn.dev.kffein.work/upload/images/_576x432_crop_center-center_100_line/la_venue_de_lavenir_bandeau.jpg"
+                                  },
+                                  "webp": {
+                                      "576": "https://tcn.dev.kffein.work/upload/images/_576x432_crop_center-center_100_line/la_venue_de_lavenir_bandeau.jpg.webp"
+                                  }
+                              },
+                              "original": {
+                                  "url": "https://tcn.dev.kffein.work/upload/images/la_venue_de_lavenir_bandeau.jpg",
+                                  "sizes": {
+                                      "width": 1800,
+                                      "height": 500
+                                  }
+                              },
+                              "focalPoint": {
+                                  "x": 0.5,
+                                  "y": 0.5
+                              }
+                          }
+                      }
+                  ],
+                  "event_url": "https://www.festivalcinoche.ca/",
+                  "event_qr": null
               }
-            }
           ],
-          "event_url": "https://google.com",
-          "event_qr": null
-        }
-      ],
-      "circuits": [
-        {
-          "id": 12712,
-          "url": null,
-          "title": "Tadoussac en famille !",
-          "slug": "tadoussac-en-famille",
-          "entry_type": "template_circuit_bornes",
-          "dates": {
-            "created": 1765874508000,
-            "updated": 1765958961000,
-            "posted": 1765876620000
-          },
-          "image": {
-            "meta": {
-              "title": "960px Parc marin du Saguenay Saint Laurent 15 cropped"
-            },
-            "images": {
-              "optimized": {
-                "standard": {
-                  "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg",
-                  "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg"
-                },
-                "webp": {
-                  "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg.webp",
-                  "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg.webp"
-                }
-              },
-              "original": {
-                "url": "https://tcn.dev.kffein.work/upload/images/bornes/tadoussac_2026-01-08-160059_vpev.jpeg",
-                "sizes": {
-                  "width": 960,
-                  "height": 670
-                }
-              },
-              "focalPoint": {
-                "x": 0.5,
-                "y": 0.5
-              }
-            }
-          },
-          "description": null,
-          "steps": [
-            {
-              "title": "Balade dans le village pour découvrir l'architecture traditionnelle",
-              "description": null,
-              "main_text": "\u003Ch3\u003EÀ quoi vous attendre ?\u003C/h3\u003E\u003Cp\u003EOn y trouve la plus belle vue sur le fjard (oui oui fjard et non fjord) et l’anse St-Pancrace, mais aussi sur le fleuve Saint-Laurent qui s’étend à perte de vue devant nos yeux éblouis. \u003Cbr /\u003E\u003Cbr /\u003EEn marchant encore quelques pas une fois au sommet, on peut également apercevoir le lac Low de l’autre côté de la route 138 et faire un pique-nique assis sur une roche plate qui surplombe la falaise.  Si on a le vertige, on recule un peu et on se colle aux épinettes!\u003C/p\u003E\u003Cp\u003E \u003C/p\u003E\u003Ch3\u003EPourquoi on recommande ?\u003C/h3\u003E\u003Cul\u003E\u003Cli\u003EManteau imperméables\u003C/li\u003E\u003Cli\u003EPaire de jumelles\u003C/li\u003E\u003Cli\u003ESac imperméable\u003C/li\u003E\u003C/ul\u003E",
-              "essentials": null,
-              "estimated_time": "2 jours",
-              "activity_type": "randonnée",
-              "seasons": [
-                "hiver",
-                "printemps"
-              ],
-              "map": {
-                "latitude": 48.1433429,
-                "longitude": -69.7174574
-              },
-              "images": [],
-              "next_step": {
-                "transportation": "à cheval",
-                "time": 56
-              }
-            },
-            {
-              "title": "Balade dans le village pour découvrir l'architecture traditionnelle",
-              "description": null,
-              "main_text": "\u003Ch3\u003EÀ quoi vous attendre ?\u003C/h3\u003E\u003Cp\u003EOn y trouve la plus belle vue sur le fjard (oui oui fjard et non fjord) et l’anse St-Pancrace, mais aussi sur le fleuve Saint-Laurent qui s’étend à perte de vue devant nos yeux éblouis. \u003Cbr /\u003E\u003Cbr /\u003EEn marchant encore quelques pas une fois au sommet, on peut également apercevoir le lac Low de l’autre côté de la route 138 et faire un pique-nique assis sur une roche plate qui surplombe la falaise.  Si on a le vertige, on recule un peu et on se colle aux épinettes!\u003C/p\u003E\u003Cp\u003E \u003C/p\u003E\u003Ch3\u003EPourquoi on recommande ?\u003C/h3\u003E\u003Cul\u003E\u003Cli\u003EManteau imperméables\u003C/li\u003E\u003Cli\u003EPaire de jumelles\u003C/li\u003E\u003Cli\u003ESac imperméable\u003C/li\u003E\u003C/ul\u003E",
-              "essentials": null,
-              "estimated_time": "2 jours",
-              "activity_type": "",
-              "seasons": [
-                "hiver",
-                "printemps"
-              ],
-              "map": {
-                "latitude": null,
-                "longitude": null
-              },
-              "images": [
-                {
-                  "meta": {
-                    "title": "960px Parc marin du Saguenay Saint Laurent 15 cropped"
+          "circuits": [
+              {
+                  "id": 12712,
+                  "url": null,
+                  "title": "Tadoussac en famille !",
+                  "slug": "tadoussac-en-famille",
+                  "entry_type": "template_circuit_bornes",
+                  "dates": {
+                      "created": 1765874508000,
+                      "updated": 1769534016000,
+                      "posted": 1765876620000
                   },
-                  "images": {
-                    "optimized": {
-                      "standard": {
-                        "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg",
-                        "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg"
+                  "image": {
+                      "meta": {
+                          "title": "960px Parc marin du Saguenay Saint Laurent 15 cropped"
                       },
-                      "webp": {
-                        "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg.webp",
-                        "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg.webp"
+                      "images": {
+                          "optimized": {
+                              "standard": {
+                                  "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg",
+                                  "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg"
+                              },
+                              "webp": {
+                                  "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg.webp",
+                                  "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg.webp"
+                              }
+                          },
+                          "original": {
+                              "url": "https://tcn.dev.kffein.work/upload/images/bornes/tadoussac_2026-01-08-160059_vpev.jpeg",
+                              "sizes": {
+                                  "width": 960,
+                                  "height": 670
+                              }
+                          },
+                          "focalPoint": {
+                              "x": 0.5,
+                              "y": 0.5
+                          }
                       }
-                    },
-                    "original": {
-                      "url": "https://tcn.dev.kffein.work/upload/images/bornes/tadoussac_2026-01-08-160059_vpev.jpeg",
-                      "sizes": {
-                        "width": 960,
-                        "height": 670
-                      }
-                    },
-                    "focalPoint": {
-                      "x": 0.5,
-                      "y": 0.5
-                    }
-                  }
-                }
-              ],
-              "next_step": {
-                "transportation": "",
-                "time": 56
-              }
-            },
-            {
-              "title": "Balade dans le village pour découvrir l'architecture traditionnelle",
-              "description": null,
-              "main_text": "\u003Ch3\u003EÀ quoi vous attendre ?\u003C/h3\u003E\u003Cp\u003EOn y trouve la plus belle vue sur le fjard (oui oui fjard et non fjord) et l’anse St-Pancrace, mais aussi sur le fleuve Saint-Laurent qui s’étend à perte de vue devant nos yeux éblouis. \u003Cbr /\u003E\u003Cbr /\u003EEn marchant encore quelques pas une fois au sommet, on peut également apercevoir le lac Low de l’autre côté de la route 138 et faire un pique-nique assis sur une roche plate qui surplombe la falaise.  Si on a le vertige, on recule un peu et on se colle aux épinettes!\u003C/p\u003E\u003Cp\u003E \u003C/p\u003E\u003Ch3\u003EPourquoi on recommande ?\u003C/h3\u003E\u003Cul\u003E\u003Cli\u003EManteau imperméables\u003C/li\u003E\u003Cli\u003EPaire de jumelles\u003C/li\u003E\u003Cli\u003ESac imperméable\u003C/li\u003E\u003C/ul\u003E",
-              "essentials": null,
-              "estimated_time": "2 jours",
-              "activity_type": "",
-              "seasons": [
-                "hiver",
-                "printemps"
-              ],
-              "map": {
-                "latitude": null,
-                "longitude": null
-              },
-              "images": [
-                {
-                  "meta": {
-                    "title": "960px Parc marin du Saguenay Saint Laurent 15 cropped"
                   },
-                  "images": {
-                    "optimized": {
-                      "standard": {
-                        "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg",
-                        "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg"
-                      },
-                      "webp": {
-                        "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg.webp",
-                        "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg.webp"
-                      }
-                    },
-                    "original": {
-                      "url": "https://tcn.dev.kffein.work/upload/images/bornes/tadoussac_2026-01-08-160059_vpev.jpeg",
-                      "sizes": {
-                        "width": 960,
-                        "height": 670
-                      }
-                    },
-                    "focalPoint": {
-                      "x": 0.5,
-                      "y": 0.5
-                    }
-                  }
-                }
-              ],
-              "next_step": {
-                "transportation": "",
-                "time": 56
-              }
-            },
-            {
-              "title": "Balade dans le village pour découvrir l'architecture traditionnelle",
-              "description": null,
-              "main_text": "\u003Ch3\u003EÀ quoi vous attendre ?\u003C/h3\u003E\u003Cp\u003EOn y trouve la plus belle vue sur le fjard (oui oui fjard et non fjord) et l’anse St-Pancrace, mais aussi sur le fleuve Saint-Laurent qui s’étend à perte de vue devant nos yeux éblouis. \u003Cbr /\u003E\u003Cbr /\u003EEn marchant encore quelques pas une fois au sommet, on peut également apercevoir le lac Low de l’autre côté de la route 138 et faire un pique-nique assis sur une roche plate qui surplombe la falaise.  Si on a le vertige, on recule un peu et on se colle aux épinettes!\u003C/p\u003E\u003Cp\u003E \u003C/p\u003E\u003Ch3\u003EPourquoi on recommande ?\u003C/h3\u003E\u003Cul\u003E\u003Cli\u003EManteau imperméables\u003C/li\u003E\u003Cli\u003EPaire de jumelles\u003C/li\u003E\u003Cli\u003ESac imperméable\u003C/li\u003E\u003C/ul\u003E",
-              "essentials": null,
-              "estimated_time": "2 jours",
-              "activity_type": "",
-              "seasons": [
-                "hiver",
-                "printemps"
-              ],
-              "map": {
-                "latitude": null,
-                "longitude": null
-              },
-              "images": [
-                {
-                  "meta": {
-                    "title": "960px Parc marin du Saguenay Saint Laurent 15 cropped"
+                  "description": "Découvrez Tadoussac à travers les yeux des enfants ! Entre visites ludiques, sentiers accessibles et aventures dans les dunes, vivez un séjour rempli de découvertes et de nature.",
+                  "commute_to_circuit": {
+                      "transportation": "à pieds",
+                      "time": 15
                   },
-                  "images": {
-                    "optimized": {
-                      "standard": {
-                        "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg",
-                        "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg"
+                  "steps": [
+                      {
+                          "title": "Balade dans le village pour découvrir l'architecture traditionnelle",
+                          "icon": "https://tcn.dev.kffein.work/upload/images/culture.svg",
+                          "description": "descrition",
+                          "main_text": "<p>test</p>",
+                          "essentials": "un paquet de mouchoirs",
+                          "estimated_time": "50 minutes",
+                          "activity_type": "Promenade",
+                          "seasons": [
+                              "hiver",
+                              "printemps"
+                          ],
+                          "map": {
+                              "latitude": 48.1433429,
+                              "longitude": -69.7174574
+                          },
+                          "images": [
+                              {
+                                  "meta": {
+                                      "title": "Tadoussac HC3 A9bergement Le Roupillon"
+                                  },
+                                  "images": {
+                                      "optimized": {
+                                          "standard": {
+                                              "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/TadoussacHC3A9bergementLeRoupillon.jpg",
+                                              "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/TadoussacHC3A9bergementLeRoupillon.jpg",
+                                              "992": "https://tcn.dev.kffein.work/upload/images/bornes/_992x558_crop_center-center_100_line/TadoussacHC3A9bergementLeRoupillon.jpg",
+                                              "1200": "https://tcn.dev.kffein.work/upload/images/bornes/_1200x675_crop_center-center_100_line/TadoussacHC3A9bergementLeRoupillon.jpg"
+                                          },
+                                          "webp": {
+                                              "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/TadoussacHC3A9bergementLeRoupillon.jpg.webp",
+                                              "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/TadoussacHC3A9bergementLeRoupillon.jpg.webp",
+                                              "992": "https://tcn.dev.kffein.work/upload/images/bornes/_992x558_crop_center-center_100_line/TadoussacHC3A9bergementLeRoupillon.jpg.webp",
+                                              "1200": "https://tcn.dev.kffein.work/upload/images/bornes/_1200x675_crop_center-center_100_line/TadoussacHC3A9bergementLeRoupillon.jpg.webp"
+                                          }
+                                      },
+                                      "original": {
+                                          "url": "https://tcn.dev.kffein.work/upload/images/bornes/TadoussacHC3A9bergementLeRoupillon.jpg",
+                                          "sizes": {
+                                              "width": 1200,
+                                              "height": 800
+                                          }
+                                      },
+                                      "focalPoint": {
+                                          "x": 0.5,
+                                          "y": 0.5
+                                      }
+                                  }
+                              },
+                              {
+                                  "meta": {
+                                      "title": "5 Photo Croisi C3 A8rebateautadoussac1200x800"
+                                  },
+                                  "images": {
+                                      "optimized": {
+                                          "standard": {
+                                              "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/5_PhotoCroisiC3A8rebateautadoussac1200x800.jpg",
+                                              "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/5_PhotoCroisiC3A8rebateautadoussac1200x800.jpg",
+                                              "992": "https://tcn.dev.kffein.work/upload/images/bornes/_992x558_crop_center-center_100_line/5_PhotoCroisiC3A8rebateautadoussac1200x800.jpg"
+                                          },
+                                          "webp": {
+                                              "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/5_PhotoCroisiC3A8rebateautadoussac1200x800.jpg.webp",
+                                              "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/5_PhotoCroisiC3A8rebateautadoussac1200x800.jpg.webp",
+                                              "992": "https://tcn.dev.kffein.work/upload/images/bornes/_992x558_crop_center-center_100_line/5_PhotoCroisiC3A8rebateautadoussac1200x800.jpg.webp"
+                                          }
+                                      },
+                                      "original": {
+                                          "url": "https://tcn.dev.kffein.work/upload/images/bornes/5_PhotoCroisiC3A8rebateautadoussac1200x800.jpg",
+                                          "sizes": {
+                                              "width": 1000,
+                                              "height": 667
+                                          }
+                                      },
+                                      "focalPoint": {
+                                          "x": 0.5,
+                                          "y": 0.5
+                                      }
+                                  }
+                              }
+                          ],
+                          "next_step": {
+                              "polyline": "aazdHhtohLj@uGFWBcAdGf@f@Ef@SZBq@kA",
+                              "transportation": "à pieds",
+                              "time": 10
+                          }
                       },
-                      "webp": {
-                        "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg.webp",
-                        "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg.webp"
+                      {
+                          "title": "Visite de la Petite Chapelle",
+                          "icon": "https://tcn.dev.kffein.work/upload/images/culture.svg",
+                          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\"",
+                          "main_text": "<h4>Description</h4><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\"</p>",
+                          "essentials": "appareil photo",
+                          "estimated_time": "1h",
+                          "activity_type": "Visite",
+                          "seasons": [
+                              "hiver",
+                              "printemps"
+                          ],
+                          "map": {
+                              "latitude": 48.1418919,
+                              "longitude": -69.7153156
+                          },
+                          "images": [
+                              {
+                                  "meta": {
+                                      "title": "Capture decran le 2026 01 20 a 13 20 20"
+                                  },
+                                  "images": {
+                                      "optimized": {
+                                          "standard": {
+                                              "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/Capture-decran-le-2026-01-20-a-13.20.20.png",
+                                              "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/Capture-decran-le-2026-01-20-a-13.20.20.png",
+                                              "992": "https://tcn.dev.kffein.work/upload/images/bornes/_992x558_crop_center-center_100_line/Capture-decran-le-2026-01-20-a-13.20.20.png",
+                                              "1200": "https://tcn.dev.kffein.work/upload/images/bornes/_1200x675_crop_center-center_100_line/Capture-decran-le-2026-01-20-a-13.20.20.png"
+                                          },
+                                          "webp": {
+                                              "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/Capture-decran-le-2026-01-20-a-13.20.20.png.webp",
+                                              "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/Capture-decran-le-2026-01-20-a-13.20.20.png.webp",
+                                              "992": "https://tcn.dev.kffein.work/upload/images/bornes/_992x558_crop_center-center_100_line/Capture-decran-le-2026-01-20-a-13.20.20.png.webp",
+                                              "1200": "https://tcn.dev.kffein.work/upload/images/bornes/_1200x675_crop_center-center_100_line/Capture-decran-le-2026-01-20-a-13.20.20.png.webp"
+                                          }
+                                      },
+                                      "original": {
+                                          "url": "https://tcn.dev.kffein.work/upload/images/bornes/Capture-decran-le-2026-01-20-a-13.20.20.png",
+                                          "sizes": {
+                                              "width": 1952,
+                                              "height": 1440
+                                          }
+                                      },
+                                      "focalPoint": {
+                                          "x": 0.5,
+                                          "y": 0.5
+                                      }
+                                  }
+                              }
+                          ],
+                          "next_step": {
+                              "polyline": "iuydH|fohLp@jAZJJLlAtB",
+                              "transportation": "à pieds",
+                              "time": 30
+                          }
+                      },
+                      {
+                          "title": "Poste de traite Chauvin",
+                          "icon": "https://tcn.dev.kffein.work/upload/images/paw.svg",
+                          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                          "main_text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\"</p>",
+                          "essentials": "votre parapluie",
+                          "estimated_time": "10 jours",
+                          "activity_type": "randonnée",
+                          "seasons": [
+                              "hiver",
+                              "printemps"
+                          ],
+                          "map": {
+                              "latitude": 48.1410623,
+                              "longitude": -69.7164392
+                          },
+                          "images": [
+                              {
+                                  "meta": {
+                                      "title": "960px Parc marin du Saguenay Saint Laurent 15 cropped"
+                                  },
+                                  "images": {
+                                      "optimized": {
+                                          "standard": {
+                                              "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg",
+                                              "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg"
+                                          },
+                                          "webp": {
+                                              "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg.webp",
+                                              "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg.webp"
+                                          }
+                                      },
+                                      "original": {
+                                          "url": "https://tcn.dev.kffein.work/upload/images/bornes/tadoussac_2026-01-08-160059_vpev.jpeg",
+                                          "sizes": {
+                                              "width": 960,
+                                              "height": 670
+                                          }
+                                      },
+                                      "focalPoint": {
+                                          "x": 0.5,
+                                          "y": 0.5
+                                      }
+                                  }
+                              }
+                          ],
+                          "next_step": {
+                              "polyline": "apydHxmohLzBjDh@n@Z\\b@JbCfBTLd@HBl@c@z@Mj@",
+                              "transportation": "à pieds",
+                              "time": 2
+                          }
+                      },
+                      {
+                          "title": "Visite du Centre d’interprétation des mammifères marins",
+                          "icon": "https://tcn.dev.kffein.work/upload/images/paw.svg",
+                          "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempo",
+                          "main_text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\"</p>",
+                          "essentials": "longue vue",
+                          "estimated_time": "2 jours",
+                          "activity_type": "Visite",
+                          "seasons": [
+                              "hiver",
+                              "printemps"
+                          ],
+                          "map": {
+                              "latitude": 48.1391715,
+                              "longitude": -69.7189292
+                          },
+                          "images": [
+                              {
+                                  "meta": {
+                                      "title": "Capture decran le 2026 01 20 a 13 20 20"
+                                  },
+                                  "images": {
+                                      "optimized": {
+                                          "standard": {
+                                              "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/Capture-decran-le-2026-01-20-a-13.20.20.png",
+                                              "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/Capture-decran-le-2026-01-20-a-13.20.20.png",
+                                              "992": "https://tcn.dev.kffein.work/upload/images/bornes/_992x558_crop_center-center_100_line/Capture-decran-le-2026-01-20-a-13.20.20.png",
+                                              "1200": "https://tcn.dev.kffein.work/upload/images/bornes/_1200x675_crop_center-center_100_line/Capture-decran-le-2026-01-20-a-13.20.20.png"
+                                          },
+                                          "webp": {
+                                              "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/Capture-decran-le-2026-01-20-a-13.20.20.png.webp",
+                                              "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/Capture-decran-le-2026-01-20-a-13.20.20.png.webp",
+                                              "992": "https://tcn.dev.kffein.work/upload/images/bornes/_992x558_crop_center-center_100_line/Capture-decran-le-2026-01-20-a-13.20.20.png.webp",
+                                              "1200": "https://tcn.dev.kffein.work/upload/images/bornes/_1200x675_crop_center-center_100_line/Capture-decran-le-2026-01-20-a-13.20.20.png.webp"
+                                          }
+                                      },
+                                      "original": {
+                                          "url": "https://tcn.dev.kffein.work/upload/images/bornes/Capture-decran-le-2026-01-20-a-13.20.20.png",
+                                          "sizes": {
+                                              "width": 1952,
+                                              "height": 1440
+                                          }
+                                      },
+                                      "focalPoint": {
+                                          "x": 0.5,
+                                          "y": 0.5
+                                      }
+                                  }
+                              },
+                              {
+                                  "meta": {
+                                      "title": "5 Photo Croisi C3 A8rebateautadoussac1200x800"
+                                  },
+                                  "images": {
+                                      "optimized": {
+                                          "standard": {
+                                              "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/5_PhotoCroisiC3A8rebateautadoussac1200x800.jpg",
+                                              "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/5_PhotoCroisiC3A8rebateautadoussac1200x800.jpg",
+                                              "992": "https://tcn.dev.kffein.work/upload/images/bornes/_992x558_crop_center-center_100_line/5_PhotoCroisiC3A8rebateautadoussac1200x800.jpg"
+                                          },
+                                          "webp": {
+                                              "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/5_PhotoCroisiC3A8rebateautadoussac1200x800.jpg.webp",
+                                              "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/5_PhotoCroisiC3A8rebateautadoussac1200x800.jpg.webp",
+                                              "992": "https://tcn.dev.kffein.work/upload/images/bornes/_992x558_crop_center-center_100_line/5_PhotoCroisiC3A8rebateautadoussac1200x800.jpg.webp"
+                                          }
+                                      },
+                                      "original": {
+                                          "url": "https://tcn.dev.kffein.work/upload/images/bornes/5_PhotoCroisiC3A8rebateautadoussac1200x800.jpg",
+                                          "sizes": {
+                                              "width": 1000,
+                                              "height": 667
+                                          }
+                                      },
+                                      "focalPoint": {
+                                          "x": 0.5,
+                                          "y": 0.5
+                                      }
+                                  }
+                              },
+                              {
+                                  "meta": {
+                                      "title": "5 WEBSITE Z6 Tadoussac Jr1 0092"
+                                  },
+                                  "images": {
+                                      "optimized": {
+                                          "standard": {
+                                              "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/5_WEBSITE_Z6TadoussacJr1_0092.jpg",
+                                              "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/5_WEBSITE_Z6TadoussacJr1_0092.jpg",
+                                              "992": "https://tcn.dev.kffein.work/upload/images/bornes/_992x558_crop_center-center_100_line/5_WEBSITE_Z6TadoussacJr1_0092.jpg"
+                                          },
+                                          "webp": {
+                                              "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/5_WEBSITE_Z6TadoussacJr1_0092.jpg.webp",
+                                              "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/5_WEBSITE_Z6TadoussacJr1_0092.jpg.webp",
+                                              "992": "https://tcn.dev.kffein.work/upload/images/bornes/_992x558_crop_center-center_100_line/5_WEBSITE_Z6TadoussacJr1_0092.jpg.webp"
+                                          }
+                                      },
+                                      "original": {
+                                          "url": "https://tcn.dev.kffein.work/upload/images/bornes/5_WEBSITE_Z6TadoussacJr1_0092.jpg",
+                                          "sizes": {
+                                              "width": 1000,
+                                              "height": 665
+                                          }
+                                      },
+                                      "focalPoint": {
+                                          "x": 0.5,
+                                          "y": 0.5
+                                      }
+                                  }
+                              },
+                              {
+                                  "meta": {
+                                      "title": "Tadoussac HC3 A9bergement Le Roupillon"
+                                  },
+                                  "images": {
+                                      "optimized": {
+                                          "standard": {
+                                              "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/TadoussacHC3A9bergementLeRoupillon.jpg",
+                                              "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/TadoussacHC3A9bergementLeRoupillon.jpg",
+                                              "992": "https://tcn.dev.kffein.work/upload/images/bornes/_992x558_crop_center-center_100_line/TadoussacHC3A9bergementLeRoupillon.jpg",
+                                              "1200": "https://tcn.dev.kffein.work/upload/images/bornes/_1200x675_crop_center-center_100_line/TadoussacHC3A9bergementLeRoupillon.jpg"
+                                          },
+                                          "webp": {
+                                              "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/TadoussacHC3A9bergementLeRoupillon.jpg.webp",
+                                              "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/TadoussacHC3A9bergementLeRoupillon.jpg.webp",
+                                              "992": "https://tcn.dev.kffein.work/upload/images/bornes/_992x558_crop_center-center_100_line/TadoussacHC3A9bergementLeRoupillon.jpg.webp",
+                                              "1200": "https://tcn.dev.kffein.work/upload/images/bornes/_1200x675_crop_center-center_100_line/TadoussacHC3A9bergementLeRoupillon.jpg.webp"
+                                          }
+                                      },
+                                      "original": {
+                                          "url": "https://tcn.dev.kffein.work/upload/images/bornes/TadoussacHC3A9bergementLeRoupillon.jpg",
+                                          "sizes": {
+                                              "width": 1200,
+                                              "height": 800
+                                          }
+                                      },
+                                      "focalPoint": {
+                                          "x": 0.5,
+                                          "y": 0.5
+                                      }
+                                  }
+                              }
+                          ],
+                          "next_step": {
+                              "polyline": "idydHt~ohLLk@b@{@Cm@b@APKVs@j@LVC`BVh@IXP\\?`@Mr@u@JSDUBc@Pe@FK`Ac@\\{@",
+                              "transportation": "à pieds",
+                              "time": 25
+                          }
+                      },
+                      {
+                          "title": "Sentier de la Pointe de l’Islet / Coupe de l'Islet",
+                          "icon": "https://tcn.dev.kffein.work/upload/images/boot.svg",
+                          "description": "Lorem ipsum",
+                          "main_text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\"</p>",
+                          "essentials": "voiture",
+                          "estimated_time": "1h",
+                          "activity_type": "randonnée",
+                          "seasons": [
+                              "hiver",
+                              "printemps"
+                          ],
+                          "map": {
+                              "latitude": 48.1356994,
+                              "longitude": -69.7167506
+                          },
+                          "images": [
+                              {
+                                  "meta": {
+                                      "title": "960px Parc marin du Saguenay Saint Laurent 15 cropped"
+                                  },
+                                  "images": {
+                                      "optimized": {
+                                          "standard": {
+                                              "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg",
+                                              "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg"
+                                          },
+                                          "webp": {
+                                              "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg.webp",
+                                              "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg.webp"
+                                          }
+                                      },
+                                      "original": {
+                                          "url": "https://tcn.dev.kffein.work/upload/images/bornes/tadoussac_2026-01-08-160059_vpev.jpeg",
+                                          "sizes": {
+                                              "width": 960,
+                                              "height": 670
+                                          }
+                                      },
+                                      "focalPoint": {
+                                          "x": 0.5,
+                                          "y": 0.5
+                                      }
+                                  }
+                              }
+                          ],
+                          "next_step": {
+                              "polyline": "_qxdHbpohL]z@cAf@S\\CNCb@K^[b@]Zg@NWAYQo@F{AUWBk@MWr@QJs@?a@MeAs@gA{@c@KUU",
+                              "transportation": "à pieds",
+                              "time": 15
+                          }
+                      },
+                      {
+                          "title": "Plage de Tadoussac",
+                          "icon": "https://tcn.dev.kffein.work/upload/images/see.svg",
+                          "description": "Lorem ipsum du texte",
+                          "main_text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\"</p><p> </p>",
+                          "essentials": "Indispensables",
+                          "estimated_time": "2 jours",
+                          "activity_type": "Point de vue",
+                          "seasons": [
+                              "hiver",
+                              "printemps"
+                          ],
+                          "map": {
+                              "latitude": 48.1401141,
+                              "longitude": -69.7174436
+                          },
+                          "images": [
+                              {
+                                  "meta": {
+                                      "title": "Capture decran le 2026 01 20 a 13 20 20"
+                                  },
+                                  "images": {
+                                      "optimized": {
+                                          "standard": {
+                                              "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/Capture-decran-le-2026-01-20-a-13.20.20.png",
+                                              "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/Capture-decran-le-2026-01-20-a-13.20.20.png",
+                                              "992": "https://tcn.dev.kffein.work/upload/images/bornes/_992x558_crop_center-center_100_line/Capture-decran-le-2026-01-20-a-13.20.20.png",
+                                              "1200": "https://tcn.dev.kffein.work/upload/images/bornes/_1200x675_crop_center-center_100_line/Capture-decran-le-2026-01-20-a-13.20.20.png"
+                                          },
+                                          "webp": {
+                                              "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/Capture-decran-le-2026-01-20-a-13.20.20.png.webp",
+                                              "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/Capture-decran-le-2026-01-20-a-13.20.20.png.webp",
+                                              "992": "https://tcn.dev.kffein.work/upload/images/bornes/_992x558_crop_center-center_100_line/Capture-decran-le-2026-01-20-a-13.20.20.png.webp",
+                                              "1200": "https://tcn.dev.kffein.work/upload/images/bornes/_1200x675_crop_center-center_100_line/Capture-decran-le-2026-01-20-a-13.20.20.png.webp"
+                                          }
+                                      },
+                                      "original": {
+                                          "url": "https://tcn.dev.kffein.work/upload/images/bornes/Capture-decran-le-2026-01-20-a-13.20.20.png",
+                                          "sizes": {
+                                              "width": 1952,
+                                              "height": 1440
+                                          }
+                                      },
+                                      "focalPoint": {
+                                          "x": 0.5,
+                                          "y": 0.5
+                                      }
+                                  }
+                              },
+                              {
+                                  "meta": {
+                                      "title": "5 Photo Croisi C3 A8rebateautadoussac1200x800"
+                                  },
+                                  "images": {
+                                      "optimized": {
+                                          "standard": {
+                                              "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/5_PhotoCroisiC3A8rebateautadoussac1200x800.jpg",
+                                              "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/5_PhotoCroisiC3A8rebateautadoussac1200x800.jpg",
+                                              "992": "https://tcn.dev.kffein.work/upload/images/bornes/_992x558_crop_center-center_100_line/5_PhotoCroisiC3A8rebateautadoussac1200x800.jpg"
+                                          },
+                                          "webp": {
+                                              "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/5_PhotoCroisiC3A8rebateautadoussac1200x800.jpg.webp",
+                                              "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/5_PhotoCroisiC3A8rebateautadoussac1200x800.jpg.webp",
+                                              "992": "https://tcn.dev.kffein.work/upload/images/bornes/_992x558_crop_center-center_100_line/5_PhotoCroisiC3A8rebateautadoussac1200x800.jpg.webp"
+                                          }
+                                      },
+                                      "original": {
+                                          "url": "https://tcn.dev.kffein.work/upload/images/bornes/5_PhotoCroisiC3A8rebateautadoussac1200x800.jpg",
+                                          "sizes": {
+                                              "width": 1000,
+                                              "height": 667
+                                          }
+                                      },
+                                      "focalPoint": {
+                                          "x": 0.5,
+                                          "y": 0.5
+                                      }
+                                  }
+                              },
+                              {
+                                  "meta": {
+                                      "title": "5 WEBSITE Z6 Tadoussac Jr1 0092"
+                                  },
+                                  "images": {
+                                      "optimized": {
+                                          "standard": {
+                                              "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/5_WEBSITE_Z6TadoussacJr1_0092.jpg",
+                                              "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/5_WEBSITE_Z6TadoussacJr1_0092.jpg",
+                                              "992": "https://tcn.dev.kffein.work/upload/images/bornes/_992x558_crop_center-center_100_line/5_WEBSITE_Z6TadoussacJr1_0092.jpg"
+                                          },
+                                          "webp": {
+                                              "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/5_WEBSITE_Z6TadoussacJr1_0092.jpg.webp",
+                                              "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/5_WEBSITE_Z6TadoussacJr1_0092.jpg.webp",
+                                              "992": "https://tcn.dev.kffein.work/upload/images/bornes/_992x558_crop_center-center_100_line/5_WEBSITE_Z6TadoussacJr1_0092.jpg.webp"
+                                          }
+                                      },
+                                      "original": {
+                                          "url": "https://tcn.dev.kffein.work/upload/images/bornes/5_WEBSITE_Z6TadoussacJr1_0092.jpg",
+                                          "sizes": {
+                                              "width": 1000,
+                                              "height": 665
+                                          }
+                                      },
+                                      "focalPoint": {
+                                          "x": 0.5,
+                                          "y": 0.5
+                                      }
+                                  }
+                              },
+                              {
+                                  "meta": {
+                                      "title": "Tadoussac HC3 A9bergement Le Roupillon"
+                                  },
+                                  "images": {
+                                      "optimized": {
+                                          "standard": {
+                                              "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/TadoussacHC3A9bergementLeRoupillon.jpg",
+                                              "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/TadoussacHC3A9bergementLeRoupillon.jpg",
+                                              "992": "https://tcn.dev.kffein.work/upload/images/bornes/_992x558_crop_center-center_100_line/TadoussacHC3A9bergementLeRoupillon.jpg",
+                                              "1200": "https://tcn.dev.kffein.work/upload/images/bornes/_1200x675_crop_center-center_100_line/TadoussacHC3A9bergementLeRoupillon.jpg"
+                                          },
+                                          "webp": {
+                                              "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/TadoussacHC3A9bergementLeRoupillon.jpg.webp",
+                                              "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/TadoussacHC3A9bergementLeRoupillon.jpg.webp",
+                                              "992": "https://tcn.dev.kffein.work/upload/images/bornes/_992x558_crop_center-center_100_line/TadoussacHC3A9bergementLeRoupillon.jpg.webp",
+                                              "1200": "https://tcn.dev.kffein.work/upload/images/bornes/_1200x675_crop_center-center_100_line/TadoussacHC3A9bergementLeRoupillon.jpg.webp"
+                                          }
+                                      },
+                                      "original": {
+                                          "url": "https://tcn.dev.kffein.work/upload/images/bornes/TadoussacHC3A9bergementLeRoupillon.jpg",
+                                          "sizes": {
+                                              "width": 1200,
+                                              "height": 800
+                                          }
+                                      },
+                                      "focalPoint": {
+                                          "x": 0.5,
+                                          "y": 0.5
+                                      }
+                                  }
+                              }
+                          ],
+                          "next_step": {
+                              "polyline": "ujydH|tohLsAgB}AeCiAoBUOOE[Cg@Rg@DkGg@IuBB{@J_@H{DE]`@aHDgAbAoQ?c@bA}RXsD^mAtAiDnA}Cn@_CZeBBw@Ck@iAiLcBmRIB}@qL]_GMeBYgFKsG",
+                              "transportation": "en voiture",
+                              "time": 4
+                          }
+                      },
+                      {
+                          "title": "Sentier d'hébertisme au camping domaine des dunes",
+                          "icon": "https://tcn.dev.kffein.work/upload/images/boot.svg",
+                          "description": "Description",
+                          "main_text": "<ul><li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\"</li><li>kokeof</li><li>fekowf</li><li><p>kofew</p><p>lplp</p><p> </p></li></ul>",
+                          "essentials": "Indispensables",
+                          "estimated_time": "2 jours",
+                          "activity_type": "Promenade",
+                          "seasons": [
+                              "hiver",
+                              "printemps"
+                          ],
+                          "map": {
+                              "latitude": 48.1450305,
+                              "longitude": -69.689141
+                          },
+                          "images": [
+                              {
+                                  "meta": {
+                                      "title": "960px Parc marin du Saguenay Saint Laurent 15 cropped"
+                                  },
+                                  "images": {
+                                      "optimized": {
+                                          "standard": {
+                                              "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg",
+                                              "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg"
+                                          },
+                                          "webp": {
+                                              "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg.webp",
+                                              "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg.webp"
+                                          }
+                                      },
+                                      "original": {
+                                          "url": "https://tcn.dev.kffein.work/upload/images/bornes/tadoussac_2026-01-08-160059_vpev.jpeg",
+                                          "sizes": {
+                                              "width": 960,
+                                              "height": 670
+                                          }
+                                      },
+                                      "focalPoint": {
+                                          "x": 0.5,
+                                          "y": 0.5
+                                      }
+                                  }
+                              }
+                          ],
+                          "next_step": {
+                              "polyline": "qzydHrbjhL{@y_@g@kUQoBiAqGQo@oByF_@{@}BqCyFuEsFgEsFyEEYaJiIaLyHsBsAkH_H",
+                              "transportation": "à pieds",
+                              "time": 10
+                          }
+                      },
+                      {
+                          "title": "Dunes de sable",
+                          "icon": "https://tcn.dev.kffein.work/upload/images/boot.svg",
+                          "description": "la description",
+                          "main_text": "<ol><li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\"</li><li>fewf</li><li>fewf</li><li>few</li><li>few</li></ol>",
+                          "essentials": "Indispensables",
+                          "estimated_time": "2 jours",
+                          "activity_type": "Promenade",
+                          "seasons": [
+                              "hiver",
+                              "printemps"
+                          ],
+                          "map": {
+                              "latitude": 48.154575339694546,
+                              "longitude": -69.66694325208665
+                          },
+                          "images": [
+                              {
+                                  "meta": {
+                                      "title": "960px Parc marin du Saguenay Saint Laurent 15 cropped"
+                                  },
+                                  "images": {
+                                      "optimized": {
+                                          "standard": {
+                                              "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg",
+                                              "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg"
+                                          },
+                                          "webp": {
+                                              "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg.webp",
+                                              "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg.webp"
+                                          }
+                                      },
+                                      "original": {
+                                          "url": "https://tcn.dev.kffein.work/upload/images/bornes/tadoussac_2026-01-08-160059_vpev.jpeg",
+                                          "sizes": {
+                                              "width": 960,
+                                              "height": 670
+                                          }
+                                      },
+                                      "focalPoint": {
+                                          "x": 0.5,
+                                          "y": 0.5
+                                      }
+                                  }
+                              }
+                          ],
+                          "next_step": {
+                              "polyline": null,
+                              "transportation": "",
+                              "time": null
+                          }
                       }
-                    },
-                    "original": {
-                      "url": "https://tcn.dev.kffein.work/upload/images/bornes/tadoussac_2026-01-08-160059_vpev.jpeg",
-                      "sizes": {
-                        "width": 960,
-                        "height": 670
-                      }
-                    },
-                    "focalPoint": {
-                      "x": 0.5,
-                      "y": 0.5
-                    }
-                  }
-                }
-              ],
-              "next_step": {
-                "transportation": "",
-                "time": 56
-              }
-            },
-            {
-              "title": "Balade dans le village pour découvrir l'architecture traditionnelle",
-              "description": null,
-              "main_text": "\u003Ch3\u003EÀ quoi vous attendre ?\u003C/h3\u003E\u003Cp\u003EOn y trouve la plus belle vue sur le fjard (oui oui fjard et non fjord) et l’anse St-Pancrace, mais aussi sur le fleuve Saint-Laurent qui s’étend à perte de vue devant nos yeux éblouis. \u003Cbr /\u003E\u003Cbr /\u003EEn marchant encore quelques pas une fois au sommet, on peut également apercevoir le lac Low de l’autre côté de la route 138 et faire un pique-nique assis sur une roche plate qui surplombe la falaise.  Si on a le vertige, on recule un peu et on se colle aux épinettes!\u003C/p\u003E\u003Cp\u003E \u003C/p\u003E\u003Ch3\u003EPourquoi on recommande ?\u003C/h3\u003E\u003Cul\u003E\u003Cli\u003EManteau imperméables\u003C/li\u003E\u003Cli\u003EPaire de jumelles\u003C/li\u003E\u003Cli\u003ESac imperméable\u003C/li\u003E\u003C/ul\u003E",
-              "essentials": null,
-              "estimated_time": "2 jours",
-              "activity_type": "",
-              "seasons": [
-                "hiver",
-                "printemps"
-              ],
-              "map": {
-                "latitude": null,
-                "longitude": null
+                  ],
+                  "base64_qr": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAUAAAAFACAIAAABC8jL9AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAGp0lEQVR4nO3dwXIiORAA0WVj//+XvTdfZqKxhRCV8N55BmNMhg5dUbp9fX39AzT9++o3AKwTMIQJGMIEDGEChjABQ5iAIUzAECZgCBMwhP1391/cbrcD7+NJ1gZFL37lk5On2z/5ize/9rPWXnDI25jvJ182JzCECRjCBAxhAoYwAUOYgCFMwBAmYAi7P8hxYcg+rbWH9dsf8Z+cGRgyoLJ9WuPkNyr97f3mBIYwAUOYgCFMwBAmYAgTMIQJGMIEDGEPDXJcOLlNYvsLXrz57SsjhhgyhTJkxmP+t/ebExjCBAxhAoYwAUOYgCFMwBAmYAgTMIQ9a5BjvpO3eJy8Z2TN9o0cJ9/GJ3MCQ5iAIUzAECZgCBMwhAkYwgQMYQKGsM8d5Bhymcia7QMP8y+aMePxV05gCBMwhAkYwgQMYQKGMAFDmIAhTMAQ9qxBjvmP3dO3eGyfJxly3cn2rSZr5n97vzmBIUzAECZgCBMwhAkYwgQMYQKGMAFD2EODHCfv/nhXQ+Yu0v9rzXt8e53AECZgCBMwhAkYwgQMYQKGMAFDmIAh7BZaPtC1NjPwgZe/DFmTEuIEhjABQ5iAIUzAECZgCBMwhAkYwgQMYfc3cgxZXHByCGHNyXtGthtym8yQ2ZUh/+snnMAQJmAIEzCECRjCBAxhAoYwAUOYgCFs1kaOIQsZpj2sL/6skys+hnwaF5737XUCQ5iAIUzAECZgCBMwhAkYwgQMYQKGsGdt5Fh7cr19MODk+Mf8N7828HDyTzlkXGeNjRzA7wgYwgQMYQKGMAFDmIAhTMAQJmAIe2gjR/pyiiEXlwy5Z2TtBU9Kz8ms+ck7dAJDmIAhTMAQJmAIEzCECRjCBAxhAoaw+xs5LqT3XWx/GxeG3E6yfeBhyFKL7S845Iv9E05gCBMwhAkYwgQMYQKGMAFDmIAhTMAQ9tAgx4WTowvz911sHww4OWlw0pC/19oLXnje38sJDGEChjABQ5iAIUzAECZgCBMwhAkYwu4Pckx7cv2nIXd/XBiyW2O7k7MQ20dohqwTsZEDPpeAIUzAECZgCBMwhAkYwgQMYQKGsBds5Liw/VH4ezys/5UhMx7z38b2P8rJAZVvTmAIEzCECRjCBAxhAoYwAUOYgCFMwBB2e4NLOt71Po6TTk41fOBnaCMH8BcChjABQ5iAIUzAECZgCBMwhAkYwmZdrTJkj8eF7S84f5Dm5ATFkL/Xyf/1ICcwhAkYwgQMYQKGMAFDmIAhTMAQJmAIm7WR4+T9KUOeyKcXTaw5+SsPuXbngqtV4HMJGMIEDGEChjABQ5iAIUzAECZgCJu1kWPNkF0NFy5ecMiYxJBfeciFLKOmm645gSFMwBAmYAgTMIQJGMIEDGEChjABQ9hDGzmGPCUfMpJxYf58wvx3uOY91m5ccAJDmIAhTMAQJmAIEzCECRjCBAxhAoawhzZyDHnEf/L6jCHjH0OkP43tX5uTN/J8cwJDmIAhTMAQJmAIEzCECRjCBAxhAoaw+4McJw1ZdzBk/OOktQ9qyMd74eSQz0u+vU5gCBMwhAkYwgQMYQKGMAFDmIAhTMAQdv9qlZN7Bk6OZJx8xL9myMKTIWs33vUFH+QEhjABQ5iAIUzAECZgCBMwhAkYwgQMYc/ayDFkS8b2RRNDxlpOGjKuk16T8ryvjRMYwgQMYQKGMAFDmIAhTMAQJmAIEzCE3d/I8a5OToas2T7wMOTNbzd/1OR5n7wTGMIEDGEChjABQ5iAIUzAECZgCBMwhN3fyDFkL8SaIRs5hkw1DLln5ORneHK44iUzHk5gCBMwhAkYwgQMYQKGMAFDmIAhTMAQdn8jx5ANDxfedT7h5Jtfe8E126c1hlxq85K/lxMYwgQMYQKGMAFDmIAhTMAQJmAIEzCE3d/Isebk0/81Q+YThkxrXDi5aWTtZ6WXxjzICQxhAoYwAUOYgCFMwBAmYAgTMIQJGMKeNciRtn0k4+QqjPmXv2z/DIcsIXnJOhEnMIQJGMIEDGEChjABQ5iAIUzAECZgCDPIsc2QvRDpy1+2z0KcfMGX3DTkBIYwAUOYgCFMwBAmYAgTMIQJGMIEDGHPGuR4yUPtXU4OPAy5dWX7FMrJgYftv/LJjRwXfvJBOYEhTMAQJmAIEzCECRjCBAxhAoYwAUPYQ4McQ3ZQDHFyxuOkk3MXa4Ys0HC1CvA7AoYwAUOYgCFMwBAmYAgTMIQJGMJu6dUZ8OGcwBAmYAgTMIQJGMIEDGEChjABQ5iAIUzAECZgCBMwhP0P0hz2rAgEf5EAAAAASUVORK5CYII="
               },
-              "images": [
-                {
-                  "meta": {
-                    "title": "960px Parc marin du Saguenay Saint Laurent 15 cropped"
+              {
+                  "id": 12709,
+                  "url": null,
+                  "title": "Baie-COMEAU  à pieds",
+                  "slug": "le-circuit-de-be",
+                  "entry_type": "template_circuit_bornes",
+                  "dates": {
+                      "created": 1765816797000,
+                      "updated": 1769492870000,
+                      "posted": 1765565013000
                   },
-                  "images": {
-                    "optimized": {
-                      "standard": {
-                        "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg",
-                        "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg"
+                  "image": {
+                      "meta": {
+                          "title": "Image"
                       },
-                      "webp": {
-                        "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg.webp",
-                        "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg.webp"
+                      "images": {
+                          "optimized": {
+                              "standard": {
+                                  "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/image.png",
+                                  "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/image.png",
+                                  "992": "https://tcn.dev.kffein.work/upload/images/bornes/_992x558_crop_center-center_100_line/image.png",
+                                  "1200": "https://tcn.dev.kffein.work/upload/images/bornes/_1200x675_crop_center-center_100_line/image.png"
+                              },
+                              "webp": {
+                                  "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/image.png.webp",
+                                  "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/image.png.webp",
+                                  "992": "https://tcn.dev.kffein.work/upload/images/bornes/_992x558_crop_center-center_100_line/image.png.webp",
+                                  "1200": "https://tcn.dev.kffein.work/upload/images/bornes/_1200x675_crop_center-center_100_line/image.png.webp"
+                              }
+                          },
+                          "original": {
+                              "url": "https://tcn.dev.kffein.work/upload/images/bornes/image.png",
+                              "sizes": {
+                                  "width": 1538,
+                                  "height": 1604
+                              }
+                          },
+                          "focalPoint": {
+                              "x": 0.5,
+                              "y": 0.5
+                          }
                       }
-                    },
-                    "original": {
-                      "url": "https://tcn.dev.kffein.work/upload/images/bornes/tadoussac_2026-01-08-160059_vpev.jpeg",
-                      "sizes": {
-                        "width": 960,
-                        "height": 670
-                      }
-                    },
-                    "focalPoint": {
-                      "x": 0.5,
-                      "y": 0.5
-                    }
-                  }
-                }
-              ],
-              "next_step": {
-                "transportation": "",
-                "time": 56
-              }
-            },
-            {
-              "title": "Balade dans le village pour découvrir l'architecture traditionnelle",
-              "description": null,
-              "main_text": "\u003Ch3\u003EÀ quoi vous attendre ?\u003C/h3\u003E\u003Cp\u003EOn y trouve la plus belle vue sur le fjard (oui oui fjard et non fjord) et l’anse St-Pancrace, mais aussi sur le fleuve Saint-Laurent qui s’étend à perte de vue devant nos yeux éblouis. \u003Cbr /\u003E\u003Cbr /\u003EEn marchant encore quelques pas une fois au sommet, on peut également apercevoir le lac Low de l’autre côté de la route 138 et faire un pique-nique assis sur une roche plate qui surplombe la falaise.  Si on a le vertige, on recule un peu et on se colle aux épinettes!\u003C/p\u003E\u003Cp\u003E \u003C/p\u003E\u003Ch3\u003EPourquoi on recommande ?\u003C/h3\u003E\u003Cul\u003E\u003Cli\u003EManteau imperméables\u003C/li\u003E\u003Cli\u003EPaire de jumelles\u003C/li\u003E\u003Cli\u003ESac imperméable\u003C/li\u003E\u003C/ul\u003E",
-              "essentials": null,
-              "estimated_time": "2 jours",
-              "activity_type": "",
-              "seasons": [
-                "hiver",
-                "printemps"
-              ],
-              "map": {
-                "latitude": null,
-                "longitude": null
-              },
-              "images": [
-                {
-                  "meta": {
-                    "title": "960px Parc marin du Saguenay Saint Laurent 15 cropped"
                   },
-                  "images": {
-                    "optimized": {
-                      "standard": {
-                        "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg",
-                        "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg"
-                      },
-                      "webp": {
-                        "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg.webp",
-                        "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg.webp"
-                      }
-                    },
-                    "original": {
-                      "url": "https://tcn.dev.kffein.work/upload/images/bornes/tadoussac_2026-01-08-160059_vpev.jpeg",
-                      "sizes": {
-                        "width": 960,
-                        "height": 670
-                      }
-                    },
-                    "focalPoint": {
-                      "x": 0.5,
-                      "y": 0.5
-                    }
-                  }
-                }
-              ],
-              "next_step": {
-                "transportation": "",
-                "time": 56
-              }
-            },
-            {
-              "title": "Balade dans le village pour découvrir l'architecture traditionnelle",
-              "description": null,
-              "main_text": "\u003Ch3\u003EÀ quoi vous attendre ?\u003C/h3\u003E\u003Cp\u003EOn y trouve la plus belle vue sur le fjard (oui oui fjard et non fjord) et l’anse St-Pancrace, mais aussi sur le fleuve Saint-Laurent qui s’étend à perte de vue devant nos yeux éblouis. \u003Cbr /\u003E\u003Cbr /\u003EEn marchant encore quelques pas une fois au sommet, on peut également apercevoir le lac Low de l’autre côté de la route 138 et faire un pique-nique assis sur une roche plate qui surplombe la falaise.  Si on a le vertige, on recule un peu et on se colle aux épinettes!\u003C/p\u003E\u003Cp\u003E \u003C/p\u003E\u003Ch3\u003EPourquoi on recommande ?\u003C/h3\u003E\u003Cul\u003E\u003Cli\u003EManteau imperméables\u003C/li\u003E\u003Cli\u003EPaire de jumelles\u003C/li\u003E\u003Cli\u003ESac imperméable\u003C/li\u003E\u003C/ul\u003E",
-              "essentials": null,
-              "estimated_time": "2 jours",
-              "activity_type": "",
-              "seasons": [
-                "hiver",
-                "printemps"
-              ],
-              "map": {
-                "latitude": null,
-                "longitude": null
-              },
-              "images": [
-                {
-                  "meta": {
-                    "title": "960px Parc marin du Saguenay Saint Laurent 15 cropped"
+                  "description": "Entre ciel et mer, d’étranges géants de pierre veillent sur un monde hors du temps.",
+                  "commute_to_circuit": {
+                      "transportation": "",
+                      "time": null
                   },
-                  "images": {
-                    "optimized": {
-                      "standard": {
-                        "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg",
-                        "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg"
-                      },
-                      "webp": {
-                        "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg.webp",
-                        "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg.webp"
+                  "steps": [
+                      {
+                          "title": "test",
+                          "icon": null,
+                          "description": "descir",
+                          "main_text": "<p>description</p>",
+                          "essentials": "appareil photo",
+                          "estimated_time": "12",
+                          "activity_type": "Visite",
+                          "seasons": [
+                              "hiver"
+                          ],
+                          "map": {
+                              "latitude": null,
+                              "longitude": null
+                          },
+                          "images": [],
+                          "next_step": {
+                              "polyline": null,
+                              "transportation": "",
+                              "time": null
+                          }
                       }
-                    },
-                    "original": {
-                      "url": "https://tcn.dev.kffein.work/upload/images/bornes/tadoussac_2026-01-08-160059_vpev.jpeg",
-                      "sizes": {
-                        "width": 960,
-                        "height": 670
-                      }
-                    },
-                    "focalPoint": {
-                      "x": 0.5,
-                      "y": 0.5
-                    }
-                  }
-                }
-              ],
-              "next_step": {
-                "transportation": "",
-                "time": 56
+                  ],
+                  "base64_qr": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAUAAAAFACAIAAABC8jL9AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAGp0lEQVR4nO3dwXIaOxBA0cer/P8vJzuvUkMsNKKvOWedYIy5pcV0tR6/f//+D2j6/91vAFgnYAgTMIQJGMIEDGEChjABQ5iAIUzAECZgCPv19F88Ho8D7+Mma4OiF7/ykMnTtT/KxZs/+YJD3sZ8//JlcwJDmIAhTMAQJmAIEzCECRjCBAxhAoaw54McF9JTDdsf8W9/we0f7/YBle3TGie/Uelv7xcnMIQJGMIEDGEChjABQ5iAIUzAECZgCHtpkOPC/KmGtUmDISsjtr/gyc0V82c85n97vziBIUzAECZgCBMwhAkYwgQMYQKGMAFD2F2DHPMNmaAYci3I9o0cJ9/GJ3MCQ5iAIUzAECZgCBMwhAkYwgQMYQKGsM8d5Pipl4kMGckw43GGExjCBAxhAoYwAUOYgCFMwBAmYAgTMITdNcgx/7H7kOGK7Xs8LsyfQlm71GbIMMxbOIEhTMAQJmAIEzCECRjCBAxhAoYwAUPYS4McJ+/+SNs+QXHyZ83/X2t+xrfXCQxhAoYwAUOYgCFMwBAmYAgTMIQJGMIeoeUDXUOWWpwckzi5M+STOYEhTMAQJmAIEzCECRjCBAxhAoYwAUPY840cQxYXnBxCWHNyJGO7k2MS26c1hiwGecv1NE5gCBMwhAkYwgQMYQKGMAFDmIAhTMAQ9tJGDosm3mXt9xoyJrHmLWMS3/pZF+772jiBIUzAECZgCBMwhAkYwgQMYQKGMAFD2PNBjiHP8ddsf4fzf+U1NnK8zkYO4HsEDGEChjABQ5iAIUzAECZgCBMwhN21kePCyefd8x/xb3fyMzzp5EzOmrd8bZzAECZgCBMwhAkYwgQMYQKGMAFDmIAh7KVBju2GzAxcGDKFctKQiZf01NAFGzngcwkYwgQMYQKGMAFDmIAhTMAQJmAI+/XKf/7ASYPtKz7WnuOPGr/ZaMhKlrUXvHDf38sJDGEChjABQ5iAIUzAECZgCBMwhAkYwu7ayDHkAfpJQy5/GbJA48IHvo3tOXxxAkOYgCFMwBAmYAgTMIQJGMIEDGEChrC7NnIMGSc4eR/Hhfm/8nbz38b2Eabt341/eYdOYAgTMIQJGMIEDGEChjABQ5iAIUzAEPbSIMfJFQQXLzjttotvGTKFcvLTGPIFGDJdYyMHfC4BQ5iAIUzAECZgCBMwhAkYwgQMYXdt5DhpyM0aF7aPSay94PwP6uT8z8mba+6bk3ECQ5iAIUzAECZgCBMwhAkYwgQMYQKGsMcrj5hPXq0y5DKRIW/jpCFXkKwZcsXPBVerwOcSMIQJGMIEDGEChjABQ5iAIUzAEPbSIMfV686Y8bgwZJxguyFzMm+ZavjWC14Y8vcyyAE/nIAhTMAQJmAIEzCECRjCBAxhAoaw54McQ57jDzFkw8PJaY30BMXPWLtxwQkMYQKGMAFDmIAhTMAQJmAIEzCECRjCfp3/kduXdZz8Xyffxpoh2yQuDBny2T4nc/Kv/MUJDGEChjABQ5iAIUzAECZgCBMwhAkYwl7ayHFygmLNkOGKIXshhhhyqc2QKRQbOeBzCRjCBAxhAoYwAUOYgCFMwBAmYAi7a5Bj7QXXnJy7mPYc/1s/68JPHXiY/4IvcgJDmIAhTMAQJmAIEzCECRjCBAxhAoawu65WOfkAPT1psPazThoyJ7P90zj58drIAfyFgCFMwBAmYAgTMIQJGMIEDGEChrDnGzl+qpPjBPOHRrYbcn/KmpPXCb3ICQxhAoYwAUOYgCFMwBAmYAgTMIQJGMKeb+QYshdizZAJipPXnZycNDj5NtY+w5PDFW+Z8XACQ5iAIUzAECZgCBMwhAkYwgQMYQKGsOcbOebvhRgyd3FhyHDFEEMWnlwI7V1xAkOYgCFMwBAmYAgTMIQJGMIEDGEChrDnGznWnJyFWHNyQGX7Nok1Q36vC2szHvNnV+7jBIYwAUOYgCFMwBAmYAgTMIQJGMIEDGF3DXKkbV/IMH+C4uQsxNoIzfytJm9ZJ+IEhjABQ5iAIUzAECZgCBMwhAkYwgQMYQY5/mL+3MXJWzxOjklsn4U4+YJvuWnICQxhAoYwAUOYgCFMwBAmYAgTMIQJGMLuGuR4y0PtA05uXRhyccmaITfXnLyr5S3jOk5gCBMwhAkYwgQMYQKGMAFDmIAhTMAQ9nj6sPjkpRvbnRxdGLLU4sLJ6ZqTX5shCzRcrQJ8j4AhTMAQJmAIEzCECRjCBAxhAoaw54McwFhOYAgTMIQJGMIEDGEChjABQ5iAIUzAECZgCBMwhAkYwv4AV4DqtSf3smUAAAAASUVORK5CYII="
               }
-            },
-            {
-              "title": "Balade dans le village pour découvrir l'architecture traditionnelle",
-              "description": null,
-              "main_text": "\u003Ch3\u003EÀ quoi vous attendre ?\u003C/h3\u003E\u003Cp\u003EOn y trouve la plus belle vue sur le fjard (oui oui fjard et non fjord) et l’anse St-Pancrace, mais aussi sur le fleuve Saint-Laurent qui s’étend à perte de vue devant nos yeux éblouis. \u003Cbr /\u003E\u003Cbr /\u003EEn marchant encore quelques pas une fois au sommet, on peut également apercevoir le lac Low de l’autre côté de la route 138 et faire un pique-nique assis sur une roche plate qui surplombe la falaise.  Si on a le vertige, on recule un peu et on se colle aux épinettes!\u003C/p\u003E\u003Cp\u003E \u003C/p\u003E\u003Ch3\u003EPourquoi on recommande ?\u003C/h3\u003E\u003Cul\u003E\u003Cli\u003EManteau imperméables\u003C/li\u003E\u003Cli\u003EPaire de jumelles\u003C/li\u003E\u003Cli\u003ESac imperméable\u003C/li\u003E\u003C/ul\u003E",
-              "essentials": null,
-              "estimated_time": "2 jours",
-              "activity_type": "",
-              "seasons": [
-                "hiver",
-                "printemps"
-              ],
-              "map": {
-                "latitude": null,
-                "longitude": null
-              },
-              "images": [
-                {
-                  "meta": {
-                    "title": "960px Parc marin du Saguenay Saint Laurent 15 cropped"
-                  },
-                  "images": {
-                    "optimized": {
-                      "standard": {
-                        "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg",
-                        "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg"
-                      },
-                      "webp": {
-                        "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg.webp",
-                        "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg.webp"
-                      }
-                    },
-                    "original": {
-                      "url": "https://tcn.dev.kffein.work/upload/images/bornes/tadoussac_2026-01-08-160059_vpev.jpeg",
-                      "sizes": {
-                        "width": 960,
-                        "height": 670
-                      }
-                    },
-                    "focalPoint": {
-                      "x": 0.5,
-                      "y": 0.5
-                    }
-                  }
-                }
-              ],
-              "next_step": {
-                "transportation": "",
-                "time": 56
-              }
-            }
           ]
-        },
-        {
-          "id": 12709,
-          "url": null,
-          "title": "le circuit de Be",
-          "slug": "le-circuit-de-be",
-          "entry_type": "template_circuit_bornes",
-          "dates": {
-            "created": 1765816797000,
-            "updated": 1765816797000,
-            "posted": 1765565013000
-          },
-          "image": null,
-          "description": null,
-          "steps": []
-        }
-      ]
-    }
+      }
   }
 }

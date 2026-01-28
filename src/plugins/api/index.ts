@@ -68,7 +68,7 @@ class ApiService {
    * 2. Sinon, fetch depuis l'API
    * 3. Si erreur API → fallback sur mock
    */
-  async fetchData(): Promise<ApiResponse> {
+  async fetchData(locale?: string): Promise<ApiResponse> {
     // Mode mock forcé (dev sans API)
     if (this.useMockData) {
       return this.getMockData()
@@ -76,7 +76,7 @@ class ApiService {
 
     // Mode API réelle
     try {
-      return await this.fetchFromApi()
+      return await this.fetchFromApi(locale)
     } catch (error) {
       console.error('❌ Erreur lors de la récupération des données:', error)
 
@@ -89,8 +89,9 @@ class ApiService {
   /**
    * Récupère les données depuis l'API réelle (Tauri HTTP)
    */
-  private async fetchFromApi(): Promise<ApiResponse> {
-    const url = this.getFullUrl()
+  private async fetchFromApi(locale?: string): Promise<ApiResponse> {
+    const targetLocale = locale || this.currentLocale
+    const url = `${API_BASE_URL}/${targetLocale}/${API_SITE}`
     console.log(`📡 Appel API: ${url}`)
 
     const headers: Record<string, string> = {
@@ -113,7 +114,7 @@ class ApiService {
       throw new Error('Données API invalides ou vides')
     }
 
-    console.log('✅ Données API reçues avec succès')
+    console.log(`✅ Données API (${targetLocale}) reçues avec succès`)
     return data
   }
 

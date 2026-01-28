@@ -6,7 +6,8 @@ import { mockApiData } from 'plugins/api/mock-data'
 import { cacheService } from 'plugins/api/cache.service'
 import { assetsService } from 'plugins/api/assets.service'
 import { apiService } from 'plugins/api'
-import { appConfig } from 'config'
+import { AVAILABLE_LOCALES, appConfig } from 'config'
+import { useI18nStore } from 'plugins/i18n/store'
 
 const isTauriEnvironment = typeof window !== 'undefined' && '__TAURI_INTERNALS__' in window
 const router = useRouter()
@@ -18,51 +19,143 @@ export interface SiteContext {
 }
 
 const useStore = defineStore('app', () => {
+  const router = useRouter()
+  const BASE_LOCALE = 'fr'
+
   // ============================================
-  // STATE (aplati depuis ApiResponse)
+  // STATE
   // ============================================
 
-  /** Métadonnées de l'API */
+  /** Métadonnées de l'API (généralement communes ou fr par défaut) */
   const meta = ref<MetaData | null>(null)
 
-  /** Contexte du site (lang, ville, siteId) */
-  const siteContext = ref<SiteContext | null>(null)
+  /** Contexte du site par langue */
+  const siteContexts = ref<Record<string, SiteContext>>({})
 
-  /** Données utiles (home, events, circuits) - APLATI */
-  const data = ref<ApiData | null>(null)
+  /** Données utiles par langue (home, events, circuits) */
+  const localizedData = ref<Record<string, ApiData>>({})
 
   /** États UI */
   const isLoading = ref(false)
   const error = ref<string | null>(null)
   const lastUpdate = ref<number>(0)
   const isAppReady = ref(false)
-  const current = ref<CircuitEntry | null>(null)
+
+  /** IDs et index pour la réactivité stable */
+  const currentCircuitId = ref<number | null>(null)
   const currentStepIndex = ref<number>(0)
-  const currentStep = ref<CircuitStep | undefined | null>(null)
 
   // ============================================
-  // GETTERS - Accès direct aux données
+  // HELPERS DE FUSION (Technique vs Texte)
   // ============================================
 
-  /** Données de la page d'accueil */
-  const home = computed((): HomeData | null => {
-    return data.value?.home ?? null
+  /**
+   * Fusionne un objet de base (données techniques) avec un objet localisé (textes)
+   */
+  function mergeCircuit(base: CircuitEntry, local: CircuitEntry | undefined): CircuitEntry {
+    if (!local) return base
+    return {
+      ...base,
+      title: local.title,
+      slug: local.slug,
+      description: local.description,
+      steps: base.steps.map((baseStep, index) => {
+        const localStep = local.steps[index]
+        return mergeStep(baseStep, localStep)
+      })
+    }
+  }
+
+  function mergeStep(base: CircuitStep, local: CircuitStep | undefined): CircuitStep {
+    if (!local) return base
+    return {
+      ...base,
+      title: local.title,
+      description: local.description,
+      main_text: local.main_text,
+      essentials: local.essentials,
+      estimated_time: local.estimated_time,
+      activity_type: local.activity_type
+    }
+  }
+
+  function mergeEvent(base: EventEntry, local: EventEntry | undefined): EventEntry {
+    if (!local) return base
+    return {
+      ...base,
+      title: local.title,
+      slug: local.slug,
+      description: local.description,
+      times: local.times,
+      address: local.address,
+      entry_type: local.entry_type,
+      price_range: local.price_range
+    }
+  }
+
+  // ============================================
+  // GETTERS - Accès réactif via i18n
+  // ============================================
+
+  /** Récupère la langue actuelle depuis le store i18n */
+  const currentLocale = computed(() => useI18nStore().locale)
+
+  /** Données de base (pour les assets techniques stables) */
+  const baseData = computed((): ApiData | null => {
+    return localizedData.value[BASE_LOCALE] || Object.values(localizedData.value)[0] || null
   })
 
-  /** Liste des événements */
-  const events = computed((): EventEntry[] => {
-    return data.value?.events ?? []
+  /** Données locales (pour les textes) */
+  const localData = computed((): ApiData | null => {
+    return localizedData.value[currentLocale.value] || null
   })
 
-  /** Liste des circuits */
-  const circuits = computed((): CircuitEntry[] => {
-    return data.value?.circuits ?? []
+  /** Données utiles (fusionnées) */
+  const data = computed((): ApiData | null => {
+    if (!baseData.value) return null
+    return {
+      home: localData.value?.home || baseData.value.home,
+      events: baseData.value.events.map(baseEvent => {
+        const localEvent = localData.value?.events.find(e => e.id === baseEvent.id)
+        return mergeEvent(baseEvent, localEvent)
+      }),
+      circuits: baseData.value.circuits.map(baseCircuit => {
+        const localCircuit = localData.value?.circuits.find(c => c.id === baseCircuit.id)
+        return mergeCircuit(baseCircuit, localCircuit)
+      })
+    }
+  })
+
+  /** Données de la page d'accueil (fusionnées) */
+  const home = computed((): HomeData | null => data.value?.home ?? null)
+
+  /** Liste des événements (fusionnés) */
+  const events = computed((): EventEntry[] => data.value?.events ?? [])
+
+  /** Liste des circuits (fusionnés) */
+  const circuits = computed((): CircuitEntry[] => data.value?.circuits ?? [])
+
+  /** Circuit actuel stable */
+  const current = computed((): CircuitEntry | null => {
+    if (currentCircuitId.value === null) return null
+    return circuits.value.find(c => c.id === currentCircuitId.value) || null
+  })
+
+  /** Étape actuelle stable */
+  const currentStep = computed((): CircuitStep | null => {
+    if (!current.value) return null
+    return current.value.steps[currentStepIndex.value] || null
+  })
+
+  /** Contexte du site (langue actuelle) */
+  const siteContext = computed((): SiteContext | null => {
+    return siteContexts.value[currentLocale.value] || null
   })
 
   const currentPreviousParcours = computed(() => {
     if (!current.value || currentStepIndex.value === 0) return []
     const previous = [];
-    
+
     for (let i = currentStepIndex.value - 1; i >= 0; i--) {
       previous.push(current.value.steps[i].next_step)
     }
@@ -81,16 +174,16 @@ const useStore = defineStore('app', () => {
 
   const nextStepPolyline = computed(() => {
     if (currentNextParcours.value.length === 0) return []
-    return currentNextParcours.value.map(step => step.polyline)
+    return currentNextParcours.value.map((step: NextStepInfo) => step.polyline)
   })
   const previousStepPolyline = computed(() => {
     if (currentPreviousParcours.value.length === 0) return []
-    return currentPreviousParcours.value.map(step => step.polyline)
+    return currentPreviousParcours.value.map((step: NextStepInfo) => step.polyline)
   })
 
   const nextCircuit = computed(() => {
     if (!current.value) return null
-    return circuits.value.find(circuit => circuit.slug !== current.value!.slug)
+    return circuits.value.find((circuit: CircuitEntry) => circuit.id !== current.value!.id)
   })
 
   // ============================================
@@ -105,30 +198,30 @@ const useStore = defineStore('app', () => {
 
   /** Récupère un circuit par son slug */
   const getCircuitBySlug = (slug: string): CircuitEntry | undefined | null => {
-    const circuit = circuits.value.find(circuit => circuit.slug === slug)
+    const circuit = circuits.value.find((circuit: CircuitEntry) => circuit.slug === slug)
     if (!circuit) return null
     setCurrentCircuit(circuit)
   }
 
   /** Récupère un circuit par son index */
   const getCircuitIndex = (slug: string): number | undefined | null => {
-    return circuits.value.findIndex(circuit => circuit.slug === slug)
+    return circuits.value.findIndex((circuit: CircuitEntry) => circuit.slug === slug)
   }
 
 
   /** Récupère un événement par son slug */
   const getEventBySlug = (slug: string): EventEntry | undefined | null => {
-    return events.value.find(event => event.slug === slug)
+    return events.value.find((event: EventEntry) => event.slug === slug)
   }
 
   /** Récupère un circuit par son ID */
   const getCircuitById = (id: number): CircuitEntry | undefined | null => {
-    return circuits.value.find(circuit => circuit.id === id)
+    return circuits.value.find((circuit: CircuitEntry) => circuit.id === id)
   }
 
   /** Récupère un événement par son ID */
   const getEventById = (id: number): EventEntry | undefined | null => {
-    return events.value.find(event => event.id === id)
+    return events.value.find((event: EventEntry) => event.id === id)
   }
 
   // ============================================
@@ -139,46 +232,59 @@ const useStore = defineStore('app', () => {
     clearError()
 
     try {
+      const locales = AVAILABLE_LOCALES || ['fr', 'en']
+
       // ========================================
       // MODE TAURI/KIOSK : Cache fichier + API
       // ========================================
       if (isTauriEnvironment && appConfig.enableCache) {
         // 1. Charger d'abord depuis le cache fichier (démarrage rapide)
-        const cachedData = await cacheService.readDataFromFile()
-        if (cachedData) {
-          setApiData(cachedData)
-          console.log('🚀 Démarrage avec données en cache')
+        const cachedMultiData = await cacheService.readDataFromFile()
+        if (cachedMultiData) {
+          Object.keys(cachedMultiData).forEach(locale => {
+            setApiData(cachedMultiData[locale], locale)
+          })
+          console.log('🚀 Démarrage avec données multi-langues en cache')
         } else {
           // Pas de cache : charger les données mock en attendant
-          setApiData(mockApiData)
+          setApiData(mockApiData, 'fr') // Mock est en fr par défaut
           console.log('🚀 Démarrage avec données mock')
         }
 
-        // 2. Tenter de mettre à jour depuis l'API
+        // 2. Tenter de mettre à jour depuis l'API pour TOUTES les langues
         try {
-          const freshData = await apiService.fetchData()
+          const freshMultiData: Record<string, ApiResponse> = {}
+          for (const locale of locales) {
+            freshMultiData[locale] = await apiService.fetchData(locale)
+          }
 
           // Télécharge UNIQUEMENT les assets des éléments modifiés
-          // et fusionne avec le cache existant
+          // et fusionne avec le cache existant (gère toutes les langues)
           const dataWithLocalAssets = await assetsService.downloadAndReplaceUrlsOptimized(
-            freshData,
-            cachedData // Passe le cache pour comparaison
+            freshMultiData,
+            cachedMultiData
           )
 
-          setApiData(dataWithLocalAssets)
+          // Met à jour le store pour chaque langue
+          Object.keys(dataWithLocalAssets).forEach(locale => {
+            setApiData(dataWithLocalAssets[locale], locale)
+          })
+
           await cacheService.writeDataToFile(dataWithLocalAssets)
-          console.log('✅ Données mises à jour depuis l\'API')
+          console.log('✅ Données multi-langues mises à jour depuis l\'API')
         } catch (apiError) {
-          console.warn('⚠️ API non disponible, conservation du cache')
+          console.warn('⚠️ API non disponible, conservation du cache', apiError)
         }
       }
       // ========================================
-      // MODE BROWSER : Données mock uniquement
+      // MODE BROWSER : Données live pour toutes les langues
       // ========================================
       else {
-        const data = await apiService.fetchData()
-        setApiData(data)
-        console.log('🌐 Mode browser : données live')
+        for (const locale of locales) {
+          const data = await apiService.fetchData(locale)
+          setApiData(data, locale)
+        }
+        console.log('🌐 Mode browser : données live multi-langues')
       }
     } catch (error) {
       setError(`Erreur initialisation: ${error}`)
@@ -187,33 +293,32 @@ const useStore = defineStore('app', () => {
       setAppReady()
     }
   }
+
   /** 
-   * Définit les données de l'API (avec aplatissement)
-   * Extrait et sépare : meta, siteContext, data
+   * Définit les données de l'API pour une langue donnée
    */
-  function setApiData(response: ApiResponse) {
-    // Extrait les métadonnées
+  function setApiData(response: ApiResponse, locale: string) {
+    // Extrait les métadonnées (écrase les précédentes, elles sont globales)
     meta.value = response.meta
 
-    // Extrait le contexte du site
-    siteContext.value = {
+    // Extrait le contexte du site pour cette langue
+    siteContexts.value[locale] = {
       lang: response.data.lang,
       ville: response.data.ville,
       siteId: response.data.siteId
     }
 
-    // Extrait les données utiles (APLATISSEMENT)
-    data.value = response.data.data
+    // Extrait les données utiles pour cette langue
+    localizedData.value[locale] = response.data.data
 
     // Met à jour les timestamps
     lastUpdate.value = Date.now()
     error.value = null
 
-    console.log('📦 Store mis à jour:', {
-      lang: siteContext.value.lang,
-      ville: siteContext.value.ville,
-      circuits: data.value?.circuits?.length ?? 0,
-      events: data.value?.events?.length ?? 0
+    console.log(`📦 Store mis à jour [${locale}]:`, {
+      ville: siteContexts.value[locale].ville,
+      circuits: localizedData.value[locale].circuits?.length ?? 0,
+      events: localizedData.value[locale].events?.length ?? 0
     })
   }
 
@@ -241,30 +346,50 @@ const useStore = defineStore('app', () => {
   /** Réinitialise le store */
   function reset() {
     meta.value = null
-    siteContext.value = null
-    data.value = null
+    siteContexts.value = {}
+    localizedData.value = {}
     isLoading.value = false
     error.value = null
     lastUpdate.value = 0
+    currentCircuitId.value = null
+    currentStepIndex.value = 0
   }
-  function setCircuitBySlug (slug: string, redirectIfnotFound: boolean = false) {
-    const circuit = circuits.value.find(circuit => circuit.slug === slug)
+  function setCircuitBySlug(slug: string, redirectIfnotFound: boolean = false) {
+    let circuit = circuits.value.find((circuit: CircuitEntry) => circuit.slug === slug)
+
+    // Si non trouvé par slug, on vérifie si c'est dû à un changement de langue
+    if (!circuit && currentCircuitId.value !== null) {
+      circuit = circuits.value.find((c: CircuitEntry) => c.id === currentCircuitId.value)
+
+      if (circuit && router.currentRoute.value.name === 'circuit-single') {
+        console.log(`🔄 Traduction du slug: ${slug} -> ${circuit.slug}`)
+        router.replace({
+          name: 'circuit-single',
+          params: { ...router.currentRoute.value.params, slug: circuit.slug }
+        })
+      }
+    }
+
     if (!circuit && redirectIfnotFound) {
       router.replace({ name: 'home' })
     }
+
     if (!circuit) return null
     setCurrentCircuit(circuit)
   }
 
   function setCurrentCircuit(circuit: CircuitEntry) {
-    current.value = circuit
-    currentStepIndex.value = 0
-    currentStep.value = circuit.steps[0]
+    const isTranslation = currentCircuitId.value === circuit.id
+    currentCircuitId.value = circuit.id
+
+    // Si c'est un nouveau circuit, on remet l'index à 0
+    if (!isTranslation) {
+      currentStepIndex.value = 0
+    }
   }
 
   function setCurrentStepIndex(stepIndex: number) {
     currentStepIndex.value = stepIndex
-    currentStep.value = current.value?.steps[stepIndex]
   }
 
   return {

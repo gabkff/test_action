@@ -80,7 +80,8 @@
     "qrcode_panel": "Scannez le code dès maintenant pour télécharger le parcours et le conserver",
     "more": "Plus d'infos",
     "recommendations": "Est-ce que vous aimez nos recommandations ?",
-    "recommendations_text": "Plus d’informations à retrouver sur notre site toursimecote-nord.com"
+    "recommendations_text": "Plus d’informations à retrouver sur notre site toursimecote-nord.com",
+    "recommendations_feedback": "Merci pour votre avis !"
   },
   "errors": {
     "notFound": "Page non trouvée",

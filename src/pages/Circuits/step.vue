@@ -1,7 +1,7 @@
 <template>
     <div class="circuits-etape" v-if="ready && current" :data-circuit-theme="dataCircuitTheme">
       <div class="circuits-etape__container">
-        <h2 class="circuits-etape__name" :data-circuit-theme="dataCircuitTheme">{{ $t('circuits.name') }} 1</h2>
+        <h2 class="circuits-etape__name" :data-circuit-theme="dataCircuitTheme">{{ $t('circuits.name') }} {{ circuitIndex + 1 }}</h2>
         <h1 class="circuits-etape__title" :data-circuit-theme="dataCircuitTheme">{{ current.title }}</h1>
         
         <div class="circuits-etape__header_wrapper" v-if="currentStepIndex < current.steps.length">
@@ -44,16 +44,20 @@
             </div>
           </div>
           <div class="circuits-etape__last_step_recommendations">
-              <div class="circuits-etape__last_step_recommendations_header">
+              
+              <div class="circuits-etape__last_step_recommendations_header" :style="{ opacity: feedbackReco ? 0 : 1 }">
                 {{ $t('circuits.recommendations') }} 
               </div>
               <div class="circuits-etape__last_step_recommendations_content">
-                <div class="circuits-etape__last_step_recommendations_content_text">
+                <div class="circuits-etape__last_step_recommendations_content_text" :style="{ opacity: feedbackReco ? 0 : 1 }">
                   {{ $t('circuits.recommendations_text') }}
                 </div>
-                <div class="circuits-etape__last_step_recommendations_content_button">
-                  <ui-button theme="primary" :big="true" :icon="IconPouce" class="circuits-etape__last_step_recommendations_content_button_pouce"/>
-                  <ui-button theme="primary" :icon="IconPouce" class="circuits-etape__last_step_recommendations_content_button_pouce" :data-down="true"/>
+                <div class="circuits-etape__last_step_recommendations_content_button_feedback" :style="{ opacity: feedbackReco ? 1 : 0 }">
+                  {{ $t('circuits.recommendations_feedback') }}
+                </div>
+                <div class="circuits-etape__last_step_recommendations_content_button" :style="{ opacity: feedbackReco ? 0 : 1 }">
+                  <ui-button theme="primary" :big="true" :icon="IconPouce" class="circuits-etape__last_step_recommendations_content_button_pouce" @click="feedbackReco = !feedbackReco"/>
+                  <ui-button theme="primary" :icon="IconPouce" class="circuits-etape__last_step_recommendations_content_button_pouce" :data-down="true" @click="feedbackReco = !feedbackReco"/>
                 </div>
               </div>
           </div>
@@ -115,7 +119,9 @@
                   <ui-wysiwyg v-html="nextCircuit.description" />
                   <div class="circuits-etape__last_step_event_next_circuit_content_text_action">
                     <ui-tag :label="$t('circuits.total_step', { number: nextCircuit.steps.length })" />
-                    <ui-button theme="primary" :label="$t('common.link_discover')" :icon="IconPlus" :iconPosition="'right'" />
+                    <ui-button theme="primary" :label="$t('common.link_discover')" :icon="IconPlus" :iconPosition="'right'"
+                      @click="router.push(`/circuits/${nextCircuit.slug}`)"
+                    />
                   </div>
                 </div>
               </div>
@@ -203,9 +209,9 @@
         </div>
         <UiMap 
           :zoom="15"
-          :center="currentStep.map"
           v-if="currentStep.map"
           :markers="markers"
+          :currentStep="currentStep.map"
           :encodedPolyline="[{line: nextStepPolyline, style: 'next'}, {line: previousStepPolyline, style: 'previous'}]"
         />
       </div>
@@ -242,12 +248,13 @@ const router = useRouter()
 const ready = ref(false)
 const sidePanelStore = useSidePanelStore()
 const currentView = ref<ViewCircuit>('map')
+const feedbackReco = ref(false)
 
 // Validation du slug et redirection si invalide
 // a voir si pas on mounted plutôt
 watchEffect(() => {
   // On attend que l'app soit prête (données chargées)
-  if (!appStore.isAppReady || !appStore.circuits) return
+  if (!appStore.isAppReady || appStore.circuits.length === 0) return
   const slug = route.params.slug as string
   appStore.setCircuitBySlug(slug, true)
   ready.value = true
@@ -264,13 +271,14 @@ const nextStepPolyline = computed(() => {
   return appStore.nextStepPolyline
 })
 const previousStepPolyline = computed(() => {
+  console.log('previous', appStore.previousStepPolyline)
   return appStore.previousStepPolyline
 })
 const currentNextParcours = computed(() => {
   return appStore.currentNextParcours
 })
-const currentStep: ComputedRef<CircuitStep | undefined> = computed(() => {
-  return current.value?.steps[currentStepIndex.value]
+const currentStep = computed((): CircuitStep | undefined => {
+  return appStore.currentStep as CircuitStep | undefined
 })
 
 const circuitIndex = computed(() => {
@@ -291,7 +299,7 @@ const markers: any = computed(() => {
   for (const step of current.value?.steps) {
     markers.push({
       position: { lat: step.map.latitude, lng: step.map.longitude },
-      icon: IconPin
+      icon: step.icon
     })
   }
   return markers
@@ -601,6 +609,9 @@ function setStep(direction: 'next' | 'previous') {
       f-style('h5')
       color $fjord
       margin-bottom 30px
+    &__last_step_recommendations_content_button_feedback
+      f-style('h5')
+      color $fjord
     &__last_step_recommendations_content_text
       f-style('default')
       color $fjord
@@ -694,6 +705,7 @@ function setStep(direction: 'next' | 'previous') {
       gap 5px
       border-radius $radius-lgxl
       background-color $fjord
+      color $aube
       &[data-circuit-theme="1"]
         background-color $penombre
         .circuits-etape__last_step_event_next_circuit_content_text_title,
@@ -717,8 +729,8 @@ function setStep(direction: 'next' | 'previous') {
       f-style('h6')
       f(column, $justify: flex-end)
       gap 20px
-      color $fjord
       margin-left auto
+      color $aube
       text-align right
     &__last_step_event_next_circuit_content_text_action
       f(row, $justify: flex-end)

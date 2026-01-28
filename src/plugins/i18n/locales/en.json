@@ -19,7 +19,11 @@
     "pageNotFound": "Page not found",
     "createdAt": "Created on",
     "updatedAt": "Updated",
-    "availableTranslations": "Available translations"
+    "availableTranslations": "Available translations",
+    "go_further": "Go further",
+    "other_born": "Check out our other stations in Tadoussac et Natashquan",
+    "discover_more": "Discover more",
+    "link_discover": "Discover"
   },
   "home": {
     "title": "Home page",
@@ -37,6 +41,47 @@
     "contact": "Contact",
     "services": "Services"
   },
+  "events": {
+    "see_all": "All events",
+    "title": "Activities & events",
+    "description": "Looking for something to do? <br> Look no more, here is all the events in the area for the next 5 days!",
+    "create": "Create an event",
+    "edit": "Modify an event",
+    "delete": "Delete an event",
+    "view": "See an event",
+    "date_debut": "Start event date",
+    "date_fin": "End event date",
+    "adresse": "Adress",
+    "price": "Price",
+    "url": "Event URL",
+    "qrcode": "Event Qrcode",
+    "access_site": "Scan code to access the event website",
+    "time_start": "From {time}",
+    "time_start_end": "From {start} to {end}"
+  },
+  "circuits": {
+    "event_today": "Today, {date}",
+    "name": "Circuit",
+    "index": "Circuit {index}",
+    "step": "Stop #{number}",
+    "total_step": "{number} Stops",
+    "step_total": "Stop {number} / {total}",
+    "activity_time": "Activity duration",
+    "best_season": "Best season",
+    "need": "Need",
+    "description": "Description",
+    "type": "Type",
+    "scan": "Scan circuit",
+    "from_here": "From this location",
+    "previous_step": "Previous stop",
+    "itinerary_time": "Travel time",
+    "next_step": "Next stop",
+    "qrcode": "Scan code to download circuit",
+    "qrcode_panel": "Scan code now to download circuit",
+    "more": "More information",
+    "recommendations": "Did you like our recommendations ?",
+    "recommendations_text": "More info can be found on our website toursimecote-nord.com"
+  },
   "errors": {
     "notFound": "Page not found",
     "serverError": "Server error",
@@ -44,4 +89,3 @@
     "unauthorized": "Unauthorized"
   }
 }
-

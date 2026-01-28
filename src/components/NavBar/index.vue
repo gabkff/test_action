@@ -58,7 +58,7 @@
         class="NavBar__item NavBar__item--lang"
         @click="handleLanguage"
       >
-        <span class="NavBar__lang-text">{{ otherLang }}</span>
+        <span class="NavBar__lang-text">{{ otherLang.charAt(0).toUpperCase() + otherLang.slice(1) }}</span>
       </button>
     </div>
     
@@ -112,10 +112,11 @@ const sidePanelStore = useSidePanelStore()
 const i18nStore = useI18nStore()
 // Route courante pour l'état actif
 const currentRoute = computed(() => route.name as string)
-
+const currentLocale = computed(() => i18nStore.locale)
 // Autre langue disponible (pour le bouton de switch)
 const otherLang = computed(() => {
-  const current = locale.value.substring(0, 2)
+  const current = currentLocale.value
+  console.log('current other lang', current)
   const other = AVAILABLE_LOCALES.find(lang => lang !== current) || AVAILABLE_LOCALES[0]
   return other.charAt(0).toUpperCase() + other.slice(1)
 })
@@ -139,7 +140,7 @@ function handleClose() {
  * Gestion du clic sur Langue
  */
 function handleLanguage() {
-  i18nStore.setLocale(otherLang.value as LocaleKey)
+  i18nStore.setLocale(otherLang.value.toLowerCase() as LocaleKey)
 }
 </script>
 

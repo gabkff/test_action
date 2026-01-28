@@ -123,7 +123,6 @@ const isScrollable = computed(() =>  {
 })
 
 function scrollUpDesc() {
-  console.log('scrollUpDesc', descriptionEvent.value)
   if (!descriptionEvent.value) return
   descriptionEvent.value.scrollTop -= 100
 }
@@ -165,6 +164,7 @@ function scrollDownDesc() {
     &__image-wrapper
         width 100%
         height 650px
+        padding-left 60px
         .SidePanel__circuit__image
             height 100%
             width 1155px !important

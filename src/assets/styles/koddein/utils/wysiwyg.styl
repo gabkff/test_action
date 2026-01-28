@@ -58,11 +58,37 @@
     f-style('small-body')
     margin-bottom 1em
     padding-left 1.5em
+    position relative
 
   li
     f-style('small-body')
     margin-bottom 0.5em
     line-height 1.5
+    position relative
+    &:before
+        content ""
+        size 6px
+        background currentColor
+        border-radius 10px
+        color currentColor
+        font-weight bold
+        display inline-block
+        position absolute 
+        top 1.25rem
+        left -22px
+  ol
+    li
+      &:before
+        content ""
+        size 21px
+        background transparent
+        border-radius 10px
+        border 6px solid $fjord
+        font-weight bold
+        display inline-block
+        position absolute 
+        top .75rem
+        left -2.9rem
 
   blockquote
     margin 1.5em 0
