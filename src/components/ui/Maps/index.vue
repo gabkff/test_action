@@ -4,13 +4,13 @@
     
 <script setup lang="ts">
     /**
-     * Maps - Carte avec polylines animées
-     * 
-     * Gère dynamiquement les changements de style de polylines avec animations
+     * Maps - Carte avec gestion automatique des étapes
+     * * Refactorisé pour recevoir tout le tracé et gérer l'état via l'index d'étape.
      */
     import { ref, onMounted, watch, onBeforeUnmount, shallowRef } from 'vue'
     import { initMap } from './googleServices'
-    import { usePolylines, type EncodedPolyline } from './usePolylines'
+    // Assurez-vous d'avoir mis à jour usePolylines.ts avec la version "Architecture Map-Centric" proposée précédemment
+    import { usePolylines } from './usePolylines'
     import { useMarkers } from './useMarkers'
     
     const el = ref<HTMLElement | null>(null)
@@ -34,14 +34,17 @@
             type: Boolean,
             default: false,
         },
-        encodedPolyline: {
-            type: Array as () => Array<EncodedPolyline>,
+        // NOUVEAU : La liste complète des chaînes de caractères polyline du circuit
+        allPolylines: {
+            type: Array as () => string[], 
             required: false,
             default: () => []
         },
-        currentStep: {
-            type: Object,
-            required: false
+        // NOUVEAU : L'index de l'étape actuelle (0, 1, 2...)
+        currentStepIndex: {
+            type: Number,
+            required: false,
+            default: 0
         },
         polylineOptions: {
             type: Object,
@@ -69,11 +72,14 @@
         }
     })
 
-    const { drawPolylines, updatePolylines, cleanupPolylines } = usePolylines(map, {
-        polylineOptions: props.polylineOptions,
+    // Initialisation du composable Polylines avec la nouvelle architecture
+    // on devrait declarer le style polylineOptions en global
+    const { initPolylines, setStepIndex, cleanupPolylines } = usePolylines(map, {
+        polylineOptions: props.polylineOptions as any,
         animationDuration: props.animationDuration
     })
 
+    // Initialisation du composable Markers (inchangé)
     const { drawMarkers, clearMarkers } = useMarkers(map)
     
     onMounted(async () => {
@@ -91,20 +97,28 @@
             mapId: import.meta.env.VITE_GOOGLE_MAP_ID
         })
         
-        const bounds = await drawPolylines(props.encodedPolyline)
+        // 1. On dessine TOUT le circuit d'un coup
+        // initPolylines renvoie les bounds de tout le trajet
+        const bounds = await initPolylines(props.allPolylines, props.currentStepIndex)
+        
+        // 2. On dessine les marqueurs
         await drawMarkers(props.markers)
 
-        // Fit bounds logic reinstated from original
+        // 3. Gestion du centrage (Fit Bounds)
         if (!props.lock && bounds && !bounds.isEmpty()) {
             map.value.fitBounds(bounds, 50)
+            
+            // Logique de restriction de la vue (marge de 5%)
             const ne = bounds.getNorthEast()
             const sw = bounds.getSouthWest()
             const latMargin = (ne.lat() - sw.lat()) * 0.05
             const lngMargin = (ne.lng() - sw.lng()) * 0.05
+            
             const restrictedBounds = new google.maps.LatLngBounds(
                 new google.maps.LatLng(sw.lat() - latMargin, sw.lng() - lngMargin),
                 new google.maps.LatLng(ne.lat() + latMargin, ne.lng() + lngMargin)
             )
+            
             map.value.setOptions({
                 restriction: {
                     latLngBounds: restrictedBounds,
@@ -123,23 +137,27 @@
         map.value = null
     })
     
-    watch(() => props.encodedPolyline, async (newPolylines) => {
+    // WATCHER PRINCIPAL : Quand l'étape change, on met à jour les styles
+    watch(() => props.currentStepIndex, async (newIndex) => {
         if (!map.value) return
-        const bounds = await updatePolylines(newPolylines)
-        if (bounds && !bounds.isEmpty()) {
+        await setStepIndex(newIndex)
+    })
+
+    // Si le circuit change complètement (changement de page/circuit)
+    watch(() => props.allPolylines, async (newPolylines) => {
+        if (!map.value) return
+        const bounds = await initPolylines(newPolylines, props.currentStepIndex)
+        if (bounds && !bounds.isEmpty() && !props.lock) {
              map.value.fitBounds(bounds)
         }
-    }, { 
-        deep: true
-    })
+    }, { deep: true })
     
+    // Gestion des marqueurs (inchangé)
     watch(() => props.markers, async (newMarkers, oldMarkers) => {
         if (!map.value) return
         if (JSON.stringify(newMarkers) === JSON.stringify(oldMarkers)) return
         await drawMarkers(newMarkers)
-    }, {
-        deep: true
-    })
+    }, { deep: true })
 </script>
 
 <style lang="stylus" scoped>

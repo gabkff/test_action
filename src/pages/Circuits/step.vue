@@ -1,7 +1,7 @@
 <template>
     <div class="circuits-etape" v-if="ready && current" :data-circuit-theme="dataCircuitTheme">
       <div class="circuits-etape__container">
-        <h2 class="circuits-etape__name" :data-circuit-theme="dataCircuitTheme">{{ $t('circuits.name') }} {{ circuitIndex + 1 }}</h2>
+        <h2 class="circuits-etape__name" :data-circuit-theme="dataCircuitTheme">{{ $t('circuits.name') }} {{ circuitIndex! + 1 }}</h2>
         <h1 class="circuits-etape__title" :data-circuit-theme="dataCircuitTheme">{{ current.title }}</h1>
         
         <div class="circuits-etape__header_wrapper" v-if="currentStepIndex < current.steps.length">
@@ -212,7 +212,8 @@
           v-if="currentStep.map"
           :markers="markers"
           :currentStep="currentStep.map"
-          :encodedPolyline="[{line: nextStepPolyline, style: 'next'}, {line: previousStepPolyline, style: 'previous'}]"
+          :currentStepIndex="currentStepIndex"
+          :allPolylines="allPolylines"
         />
       </div>
       </div>
@@ -267,13 +268,14 @@ const currentStepIndex = computed(() => {
   return appStore.currentStepIndex
 })
 
-const nextStepPolyline = computed(() => {
-  return appStore.nextStepPolyline
+
+const allPolylines = computed(() => {
+    if (!current.value?.steps) return []
+    return current.value.steps
+        .map(step => step.next_step?.polyline)
+        .filter(p => p !== null && p !== undefined) 
 })
-const previousStepPolyline = computed(() => {
-  console.log('previous', appStore.previousStepPolyline)
-  return appStore.previousStepPolyline
-})
+
 const currentNextParcours = computed(() => {
   return appStore.currentNextParcours
 })

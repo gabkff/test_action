@@ -9,7 +9,7 @@ let refreshInterval: number | null = null
 
 /**
  * Démarre le rafraîchissement périodique des données (mode borne uniquement)
- */
+
 export function startPeriodicRefresh() {
   // Ne fonctionne qu'en mode borne
   if (appConfig.mode !== 'kiosk' || !appConfig.enableCache) {
@@ -48,7 +48,7 @@ export function startPeriodicRefresh() {
     }
   }, interval)
 }
-
+ */
 /**
  * Arrête le rafraîchissement périodique
  */

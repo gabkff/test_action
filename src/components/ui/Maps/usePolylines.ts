@@ -1,10 +1,8 @@
-import { ref, type ShallowRef } from 'vue'
+import { ref, type ShallowRef, markRaw } from 'vue'
 import { useGeometry } from './googleServices'
 
-export type EncodedPolyline = {
-    line: string[],
-    style: "previous" | "next" | "current"
-}
+// On ne passe plus des objets complexes avec style, juste les strings brutes
+export type PolylineList = string[]
 
 interface UsePolylinesProps {
     polylineOptions: {
@@ -19,25 +17,15 @@ export function usePolylines(
     map: ShallowRef<google.maps.Map | null>,
     props: UsePolylinesProps
 ) {
-    // State
-    const polylines = ref<Map<string, {
-        polyline: google.maps.Polyline,
-        style: string,
-        circleStyle: string | null,
-        animationCancelled: boolean,
-        hasStartCircle: boolean,
-        hasEndCircle: boolean
-    }>>(new Map())
+    // On stocke les polylines dans un tableau ordonné pour correspondre aux index des étapes
+    // structure : index -> { polyline, currentStyle, ... }
+    const polylines = ref<Array<{
+        instance: google.maps.Polyline,
+        style: "previous" | "next" | "current",
+        animationCancelled: boolean
+    }>>([])
 
-    let instanceCounter = 0
-    const instanceId = ref(0)
-
-    instanceId.value = ++instanceCounter
-
-    // Methods
-    function getPolylineId(line: string): string {
-        return `map-${instanceId.value}-${line.substring(0, 50)}`
-    }
+    // --- Helpers de style (identiques à avant, ajustés pour current = next) ---
 
     function getCircleIcon(style: string) {
         const baseIcon = {
@@ -46,57 +34,27 @@ export function usePolylines(
             strokeWeight: 4,
             scale: 14
         }
-
+        // Current utilise le style visuel de next (pointillés) mais cercle spécifique
         if (style === 'previous') {
-            return {
-                ...baseIcon,
-                fillColor: 'white',
-                strokeColor: '#102838'
-            }
+            return { ...baseIcon, fillColor: 'white', strokeColor: '#102838' }
         } else if (style === 'current') {
-            return {
-                ...baseIcon,
-                fillColor: '#102838', // Fjord
-                strokeColor: '#C4F0EB' // Turquoise
-            }
-        } else { // style === 'next'
-            return {
-                ...baseIcon,
-                fillColor: '#102838',
-                strokeColor: '#102838' // Fjord border
-            }
+            return { ...baseIcon, fillColor: '#102838', strokeColor: '#C4F0EB' }
+        } else {
+            return { ...baseIcon, fillColor: '#102838', strokeColor: '#102838' }
         }
     }
 
-    function resolveCircleStyle(groupStyle: string, isFirstInGroup: boolean): string {
-        if (groupStyle === 'next' && isFirstInGroup) {
-            return 'current'
-        }
-        return groupStyle
-    }
-
-    function getPolylineOptions(
-        style: string,
-        circleStyle: string | null,
-        hasStartCircle: boolean,
-        hasEndCircle: boolean
-    ) {
+    function getPolylineOptions(style: string, isFirstPolyline: boolean, isLastPolyline: boolean) {
         const icons: any[] = []
 
-        if (hasStartCircle && circleStyle) {
-            console.log('hasStartCircle', hasStartCircle)
+        // Logique des cercles
+        // Toujours un cercle au début
+        icons.push({ icon: getCircleIcon(style), offset: '0%' })
 
-            icons.push({
-                icon: getCircleIcon(circleStyle),
-                offset: '0%'
-            })
-        }
-
-        if (hasEndCircle && circleStyle) {
-            icons.push({
-                icon: getCircleIcon(circleStyle),
-                offset: '100%'
-            })
+        // Cercle à la fin SEULEMENT si c'est la toute dernière étape du circuit complet
+        // OU si c'est l'étape courante (selon votre design précédent)
+        if (isLastPolyline) {
+            icons.push({ icon: getCircleIcon(style), offset: '100%' })
         }
 
         if (style === 'previous') {
@@ -109,8 +67,8 @@ export function usePolylines(
                 zIndex: 10
             }
         } else {
+            // 'next' OU 'current' (pointillés)
             const pattern = [10, 5]
-
             icons.push({
                 icon: {
                     path: 'M 0,-1 0,1',
@@ -133,264 +91,159 @@ export function usePolylines(
         }
     }
 
-    async function animateStyleChange(
-        polylineData: {
-            polyline: google.maps.Polyline,
-            style: string,
-            circleStyle: string | null,
-            hasStartCircle: boolean,
-            hasEndCircle: boolean,
-            animationCancelled: boolean
-        },
-        fromStyle: string,
-        toStyle: string,
-        targetCircleStyle: string | null,
-        targetHasStartCircle: boolean,
-        targetHasEndCircle: boolean
+    // --- Animation ---
+
+    async function animatePolyline(
+        data: { instance: google.maps.Polyline, style: string, animationCancelled: boolean },
+        targetStyle: "previous" | "next" | "current",
+        isFirst: boolean,
+        isLast: boolean
     ) {
-        const polyline = polylineData.polyline
+        // Si le style visuel ne change pas (ex: next -> current, les deux sont pointillés), on update juste les icônes sans animer
+        // Note: previous = plein, next/current = pointillés
+        const isFromDashed = data.style === 'next' || data.style === 'current'
+        const isToDashed = targetStyle === 'next' || targetStyle === 'current'
+
+        data.style = targetStyle
+        data.animationCancelled = false
+
+        // Si on passe de plein à plein ou pointillé à pointillé, pas d'animation progressive nécessaire
+        // On applique juste les options (notamment pour changer la couleur des cercles)
+        if (isFromDashed === isToDashed) {
+            data.instance.setOptions(getPolylineOptions(targetStyle, isFirst, isLast))
+            return
+        }
+
+        // Sinon, animation de transition
         const steps = 20
         const duration = props.animationDuration
         const stepDuration = duration / steps
 
-        polylineData.animationCancelled = false
-
-        const startIcon = (targetHasStartCircle && targetCircleStyle)
-            ? { icon: getCircleIcon(targetCircleStyle), offset: '0%' }
-            : null
-
-        const endIcon = (targetHasEndCircle && targetCircleStyle)
-            ? { icon: getCircleIcon(targetCircleStyle), offset: '100%' }
-            : null
-
-        const permanentIcons = [startIcon, endIcon].filter(Boolean) as google.maps.IconSequence[]
-
-        const getIconsWithDashes = (progress: number, appearing: boolean) => {
+        // Helper pour l'anim
+        const getIconsForAnim = (progress: number, appearing: boolean) => {
             const pattern = [10, 5]
-            const icons = [...permanentIcons]
-            const dashOpacity = appearing ? progress : 1 - progress
+            const icons = []
+            // On remet les cercles fixes
+            icons.push({ icon: getCircleIcon(targetStyle), offset: '0%' })
+            if (isLast) icons.push({ icon: getCircleIcon(targetStyle), offset: '100%' })
 
+            // Pointillés
+            const opacity = appearing ? progress : 1 - progress
             icons.push({
-                icon: {
-                    path: 'M 0,-1 0,1',
-                    strokeOpacity: dashOpacity,
-                    strokeWeight: 4,
-                    scale: 2
-                },
+                icon: { path: 'M 0,-1 0,1', strokeOpacity: opacity, strokeWeight: 4, scale: 2 },
                 offset: '0',
                 repeat: `${pattern[0] + pattern[1]}px`
             })
             return icons
         }
 
-        // On vérifie si on passe de pointillés (next/current) à plein (previous) ou inversement
-        const isFromDashed = fromStyle === 'next' || fromStyle === 'current';
-        const isToDashed = toStyle === 'next' || toStyle === 'current';
-
-        if (isFromDashed && toStyle === 'previous') {
-            // Dashed -> Solid
+        if (isFromDashed && !isToDashed) {
+            // Pointillés -> Plein
             for (let i = 0; i <= steps; i++) {
-                if (polylineData.animationCancelled) return
+                if (data.animationCancelled) return
                 const progress = i / steps
-                await new Promise(resolve => setTimeout(resolve, stepDuration))
-
-                polyline.setOptions({
+                await new Promise(r => setTimeout(r, stepDuration))
+                data.instance.setOptions({
                     strokeOpacity: progress * props.polylineOptions.strokeOpacity,
                     strokeWeight: 4 + (props.polylineOptions.strokeWeight - 4) * progress,
-                    icons: getIconsWithDashes(progress, false)
+                    icons: getIconsForAnim(progress, false)
                 })
             }
-        } else if (fromStyle === 'previous' && isToDashed) {
-            // Solid -> Dashed
+        } else {
+            // Plein -> Pointillés
             for (let i = 0; i <= steps; i++) {
-                if (polylineData.animationCancelled) return
+                if (data.animationCancelled) return
                 const progress = i / steps
-                await new Promise(resolve => setTimeout(resolve, stepDuration))
-
-                polyline.setOptions({
+                await new Promise(r => setTimeout(r, stepDuration))
+                data.instance.setOptions({
                     strokeOpacity: props.polylineOptions.strokeOpacity * (1 - progress),
                     strokeWeight: props.polylineOptions.strokeWeight - (props.polylineOptions.strokeWeight - 4) * progress,
-                    icons: getIconsWithDashes(progress, true)
+                    icons: getIconsForAnim(progress, true)
                 })
             }
         }
 
-        // Force l'état final correct pour éviter les bugs visuels résiduels
-        if (!polylineData.animationCancelled) {
-            const finalOptions = getPolylineOptions(
-                toStyle,
-                targetCircleStyle,
-                targetHasStartCircle,
-                targetHasEndCircle
-            )
-            polyline.setOptions(finalOptions)
+        // Finalisation propre
+        if (!data.animationCancelled) {
+            data.instance.setOptions(getPolylineOptions(targetStyle, isFirst, isLast))
         }
     }
 
-    async function drawPolylines(paths: EncodedPolyline[]) {
-        if (!map.value || !paths || paths.length === 0) return
+    // --- Core Functions ---
 
-        const geometry = await useGeometry()
-        const bounds = new google.maps.LatLngBounds()
-
-        for (const encodedPolyline of paths) {
-            // Sécurité pour les tableaux vides ou null
-            const lines = Array.isArray(encodedPolyline.line) ? encodedPolyline.line : []
-
-            for (let i = 0; i < lines.length; i++) {
-                const line = lines[i]
-                if (!line) continue
-
-                const pathCoordinates = geometry.decodePath(line)
-                pathCoordinates.forEach(coordinate => bounds.extend(coordinate))
-
-                const polylineId = getPolylineId(line)
-
-                const isFirstSegment = i === 0
-                const isLastSegment = i === lines.length - 1
-                const circleStyle = resolveCircleStyle(encodedPolyline.style, isFirstSegment)
-
-                const hasStartCircle = true
-                const hasEndCircle = (encodedPolyline.style === 'next' && isLastSegment)
-
-                const options = getPolylineOptions(encodedPolyline.style, circleStyle, hasStartCircle, hasEndCircle)
-
-                const newPolyline = new google.maps.Polyline({
-                    path: pathCoordinates,
-                    ...options,
-                    map: map.value
-                })
-
-                polylines.value.set(polylineId, {
-                    polyline: newPolyline,
-                    style: encodedPolyline.style,
-                    circleStyle: circleStyle,
-                    animationCancelled: false,
-                    hasStartCircle,
-                    hasEndCircle
-                })
-            }
-        }
-
-        return bounds
-    }
-
-    async function updatePolylines(newPaths: EncodedPolyline[]) {
+    // 1. Initialisation : On dessine tout le circuit d'un coup
+    async function initPolylines(allPathStrings: string[], initialStepIndex: number) {
         if (!map.value) return
+        cleanupPolylines() // Reset si déjà existant
 
         const geometry = await useGeometry()
         const bounds = new google.maps.LatLngBounds()
-        const newPolylineIds = new Set<string>()
-        const animationPromises: Promise<void>[] = []
 
-        for (const encodedPolyline of newPaths) {
-            // Sécurité anti-crash pour l'étape finale où line peut être null
-            const lines = Array.isArray(encodedPolyline.line) ? encodedPolyline.line : []
-
-            for (let i = 0; i < lines.length; i++) {
-                const line = lines[i]
-                if (!line) continue
-
-                const polylineId = getPolylineId(line)
-                newPolylineIds.add(polylineId)
-
-                const pathCoordinates = geometry.decodePath(line)
-                pathCoordinates.forEach(coordinate => bounds.extend(coordinate))
-
-                const existingPolyline = polylines.value.get(polylineId)
-
-                const isFirstSegment = i === 0
-                const isLastSegment = i === lines.length - 1
-                const targetCircleStyle = resolveCircleStyle(encodedPolyline.style, isFirstSegment)
-                const targetHasStartCircle = true
-                const targetHasEndCircle = (encodedPolyline.style === 'next' && isLastSegment)
-
-                if (existingPolyline) {
-                    const styleChanged = existingPolyline.style !== encodedPolyline.style
-                    const circleStyleChanged = existingPolyline.circleStyle !== targetCircleStyle
-                    const circleConfigChanged = existingPolyline.hasStartCircle !== targetHasStartCircle || existingPolyline.hasEndCircle !== targetHasEndCircle
-
-                    if (styleChanged) {
-                        existingPolyline.animationCancelled = true
-
-                        const oldStyle = existingPolyline.style
-
-                        existingPolyline.style = encodedPolyline.style
-                        existingPolyline.circleStyle = targetCircleStyle
-                        existingPolyline.hasStartCircle = targetHasStartCircle
-                        existingPolyline.hasEndCircle = targetHasEndCircle
-
-                        const animationPromise = animateStyleChange(
-                            existingPolyline,
-                            oldStyle,
-                            encodedPolyline.style,
-                            targetCircleStyle,
-                            targetHasStartCircle,
-                            targetHasEndCircle
-                        )
-                        animationPromises.push(animationPromise)
-
-                    } else if (circleStyleChanged || circleConfigChanged) {
-                        existingPolyline.circleStyle = targetCircleStyle
-                        existingPolyline.hasStartCircle = targetHasStartCircle
-                        existingPolyline.hasEndCircle = targetHasEndCircle
-
-                        const options = getPolylineOptions(
-                            encodedPolyline.style,
-                            targetCircleStyle,
-                            targetHasStartCircle,
-                            targetHasEndCircle
-                        )
-                        existingPolyline.polyline.setOptions(options)
-                    }
-                } else {
-                    const options = getPolylineOptions(
-                        encodedPolyline.style,
-                        targetCircleStyle,
-                        targetHasStartCircle,
-                        targetHasEndCircle
-                    )
-                    const newPolyline = new google.maps.Polyline({
-                        path: pathCoordinates,
-                        ...options,
-                        map: map.value
-                    })
-
-                    polylines.value.set(polylineId, {
-                        polyline: newPolyline,
-                        style: encodedPolyline.style,
-                        circleStyle: targetCircleStyle,
-                        animationCancelled: false,
-                        hasStartCircle: targetHasStartCircle,
-                        hasEndCircle: targetHasEndCircle
-                    })
-                }
+        for (let i = 0; i < allPathStrings.length; i++) {
+            const lineStr = allPathStrings[i]
+            if (!lineStr) {
+                // On pousse un null ou placeholder pour garder la synchro des index
+                // mais attention à ne pas faire planter la suite
+                continue
             }
-        }
 
-        for (const [id, data] of polylines.value.entries()) {
-            if (!newPolylineIds.has(id)) {
-                data.polyline.setMap(null)
-                polylines.value.delete(id)
-            }
-        }
+            const path = geometry.decodePath(lineStr)
+            path.forEach(p => bounds.extend(p))
 
-        await Promise.all(animationPromises)
+            // Déterminer le style initial
+            let initialStyle: "previous" | "current" | "next" = 'next'
+            if (i < initialStepIndex) initialStyle = 'previous'
+            else if (i === initialStepIndex) initialStyle = 'current'
+            else initialStyle = 'next'
+
+            const isLast = i === allPathStrings.length - 1
+            const options = getPolylineOptions(initialStyle, true, isLast)
+
+            const poly = new google.maps.Polyline({
+                path: path,
+                map: map.value,
+                ...options
+            })
+
+            polylines.value.push({
+                instance: markRaw(poly),
+                style: initialStyle,
+                animationCancelled: false
+            })
+        }
 
         return bounds
+    }
+
+    // 2. Mise à jour : On change juste les styles en fonction de l'index
+    async function setStepIndex(newIndex: number) {
+        const promises = []
+
+        for (let i = 0; i < polylines.value.length; i++) {
+            const data = polylines.value[i]
+            let targetStyle: "previous" | "current" | "next"
+
+            if (i < newIndex) targetStyle = 'previous'
+            else if (i === newIndex) targetStyle = 'current'
+            else targetStyle = 'next'
+
+            if (data.style !== targetStyle) {
+                data.animationCancelled = true // Stop en cours
+                const isLast = i === polylines.value.length - 1
+                promises.push(animatePolyline(data, targetStyle, true, isLast))
+            }
+        }
+        await Promise.all(promises)
     }
 
     function cleanupPolylines() {
-        for (const [id, data] of polylines.value.entries()) {
-            data.polyline.setMap(null)
-        }
-        polylines.value.clear()
+        polylines.value.forEach(p => p.instance.setMap(null))
+        polylines.value = []
     }
 
     return {
-        polylines,
-        drawPolylines,
-        updatePolylines,
+        initPolylines,
+        setStepIndex,
         cleanupPolylines
     }
 }

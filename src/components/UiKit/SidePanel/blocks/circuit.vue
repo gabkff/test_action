@@ -63,7 +63,9 @@
                         :zoom="15"
                         :center="currentStep.map"
                         v-if="currentStep.map"
-                        :encodedPolyline="[{line: nextStepPolyline, style: 'next'}, {line: previousStepPolyline, style: 'previous'}]"
+                        :currentStep="currentStep.map"
+                        :currentStepIndex="currentStepIndex"
+                        :allPolylines="allPolylines"
                         :markers="markers"
                     />
                 </div>
@@ -102,11 +104,14 @@ const markers: any = computed(() => {
   return markers
 })
 
-const nextStepPolyline = computed(() => {
-  return appStore.nextStepPolyline
+const allPolylines = computed(() => {
+    if (!current.value?.steps) return []
+    return current.value.steps
+        .map(step => step.next_step?.polyline)
+        .filter(p => p !== null && p !== undefined) 
 })
-const previousStepPolyline = computed(() => {
-  return appStore.previousStepPolyline
+const currentStepIndex = computed(() => {
+    return appStore.currentStepIndex
 })
 const currentNextParcours = computed(() => {
   return appStore.currentNextParcours

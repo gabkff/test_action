@@ -30,12 +30,14 @@
  */
 
 import { onMounted } from 'vue'
+import { initMap } from 'components/ui/Maps/googleServices'
 import { store as appStore } from 'plugins/store/app'
 import sidePanel from 'components/UiKit/SidePanel/index.vue'
 
 onMounted(async () => {
   // Initialise les données (cache + API ou mock selon le mode)
   await appStore.initData()
+  await initMap()
   console.log('✅ Application montée et prête')
 })
 </script>
