@@ -9,6 +9,7 @@ import { getAuthHeaders } from 'utils/helpers'
 const API_BASE_URL = import.meta.env.VITE_API_URL
 const API_SITE = import.meta.env.VITE_API_SITE
 const DEFAULT_LOCALE = import.meta.env.VITE_DEFAULT_LOCALE
+const API_KEY = import.meta.env.VITE_API_KEY
 
 /**
  * Service API simplifié
@@ -96,7 +97,7 @@ class ApiService {
 
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',
-      'X-API-KEY': import.meta.env.VITE_API_KEY,
+      'X-API-KEY': API_KEY,
       ...getAuthHeaders()
     }
 
