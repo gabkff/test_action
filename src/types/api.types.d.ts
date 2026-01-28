@@ -101,10 +101,11 @@ declare interface CircuitEntry {
   description: string | null
   steps: CircuitStep[]
   base64_qr: string | null
-  commute_to_circuit: {
+  commuting: {
     time: number
-    transportation: string[]
-  }
+    transportation: string
+  }[]
+  main_travel_mode: string
 }
 
 declare interface CircuitStep {
@@ -127,8 +128,7 @@ declare interface GeoCoordinates {
 }
 
 declare interface NextStepInfo {
-  transportation: string[]
-  time: number
+  time_to_next_step: number
   polyline: string
 }
 

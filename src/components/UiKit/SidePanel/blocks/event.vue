@@ -21,11 +21,11 @@
       </div>
         <div class="SidePanel__event__price" v-if="store.payload.price_range">
           <div class="SidePanel__event__price-label">{{ $t('events.price') }}</div>
-          <div class="SidePanel__event__price-value"> {{ store.payload.price_range }}</div>
+          <div class="SidePanel__event__price-value" v-html="store.payload.price_range as HtmlText" />
         </div>
         <div class="SidePanel__event__address">
             <div class="SidePanel__event__address-icon">
-            <div class="SidePanel__event__address-icon-icon" v-html="IconPin" />
+            <div class="SidePanel__event__address-icon-icon" v-html="IconLocation" />
             <div class="SidePanel__event__address-icon-text"> Adresse</div>
             </div>
             <div class="SidePanel__event__address-text"> {{ store.payload.address }}</div>
@@ -52,7 +52,7 @@
 
 <script setup lang="ts">
 import { useSidePanelStore } from 'store/sidePanel'
-import IconPin from 'assets/svg/pin.svg?raw'
+import IconLocation from 'assets/svg/location.svg?raw'
 import UiWysiwyg from 'components/UiKit/Wysiwyg/index.vue'
 import UiSwiper from 'components/UiKit/Swiper/index.vue'
 import UiButton from 'components/UiKit/Button/index.vue'
@@ -100,11 +100,11 @@ function scrollDownDesc() {
         color $fjord
     &__address-icon
         f(row)
-        gap 10px
+        gap 12px
         opacity 0.5
     &__address-icon-icon
-        width 25px
-        height 25px
+        width 21px
+        height 29px
         display flex
         --icon-accent white
     &__address-text

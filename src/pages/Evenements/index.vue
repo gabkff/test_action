@@ -34,8 +34,14 @@
             </UiAccordionItem>
           </UiAccordions> -->
           <UiAccordions v-if="filteredEvents.length > 0">
-            <UiAccordionItem v-for="event in filteredEvents" :key="event.id" :time="event.times" :location="event.address" :title="event.title" :icon="IconPlus" @click="toggleEvent(event.id)">
-            </UiAccordionItem>
+            <UiAccordionItem 
+              v-for="event in filteredEvents" :key="event.id" 
+              :time="{ 'start': event.time_start, end: event.time_end }" 
+              :location="event.address" 
+              :title="event.title" 
+              :icon="IconPlus" 
+              @click="toggleEvent(event.id)"
+            />
           </UiAccordions>
           <div v-else class="events-page__empty">
             Aucun événement pour cette date

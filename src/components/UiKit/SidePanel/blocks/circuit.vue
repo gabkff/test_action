@@ -2,7 +2,7 @@
     <div class="SidePanel__circuit" v-if="current && currentStep">
         <div class="SidePanel__circuit__header"> {{$t('circuits.name') + '-' + current.title }} </div>
         <div class="SidePanel__circuit__step"> 
-            <ui-button theme="icon" :icon="IconBoot" v-if="currentStep.activity_type === 'Promenade'"/>
+            <ui-button theme="icon" :icon="currentStep.icon"/>
             <div>{{ $t('circuits.step', { number: data.index }) }} </div>
         </div>
         <div class="SidePanel__circuit__title"> {{ currentStep.title }}</div>
@@ -78,7 +78,6 @@
 import { useTemplateRef, computed, ComputedRef } from 'vue'
 import { store as appStore } from 'plugins/store/app'
 import UiButton from 'components/UiKit/Button/index.vue'
-import IconBoot from 'assets/svg/boot.svg?raw'
 import IconPin from 'assets/svg/pin.svg?raw'
 import UiMap from 'components/ui/Maps/index.vue'
 import UiWysiwyg from 'components/UiKit/Wysiwyg/index.vue'

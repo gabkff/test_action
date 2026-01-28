@@ -607,7 +607,7 @@
                       }
                   },
                   "description": "Découvrez Tadoussac à travers les yeux des enfants ! Entre visites ludiques, sentiers accessibles et aventures dans les dunes, vivez un séjour rempli de découvertes et de nature.",
-                  "commute_to_circuit": {
+                  "commuting": {
                       "transportation": "à pieds",
                       "time": 15
                   },
@@ -1305,7 +1305,7 @@
                       }
                   },
                   "description": "Entre ciel et mer, d’étranges géants de pierre veillent sur un monde hors du temps.",
-                  "commute_to_circuit": {
+                  "commuting": {
                       "transportation": "",
                       "time": null
                   },

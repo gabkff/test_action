@@ -5,13 +5,20 @@
     <div class="EventItem__content">
       <!-- Horaire à gauche -->
       <div class="EventItem__time">
-        <span class="EventItem__time-text">{{ time }}</span>
+        <template v-if="time && time.start && time.end && time.start !== time.end && time.start !== '00:00' && time.end !== '00:00'">
+          <span class="EventItem__time-text">
+            {{ $t('events.time_start_end', { start: time.start, end: time.end }) }}
+          </span>
+        </template>
+        <span class="EventItem__time-text" v-else-if="time">
+          {{ time.start || time.end }}
+        </span>
       </div>
       
       <!-- Infos au milieu -->
       <div class="EventItem__info">
         <div class="EventItem__location" v-if="location">
-          <i class="EventItem__icon_pin" v-html="IconPin" />
+          <i class="EventItem__icon_pin" v-html="IconLocation" />
           <span>{{ location }}</span>
         </div>
         <div class="EventItem__title-container">
@@ -38,10 +45,13 @@
  */
 
 import IconPlus from 'assets/svg/plus.svg?raw'
-import IconPin from 'assets/svg/pin.svg?raw'
+import IconLocation from 'assets/svg/location.svg?raw'
 interface EventItemProps {
   /** Horaire de l'événement */
-  time: string
+  time: {
+    start: string | null
+    end: string | null
+  } | null
   /** Titre de l'événement */
   title: string
   /** Localisation de l'événement */
@@ -90,8 +100,8 @@ function handleClick() {
       bottom -1px
 
   &__content
-    display grid
-    grid-template-columns auto 1fr auto
+    f(row, $justify: flex-start, $align: center)
+    gap 140px
     align-items center
     padding 60px 0
 
@@ -104,6 +114,7 @@ function handleClick() {
     color $fjord
 
   &__info
+    width 100%
     display flex
     flex-direction column
     gap 8px
@@ -117,7 +128,7 @@ function handleClick() {
     f-style('default')
     .EventItem__icon_pin
       width 25px
-      height 25px
+      height 35px
       display flex
       --icon-accent white
 

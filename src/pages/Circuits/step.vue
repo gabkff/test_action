@@ -146,9 +146,14 @@
             <div class="circuits-etape__step_content_description">
               <p>{{ currentStep.description }}</p>
             </div>
-            <div class="circuits-etape__step_content_itinerary" v-if="currentStepIndex === 0">
+            <div class="circuits-etape__step_content_itinerary" v-if="currentStepIndex === 0 && current.commuting.length > 0">
               <div class="circuits-etape__step_content_itinerary_label" data-index="0">{{ $t('circuits.from_here') }}</div>
-              <UiTag :label="current.commute_to_circuit.time + 'min'" :icon="current.commute_to_circuit.transportation.includes('pieds') ? IconWalk : IconCar" data-index="0"/>
+              <UiTag 
+                v-for="commuting in current.commuting"
+                :label="commuting.time + 'min'" 
+                :icon="commuting.transportation === 'WALK' ? IconWalk : (commuting.transportation === 'DRIVE' ? IconCar : IconBike)" 
+                data-index="0"
+              />
             </div>
           </div>
           <ui-button 
@@ -181,7 +186,11 @@
             </div>
             <div class="circuits-etape__step_content_itinerary">
                 <div class="circuits-etape__step_content_itinerary_label">{{ $t('circuits.itinerary_time') }}</div>
-                <UiTag :label="current.steps[currentStepIndex + 1].next_step.time + 'min'" :icon="current.steps[currentStepIndex + 1].next_step.transportation.includes('pieds') ? IconWalk : IconCar" data-index="1" :data-view="currentView"/>
+                <UiTag 
+                  :label="current.steps[currentStepIndex].next_step.time_to_next_step + ' min'" 
+                  :icon="current.main_travel_mode === 'WALK' ? IconWalk : (current.main_travel_mode === 'DRIVE' ? IconCar : IconBike)" 
+                  data-index="1" :data-view="currentView"
+                />
             </div>
           </div>
           <div class="circuits-etape__step_container_steps" v-if="currentStepIndex > 0">
@@ -203,7 +212,11 @@
             </div>
             <div class="circuits-etape__step_content_itinerary">
                 <div class="circuits-etape__step_content_itinerary_label">{{ $t('circuits.itinerary_time') }}</div>
-                <UiTag :label="current.steps[currentStepIndex - 1].next_step.time + 'min'" :icon="current.steps[currentStepIndex - 1].next_step.transportation.includes('pieds') ? IconWalk : IconCar" data-index="1" :data-view="currentView"/>
+                <UiTag :label="current.steps[currentStepIndex - 1].next_step.time_to_next_step + ' min'" 
+                :icon="current.main_travel_mode === 'WALK' ? IconWalk : (current.main_travel_mode === 'DRIVE' ? IconCar : IconBike)" 
+                  data-index="1" 
+                  :data-view="currentView"
+                />
             </div>
           </div>
         </div>
@@ -239,7 +252,7 @@ import IconWalk from 'assets/svg/walk.svg?raw'
 import IconCar from 'assets/svg/car.svg?raw'
 import IconPlus from 'assets/svg/plus.svg?raw'
 import IconArrow from 'assets/svg/arrow.svg?raw'
-import IconPin from 'assets/svg/pin.svg?raw'
+import IconBike from 'assets/svg/bike.svg?raw'
 import IconPouce from 'assets/svg/pouce.svg?raw'
 import imgBorn from 'assets/img/borne.png'
 import { UiButton } from '@/components/UiKit'
@@ -464,6 +477,10 @@ function setStep(direction: 'next' | 'previous') {
       f-style('default')
       color $fjord
       margin-bottom 60px
+    &__step_content_itinerary
+      .UiTag
+        &:not(:last-child)
+          margin-right 15px
     &__step_content_itinerary_label
       f-style('small-body')
       color white
@@ -523,6 +540,8 @@ function setStep(direction: 'next' | 'previous') {
           .UiTag
             color $fjord !important
             border-color rgba($fjord, 0.5) !important
+            &:not(:last-child)
+              margin-right 15px
 
     &__step_container_steps
       color white
