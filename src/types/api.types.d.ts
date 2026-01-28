@@ -119,7 +119,7 @@ declare interface CircuitStep {
   map: GeoCoordinates
   images: Image[]
   next_step: NextStepInfo
-  icon: string | null
+  icon?: string | undefined
 }
 
 declare interface GeoCoordinates {
