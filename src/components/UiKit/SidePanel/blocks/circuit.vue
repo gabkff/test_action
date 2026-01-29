@@ -75,8 +75,9 @@
 </template>
 
 <script setup lang="ts">
-import { useTemplateRef, computed, ComputedRef } from 'vue'
+import { useTemplateRef, computed, ComputedRef, ref, watch, nextTick } from 'vue'
 import { store as appStore } from 'plugins/store/app'
+import { useI18nStore } from 'plugins/i18n/store'
 import UiButton from 'components/UiKit/Button/index.vue'
 import UiMap from 'components/ui/Maps/index.vue'
 import UiWysiwyg from 'components/UiKit/Wysiwyg/index.vue'
@@ -89,7 +90,8 @@ const props = defineProps({
 const current = computed(() => {
   return appStore.current
 })
-
+const i18nStore = useI18nStore()
+const isScrollable = ref(false)
 const markers: any = computed(() => {
   const markers = []
   if (!current.value?.steps || current.value?.steps.length === 0) return undefined
@@ -120,10 +122,24 @@ const currentStep: ComputedRef<CircuitStep | null | undefined> = computed(() => 
 
 const descriptionEvent = useTemplateRef<HTMLElement | null>('descriptionEventRef')
 
-const isScrollable = computed(() =>  {
-    if (!descriptionEvent.value) return false
-    return descriptionEvent.value.scrollHeight > descriptionEvent.value.clientHeight
-})
+const checkScroll = () => {
+  if (!descriptionEvent.value) {
+    isScrollable.value = false
+    return
+  }
+  // On compare scrollHeight et clientHeight
+  isScrollable.value = descriptionEvent.value.scrollHeight > descriptionEvent.value.clientHeight
+}
+
+watch(
+  [() => i18nStore.locale, () => currentStep.value?.description], 
+  async () => {
+    // Crucial : on attend que Vue ait mis à jour le DOM avec le nouveau texte
+    await nextTick()
+    checkScroll()
+  }, 
+  { immediate: true }
+)
 
 function scrollUpDesc() {
   if (!descriptionEvent.value) return

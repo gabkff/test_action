@@ -52,22 +52,39 @@
 
 <script setup lang="ts">
 import { store as appStore } from 'plugins/store/app'
+import { useI18nStore } from 'plugins/i18n/store'
 import IconLocation from 'assets/svg/location.svg?raw'
 import UiWysiwyg from 'components/UiKit/Wysiwyg/index.vue'
 import UiSwiper from 'components/UiKit/Swiper/index.vue'
 import UiButton from 'components/UiKit/Button/index.vue'
-import { useTemplateRef, computed } from 'vue'
+import { useTemplateRef, computed, ref, watch, nextTick } from 'vue'
 
+const i18nStore = useI18nStore()
+const isScrollable = ref(false)
 const descriptionEvent = useTemplateRef<HTMLElement | null>('descriptionEventRef')
-
-const isScrollable = computed(() =>  {
-    if (!descriptionEvent.value) return false
-    return descriptionEvent.value.scrollHeight > descriptionEvent.value.clientHeight
-})
 
 const currentEvent = computed(() => {
   return appStore.currentEvent
 })
+
+const checkScroll = () => {
+  if (!descriptionEvent.value) {
+    isScrollable.value = false
+    return
+  }
+  // On compare scrollHeight et clientHeight
+  isScrollable.value = descriptionEvent.value.scrollHeight > descriptionEvent.value.clientHeight
+}
+
+watch(
+  [() => i18nStore.locale, () => currentEvent.value?.description], 
+  async () => {
+    // Crucial : on attend que Vue ait mis à jour le DOM avec le nouveau texte
+    await nextTick()
+    checkScroll()
+  }, 
+  { immediate: true }
+)
 
 function scrollUpDesc() {
   if (!descriptionEvent.value) return
