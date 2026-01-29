@@ -44,6 +44,7 @@ const useStore = defineStore('app', () => {
   /** IDs et index pour la réactivité stable */
   const currentCircuitId = ref<number | null>(null)
   const currentStepIndex = ref<number>(0)
+  const currentEventId = ref<number | null>(null)
 
   // ============================================
   // HELPERS DE FUSION (Technique vs Texte)
@@ -186,6 +187,11 @@ const useStore = defineStore('app', () => {
     return circuits.value.find((circuit: CircuitEntry) => circuit.id !== current.value!.id)
   })
 
+
+  const currentEvent = computed(() => {
+    if (!currentEventId.value) return null
+    return localData.value?.events.find((event: EventEntry) => event.id === currentEventId.value)
+  })
   // ============================================
   // GETTERS - Helpers
   // ============================================
@@ -392,6 +398,10 @@ const useStore = defineStore('app', () => {
     currentStepIndex.value = stepIndex
   }
 
+  function setCurrentEvent(eventId: number ) {
+    currentEventId.value = eventId
+  }
+
   return {
     // State
     meta,
@@ -408,6 +418,7 @@ const useStore = defineStore('app', () => {
     circuits,
     currentPreviousParcours,
     currentNextParcours,
+    currentEvent,
     current,
     currentStep,
     currentStepIndex,
@@ -433,6 +444,7 @@ const useStore = defineStore('app', () => {
     setCurrentCircuit,
     setCurrentStepIndex,
     setCircuitBySlug,
+    setCurrentEvent,
     reset,
   }
 })

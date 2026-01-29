@@ -80,7 +80,7 @@
     })
 
     // Initialisation du composable Markers (inchangé)
-    const { drawMarkers, clearMarkers } = useMarkers(map)
+    const { drawMarkers, clearMarkers, updateMarkersStyle } = useMarkers(map)
     
     onMounted(async () => {
         if (!el.value) return
@@ -93,7 +93,7 @@
             disableDefaultUI: true,
             gestureHandling: props.lock ? 'none' : 'auto',
             disableDoubleClickZoom: props.lock,
-            zoomControl: !props.lock,
+            zoomControl: false,
             mapId: import.meta.env.VITE_GOOGLE_MAP_ID
         })
         
@@ -102,7 +102,7 @@
         const bounds = await initPolylines(props.allPolylines, props.currentStepIndex)
         
         // 2. On dessine les marqueurs
-        await drawMarkers(props.markers)
+        await drawMarkers(props.markers,props.currentStepIndex)
 
         // 3. Gestion du centrage (Fit Bounds)
         if (!props.lock && bounds && !bounds.isEmpty()) {
@@ -141,6 +141,8 @@
     watch(() => props.currentStepIndex, async (newIndex) => {
         if (!map.value) return
         await setStepIndex(newIndex)
+        updateMarkersStyle(newIndex)
+        
     })
 
     // Si le circuit change complètement (changement de page/circuit)
@@ -156,11 +158,33 @@
     watch(() => props.markers, async (newMarkers, oldMarkers) => {
         if (!map.value) return
         if (JSON.stringify(newMarkers) === JSON.stringify(oldMarkers)) return
-        await drawMarkers(newMarkers)
+        await drawMarkers(newMarkers, props.currentStepIndex)
     }, { deep: true })
+
+    function handleZoom(delta: number) {
+        if (!map.value) return
+        const currentZoom = map.value.getZoom() || props.zoom
+        map.value.setZoom(currentZoom + delta)
+
+        if (props.markers && props.markers[props.currentStepIndex]) {
+            const pos = props.markers[props.currentStepIndex].position
+            map.value.panTo({ lat: pos.lat, lng: pos.lng })
+        }
+    }
+    defineExpose({
+        handleZoom
+    })
 </script>
 
 <style lang="stylus" scoped>
+.maps-zoom-control
+    position absolute
+    bottom 20px
+    right 20px
+    z-index 1000
+    display flex
+    flex-direction column
+    gap 10px
 .maps
     width 100%
     height 100%
@@ -195,4 +219,19 @@
     svg
         width 100%
         height 100%
+:deep(.custom-cluster-count)
+    f-style('h4')
+    color $remous
+:deep(.custom-marker-container)
+    trans(all, 0.3s ease)
+    &.is-previous
+        opacity 1
+    &.is-current
+        opacity 1
+    &.is-next
+        opacity 1
+        .custom-marker-pin
+            background-color white !important
+        .custom-marker-icon
+            color $fjord
 </style>

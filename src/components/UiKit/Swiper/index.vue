@@ -386,14 +386,30 @@ export default defineComponent({
 
     /* just in case we actually need it, probably with the watch system */
     const update = () => {
+      console.log('update', data.swiper)
       data.swiper?.update();
+      data.swiper?.pagination?.update();
+      data.swiper?.navigation?.update();
     };
 
     watch(() => props.options,
       (opts) => {
         if (!data.swiper) return
         merge(data.swiper?.params, opts)
-      })
+    })
+    watch(() => slots.default?.(), () => {
+      console.log('slots.default?.()', slots.default?.())
+      nextTick(() => {
+        if (data.swiper) {
+          // will destroy instance but keep style aka keep currentslide active. :magic:
+          data.swiper.destroy(true, false);
+          data.swiper = undefined;
+          data.swiper = createSwiper() as Swiper;
+          update();
+        }
+      });
+    })
+
       
 
     // return public data for our template

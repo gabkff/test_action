@@ -139,7 +139,7 @@
           <UiNavBar key="navbar"  class="circuits-etape__navbar" :next="currentStepIndex < current.steps.length ? true : false" :previous="currentStepIndex > 0 ? true : false" @next="setStep('next')" @previous="setStep('previous')"/>
           <div class="circuits-etape__step_content">
             <div class="circuits-etape__step_content_header">
-              <ui-button theme="icon" :icon="IconMap"/>
+              <ui-button theme="icon" :icon="currentStep.icon"/>
               <div class="circuits-etape__step_content_step_total">{{ $t('circuits.step_total', { number: currentStepIndex + 1, total: current.steps.length }) }} </div>
             </div>
            <h2 class="circuits-etape__step_content_title">{{ currentStep.title }}</h2>
@@ -224,10 +224,14 @@
           :zoom="15"
           v-if="currentStep.map"
           :markers="markers"
-          :currentStep="currentStep.map"
           :currentStepIndex="currentStepIndex"
           :allPolylines="allPolylines"
+          ref="mapRef"
         />
+        <div class="maps-zoom-control">
+          <ui-button class="maps-zoom-control__button" theme="secondary" :icon="IconZoomIn" :big="true" @click="zoomMap('in')" />
+          <ui-button class="maps-zoom-control__button" theme="secondary" :icon="IconZoomOut" :big="true" @click="zoomMap('out')" />
+        </div>
       </div>
       </div>
     </div>
@@ -254,6 +258,8 @@ import IconPlus from 'assets/svg/plus.svg?raw'
 import IconArrow from 'assets/svg/arrow.svg?raw'
 import IconBike from 'assets/svg/bike.svg?raw'
 import IconPouce from 'assets/svg/pouce.svg?raw'
+import IconZoomIn from 'assets/svg/plus.svg?raw'
+import IconZoomOut from 'assets/svg/moins.svg?raw'
 import imgBorn from 'assets/img/borne.png'
 import { UiButton } from '@/components/UiKit'
 
@@ -263,6 +269,7 @@ const ready = ref(false)
 const sidePanelStore = useSidePanelStore()
 const currentView = ref<ViewCircuit>('map')
 const feedbackReco = ref(false)
+const mapRef = ref<any>(null)
 
 // Validation du slug et redirection si invalide
 // a voir si pas on mounted plutôt
@@ -360,6 +367,16 @@ function setStep(direction: 'next' | 'previous') {
     appStore.setCurrentStepIndex(currentStepIndex.value + 1)
   } else {
     appStore.setCurrentStepIndex(currentStepIndex.value - 1)
+  }
+}
+
+function zoomMap(direction: 'in' | 'out') {
+  const map = document.querySelector('.maps')
+  console.log(map)
+  if (direction === 'in') {
+    mapRef?.value.handleZoom(1)
+  } else {
+    mapRef?.value.handleZoom(-1)
   }
 }
 
@@ -758,4 +775,21 @@ function setStep(direction: 'next' | 'previous') {
       gap 15px
       .UiButton
         width fit-content
+.maps-zoom-control
+    position absolute
+    top 2300px
+    right 20px
+    z-index 1000
+    display flex
+    flex-direction column
+    gap 10px
+  .maps-zoom-control__button
+    r(width, 128px)
+    r(height, 120px)
+    background-color transparent !important
+    color $fjord
+    border 1px solid rgba($fjord, 0.5)
+    svg
+        width 100%
+        height 100%
 </style>

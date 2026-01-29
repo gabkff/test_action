@@ -63,7 +63,7 @@
                         :zoom="15"
                         :center="currentStep.map"
                         v-if="currentStep.map"
-                        :currentStep="currentStep.map"
+                        :currentStep="currentStep"
                         :currentStepIndex="currentStepIndex"
                         :allPolylines="allPolylines"
                         :markers="markers"
@@ -78,7 +78,6 @@
 import { useTemplateRef, computed, ComputedRef } from 'vue'
 import { store as appStore } from 'plugins/store/app'
 import UiButton from 'components/UiKit/Button/index.vue'
-import IconPin from 'assets/svg/pin.svg?raw'
 import UiMap from 'components/ui/Maps/index.vue'
 import UiWysiwyg from 'components/UiKit/Wysiwyg/index.vue'
 const props = defineProps({
@@ -97,7 +96,7 @@ const markers: any = computed(() => {
   for (const step of current.value?.steps) {
     markers.push({
       position: { lat: step.map.latitude, lng: step.map.longitude },
-      icon: IconPin
+      icon: currentStep.value?.icon
     })
   }
   return markers

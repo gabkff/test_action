@@ -25,7 +25,7 @@
         <div class="events-page__list" ref="listRef">
           <div class="events-page__list-header">
             <h2 class="events-page__list-title">
-              {{ formattedSelectedDate.weekday }} {{ formattedSelectedDate.dateMonth }}
+              {{  new Date(selectedDate).getDay() === new Date().getDay()  && new Date(selectedDate).getMonth() === new Date().getMonth() ? $t('events.today', { date: formattedSelectedDate.weekday + ' ' + formattedSelectedDate.dateMonth }) : formattedSelectedDate.weekday + ' ' + formattedSelectedDate.dateMonth }} 
             </h2>
           </div>
         <div class="events-page__list-content">
@@ -170,15 +170,9 @@ const scrollListDown = () => {
   }
 }
 
-const toggleEvent = (id: string | number) => {
-  console.log('handleToggle', id)
-  const selectedEvent = (events.value as EventEntry[]).find((e) => e.id === id)
-  console.log('selectedEvent', selectedEvent)
-  if (selectedEvent) {
-    sidePanelStore.openEvent(selectedEvent)
-  } else {
-    console.warn('No event found for id:', id)
-  }
+const toggleEvent = (id: number) => {
+  appStore.setCurrentEvent(id)
+  sidePanelStore.openEvent()
 }
 
 </script>

@@ -97,7 +97,7 @@ class ApiService {
 
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',
-      'X-API-KEY': API_KEY,
+      'x-api-key': API_KEY,
       ...getAuthHeaders()
     }
 

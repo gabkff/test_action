@@ -42,6 +42,7 @@
     "services": "Services"
   },
   "events": {
+    "today": "Today, {date}",
     "see_all": "All events",
     "title": "Activities & events",
     "description": "Looking for something to do? <br> Look no more, here is all the events in the area for the next 5 days!",

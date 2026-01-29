@@ -31,16 +31,24 @@ export function usePolylines(
         const baseIcon = {
             path: google.maps.SymbolPath.CIRCLE,
             fillOpacity: 1,
-            strokeWeight: 4,
-            scale: 14
+            strokeWeight: 2, // Trait fin par défaut
+            scale: 7 // Équivaut environ à 14-15px de rayon, on va l'ajuster
         }
-        // Current utilise le style visuel de next (pointillés) mais cercle spécifique
+    
         if (style === 'previous') {
-            return { ...baseIcon, fillColor: 'white', strokeColor: '#102838' }
+            return { ...baseIcon, fillColor: 'white', strokeColor: '#102838', scale: 8 };
         } else if (style === 'current') {
-            return { ...baseIcon, fillColor: '#102838', strokeColor: '#C4F0EB' }
+            // STYLE PULSE : Gros trait clair, petit centre foncé
+            return { 
+                ...baseIcon, 
+                fillColor: '#102838',    // Le point central sombre
+                strokeColor: '#C4F0EB', // Le halo clair (Pulse)
+                strokeWeight: 22,       // Très épais pour créer l'effet de cercle extérieur
+                scale: 10,               // Taille du point central
+                fillOpacity: 1
+            };
         } else {
-            return { ...baseIcon, fillColor: '#102838', strokeColor: '#102838' }
+            return { ...baseIcon, fillColor: '#102838', strokeColor: '#102838', scale: 8 };
         }
     }
 
@@ -67,12 +75,12 @@ export function usePolylines(
                 zIndex: 10
             }
         } else {
-            // 'next' OU 'current' (pointillés)
+            // 'next'
             const pattern = [10, 5]
             icons.push({
                 icon: {
                     path: 'M 0,-1 0,1',
-                    strokeOpacity: 1.0,
+                    strokeOpacity: style === 'current' ? 1 : .3,
                     strokeWeight: 4,
                     scale: 2
                 },
