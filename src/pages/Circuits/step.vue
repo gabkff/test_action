@@ -4,7 +4,7 @@
         <h2 class="circuits-etape__name" :data-circuit-theme="dataCircuitTheme">{{ $t('circuits.name') }} {{ circuitIndex! + 1 }}</h2>
         <h1 class="circuits-etape__title" :data-circuit-theme="dataCircuitTheme">{{ current.title }}</h1>
         
-        <div class="circuits-etape__header_wrapper" v-if="currentStepIndex < current.steps.length">
+        <div class="circuits-etape__header_wrapper" v-if="currentStepIndex < current.steps.length && !showMenu">
           <UiSelector
             v-model="currentView"
             :options="[
@@ -28,7 +28,7 @@
             </div>
           </div>
         </div>
-        <div v-else>
+        <div v-else-if="!showMenu">
           <div class="circuits-etape__last_step_container">
             <div class="circuits-etape__last_step_background" v-html="IconLine" :data-circuit-theme="circuitIndex"></div>
             <div class="circuits-etape__last_step_qr_container">
@@ -56,8 +56,8 @@
                   {{ $t('circuits.recommendations_feedback') }}
                 </div>
                 <div class="circuits-etape__last_step_recommendations_content_button" :style="{ opacity: feedbackReco ? 0 : 1 }">
-                  <ui-button theme="primary" :big="true" :icon="IconPouce" class="circuits-etape__last_step_recommendations_content_button_pouce" @click="feedbackReco = !feedbackReco"/>
-                  <ui-button theme="primary" :icon="IconPouce" class="circuits-etape__last_step_recommendations_content_button_pouce" :data-down="true" @click="feedbackReco = !feedbackReco"/>
+                  <ui-button theme="primary" :big="true" :icon="IconPouce" class="circuits-etape__last_step_recommendations_content_button_pouce" @click="sendFeedback('up')"/>
+                  <ui-button theme="primary" :icon="IconPouce" class="circuits-etape__last_step_recommendations_content_button_pouce" :data-down="true" @click="sendFeedback('down')"/>
                 </div>
               </div>
           </div>
@@ -129,14 +129,20 @@
             </div>
           </div>
         </div>
+        <div v-else>
+          <ui-button theme="secondary" :icon="IconArrow" :big="true" class="circuits-etape__step_back" @click="showMenu = false"
+            :iconPosition="'left'"
+            :label="$t('common.backToCircuit')"
+          />
+        </div>
       </div>
-      <div class="circuits-etape__view_container" v-if="currentStep &&currentStep.images" :data-view="currentView">
+      <div class="circuits-etape__view_container" v-if="currentStep && currentStep.images && !showMenu" :data-view="currentView">
         
         <ui-picture :images="currentStep.images[0]" :data-index="currentStepIndex" cover="cover" v-if="currentView === 'list'"/>
         <div class="circuits-etape__background" v-html="IconLine" :data-circuit-theme="dataCircuitTheme" v-if="currentView === 'list'"></div>
         <div class="circuits-etape__step_container_wrapper">
         <div class="circuits-etape__step_container">
-          <UiNavBar key="navbar"  class="circuits-etape__navbar" :next="currentStepIndex < current.steps.length ? true : false" :previous="currentStepIndex > 0 ? true : false" @next="setStep('next')" @previous="setStep('previous')"/>
+          <UiNavBar key="navbar"  class="circuits-etape__navbar" :next="currentStepIndex < current.steps.length ? true : false" :previous="currentStepIndex > 0 ? true : false" @next="setStep('next')" @previous="setStep('previous')" @menu="showMenu = !showMenu"/>
           <div class="circuits-etape__step_content">
             <div class="circuits-etape__step_content_header">
               <ui-button theme="icon" :icon="currentStep.icon"/>
@@ -234,6 +240,7 @@
         </div>
       </div>
       </div>
+      <menu-page v-else-if="showMenu"/>
     </div>
   </template>
   
@@ -243,6 +250,9 @@ import { watchEffect, ref, computed, ComputedRef } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useSidePanelStore } from 'store/sidePanel'
 import { store as appStore } from 'plugins/store/app'
+import { useI18nStore } from 'plugins/i18n/store'
+import { fetch as tauriFetch } from '@tauri-apps/plugin-http'
+import { getAuthHeaders } from 'utils/helpers'
 import i18n from 'plugins/i18n'
 import UiSelector from 'components/ui/Selector.vue'
 import UiNavBar from 'components/NavBar/index.vue'
@@ -262,6 +272,7 @@ import IconZoomIn from 'assets/svg/plus.svg?raw'
 import IconZoomOut from 'assets/svg/moins.svg?raw'
 import imgBorn from 'assets/img/borne.png'
 import { UiButton } from '@/components/UiKit'
+import MenuPage from './blocks/menu.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -270,6 +281,8 @@ const sidePanelStore = useSidePanelStore()
 const currentView = ref<ViewCircuit>('map')
 const feedbackReco = ref(false)
 const mapRef = ref<any>(null)
+const i18nStore = useI18nStore()
+const showMenu = ref(false)
 
 // Validation du slug et redirection si invalide
 // a voir si pas on mounted plutôt
@@ -329,6 +342,7 @@ const markers: any = computed(() => {
 
 const dataCircuitTheme = computed(() => {
   if (!current.value) return 1
+  if (showMenu.value) return 'menu'
   return currentStepIndex.value > current.value?.steps.length - 1 ? 'last' : circuitIndex.value
 })
 
@@ -380,6 +394,42 @@ function zoomMap(direction: 'in' | 'out') {
   }
 }
 
+async function sendFeedback(direction: 'up' | 'down') {
+  feedbackReco.value = !feedbackReco.value
+  let method = 'POST'
+  if (direction === 'down') {
+    method = 'DELETE'
+  }
+  const apiUrl = import.meta.env.VITE_API_URL
+  const apiSite = import.meta.env.VITE_API_SITE
+  const locale = i18nStore.locale
+  const url = `${apiUrl}/${locale}/${apiSite}/circuit/${current.value?.id}/vote`
+
+
+  const headers = {
+    'Content-Type': 'application/json',
+    'x-api-key': import.meta.env.VITE_API_KEY,
+    ...getAuthHeaders()
+  }
+  let response = null
+  if (window.__TAURI__) {
+    response = await tauriFetch(url, {
+      method,
+      headers: headers
+    })
+  } else {
+    response = await fetch(url, {
+      method,
+      headers: headers
+    })
+  }
+  console.log('response', response)
+  if (!response.ok) {
+    console.error('Erreur lors de l\'envoi du feedback', response.statusText)
+    return
+  }
+}
+
 </script>
   
 <style lang="stylus" scoped>
@@ -387,7 +437,17 @@ function zoomMap(direction: 'in' | 'out') {
     background-color $fjord
     min-height 100vh
     height 100%
-    trans(background-color, 0.3s ease)
+    transition all 0.3s ease
+    &[data-circuit-theme="menu"]
+      background-color $embruns
+      .circuits-etape__container
+        r(margin-left, 230px)
+        r(margin-right, 230px)
+        r(margin-top, 267px)
+        background-color $fjord
+        width auto
+        padding 60px
+        border-radius $radius-lgxl
     &[data-circuit-theme="last"]
       background-color $embruns
       &__title
@@ -521,7 +581,7 @@ function zoomMap(direction: 'in' | 'out') {
           border-color rgba($light, .5)
     &__background    
       position absolute
-      top 273px
+      top 420px
       left 0
       z-index 2
       color $aube
@@ -590,6 +650,12 @@ function zoomMap(direction: 'in' | 'out') {
     &__step_content_itinerary_label
       f-style('small-text')
       color white
+    &__step_back
+      border 1px solid $remous-light !important
+      border-radius $radius-lg
+      f-style('btn-medium')
+      :deep(.UiButton__icon)
+        transform rotate(-180deg)
     &__step_container
       f(column, $justify: flex-start)
       padding 30px

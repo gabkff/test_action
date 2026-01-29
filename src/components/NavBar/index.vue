@@ -9,7 +9,7 @@
         type="button" 
         class="NavBar__item"
         :class="{ 'is-active': currentRoute === 'home' }"
-        @click="panel ? handleClose() : handleHome()"
+        @click="panel ? handleClose() : handleHome(); $emit('menu');"
       >
         <i class="NavBar__icon" v-html="panel ? IconClose : IconHouse" />
       </button>
@@ -103,11 +103,10 @@ defineEmits<{
   scrolldown: []
   next: []
   previous: []
+  menu: []
 }>()
 
 const route = useRoute()
-const router = useRouter()
-const { locale } = useI18n()
 const sidePanelStore = useSidePanelStore()
 const i18nStore = useI18nStore()
 // Route courante pour l'état actif
@@ -126,7 +125,6 @@ const otherLang = computed(() => {
  */
 function handleHome() {
   sidePanelStore.close()
-  router.push({ name: 'home' })
 }
 
 /**

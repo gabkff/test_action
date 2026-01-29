@@ -16,6 +16,7 @@
     "enabled": "Activé",
     "disabled": "Désactivé (Live)",
     "backToHome": "Retour à l'accueil",
+    "backToCircuit": "Retour au circuit",
     "pageNotFound": "Page non trouvée",
     "createdAt": "Créée le",
     "updatedAt": "Mise à jour",
@@ -82,7 +83,22 @@
     "more": "Plus d'infos",
     "recommendations": "Est-ce que vous aimez nos recommandations ?",
     "recommendations_text": "Plus d’informations à retrouver sur notre site toursimecote-nord.com",
-    "recommendations_feedback": "Merci pour votre avis !"
+    "recommendations_feedback": "Merci pour votre avis !",
+  },
+  "did_you_know": {
+    "title": "Le saviez-vous ?",
+    "text": "Tadoussac est un des meilleurs sites au monde pour observer jusqu’à 13 espèces de cétacés."
+  },
+  "meteo": {
+    "condition": "Conditions",
+    "condition_meteo": "Conditions météo",
+    "sun": "Ensoleillé",
+    "sun_cloud": "Ensoleillé avec nuages",
+    "sun_rain": "Ensoleillé avec pluie",
+    "cloud": "Nuageux",
+    "rain": "Pluvieux",
+    "thunder": "Orageux",
+    "thunder_rain": "Orage et pluie"
   },
   "errors": {
     "notFound": "Page non trouvée",

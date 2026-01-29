@@ -57,6 +57,13 @@ declare interface HomeData {
   lastUpdate: number
   title: string
   inspirational_text: string
+  weather: WheatherData
+}
+
+declare interface WheatherData {
+  apparent_temperature: number
+  current_temperature: number
+  wmo_code: number
 }
 
 // ============================================
