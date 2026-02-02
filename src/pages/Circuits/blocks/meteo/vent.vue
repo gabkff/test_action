@@ -10,7 +10,7 @@
         >
             <div class="vent__content__img">
                 <div class="vent__content__img__icon" v-html="IconCompass"/>
-                <div class="vent__content__img__arrow" v-html="IconArrow"/>
+                <div class="vent__content__img__icon vent__content__img__icon__arrow" v-html="IconArrow"/>
             </div>
             <div class="vent__content__text">
                 11
@@ -23,7 +23,6 @@
 </template>
 
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n'
 import { store as appStore } from 'plugins/store/app'
 import { computed } from 'vue'
 import IconWind from 'assets/svg/air.svg?raw'
@@ -83,26 +82,19 @@ const currentVent = computed(() => {
                 position absolute
                 width 100%
                 height 100%
-                top 50%
-                left 50%
-                transform translate(-50%, -50%)
                 z-index 1
-                svg
+                display flex
+                :deep(svg)
                     width 100%
                     height 100%
 
-            &__img__arrow
-                position absolute
-                width 60% // La flèche est légèrement plus petite que le cadran
-                height 60%
-                top 50%
-                left 50%
-                // Le translate centre la flèche, la variable gère la rotation
-                transform translate(-50%, -50%) rotate(unquote('calc(var(--wind-direction) * 1deg)'))
+            &__img__icon__arrow
+                transform rotate(unquote('calc(var(--wind-direction) * 1deg)'))
                 z-index 2
                 trans(transform, 0.5s ease) // Animation fluide si le vent change
-                svg
-                    width 100%
+                :deep(svg)
+                    margin auto
+                    width 75%
                     height 100%
 
             &__text

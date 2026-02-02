@@ -36,6 +36,11 @@
     "language": "Langue",
     "lastUpdate": "Dernière mise à jour"
   },
+  "menu": {
+    "sponsorised": "sponsorisé",
+    "follow": "Suivez-nous sur instagram {'@'}cotenordquebec",
+    "discover": "à découvrir aussi"
+  },
   "navigation": {
     "home": "Accueil",
     "about": "À propos",
@@ -98,7 +103,12 @@
     "cloud": "Nuageux",
     "rain": "Pluvieux",
     "thunder": "Orageux",
-    "thunder_rain": "Orage et pluie"
+    "thunder_rain": "Orage et pluie",
+    "ressenti": "ressenti",
+    "sensation": "Le vent augmente la sensation de froid",
+    "next_tide": "Prochaine marée",
+    "low_tide": "Marée basse",
+    "high_tide": "Marée haute"
   },
   "errors": {
     "notFound": "Page non trouvée",

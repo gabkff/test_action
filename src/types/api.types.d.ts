@@ -58,6 +58,7 @@ declare interface HomeData {
   title: string
   inspirational_text: string
   weather: WheatherData
+  featured_partners: Sponsor[]
 }
 
 declare interface WheatherData {
@@ -66,6 +67,12 @@ declare interface WheatherData {
   wmo_code: number
 }
 
+declare interface Sponsor {
+  title: string
+  image?: Image
+  city: string
+  logo?: Image
+}
 // ============================================
 // EVENTS
 // ============================================

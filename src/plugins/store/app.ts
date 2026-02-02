@@ -114,6 +114,7 @@ const useStore = defineStore('app', () => {
   /** Données utiles (fusionnées) */
   const data = computed((): ApiData | null => {
     if (!baseData.value) return null
+    console.log('localData', localData.value)
     return {
       home: localData.value?.home || baseData.value.home,
       events: baseData.value.events.map(baseEvent => {

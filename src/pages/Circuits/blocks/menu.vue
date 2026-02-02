@@ -42,10 +42,40 @@
                     <condition /> 
                     <vent />
                 </div>
+                <sponsor :left="true" />
             </div>
         </div>
         <div class="menu-page__right_part">
             LE COTE DROITE
+            <div class="menu-page__right_part__follow">
+                <div class="menu-page__right_part__follow__title"> {{ $t('menu.follow') }}</div>
+                <div class="menu-page__right_part__follow__icon" v-html="IconInstagram"></div>
+            </div>
+            <div class="menu-page__right_part__circuits">
+                <div class="menu-page__right_part__circuits__title"> {{ $t('menu.discover') }}</div>
+                <div class="menu-page__right_part__circuit"
+                    v-for="(circuit, circuitIndex) in appStore.circuits"
+                    :key="circuit.id"
+                    :data-circuit-theme="circuitIndex"
+                >
+                <ui-picture v-if="circuit.image" :images="circuit.image.images" :cover="'cover'" />
+                <div class="menu-page__right_part__circuit__content">
+                    <div class="menu-page__right_part__circuit__content__title"> {{ circuit.title }}</div>
+                    <div class="circuits-etape__last_step_event_next_circuit_content_text_action">
+                        <ui-tag :label="$t('circuits.total_step', { number: circuit.steps.length })" />
+                        <ui-button theme="primary" :label="$t('common.link_discover')" :icon="IconPlus" :iconPosition="'right'"
+                        @click="router.push(`/circuits/${circuit.slug}`)"
+                        />
+                    </div>
+                </div>
+
+
+                </div>
+            </div>
+            <div class="menu-page__right_part__meteo">
+                <temperature />
+                <!-- <tide /> -->
+            </div>
         </div>
     </div>
   </template>
@@ -53,8 +83,12 @@
   <script setup lang="ts">
     import IconMind from 'assets/svg/mind.svg?raw'
     import IconPlus from 'assets/svg/plus.svg?raw'
+    import IconInstagram from 'assets/svg/instagram.svg?raw'
     import Condition from './meteo/condition.vue'
+    import Sponsor from './sponsor.vue'
     import Vent from './meteo/vent.vue'
+    import Temperature from './meteo/temperature.vue'
+    // import Tide from './meteo/tide.vue'
     import { store as appStore } from 'plugins/store/app'
     import { computed } from 'vue'
     import { useRouter } from 'vue-router'

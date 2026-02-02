@@ -32,7 +32,7 @@
       </div>
       <div class="SidePanel__event__qrcode" v-if="currentEvent.event_qr">
         <div class="SidePanel__event__qrcode-label">{{ $t('events.access_site') }}</div>
-        <div class="SidePanel__event__qrcode-value"> {{ currentEvent.event_qr }}re</div>
+        <img class="SidePanel__event__qrcode-value" :src="currentEvent.event_qr"></img>
       </div>
 
         <div class="SidePanel__event__scroll" ref="descriptionEventRef">
@@ -173,6 +173,9 @@ function scrollDownDesc() {
         padding-top 60px
         padding-bottom 60px
         f(row, $justify: space-between)
+        r(margin-top, 60px 60px)
+        r(margin-left, 60px 60px)
+        r(margin-right, 60px 60px)
     &__qrcode-label
         f-style('h5')
         width 637px
