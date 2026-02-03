@@ -8,7 +8,7 @@
                 <div class="sponsor__content__header__title">
                     {{ $t('menu.sponsorised') }}
                 </div>
-                <div class="sponsor__content__header__logo">
+                <div class="sponsor__content__header__logo" v-if="currentSponsor?.logo">
                     <ui-picture :images="currentSponsor?.logo" />
                 </div>
             </div>
@@ -30,7 +30,10 @@ import { computed } from 'vue'
 import UiPicture from 'components/UiKit/Picture/index.vue'
 const currentSponsor = computed(() => {
     // Trouvé une logique de random pour afficher les sponsors
-    if (appStore.home?.featured_partners?.length && appStore.home?.featured_partners?.length > 0 ) return appStore.home?.featured_partners[1]
+    if (appStore.home?.featured_partners?.length && appStore.home?.featured_partners?.length > 0 ) {
+        const index = Math.floor(Math.random() * ( appStore.home.featured_partners.length - 0 +1))
+        return appStore.home?.featured_partners[index]
+    }
     return null
 })
 
@@ -52,6 +55,9 @@ defineProps<{
         &__content
             width 100%
             height 100%
+            display flex
+            flex-direction column
+            align-items stretch
         &__image
             flex-shrink 0
             r(width, 276px)
@@ -65,9 +71,14 @@ defineProps<{
             color $fjord
         &__content__header__logo
             r(size, 90px)
+            display flex
+            :deep(.UiPicture)
+                border-radius 0
+                width 100%
+                height 100%
         &__content__body
             margin-top auto
-            align-self flex-end
+            align-self flex-start
             f(column, $justify: flex-start, $align: flex-start)
             r(gap, 10px)
             &__title

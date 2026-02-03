@@ -13,7 +13,7 @@
                 <div class="vent__content__img__icon vent__content__img__icon__arrow" v-html="IconArrow"/>
             </div>
             <div class="vent__content__text">
-                11
+                {{ currentVent.speed }}
             </div>
             <div class="vent__content__text__value">
                 km/h
@@ -44,7 +44,7 @@ const currentVent = computed(() => {
 <style lang="stylus" scoped>
     .vent
         position relative
-        width 100%
+        width 25%
         f(column, $justify: stretch, $align: stretch)
         r(padding-top, 24px)
         r(padding-bottom, 24px)

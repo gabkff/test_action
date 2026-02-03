@@ -54,7 +54,7 @@
             }
         }
     })
-    const TEMP_MIN = -35
+    const TEMP_MIN = -20
     const TEMP_MAX = 40
 
     function celsiusToFahrenheit(celsius: number): number {

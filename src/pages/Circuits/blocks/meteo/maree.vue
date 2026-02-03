@@ -129,7 +129,7 @@ const lineStyle = computed(() => {
                     content ''
                     position absolute
                     left unquote('calc(var(--tide-position) * 50%)')
-                    top unquote('calc(80% - var(--tide-position) * 40%)')
+                    top unquote('calc(60% - var(--tide-position) * 40%)')
                     transform translate(-50%, -50%)
                     size 28px
                     background-color white

@@ -142,7 +142,7 @@
       f(column, $justify: flex-start)
     &__sponsor
         r(margin-top, 73px)
-        f(row, $justify: flex-start, $align: flex-start)
+        f(row, $justify: flex-start, $align: stretch)
         r(gap, 45px)
     &__left_part__dyk
         r(width, 828px)
