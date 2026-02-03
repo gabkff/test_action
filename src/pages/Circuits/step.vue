@@ -435,9 +435,9 @@ async function sendFeedback(direction: 'up' | 'down') {
 <style lang="stylus" scoped>
   .circuits-etape
     background-color $fjord
-    min-height 100vh
-    height 100%
+    height 100vh
     transition all 0.3s ease
+    f(column, $justify: flex-start, $align: stretch)
     &[data-circuit-theme="menu"]
       background-color $embruns
       .circuits-etape__container
@@ -512,15 +512,15 @@ async function sendFeedback(direction: 'up' | 'down') {
         width fit-content
     &__view_container
       position relative
-      height 2782px
+      flex-grow 1
+      height 100%
       &[data-view="map"]
         background-color $embruns
         .maps
-          position fixed !important
+          position fixed!important
           left 0
-          top 60vh
-          height 40vh
           width 100vw
+          height 25%
       .UiPicture
         width 1026px
         height 1212px
@@ -598,9 +598,9 @@ async function sendFeedback(direction: 'up' | 'down') {
       gap 20px
       width 838px
       &[data-view="map"]
-        position fixed
-        left 100px
-        top 1115px
+        position absolute
+        left -110%
+        top 0
         .circuits-etape__step_container_steps
           color $fjord
           border 1px solid rgba($fjord, 0.5)

@@ -16,6 +16,7 @@
     "enabled": "Enabled",
     "disabled": "Disabled (Live)",
     "backToHome": "Back to home",
+    "backToCircuit": "Back to circuit",
     "pageNotFound": "Page not found",
     "createdAt": "Created on",
     "updatedAt": "Updated",
@@ -23,7 +24,8 @@
     "go_further": "Go further",
     "other_born": "Check out our other stations in Tadoussac et Natashquan",
     "discover_more": "Discover more",
-    "link_discover": "Discover"
+    "link_discover": "Discover",
+    "discover_circuits": "Discover local circuits"
   },
   "home": {
     "title": "Home page",
@@ -33,7 +35,13 @@
     "siteInfo": "Site information",
     "name": "Name",
     "language": "Language",
-    "lastUpdate": "Last update"
+    "lastUpdate": "Last update",
+    "touch_to_start": "Touch to start"
+  },
+  "menu": {
+    "sponsorised": "sponsored",
+    "follow": "Follow us on instagram {'@'}cotenordquebec",
+    "discover": "also to discover"
   },
   "navigation": {
     "home": "Home",
@@ -42,6 +50,7 @@
     "services": "Services"
   },
   "events": {
+    "no_event": "No upcoming events",
     "today": "Today, {date}",
     "see_all": "All events",
     "title": "Activities & events",
@@ -81,7 +90,33 @@
     "qrcode_panel": "Scan code now to download circuit",
     "more": "More information",
     "recommendations": "Did you like our recommendations ?",
-    "recommendations_text": "More info can be found on our website toursimecote-nord.com"
+    "recommendations_text": "More info can be found on our website toursimecote-nord.com",
+    "recommendations_feedback": "Thank you for your feedback!"
+  },
+  "did_you_know": {
+    "title": "Did you know?",
+    "text": "Tadoussac is one of the best sites in the world to observe up to 13 species of cetaceans."
+  },
+  "meteo": {
+    "vent": "wind",
+    "next_high_tide": "next high tide",
+    "next_low_tide": "next low tide",
+    "maree": "tide index",
+    "temperature": "temperature",
+    "condition": "Conditions",
+    "condition_meteo": "Weather conditions",
+    "sun": "Sunny",
+    "sun_cloud": "Sunny with clouds",
+    "sun_rain": "Sunny with rain",
+    "cloud": "Cloudy",
+    "rain": "Rainy",
+    "thunder": "Stormy",
+    "thunder_rain": "Storm and rain",
+    "ressenti": "feels like",
+    "sensation": "Wind increases the feeling of cold",
+    "next_tide": "Next tide",
+    "low_tide": "Low tide",
+    "high_tide": "High tide"
   },
   "errors": {
     "notFound": "Page not found",
