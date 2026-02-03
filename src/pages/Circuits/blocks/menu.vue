@@ -11,7 +11,7 @@
                     </span>
                 </div>
             </div>
-            <div class="menu-page__left_part__event">
+            <div class="menu-page__left_part__event" v-if="nextEvent">
                 <div class="menu-page__left_part__event__title">
                     {{  nextEventDate ?? '' }}
                 </div>
@@ -95,11 +95,13 @@
     import UiTag from 'components/UiKit/Tag/index.vue'
     import { useRoute } from 'vue-router'
     import { store as appStore } from 'plugins/store/app'
+    import { useI18nStore } from 'plugins/i18n/store'
     import { computed } from 'vue'
     import { useRouter } from 'vue-router'
     import i18n from 'plugins/i18n'
     const route = useRoute()
     const router = useRouter()
+    const i18nStore = useI18nStore()
     const nextEvent = computed(() => {
         if (appStore.events.length === 0) return null
         if (appStore.events.length === 1) return appStore.events[0]
@@ -114,7 +116,7 @@
         const date = new Date(nextEvent.value.datetime_start_timestamp * 1000)
         const today = new Date()
         if (date.getDay() === today.getDay() && date.getMonth() === today.getMonth()) {
-            return i18n.global.t('events.today', { date: date.toLocaleDateString('fr-CA', { weekday: 'long', day: 'numeric', month: 'long' }) })
+            return i18n.global.t('events.today', { date: date.toLocaleDateString(`${i18nStore.locale}-CA`, { weekday: 'long', day: 'numeric', month: 'long' }) })
         }
         return date.toLocaleDateString('fr-CA', { weekday: 'long', day: 'numeric', month: 'long' })
     })

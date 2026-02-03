@@ -78,7 +78,6 @@
 
 import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { useI18n } from 'vue-i18n'
 import { useSidePanelStore } from 'store/sidePanel'
 import { useI18nStore } from 'plugins/i18n/store'
 import { AVAILABLE_LOCALES } from 'config'
@@ -107,6 +106,7 @@ defineEmits<{
 }>()
 
 const route = useRoute()
+const router = useRouter()
 const sidePanelStore = useSidePanelStore()
 const i18nStore = useI18nStore()
 // Route courante pour l'état actif
@@ -125,6 +125,7 @@ const otherLang = computed(() => {
  */
 function handleHome() {
   sidePanelStore.close()
+  router.push('/selection')
 }
 
 /**

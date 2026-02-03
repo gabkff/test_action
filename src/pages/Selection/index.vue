@@ -10,6 +10,7 @@
         @change="onLangChange"
     />
     <div class="selection__circuits">
+        <div class="selection__circuits__background" v-html="IconLine"></div>
         <div class="selection__circuits__item"
             v-for="(circuit, circuitIndex) in appStore.circuits"
             :key="circuitIndex"
@@ -41,6 +42,7 @@
     import { useI18nStore } from 'plugins/i18n/store'
     import { store as appStore } from 'plugins/store/app'
     import { ref, onMounted } from 'vue'
+    import IconLine from 'assets/svg/line_background.svg?raw'
     import IconPlus from 'assets/svg/plus.svg?raw'
     import { useRouter } from 'vue-router'
     const selectedLang = ref('fr')
@@ -69,7 +71,17 @@
         :deep(.UiSelector)
             r(margin-left, 100px)
             r(margin-bottom, 66px)
+        &__circuits__background
+            position absolute
+            left 0
+            top 35%
+            bottom 25%
+            width 100%
+            height 100%
+            z-index 0
+            color $fjord
         &__circuits__item
+            z-index 1
             position absolute
             padding 10px
             border-radius $radius-lgxl

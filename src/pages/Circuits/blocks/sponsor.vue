@@ -31,7 +31,7 @@ import UiPicture from 'components/UiKit/Picture/index.vue'
 const currentSponsor = computed(() => {
     // Trouvé une logique de random pour afficher les sponsors
     if (appStore.home?.featured_partners?.length && appStore.home?.featured_partners?.length > 0 ) {
-        const index = Math.floor(Math.random() * ( appStore.home.featured_partners.length - 0 +1))
+        const index = Math.floor(Math.random() * ( (appStore.home.featured_partners.length -1) - 0 +1))
         return appStore.home?.featured_partners[index]
     }
     return null
