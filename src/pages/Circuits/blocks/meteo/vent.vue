@@ -32,8 +32,10 @@ import IconArrow from 'assets/svg/arrow_compass.svg?raw'
 
 const currentVent = computed(() => {
     if (!appStore.home?.weather) return null
-    //return appStore.home?.weather.wind_speed || 0
-    return {
+    return appStore.home?.weather.wind_speed ? {
+        speed: appStore.home?.weather.wind_speed,
+        direction: appStore.home?.weather.wind_direction
+    } : {
         speed: 11,
         direction: 45
     }
@@ -42,7 +44,7 @@ const currentVent = computed(() => {
 <style lang="stylus" scoped>
     .vent
         position relative
-        width 50%
+        width 100%
         f(column, $justify: stretch, $align: stretch)
         r(padding-top, 24px)
         r(padding-bottom, 24px)

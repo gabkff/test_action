@@ -41,21 +41,22 @@ defineProps<{
 
 <style lang="stylus" scoped>
     .sponsor
+        width 100%
         r(margin-top, 73px)
         r(min-height, 302px)
         border-radius $radius-lg
         background-color white
         r(padding, 20px)
-        f(row, $justify: flex-start, $align: flex-start)
+        f(row, $justify: flex-start, $align: stretch)
         r(gap, 30px)
-        height 100%
         &__content
             width 100%
             height 100%
         &__image
             flex-shrink 0
-            height 100%
             r(width, 276px)
+            :deep(.UiPicture)
+                height 100%
         &__content__header
             f(row, $justify: space-between, $align: flex-start)
         &__content__header__title
@@ -64,7 +65,6 @@ defineProps<{
             color $fjord
         &__content__header__logo
             r(size, 90px)
-            background red
         &__content__body
             margin-top auto
             align-self flex-end

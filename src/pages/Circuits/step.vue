@@ -448,10 +448,6 @@ async function sendFeedback(direction: 'up' | 'down') {
         width auto
         padding 60px
         border-radius $radius-lgxl
-    &[data-circuit-theme="last"]
-      background-color $embruns
-      &__title
-        color $fjord
     &[data-circuit-theme="1"]
       background-color $penombre
       &__title

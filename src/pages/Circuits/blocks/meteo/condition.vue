@@ -62,7 +62,7 @@ const currentCondition = computed(() => {
         r(padding-right, 14px)
         background-color white
         border-radius $radius-lg
-        width 50%
+        width 100%
         &__title
             opacity 0.5
             font-size 26px
@@ -79,6 +79,7 @@ const currentCondition = computed(() => {
             r(gap, 30px)
             &__img
                 margin auto
+                r(width, 242px)
             &__text
                 font-size 26px
                 line-height 1.3

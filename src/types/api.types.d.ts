@@ -58,13 +58,26 @@ declare interface HomeData {
   title: string
   inspirational_text: string
   weather: WheatherData
+  tides: TidesData
   featured_partners: Sponsor[]
+}
+
+declare interface TidesData {
+  current_direction: string
+  next_event_type: string
+  next_event_timestamp: number
+  next_event_height: string
+  previous_event_type: string
+  previous_event_timestamp: number
+  previous_event_height: string
 }
 
 declare interface WheatherData {
   apparent_temperature: number
   current_temperature: number
   wmo_code: number
+  wind_speed: number
+  wind_direction: number
 }
 
 declare interface Sponsor {

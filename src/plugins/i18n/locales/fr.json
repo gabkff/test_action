@@ -24,7 +24,8 @@
     "go_further": "Aller plus loin",
     "other_born": "Retrouvez nos autres bornes à Tadoussac et Natashquan",
     "discover_more": "Découvrez aussi",
-    "link_discover": "Découvrir"
+    "link_discover": "Découvrir",
+    "discover_circuits": "Découvrez les circuits locaux"
   },
   "home": {
     "title": "Page d'accueil",
@@ -34,7 +35,8 @@
     "siteInfo": "Informations du site",
     "name": "Nom",
     "language": "Langue",
-    "lastUpdate": "Dernière mise à jour"
+    "lastUpdate": "Dernière mise à jour",
+    "touch_to_start": "Touchez pour commencer"
   },
   "menu": {
     "sponsorised": "sponsorisé",
@@ -48,6 +50,7 @@
     "services": "Services"
   },
   "events": {
+    "no_event": "Aucun événement à venir",
     "today": "Aujourd'hui, {date}",
     "see_all": "Tous les évènements",
     "title": "activités & évènements",
@@ -95,6 +98,11 @@
     "text": "Tadoussac est un des meilleurs sites au monde pour observer jusqu’à 13 espèces de cétacés."
   },
   "meteo": {
+    "vent": "vent",
+    "next_high_tide": "prochaine marée haute",
+    "next_low_tide": "prochaine marée basse",
+    "maree": "indice de marée",
+    "temperature": "température",
     "condition": "Conditions",
     "condition_meteo": "Conditions météo",
     "sun": "Ensoleillé",
