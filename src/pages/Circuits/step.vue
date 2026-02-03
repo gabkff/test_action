@@ -226,6 +226,21 @@
             </div>
           </div>
         </div>
+        <!--
+        <UiMap 
+          :zoom="15"
+          v-if="currentStep.map"
+          :markers="markers"
+          :currentStepIndex="currentStepIndex"
+          :allPolylines="allPolylines"
+          ref="mapRef"
+        />
+        <div class="maps-zoom-control">
+          <ui-button class="maps-zoom-control__button" theme="secondary" :icon="IconZoomIn" :big="true" @click="zoomMap('in')" />
+          <ui-button class="maps-zoom-control__button" theme="secondary" :icon="IconZoomOut" :big="true" @click="zoomMap('out')" />
+        </div>-->
+      </div>
+      <div class="circuits-etape__map_container" v-if="currentView === 'map'">
         <UiMap 
           :zoom="15"
           v-if="currentStep.map"
@@ -517,10 +532,7 @@ async function sendFeedback(direction: 'up' | 'down') {
       &[data-view="map"]
         background-color $embruns
         .maps
-          position fixed!important
-          left 0
           width 100vw
-          height 25%
       .UiPicture
         width 1026px
         height 1212px
@@ -837,10 +849,17 @@ async function sendFeedback(direction: 'up' | 'down') {
       gap 15px
       .UiButton
         width fit-content
+    &__map_container
+      position absolute
+      transform-origin bottom
+      bottom 0
+      left 0
+      height 45%
+      width 100%
 .maps-zoom-control
     position absolute
-    top 2300px
-    right 20px
+    bottom 40px
+    right 40px
     z-index 1000
     display flex
     flex-direction column
