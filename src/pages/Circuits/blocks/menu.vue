@@ -118,7 +118,7 @@
         if (date.getDay() === today.getDay() && date.getMonth() === today.getMonth()) {
             return i18n.global.t('events.today', { date: date.toLocaleDateString(`${i18nStore.locale}-CA`, { weekday: 'long', day: 'numeric', month: 'long' }) })
         }
-        return date.toLocaleDateString('fr-CA', { weekday: 'long', day: 'numeric', month: 'long' })
+        return date.toLocaleDateString(`${i18nStore.locale}-CA`, { weekday: 'long', day: 'numeric', month: 'long' })
     })
 
     const getCircuitIndex = (slug: string) => {

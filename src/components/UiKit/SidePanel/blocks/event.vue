@@ -11,11 +11,11 @@
         <div class="SidePanel__event__dates-item">
           <div class="SidePanel__event__dates-start" v-if="currentEvent.date_start">
             <div class="SidePanel__event__dates-start-label">{{ $t('events.date_debut') }}</div>
-            <div class="SidePanel__event__dates-start-value"> {{ new Date(currentEvent.datetime_start_timestamp as number * 1000).toLocaleDateString('fr-CA', {  day: 'numeric', month: 'short', year: 'numeric' }) }} </div>
+            <div class="SidePanel__event__dates-start-value"> {{ new Date(currentEvent.datetime_start_timestamp as number * 1000).toLocaleDateString(`${i18nStore.locale}-CA`, {  day: 'numeric', month: 'short', year: 'numeric' }) }} </div>
           </div>
           <div class="SidePanel__event__dates-end" v-if="currentEvent.date_end">
             <div class="SidePanel__event__dates-end-label">{{ $t('events.date_fin') }}</div>
-            <div class="SidePanel__event__dates-end-value"> {{ new Date(currentEvent.datetime_end_timestamp as number * 1000).toLocaleDateString('fr-CA', {  day: 'numeric', month: 'short', year: 'numeric' }) }} </div>
+            <div class="SidePanel__event__dates-end-value"> {{ new Date(currentEvent.datetime_end_timestamp as number * 1000).toLocaleDateString(`${i18nStore.locale}-CA`, {  day: 'numeric', month: 'short', year: 'numeric' }) }} </div>
           </div>
         </div>
       </div>

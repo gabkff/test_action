@@ -381,9 +381,9 @@ const nextEvent: ComputedRef<{event: EventEntry | null, label: string} | null> =
     }
   })
   if (smallDiff === 0) {
-    return {event: nextEvent, label: i18n.global.t('circuits.event_today', { date: new Date().toLocaleDateString('fr-CA', { weekday: 'long', day: 'numeric', month: 'long' }) })}
+    return {event: nextEvent, label: i18n.global.t('circuits.event_today', { date: new Date().toLocaleDateString(`${i18nStore.locale}-CA`, { weekday: 'long', day: 'numeric', month: 'long' }) })}
   } else {
-    return {event: nextEvent, label: new Date(nextEvent!.datetime_start_timestamp * 1000).toLocaleDateString('fr-CA', { weekday: 'long', day: 'numeric', month: 'long' })} 
+    return {event: nextEvent, label: new Date(nextEvent!.datetime_start_timestamp * 1000).toLocaleDateString(`${i18nStore.locale}-CA`, { weekday: 'long', day: 'numeric', month: 'long' })} 
   }
 })
 
