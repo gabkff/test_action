@@ -91,10 +91,12 @@ interface NavBarProps {
   next?: boolean
   previous?: boolean
   panel?: boolean
+  lastStep?: boolean
 }
 
-withDefaults(defineProps<NavBarProps>(), {
+const props = withDefaults(defineProps<NavBarProps>(), {
   showScrollArrows: false,
+  lastStep: false,
 })
 
 defineEmits<{
@@ -125,7 +127,7 @@ const otherLang = computed(() => {
  */
 function handleHome() {
   sidePanelStore.close()
-  router.push('/selection')
+  if (props.lastStep) router.push('/selection')
 }
 
 /**

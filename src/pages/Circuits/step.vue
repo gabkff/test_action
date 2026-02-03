@@ -32,7 +32,7 @@
           <div class="circuits-etape__last_step_container">
             <div class="circuits-etape__last_step_background" v-html="IconLine" :data-circuit-theme="circuitIndex"></div>
             <div class="circuits-etape__last_step_qr_container">
-              <UiNavBar key="navbarend"  class="circuits-etape__last_step_navbar" :next="false" :previous="true"  @previous="setStep('previous')" :panel="false" @menu="setStep('previous', true)" />
+              <UiNavBar key="navbarend"  class="circuits-etape__last_step_navbar" :lastStep="true" :next="false" :previous="true"  @previous="setStep('previous')" :panel="false" @menu="setStep('previous', true)" />
               <div class="circuits-etape__last_step_content">
                 <div class="circuits-etape__last_step_content_header">
                   {{ $t('circuits.qrcode_panel') }} 
@@ -392,6 +392,7 @@ function onViewChange(value: ViewCircuit) {
 }
 
 function setStep(direction: 'next' | 'previous', restart: boolean = false) {
+  console.log('setStep', direction, restart)
   if (restart) {
     appStore.setCurrentStepIndex(0)
   } else {
