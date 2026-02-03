@@ -118,11 +118,11 @@ const useStore = defineStore('app', () => {
     return {
       home: localData.value?.home || baseData.value.home,
       events: baseData.value.events.map(baseEvent => {
-        const localEvent = localData.value?.events.find(e => e.id === baseEvent.id)
+        const localEvent = localData.value?.events.find(e => e.slug === baseEvent.slug)
         return mergeEvent(baseEvent, localEvent)
       }),
       circuits: baseData.value.circuits.map(baseCircuit => {
-        const localCircuit = localData.value?.circuits.find(c => c.id === baseCircuit.id)
+        const localCircuit = localData.value?.circuits.find(c => c.slug === baseCircuit.slug)
         return mergeCircuit(baseCircuit, localCircuit)
       })
     }
