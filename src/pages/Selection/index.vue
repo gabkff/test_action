@@ -19,7 +19,7 @@
         <ui-picture v-if="circuit.image" :images="circuit.image.images" :cover="'cover'" :data-circuit-theme="circuitIndex"/>
         <div class="selection__circuits__item__content">
             <div class="selection__circuits__item__content__title" :data-circuit-theme="circuitIndex"> {{ circuit.title }}</div>
-            <div class="selection__circuits__item__content__description" :data-ircuit-theme="circuitIndex"> {{ circuit.description }}</div>
+            <div class="selection__circuits__item__content__description" :data-circuit-theme="circuitIndex"> {{ circuit.description }}</div>
             <div class="selection__circuits__item__content__text_action" :data-circuit-theme="circuitIndex">
                             <ui-tag :label="$t('circuits.total_step', { number: circuit.steps.length })" />
                             <ui-button 

@@ -11,7 +11,7 @@ import { useI18nStore } from 'plugins/i18n/store'
 import { hasApiSiteInCache } from 'plugins/api/apiSite'
 
 const isTauriEnvironment = typeof window !== 'undefined' && '__TAURI_INTERNALS__' in window
-const router = useRouter()
+
 /** Infos du site extraites du wrapper */
 export interface SiteContext {
   lang: string

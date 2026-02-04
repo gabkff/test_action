@@ -73,6 +73,12 @@
       "vendors/*": [
         "./src/vendors/*"
       ],
+      "composables": [
+        "./src/composables"
+      ],
+      "composables/*": [
+        "./src/composables/*"
+      ],
       "*": [
         "./src/types/*.ts",
         "./src/types/*.d.ts"

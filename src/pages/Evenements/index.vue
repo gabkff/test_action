@@ -25,7 +25,10 @@
         <div class="events-page__list" ref="listRef">
           <div class="events-page__list-header">
             <h2 class="events-page__list-title">
-              {{  new Date(selectedDate).getDay() === new Date().getDay()  && new Date(selectedDate).getMonth() === new Date().getMonth() ? $t('events.today', { date: formattedSelectedDate.weekday + ' ' + formattedSelectedDate.dateMonth }) : formattedSelectedDate.weekday + ' ' + formattedSelectedDate.dateMonth }} 
+              {{ isSelectedDateToday() 
+                ? $t('events.today', { date: formattedSelectedDate.weekday + ' ' + formattedSelectedDate.dateMonth }) 
+                : formattedSelectedDate.weekday + ' ' + formattedSelectedDate.dateMonth 
+              }} 
             </h2>
           </div>
         <div class="events-page__list-content">
@@ -62,114 +65,61 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { store as appStore } from 'plugins/store/app'
 import { useSidePanelStore } from 'store/sidePanel'
-import { storeToRefs } from 'pinia'
 import IconPlus from 'assets/svg/plus.svg?raw'
 import UiButton from 'components/UiKit/Button/index.vue'
 import UiAccordions from 'components/UiKit/Accordions/Items.vue'
 import UiAccordionItem from 'components/UiKit/EventItem/index.vue'
 import UiNavBar from 'components/NavBar/index.vue'
+import { useEvents, useDate } from 'composables'
 
-const { locale } = useI18n()
+const { t } = useI18n()
 const sidePanelStore = useSidePanelStore()
-const { isLoading, events } = storeToRefs(appStore)
 
-// Date sélectionnée (timestamp du début du jour)
-const selectedDate = ref<number>(getStartOfDay(new Date()).getTime())
-console.log('selectedDate', selectedDate.value)
-console.log('ne', new Date())
+// Utilise les composables pour la gestion des événements
+const { 
+  selectedDate, 
+  filteredEvents, 
+  nextFiveDays, 
+  formattedSelectedDate, 
+  selectDate 
+} = useEvents()
+
+const { isToday } = useDate()
+
 const listRef = ref<HTMLElement | null>(null)
 
 /**
- * Retourne le début du jour (minuit) pour une date donnée
+ * Vérifie si la date sélectionnée est aujourd'hui
  */
-function getStartOfDay(date: Date): Date {
-  const d = new Date(date)
-  d.setHours(0, 0, 0, 0)
-  return d
+const isSelectedDateToday = () => {
+  return isToday(new Date(selectedDate.value))
 }
 
 /**
- * Formate une date selon la locale courante
- * Retourne le jour de la semaine et la date/mois séparément
+ * Scroll vers le haut dans la liste
  */
-function formatDate(date: Date): { weekday: string; dateMonth: string } {
-  const weekday = date.toLocaleDateString(locale.value, { weekday: 'long' })
-  const dateMonth = date.toLocaleDateString(locale.value, { day: 'numeric', month: 'long' })
-  
-  return { weekday, dateMonth }
-}
-
-/**
- * Génère les 5 prochains jours avec leur format
- */
-const nextFiveDays = computed(() => {
-  const days: { timestamp: number; weekday: string; dateMonth: string }[] = []
-  const today = getStartOfDay(new Date())
-  
-  for (let i = 0; i < 5; i++) {
-    const date = new Date(today)
-    date.setDate(today.getDate() + i)
-    const { weekday, dateMonth } = formatDate(date)
-    
-    days.push({
-      timestamp: date.getTime(),
-      weekday,
-      dateMonth
-    })
-  }
-  
-  return days
-})
-
-/**
- * Sélectionne une date
- */
-function selectDate(timestamp: number) {
-  selectedDate.value = timestamp
-}
-const formattedSelectedDate = computed(() => {
-  const date = new Date(selectedDate.value)
-  const weekday = date.toLocaleDateString(locale.value, { weekday: 'long' })
-  const dateMonth = date.toLocaleDateString(locale.value, { day: 'numeric', month: 'long' })
-  
-  return { weekday, dateMonth }
-})
-/**
- * Filtre les événements par date sélectionnée
- * Note: Pour l'instant utilise 'posted' comme date d'événement
- * À adapter quand le type EventEntry aura une vraie date d'événement
- */
-const filteredEvents = computed(() => {
-  const currentDay = selectedDate.value
-  const forCompare = new Date(currentDay)
-  forCompare.setHours(0, 0, 0, 0)
-  return appStore.events.filter(event => {
-    const eventDateStart = new Date(event.datetime_start_timestamp * 1000)
-    eventDateStart.setHours(0, 0, 0, 0)
-    const eventDateEnd = new Date(event.datetime_end_timestamp * 1000)
-    eventDateEnd.setHours(0, 0, 0, 0)
-    return forCompare >= eventDateStart && forCompare <= eventDateEnd
-  })
-})
-
 const scrollListUp = () => {
-  console.log('scrollListUp', listRef.value)
   if (listRef.value) {
     listRef.value.scrollBy({ top: -300, behavior: 'smooth' })
   }
 }
 
+/**
+ * Scroll vers le bas dans la liste
+ */
 const scrollListDown = () => {
-  console.log('scrollListDown', listRef.value)
   if (listRef.value) {
     listRef.value.scrollBy({ top: 300, behavior: 'smooth' })
   }
 }
 
+/**
+ * Ouvre le panel de détail d'un événement
+ */
 const toggleEvent = (id: number) => {
   appStore.setCurrentEvent(id)
   sidePanelStore.openEvent()

@@ -1,10 +1,10 @@
 <template>
     <div class="SidePanel__event" v-if="currentEvent">
       <!-- Contenu événement -->
-      <div class="SidePanel__event__title"> {{ currentEvent.title }} test</div>
-      <div class="SidePanel__event__image-wrapper">
-        <ui-swiper :options="{ slidesPerView: 'auto', spaceBetween: 30, centeredSlides: false }" :overflow="true" :navigation="[currentEvent.main_image, ...currentEvent.images as ImageDetail[]].length > 1">
-          <ui-picture v-for="image in [currentEvent.main_image, ...currentEvent.images as ImageDetail[]] as Image[]" :key="image.meta" :images="image.images" class="SidePanel__event__image" :cover="'cover'"/>
+      <div class="SidePanel__event__title"> {{ currentEvent.title }}</div>
+      <div class="SidePanel__event__image-wrapper" v-if="eventImages.length > 0">
+        <ui-swiper :options="{ slidesPerView: 'auto', spaceBetween: 30, centeredSlides: false }" :overflow="true" :navigation="eventImages.length > 1">
+          <ui-picture v-for="image in eventImages" :key="image.meta" :images="image.images" class="SidePanel__event__image" :cover="'cover'"/>
         </ui-swiper>
       </div>
       <div class="SidePanel__event__content-dates-price">
@@ -65,6 +65,19 @@ const descriptionEvent = useTemplateRef<HTMLElement | null>('descriptionEventRef
 
 const currentEvent = computed(() => {
   return appStore.currentEvent
+})
+
+// Liste des images de l'événement (main_image + images additionnelles)
+const eventImages = computed(() => {
+  if (!currentEvent.value) return []
+  const images: Image[] = []
+  if (currentEvent.value.main_image) {
+    images.push(currentEvent.value.main_image)
+  }
+  if (currentEvent.value.images && Array.isArray(currentEvent.value.images)) {
+    images.push(...currentEvent.value.images)
+  }
+  return images
 })
 
 const checkScroll = () => {

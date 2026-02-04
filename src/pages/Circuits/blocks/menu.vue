@@ -84,6 +84,8 @@
   </template>
   
   <script setup lang="ts">
+    import { computed } from 'vue'
+    import { useRoute, useRouter } from 'vue-router'
     import IconMind from 'assets/svg/mind.svg?raw'
     import IconPlus from 'assets/svg/plus.svg?raw'
     import IconInstagram from 'assets/svg/instagram.svg?raw'
@@ -93,38 +95,22 @@
     import Temperature from './meteo/temperature.vue'
     import Maree from './meteo/maree.vue'
     import UiTag from 'components/UiKit/Tag/index.vue'
-    import { useRoute } from 'vue-router'
     import { store as appStore } from 'plugins/store/app'
-    import { useI18nStore } from 'plugins/i18n/store'
-    import { computed } from 'vue'
-    import { useRouter } from 'vue-router'
-    import i18n from 'plugins/i18n'
+    import { useNextEvent } from 'composables'
+
     const route = useRoute()
     const router = useRouter()
-    const i18nStore = useI18nStore()
-    const nextEvent = computed(() => {
-        if (appStore.events.length === 0) return null
-        if (appStore.events.length === 1) return appStore.events[0]
-        const today = Date.now() / 1000
-        const nextEvent = appStore.events.find(event => event.datetime_start_timestamp > today)
-        if (!nextEvent) return appStore.events[0]
-        return null
-    })
 
-    const nextEventDate = computed(() => {
-        if (!nextEvent.value) return null
-        const date = new Date(nextEvent.value.datetime_start_timestamp * 1000)
-        const today = new Date()
-        if (date.getDay() === today.getDay() && date.getMonth() === today.getMonth()) {
-            return i18n.global.t('events.today', { date: date.toLocaleDateString(`${i18nStore.locale}-CA`, { weekday: 'long', day: 'numeric', month: 'long' }) })
-        }
-        return date.toLocaleDateString(`${i18nStore.locale}-CA`, { weekday: 'long', day: 'numeric', month: 'long' })
-    })
+    // Utilise le composable pour récupérer le prochain événement
+    const nextEventData = useNextEvent()
+
+    // Raccourcis pour le template (conserve la même API que l'ancien code)
+    const nextEvent = computed(() => nextEventData.value?.event ?? null)
+    const nextEventDate = computed(() => nextEventData.value?.label ?? '')
 
     const getCircuitIndex = (slug: string) => {
         return appStore.getCircuitIndex(slug)
     }
-  
   </script>
   
   <style lang="stylus" scoped>

@@ -16,7 +16,7 @@ import { pinia } from 'plugins/store'
 import i18n from 'plugins/i18n'
 import router from 'router'
 import installUiKit from 'components/UiKit'
-//import { startPeriodicRefresh } from 'utils/refresh'
+import { startPeriodicRefresh } from 'utils/refresh'
 
 // Import des styles globaux
 import 'assets/styles/index.styl'
@@ -41,8 +41,8 @@ async function setup() {
   // Monte l'application
   app.mount('#app')
 
-  // Démarre le rafraîchissement périodique pour les bornes
-  //startPeriodicRefresh()
+  // Démarre le rafraîchissement périodique pour les bornes (mode kiosk uniquement)
+  startPeriodicRefresh()
 
   // Configuration en mode dev
   if (import.meta.env.DEV) {

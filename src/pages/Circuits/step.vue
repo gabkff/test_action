@@ -261,7 +261,7 @@
   
 <script setup lang="ts">
 declare type ViewCircuit = 'list' | 'map'
-import { watchEffect, ref, computed, ComputedRef } from 'vue'
+import { watchEffect, ref, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useSidePanelStore } from 'store/sidePanel'
 import { store as appStore } from 'plugins/store/app'
@@ -269,7 +269,6 @@ import { useI18nStore } from 'plugins/i18n/store'
 import { fetch as tauriFetch } from '@tauri-apps/plugin-http'
 import { getAuthHeaders } from 'utils/helpers'
 import { getApiSite } from 'plugins/api/apiSite'
-import i18n from 'plugins/i18n'
 import UiSelector from 'components/ui/Selector.vue'
 import UiNavBar from 'components/NavBar/index.vue'
 import UiTag from 'components/UiKit/Tag/index.vue'
@@ -289,6 +288,7 @@ import IconZoomOut from 'assets/svg/moins.svg?raw'
 import imgBorn from 'assets/img/borne.png'
 import { UiButton } from '@/components/UiKit'
 import MenuPage from './blocks/menu.vue'
+import { useCircuit, useNextEvent } from 'composables'
 
 const route = useRoute()
 const router = useRouter()
@@ -300,8 +300,32 @@ const mapRef = ref<any>(null)
 const i18nStore = useI18nStore()
 const showMenu = ref(false)
 
+// Composables pour la gestion du circuit et des événements
+const {
+  current,
+  currentStep,
+  currentStepIndex,
+  circuitIndex,
+  nextCircuit,
+  nextCircuitIndex,
+  allPolylines,
+  currentNextParcours,
+  markers,
+  navigate
+} = useCircuit()
+
+const nextEventData = useNextEvent()
+
+// Raccourci pour le template (garde la même API)
+const nextEvent = computed(() => {
+  if (!nextEventData.value) return null
+  return {
+    event: nextEventData.value.event,
+    label: nextEventData.value.label
+  }
+})
+
 // Validation du slug et redirection si invalide
-// a voir si pas on mounted plutôt
 watchEffect(() => {
   // On attend que l'app soit prête (données chargées)
   if (!appStore.isAppReady || appStore.circuits.length === 0) return
@@ -309,145 +333,66 @@ watchEffect(() => {
   appStore.setCircuitBySlug(slug, true)
   ready.value = true
 })
-const current = computed(() => {
-  return appStore.current
-})
 
-const currentStepIndex = computed(() => {
-  return appStore.currentStepIndex
-})
-
-
-const allPolylines = computed(() => {
-    if (!current.value?.steps) return []
-    return current.value.steps
-        .map(step => step.next_step?.polyline)
-        .filter(p => p !== null && p !== undefined) 
-})
-
-const currentNextParcours = computed(() => {
-  return appStore.currentNextParcours
-})
-const currentStep = computed((): CircuitStep | undefined => {
-  return appStore.currentStep as CircuitStep | undefined
-})
-
-const circuitIndex = computed(() => {
-  return appStore.getCircuitIndex(current.value?.slug as string) ?? null
-})
-
-const nextCircuitIndex = computed(() => {
-  return appStore.getCircuitIndex(appStore.nextCircuit?.slug as string) ?? null
-})
-
-const nextCircuit = computed(() => {
-  return appStore.nextCircuit
-})
-
-const markers: any = computed(() => {
-  const markers = []
-  if (!current.value?.steps || current.value?.steps.length === 0) return undefined
-  for (const step of current.value?.steps) {
-    markers.push({
-      position: { lat: step.map.latitude, lng: step.map.longitude },
-      icon: step.icon
-    })
-  }
-  return markers
-})
-
+// Thème visuel du circuit (selon l'état courant)
 const dataCircuitTheme = computed(() => {
   if (!current.value) return 1
   if (showMenu.value) return 'menu'
   return currentStepIndex.value > current.value?.steps.length - 1 ? 'last' : circuitIndex.value
 })
 
-const nextEvent: ComputedRef<{event: EventEntry | null, label: string} | null> = computed(() => {
-  const today = Date.now() / 1000  
-
-  let nextEvent = null
-  let smallDiff = Infinity
-  appStore.events.forEach(event => {
-    const dateStart = event.datetime_start_timestamp
-    const dateEnd = event.datetime_end_timestamp
-    if (today >= dateStart && today <= dateEnd) {
-      nextEvent = event
-      smallDiff = 0
-      return
-    }
-    const diff = Math.abs(dateStart - today)
-    if (diff < smallDiff) {
-      smallDiff = diff
-      nextEvent = event
-    }
-  })
-  if (smallDiff === 0) {
-    return {event: nextEvent, label: i18n.global.t('circuits.event_today', { date: new Date().toLocaleDateString(`${i18nStore.locale}-CA`, { weekday: 'long', day: 'numeric', month: 'long' }) })}
-  } else {
-    return {event: nextEvent, label: new Date(nextEvent!.datetime_start_timestamp * 1000).toLocaleDateString(`${i18nStore.locale}-CA`, { weekday: 'long', day: 'numeric', month: 'long' })} 
-  }
-})
-
+/**
+ * Change la vue entre carte et liste
+ */
 function onViewChange(value: ViewCircuit) {
-    currentView.value = value
+  currentView.value = value
 }
 
+/**
+ * Navigation entre les étapes du circuit
+ */
 function setStep(direction: 'next' | 'previous', restart: boolean = false) {
-  console.log('setStep', direction, restart)
-  if (restart) {
-    appStore.setCurrentStepIndex(0)
-  } else {
-    if (direction === 'next') {
-      appStore.setCurrentStepIndex(currentStepIndex.value + 1)
-    } else {
-      appStore.setCurrentStepIndex(currentStepIndex.value - 1)
-    }
-  }
+  navigate(direction, restart)
 }
 
+/**
+ * Zoom sur la carte
+ */
 function zoomMap(direction: 'in' | 'out') {
-  const map = document.querySelector('.maps')
-  console.log(map)
   if (direction === 'in') {
-    mapRef?.value.handleZoom(1)
+    mapRef?.value?.handleZoom(1)
   } else {
-    mapRef?.value.handleZoom(-1)
+    mapRef?.value?.handleZoom(-1)
   }
 }
 
+/**
+ * Envoie un feedback (like/dislike) pour le circuit
+ */
 async function sendFeedback(direction: 'up' | 'down') {
   feedbackReco.value = !feedbackReco.value
-  let method = 'POST'
-  if (direction === 'down') {
-    method = 'DELETE'
-  }
+  const method = direction === 'down' ? 'DELETE' : 'POST'
   const apiUrl = import.meta.env.VITE_API_URL
   const apiSite = getApiSite()
   const locale = i18nStore.locale
   const url = `${apiUrl}/${locale}/${apiSite}/circuit/${current.value?.id}/vote`
-
 
   const headers = {
     'Content-Type': 'application/json',
     'x-api-key': import.meta.env.VITE_API_KEY,
     ...getAuthHeaders()
   }
-  let response = null
-  if (window.__TAURI__) {
-    response = await tauriFetch(url, {
-      method,
-      headers: headers
-    })
-  } else {
-    response = await fetch(url, {
-      method,
-      headers: headers
-    })
-  }
-  console.log('response', response)
-  if (!response.ok) {
-    console.error('Erreur lors de l\'envoi du feedback', response.statusText)
-    return
+
+  try {
+    const response = window.__TAURI__
+      ? await tauriFetch(url, { method, headers })
+      : await fetch(url, { method, headers })
+
+    if (!response.ok) {
+      console.error('Erreur lors de l\'envoi du feedback', response.statusText)
+    }
+  } catch (error) {
+    console.error('Erreur lors de l\'envoi du feedback', error)
   }
 }
 
@@ -740,7 +685,7 @@ async function sendFeedback(direction: 'up' | 'down') {
       r(width, 791px)
       r(padding, 60px)
       position absolute
-      top 1193px
+      top 1113px
       left 150px
     &__last_step_recommendations_header
       f-style('h5')
