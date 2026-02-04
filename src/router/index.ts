@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router'
+import { appConfig } from 'config'
+import { hasApiSiteInCache } from 'plugins/api/apiSite'
 
 /**
  * Configuration du Router Vue
@@ -13,6 +15,12 @@ const routes: RouteRecordRaw[] = [
     path: '/',
     name: 'home',
     component: () => import('pages/Home/index.vue'),
+  },
+  {
+    path: '/selectCity',
+    name: 'selectCity',
+    component: () => import('pages/Selection/city.vue'),
+    props: true,
   },
   {
     path: '/selection',
@@ -64,6 +72,14 @@ const router = createRouter({
     }
     return { top: 0 }
   },
+})
+
+// Mode tablette : sans site en cache, rediriger vers la page de sélection
+router.beforeEach((to) => {
+  if (appConfig.mode === 'ipad' && !hasApiSiteInCache() && to.path !== '/selectCity') {
+    return { path: '/selectCity' }
+  }
+  return true
 })
 
 export default router

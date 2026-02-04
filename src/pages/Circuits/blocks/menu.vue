@@ -7,7 +7,7 @@
                 <div class="menu-page__left_part__dyk__content">
                     <div class="menu-page__left_part__dyk__content__title">{{ $t('did_you_know.title') }}</div>
                     <span class="menu-page__left_part__dyk__content__text">
-                        {{ $t('did_you_know.text') }}
+                        {{ appStore.home?.inspirational_text }}
                     </span>
                 </div>
             </div>
@@ -41,7 +41,7 @@
             </div>
             <div class="menu-page__right_part">
                 <div class="menu-page__right_part__follow">
-                    <div class="menu-page__right_part__follow__title"> {{ $t('menu.follow') }}</div>
+                    <div class="menu-page__right_part__follow__title"> {{ $t('menu.follow', { account: appStore.home?.instagram_account }) }}</div>
                     <div class="menu-page__right_part__follow__icon" v-html="IconInstagram"></div>
                 </div>
                 <div class="menu-page__right_part__circuits">

@@ -60,6 +60,8 @@ declare interface HomeData {
   weather: WheatherData
   tides: TidesData
   featured_partners: Sponsor[]
+  main_image: Image
+  instagram_account: string
 }
 
 declare interface TidesData {

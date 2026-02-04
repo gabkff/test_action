@@ -118,6 +118,12 @@
     "low_tide": "Low tide",
     "high_tide": "High tide"
   },
+  "selection": {
+    "city_title": "City selection",
+    "city_placeholder": "Enter the city code",
+    "city_validate": "Validate",
+    "city_error": "Invalid city code or API unavailable. Check the code and try again."
+  },
   "errors": {
     "notFound": "Page not found",
     "serverError": "Server error",

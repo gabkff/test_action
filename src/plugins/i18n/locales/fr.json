@@ -40,7 +40,7 @@
   },
   "menu": {
     "sponsorised": "sponsorisé",
-    "follow": "Suivez-nous sur instagram {'@'}cotenordquebec",
+    "follow": "Suivez-nous sur instagram {'@'}{account}",
     "discover": "à découvrir aussi"
   },
   "navigation": {
@@ -117,6 +117,12 @@
     "next_tide": "Prochaine marée",
     "low_tide": "Marée basse",
     "high_tide": "Marée haute"
+  },
+  "selection": {
+    "city_title": "Sélection de la ville",
+    "city_placeholder": "Entrez le code de la ville",
+    "city_validate": "Valider",
+    "city_error": "Code ville invalide ou API indisponible. Vérifiez le code et réessayez."
   },
   "errors": {
     "notFound": "Page non trouvée",

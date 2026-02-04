@@ -1,6 +1,6 @@
 <template>
     <div class="circuits-etape" v-if="ready && current" :data-circuit-theme="dataCircuitTheme">
-      <div class="circuits-etape__container">
+      <div class="circuits-etape__container" :data-circuit-theme="circuitIndex">
         <h2 class="circuits-etape__name" :data-circuit-theme="dataCircuitTheme">{{ $t('circuits.name') }} {{ circuitIndex! + 1 }}</h2>
         <h1 class="circuits-etape__title" :data-circuit-theme="dataCircuitTheme">{{ current.title }}</h1>
         
@@ -268,6 +268,7 @@ import { store as appStore } from 'plugins/store/app'
 import { useI18nStore } from 'plugins/i18n/store'
 import { fetch as tauriFetch } from '@tauri-apps/plugin-http'
 import { getAuthHeaders } from 'utils/helpers'
+import { getApiSite } from 'plugins/api/apiSite'
 import i18n from 'plugins/i18n'
 import UiSelector from 'components/ui/Selector.vue'
 import UiNavBar from 'components/NavBar/index.vue'
@@ -421,7 +422,7 @@ async function sendFeedback(direction: 'up' | 'down') {
     method = 'DELETE'
   }
   const apiUrl = import.meta.env.VITE_API_URL
-  const apiSite = import.meta.env.VITE_API_SITE
+  const apiSite = getApiSite()
   const locale = i18nStore.locale
   const url = `${apiUrl}/${locale}/${apiSite}/circuit/${current.value?.id}/vote`
 
@@ -468,6 +469,23 @@ async function sendFeedback(direction: 'up' | 'down') {
         width auto
         padding 60px
         border-radius $radius-lgxl
+        &[data-circuit-theme="1"]
+          background-color $penombre
+          .circuits-etape__name
+            color $crepuscule
+          .circuits-etape__title
+            color $crepuscule
+          :deep(.UiButton)
+            background-color $crepuscule
+            color $penombre
+        &[data-circuit-theme="2"]
+          background-color $epinette
+          .circuits-etape__name,
+          .circuits-etape__title
+            color $bouleau
+          :deep(.UiButton)
+            background-color $bouleau
+            color $epinette
     &[data-circuit-theme="1"]
       background-color $penombre
       &__title

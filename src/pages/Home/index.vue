@@ -1,7 +1,7 @@
 <template>
-  <div class="home">
+  <div class="home" v-if="isAppReady">
     <div class="home__part">
-      <div class="bg bg_fr" :style="{backgroundImage: `url(${ImgBackgroundFr})`}"></div>
+      <div class="bg bg_fr" :style="{backgroundImage: `url(${imgBackgroundFr})`}"></div>
       <div class="home__part__wrapper" ref="wrapperFrRef" :style="wrapperFrMaskStyle">
         <div class="line_1_fr line">
           <div class="line_1_fr__title text_fr"> LAISSEZ</div>
@@ -21,7 +21,7 @@
         </div>
       </div>
     </div>
-    <div class="home__part" ref="partEnRef" :style="{ backgroundImage: `url(${ImgBackgroundEn})` }">
+    <div class="home__part" ref="partEnRef" :style="{ backgroundImage: `url(${imgBackgroundEn})` }">
       <div class="home__part__overlay" ref="overlayEnRef" :style="overlayEnMaskStyle"></div>
       <div class="home__part__content">
         <div class="line line_1_en">
@@ -78,14 +78,16 @@
 
 <script setup lang="ts">
   import IconArrow from 'assets/svg/arrow.svg?raw'
-  import ImgBackgroundFr from './assets/back_fr.png'
-  import ImgBackgroundEn from './assets/back_en.png'
+  import ImgBackgroundBackupFr from './assets/back_fr.png'
+  import ImgBackgroundBackupEn from './assets/back_en.png'
   import { useI18nStore } from 'plugins/i18n/store'
   import { useRouter } from 'vue-router'
-  import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
+  import { store as appStore } from 'plugins/store/app'
+  import { ref, computed, onMounted, onUnmounted, nextTick, watchEffect } from 'vue'
 
   const i18nStore = useI18nStore()
   const router = useRouter()
+  const isAppReady = computed(() => appStore.isAppReady)
   const wrapperFrRef = ref<HTMLElement | null>(null)
   const overlayEnRef = ref<HTMLElement | null>(null)
   const partEnRef = ref<HTMLElement | null>(null)
@@ -99,6 +101,8 @@
     maskImage: `url(#${id})`,
     WebkitMaskImage: `url(#${id})`,
   })
+
+
   
   const wrapperFrMaskStyle = computed(() =>
     holesReady.value && holeRectsFr.value.length ? maskStyle('wrapper-mask-fr') : {},
@@ -107,6 +111,29 @@
     holesReady.value && holeRectsEn.value.length ? maskStyle('wrapper-mask-en') : {},
   )
 
+  const imgBackgroundFr = computed(() => {
+    if (appStore.getAllData?.fr?.home?.main_image) {
+      return appStore.getAllData!.fr!.home!.main_image!.images!.original!.url
+    } else {
+      return ImgBackgroundBackupFr
+    }
+  })
+
+  const imgBackgroundEn = computed(() => {
+    if (appStore.getAllData?.en?.home?.main_image) {
+      return appStore.getAllData?.en!.home!.main_image!.images!.original!.url
+    } else {
+      return ImgBackgroundBackupEn
+    }
+  })
+  // TODO VOIR SI ON PEUT PAS FAIRE MIEUX NIVEAU BACKGROUND
+  watchEffect(() => {
+    if (isAppReady.value && imgBackgroundFr.value) {
+      setTimeout(() => {
+        updateHoles()
+      }, 100)
+    }
+  })
   function getHoleRects(container: HTMLElement): HoleRect[] {
     const rect = container.getBoundingClientRect()
     const masks = container.querySelectorAll<HTMLElement>('.mask')
@@ -147,20 +174,6 @@
     router.push('/selection')
   }
 
-  onMounted(() => {
-    nextTick(() => {
-      updateHoles()
-      // Backup update après un délai
-      setTimeout(updateHoles, 100)
-    })
-    
-    // Recalculer lors du resize
-    window.addEventListener('resize', updateHoles)
-  })
-  
-  onUnmounted(() => {
-    window.removeEventListener('resize', updateHoles)
-  })
 </script>
 
 <style lang="stylus" scoped>

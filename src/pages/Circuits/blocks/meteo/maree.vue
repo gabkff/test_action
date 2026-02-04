@@ -60,10 +60,17 @@ const lineStyle = computed(() => {
         0,
         Math.min(1, 1 - timeUntilNext / FENETRE_AVANT_MAREE),
     )
+    const PIVOT = 0.05
+    const positionLisse =
+        position >= 0 && position <= 0.1
+            ? position < PIVOT
+                ? 0
+                : 0.1
+            : Number(position.toFixed(2))
     const isProche = timeUntilNext > 0 && timeUntilNext <= SEUIL_PROCHE ? 1 : 0
 
     return {
-        '--tide-position': position,
+        '--tide-position': positionLisse,
         '--tide-proche': isProche,
     }
 })
@@ -124,12 +131,12 @@ const lineStyle = computed(() => {
                     :deep(svg)
                         transform rotate(180deg)
                     &::after
-                        top unquote('calc(40% + var(--tide-position) * 40%)')
+                        top unquote('calc(20% + var(--tide-position) * 58%)')
                 &::after
                     content ''
                     position absolute
-                    left unquote('calc(var(--tide-position) * 50%)')
-                    top unquote('calc(60% - var(--tide-position) * 40%)')
+                    left unquote('calc(14px + var(--tide-position) * (50% - 14px))')
+                    top unquote('calc(78% - var(--tide-position) * 56%)')
                     transform translate(-50%, -50%)
                     size 28px
                     background-color white
@@ -141,6 +148,7 @@ const lineStyle = computed(() => {
             left 50%
             &[high="false"]
                 top 50%
+                left 47%
         &__content_next_maree
             padding-left 30px
             padding-right 30px
@@ -150,7 +158,7 @@ const lineStyle = computed(() => {
             line-height 1.3
             color $fjord
             gap 5px
-            f(row, $justify: flex-start, $align: center)
+            f(row, $justify: center, $align: center)
             &__line
                 r(width, 33px)
                 :deep(svg)

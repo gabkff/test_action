@@ -1,13 +1,14 @@
 import { fetch as tauriFetch } from '@tauri-apps/plugin-http'
 import { mockApiData } from './mock-data'
 import { getAuthHeaders } from 'utils/helpers'
+import { getApiSite } from './apiSite'
 
 /**
  * Configuration de l'API
  * URL: https://tcn.dev.kffein.work/api/bornes/{langue}/{site}
+ * En mode ipad, le site vient du localStorage ; en mode kiosk, du .env.
  */
 const API_BASE_URL = import.meta.env.VITE_API_URL
-const API_SITE = import.meta.env.VITE_API_SITE
 const DEFAULT_LOCALE = import.meta.env.VITE_DEFAULT_LOCALE
 const API_KEY = import.meta.env.VITE_API_KEY
 
@@ -50,7 +51,7 @@ class ApiService {
    * Ex: https://tcn.dev.kffein.work/api/bornes/fr/tadoussac
    */
   private getFullUrl(): string {
-    return `${API_BASE_URL}/${this.currentLocale}/${API_SITE}`
+    return `${API_BASE_URL}/${this.currentLocale}/${getApiSite()}`
   }
 
   /**
@@ -92,7 +93,7 @@ class ApiService {
    */
   private async fetchFromApi(locale?: string): Promise<ApiResponse> {
     const targetLocale = locale || this.currentLocale
-    const url = `${API_BASE_URL}/${targetLocale}/${API_SITE}`
+    const url = `${API_BASE_URL}/${targetLocale}/${getApiSite()}`
     console.log(`📡 Appel API: ${url}`)
 
     const headers: Record<string, string> = {
@@ -148,6 +149,38 @@ class ApiService {
    */
   isMockMode(): boolean {
     return this.useMockData
+  }
+
+  /**
+   * Teste un code site (pour la page de sélection tablette).
+   * Appel GET avec le site fourni ; ne modifie pas le site en cache.
+   */
+  async testSite(site: string, locale?: string): Promise<ApiResponse> {
+    const targetLocale = locale || this.currentLocale
+    const siteTrim = (site || '').trim()
+    if (!siteTrim) throw new Error('Code site vide')
+    const url = `${API_BASE_URL}/${targetLocale}/${siteTrim}`
+    console.log(`📡 Test API site: ${url}`)
+
+    const headers: Record<string, string> = {
+      'Content-Type': 'application/json',
+      'x-api-key': import.meta.env.VITE_API_KEY,
+      ...getAuthHeaders()
+    }
+
+    const response = window.__TAURI__
+      ? await tauriFetch(url, { method: 'GET', headers })
+      : await fetch(url, { method: 'GET', headers })
+
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`)
+    }
+
+    const data = await response.json()
+    if (!data || !data.data) {
+      throw new Error('Données API invalides ou vides')
+    }
+    return data
   }
 }
 

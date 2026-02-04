@@ -8,6 +8,7 @@ import { assetsService } from 'plugins/api/assets.service'
 import { apiService } from 'plugins/api'
 import { AVAILABLE_LOCALES, appConfig } from 'config'
 import { useI18nStore } from 'plugins/i18n/store'
+import { hasApiSiteInCache } from 'plugins/api/apiSite'
 
 const isTauriEnvironment = typeof window !== 'undefined' && '__TAURI_INTERNALS__' in window
 const router = useRouter()
@@ -197,6 +198,11 @@ const useStore = defineStore('app', () => {
   // GETTERS - Helpers
   // ============================================
 
+  /** Récupère toutes les données */
+  const getAllData = computed(() => {
+    return localizedData.value
+  })
+
   /** Nombre total de circuits */
   const circuitsCount = computed(() => circuits.value.length)
 
@@ -237,6 +243,13 @@ const useStore = defineStore('app', () => {
   async function initData() {
     setLoading(true)
     clearError()
+
+    // Mode tablette sans site en cache : ne pas appeler l'API (l'utilisateur est sur /selectCity)
+    if (appConfig.mode === 'ipad' && !hasApiSiteInCache()) {
+      setLoading(false)
+      setAppReady()
+      return
+    }
 
     try {
       const locales = AVAILABLE_LOCALES || ['fr', 'en']
@@ -412,6 +425,7 @@ const useStore = defineStore('app', () => {
     error,
     lastUpdate,
     isAppReady,
+    localizedData,
 
     // Getters - Données directes
     home,
@@ -434,6 +448,7 @@ const useStore = defineStore('app', () => {
     getEventBySlug,
     getCircuitById,
     getEventById,
+    getAllData,
 
     // Actions
     initData,
