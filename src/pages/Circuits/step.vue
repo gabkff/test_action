@@ -54,90 +54,28 @@
         <div class="circuits-etape__background" v-html="IconLine" :data-circuit-theme="dataCircuitTheme" v-if="currentView === 'list'"></div>
         <div class="circuits-etape__step_container_wrapper">
         <div class="circuits-etape__step_container">
-          <UiNavBar key="navbar"  class="circuits-etape__navbar" :next="currentStepIndex < current.steps.length ? true : false" :previous="currentStepIndex > 0 ? true : false" @next="setStep('next')" @previous="setStep('previous')" @menu="showMenu = !showMenu"/>
-          <div class="circuits-etape__step_content">
-            <div class="circuits-etape__step_content_header">
-              <ui-button theme="icon" :icon="currentStep.icon"/>
-              <div class="circuits-etape__step_content_step_total">{{ $t('circuits.step_total', { number: currentStepIndex + 1, total: current.steps.length }) }} </div>
-            </div>
-           <h2 class="circuits-etape__step_content_title">{{ currentStep.title }}</h2>
-            <div class="circuits-etape__step_content_description">
-              <p>{{ currentStep.description }}</p>
-            </div>
-            <div class="circuits-etape__step_content_itinerary" v-if="currentStepIndex === 0 && current.commuting.length > 0">
-              <div class="circuits-etape__step_content_itinerary_label" data-index="0">{{ $t('circuits.from_here') }}</div>
-              <UiTag 
-                v-for="commuting in current.commuting"
-                :label="commuting.time + 'min'" 
-                :icon="commuting.transportation === 'WALK' ? IconWalk : (commuting.transportation === 'DRIVE' ? IconCar : IconBike)" 
-                data-index="0"
-              />
-            </div>
-          </div>
-          <ui-button 
-            theme="secondary" 
-            :label="$t('circuits.more')" 
-            :big="true"
-            :icon="IconPlus"
-            :iconPosition="'right'"
-            class="circuits-etape__step_see_more"
-            @click="sidePanelStore.openCircuitStep({ title: current.title, step: currentStep, index: currentStepIndex + 1, qr: current.base64_qr})"
+          <UiNavBar key="navbar" class="circuits-etape__navbar" :next="currentStepIndex < current.steps.length" :previous="currentStepIndex > 0" @next="setStep('next')" @previous="setStep('previous')" @menu="showMenu = !showMenu"/>
+          <CircuitStepContent
+            :step="currentStep"
+            :stepNumber="currentStepIndex + 1"
+            :totalSteps="current.steps.length"
+            :commuting="current.commuting"
+            :showItinerary="currentStepIndex === 0"
+            @more="sidePanelStore.openCircuitStep({ title: current.title, step: currentStep, index: currentStepIndex + 1, qr: current.base64_qr})"
           />
         </div>
-        <div class="circuits-etape__step_container_steps_wrapper" :data-view="currentView">
-          <div class="circuits-etape__step_container_steps" v-if="currentView === 'map' && currentNextParcours.length > 0">
-            <div class="circuits-etape__step_container_steps_content">
-              <div class="circuits-etape__step_container_steps_content_wrapper">
-                <div class="circuits-etape__step_container_steps_content_wrapper_label"> {{ $t('circuits.next_step') }} </div>
-                <div class="circuits-etape__step_container_steps_content_wrapper_title"> 
-                  {{ current.steps[currentStepIndex + 1].title }} 
-                </div>
-              </div>
-              <UiButton 
-                theme="secondary" 
-                :icon="IconArrow" 
-                :big="true" 
-                class="circuits-etape__step_container_steps_content_button circuits-etape__step_container_steps_content_button--next" 
-                :data-view="currentView"
-                @click="setStep('next')"
-              />
-            </div>
-            <div class="circuits-etape__step_content_itinerary">
-                <div class="circuits-etape__step_content_itinerary_label">{{ $t('circuits.itinerary_time') }}</div>
-                <UiTag 
-                  :label="current.steps[currentStepIndex].next_step.time_to_next_step + ' min'" 
-                  :icon="current.main_travel_mode === 'WALK' ? IconWalk : (current.main_travel_mode === 'DRIVE' ? IconCar : IconBike)" 
-                  data-index="1" :data-view="currentView"
-                />
-            </div>
-          </div>
-          <div class="circuits-etape__step_container_steps" v-if="currentStepIndex > 0">
-            <div class="circuits-etape__step_container_steps_content" :data-view="currentView">
-              <div class="circuits-etape__step_container_steps_content_wrapper">
-                <div class="circuits-etape__step_container_steps_content_wrapper_label"> {{ $t('circuits.previous_step') }} </div>
-                <div class="circuits-etape__step_container_steps_content_wrapper_title"> 
-                  {{ current.steps[currentStepIndex - 1].title }} 
-                </div>
-              </div>
-              <UiButton 
-                theme="secondary" 
-                :icon="IconArrow" 
-                :big="true" 
-                class="circuits-etape__step_container_steps_content_button" 
-                :data-view="currentView"
-                @click="setStep('previous')"
-              />
-            </div>
-            <div class="circuits-etape__step_content_itinerary">
-                <div class="circuits-etape__step_content_itinerary_label">{{ $t('circuits.itinerary_time') }}</div>
-                <UiTag :label="current.steps[currentStepIndex - 1].next_step.time_to_next_step + ' min'" 
-                :icon="current.main_travel_mode === 'WALK' ? IconWalk : (current.main_travel_mode === 'DRIVE' ? IconCar : IconBike)" 
-                  data-index="1" 
-                  :data-view="currentView"
-                />
-            </div>
-          </div>
-        </div>
+        <CircuitStepNavigation
+          :view="currentView"
+          :hasNext="currentView === 'map' && currentNextParcours.length > 0"
+          :hasPrevious="currentStepIndex > 0"
+          :nextStepTitle="current.steps[currentStepIndex + 1]?.title"
+          :nextStepTime="current.steps[currentStepIndex]?.next_step?.time_to_next_step"
+          :previousStepTitle="current.steps[currentStepIndex - 1]?.title"
+          :previousStepTime="current.steps[currentStepIndex - 1]?.next_step?.time_to_next_step"
+          :travelMode="current.main_travel_mode"
+          @next="setStep('next')"
+          @previous="setStep('previous')"
+        />
         <!--
         <UiMap 
           :zoom="15"
@@ -183,22 +121,19 @@ import { getAuthHeaders } from 'utils/helpers'
 import { getApiSite } from 'plugins/api/apiSite'
 import UiSelector from 'components/ui/Selector.vue'
 import UiNavBar from 'components/NavBar/index.vue'
-import UiTag from 'components/UiKit/Tag/index.vue'
 import UiMap from 'components/ui/Maps/index.vue'
 import IconMap from 'assets/svg/pin.svg?raw'
 import IconList from 'assets/svg/list.svg?raw'
 import IconQr from 'assets/svg/qrcode.svg?raw'
 import IconLine from 'assets/svg/line_background.svg?raw'
-import IconWalk from 'assets/svg/walk.svg?raw'
-import IconCar from 'assets/svg/car.svg?raw'
-import IconPlus from 'assets/svg/plus.svg?raw'
 import IconArrow from 'assets/svg/arrow.svg?raw'
-import IconBike from 'assets/svg/bike.svg?raw'
 import IconZoomIn from 'assets/svg/plus.svg?raw'
 import IconZoomOut from 'assets/svg/moins.svg?raw'
 import { UiButton } from '@/components/UiKit'
 import MenuPage from './blocks/menu.vue'
 import CircuitLastStep from './blocks/CircuitLastStep.vue'
+import CircuitStepContent from './blocks/CircuitStepContent.vue'
+import CircuitStepNavigation from './blocks/CircuitStepNavigation.vue'
 import { useCircuit, useNextEvent } from 'plugins/utils'
 
 const route = useRoute()
@@ -207,7 +142,12 @@ const ready = ref(false)
 const sidePanelStore = useSidePanelStore()
 const currentView = ref<ViewCircuit>('map')
 const feedbackReco = ref(false)
-const mapRef = ref<any>(null)
+
+/** Interface pour les méthodes exposées par le composant UiMap */
+interface UiMapExposed {
+  handleZoom: (delta: number) => void
+}
+const mapRef = ref<UiMapExposed | null>(null)
 const i18nStore = useI18nStore()
 const showMenu = ref(false)
 

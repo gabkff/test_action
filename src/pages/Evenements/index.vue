@@ -22,7 +22,7 @@
       
       <!-- Liste des événements avec NavBar sticky -->
       <div class="events-page__list-wrapper">
-        <div class="events-page__list" ref="listRef">
+        <div class="events-page__list">
           <div class="events-page__list-header">
             <h2 class="events-page__list-title">
               {{ isSelectedDateToday() 
@@ -31,7 +31,7 @@
               }} 
             </h2>
           </div>
-        <div class="events-page__list-content">
+        <div class="events-page__list-content" ref="listRef">
           <!--<UiAccordions>
             <UiAccordionItem v-for="i in 10" :key="i" :time="'10:00'" :location="'Tadoussac'" :title="'Festival de la chanson<br> de Tadoussac'" :icon="IconPlus">
             </UiAccordionItem>
@@ -58,6 +58,7 @@
         :show-scroll-arrows="filteredEvents.length > 5"
         @scrollup="scrollListUp"
         @scrolldown="scrollListDown"
+        @menu="router.push('/selection')"
       />
     </div>
     </div>
@@ -69,6 +70,7 @@ import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { store as appStore } from 'plugins/store/app'
 import { useSidePanelStore } from 'store/sidePanel'
+import { useRouter } from 'vue-router'
 import IconPlus from 'assets/svg/plus.svg?raw'
 import UiButton from 'components/UiKit/Button/index.vue'
 import UiAccordions from 'components/UiKit/Accordions/Items.vue'
@@ -78,7 +80,7 @@ import { useEvents, useDate } from 'plugins/utils'
 
 const { t } = useI18n()
 const sidePanelStore = useSidePanelStore()
-
+const router = useRouter()
 // Utilise les composables pour la gestion des événements
 const { 
   selectedDate, 

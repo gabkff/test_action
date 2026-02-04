@@ -274,6 +274,7 @@
         r(gap, 14px)
         margin-top auto
         r(margin-bottom, 20px)
+        align-self flex-end
         :deep(.UiTag)
             border 1px solid rgba(#f8f3ff, 0.5)
         &[data-circuit-theme="1"]

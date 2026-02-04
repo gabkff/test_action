@@ -76,7 +76,7 @@
           <div class="circuit-last-step__event-title">
             {{ nextEvent.event.title }}
           </div>
-          <UiButton 
+          <ui-button 
             theme="primary"
             :big="true"
             :icon="IconPlus"
@@ -185,7 +185,7 @@ const router = useRouter()
 
 <style lang="stylus" scoped>
 .circuit-last-step
-  position relative
+  height 100%
 
   &__background
     position absolute

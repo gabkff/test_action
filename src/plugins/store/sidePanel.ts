@@ -6,10 +6,25 @@
  */
 
 import { defineStore } from 'pinia'
-import { ref, computed, reactive } from 'vue'
+import { ref, computed } from 'vue'
 
 // Types de contenu supportés par le SidePanel
 export type SidePanelType = 'event' | 'home' | 'language' | 'info' | 'custom' | 'circuitStep' | 'qrCode'
+
+/** Payload pour l'ouverture d'une étape de circuit */
+export interface CircuitStepPayload {
+  title: string
+  step: CircuitStep
+  index: number
+  qr?: string | null
+}
+
+/** Payload pour l'ouverture du QR Code */
+export interface QrCodePayload {
+  title: string
+  qr: string | null
+  index: number | null
+}
 
 export interface SidePanelData {
   /** Type de contenu à afficher */
@@ -18,8 +33,6 @@ export interface SidePanelData {
   title?: string
   /** Données spécifiques au type */
   payload?: Record<string, unknown>
-  /** data du panel */
-  data?: any
 }
 
 export const useSidePanelStore = defineStore('sidePanel', () => {
@@ -38,9 +51,6 @@ export const useSidePanelStore = defineStore('sidePanel', () => {
 
   /** Données du contenu */
   const payload = ref<Record<string, unknown>>({})
-
-  /** Data du panel */
-  const data = reactive<any>(null)
 
   // ============================================
   // GETTERS
@@ -79,20 +89,19 @@ export const useSidePanelStore = defineStore('sidePanel', () => {
     })
   }
 
-  function openCircuitStep(step: Record<string, any>) {
-    console.log('openCircuitStep', step)
+  function openCircuitStep(data: CircuitStepPayload) {
     open({
       type: 'circuitStep',
-      title: step.title as string || '',
-      payload: step,
+      title: data.title,
+      payload: data as unknown as Record<string, unknown>,
     })
   }
 
-  function openQrCode(circuit: Record<string, any>) {
+  function openQrCode(data: QrCodePayload) {
     open({
       type: 'qrCode',
-      title: circuit.title as string || '',
-      payload: circuit,
+      title: data.title,
+      payload: data as unknown as Record<string, unknown>,
     })
   }
 

@@ -115,7 +115,6 @@ const useStore = defineStore('app', () => {
   /** Données utiles (fusionnées) */
   const data = computed((): ApiData | null => {
     if (!baseData.value) return null
-    console.log('localData', localData.value)
     return {
       home: localData.value?.home || baseData.value.home,
       events: baseData.value.events.map(baseEvent => {
@@ -124,7 +123,6 @@ const useStore = defineStore('app', () => {
       }),
       circuits: baseData.value.circuits.map(baseCircuit => {
         const localCircuit = localData.value?.circuits.find(c => c.id === baseCircuit.id)
-        console.log('localCircuit', localCircuit)
         return mergeCircuit(baseCircuit, localCircuit)
       })
     }
@@ -210,11 +208,9 @@ const useStore = defineStore('app', () => {
   /** Nombre total d'événements */
   const eventsCount = computed(() => events.value.length)
 
-  /** Récupère un circuit par son slug */
-  const getCircuitBySlug = (slug: string): CircuitEntry | undefined | null => {
-    const circuit = circuits.value.find((circuit: CircuitEntry) => circuit.slug === slug)
-    if (!circuit) return null
-    setCurrentCircuit(circuit)
+  /** Récupère un circuit par son slug (sans effet de bord) */
+  const getCircuitBySlug = (slug: string): CircuitEntry | null => {
+    return circuits.value.find((circuit: CircuitEntry) => circuit.slug === slug) ?? null
   }
 
   /** Récupère l'index d'un circuit par son ID */
