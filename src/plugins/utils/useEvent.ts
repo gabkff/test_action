@@ -89,18 +89,19 @@ export function useNextEvent(): ComputedRef<NextEventResult | null> {
 
     // 3. Si trouvé, retourne l'événement futur
     if (closestEvent) {
-      const isEventToday = isTodayTimestamp(closestEvent.datetime_start_timestamp)
+      const ev: EventEntry = closestEvent
+      const isEventToday = isTodayTimestamp(ev.datetime_start_timestamp)
       return {
-        event: closestEvent,
+        event: ev,
         label: isEventToday
-          ? i18n.global.t('events.today', { date: formatEventDate(closestEvent.datetime_start_timestamp) })
-          : formatEventDate(closestEvent.datetime_start_timestamp),
+          ? i18n.global.t('events.today', { date: formatEventDate(ev.datetime_start_timestamp) })
+          : formatEventDate(ev.datetime_start_timestamp),
         isToday: isEventToday
       }
     }
 
     // 4. Aucun événement futur, retourne le premier (fallback)
-    const fallbackEvent = events[0]
+    const fallbackEvent: EventEntry = events[0]
     return {
       event: fallbackEvent,
       label: formatEventDate(fallbackEvent.datetime_start_timestamp),
