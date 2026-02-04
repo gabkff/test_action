@@ -1,6 +1,6 @@
 /**
  * Composable useEvent
- * 
+ *
  * Logique centralisée pour la gestion des événements :
  * - Récupération du prochain événement
  * - Filtrage par date
@@ -27,12 +27,12 @@ export interface NextEventResult {
 
 /**
  * Composable pour récupérer le prochain événement
- * 
+ *
  * Logique :
  * 1. Si un événement est EN COURS (today entre start et end), il est prioritaire
  * 2. Sinon, retourne l'événement le plus proche dans le futur
  * 3. Si aucun événement futur, retourne le premier de la liste
- * 
+ *
  * @returns Computed avec { event, label, isToday }
  */
 export function useNextEvent(): ComputedRef<NextEventResult | null> {
@@ -41,14 +41,14 @@ export function useNextEvent(): ComputedRef<NextEventResult | null> {
 
   return computed((): NextEventResult | null => {
     const events = appStore.events
-    
+
     if (events.length === 0) return null
     if (events.length === 1) {
       const event = events[0]
       const isEventToday = isTodayTimestamp(event.datetime_start_timestamp)
       return {
         event,
-        label: isEventToday 
+        label: isEventToday
           ? i18n.global.t('events.today', { date: formatEventDate(event.datetime_start_timestamp) })
           : formatEventDate(event.datetime_start_timestamp),
         isToday: isEventToday
@@ -111,7 +111,7 @@ export function useNextEvent(): ComputedRef<NextEventResult | null> {
 
 /**
  * Composable pour filtrer les événements par date
- * 
+ *
  * @param selectedDate - Ref contenant le timestamp de la date sélectionnée (en millisecondes)
  * @returns Computed avec la liste des événements filtrés
  */
@@ -123,10 +123,10 @@ export function useFilteredEvents(selectedDate: Ref<number>): ComputedRef<EventE
     return appStore.events.filter(event => {
       const eventDateStart = new Date(event.datetime_start_timestamp * 1000)
       eventDateStart.setHours(0, 0, 0, 0)
-      
+
       const eventDateEnd = new Date(event.datetime_end_timestamp * 1000)
       eventDateEnd.setHours(0, 0, 0, 0)
-      
+
       // L'événement est visible si la date sélectionnée est entre start et end (inclus)
       return selectedDayStart >= eventDateStart && selectedDayStart <= eventDateEnd
     })

@@ -47,17 +47,17 @@
                 <div class="menu-page__right_part__circuits">
                     <div class="menu-page__right_part__circuits__title"> {{ $t('menu.discover') }}</div>
                     <div class="menu-page__right_part__circuit"
-                        v-for="(circuit, circuitIndex) in appStore.circuits.filter(circuit => circuit.slug !== route.params.slug)"
+                        v-for="(circuit, circuitIndex) in appStore.circuits.filter(circuit => circuit.id !== Number(route.params.id))"
                         :key="circuit.id"
-                        :data-circuit-theme="getCircuitIndex(circuit.slug)"
+                        :data-circuit-theme="getCircuitIndex(circuit.id)"
                     >
                     <ui-picture v-if="circuit.image" :images="circuit.image.images" :cover="'cover'" />
                     <div class="menu-page__right_part__circuit__content">
-                        <div class="menu-page__right_part__circuit__content__title" :data-circuit-theme="getCircuitIndex(circuit.slug)"> {{ circuit.title }}</div>
-                        <div class="menu-page__right_part__circuit__content_text_action" :data-circuit-theme="getCircuitIndex(circuit.slug)">
+                        <div class="menu-page__right_part__circuit__content__title" :data-circuit-theme="getCircuitIndex(circuit.id)"> {{ circuit.title }}</div>
+                        <div class="menu-page__right_part__circuit__content_text_action" :data-circuit-theme="getCircuitIndex(circuit.id)">
                             <ui-tag :label="$t('circuits.total_step', { number: circuit.steps.length })" />
                             <ui-button theme="primary" :label="$t('common.link_discover')" :icon="IconPlus" :iconPosition="'right'"
-                            @click="router.push(`/circuits/${circuit.slug}`)"
+                            @click="router.push(`/circuits/${circuit.id}`)"
                             />
                         </div>
                     </div>
@@ -96,7 +96,7 @@
     import Maree from './meteo/maree.vue'
     import UiTag from 'components/UiKit/Tag/index.vue'
     import { store as appStore } from 'plugins/store/app'
-    import { useNextEvent } from 'composables'
+    import { useNextEvent } from 'plugins/utils'
 
     const route = useRoute()
     const router = useRouter()
@@ -108,8 +108,8 @@
     const nextEvent = computed(() => nextEventData.value?.event ?? null)
     const nextEventDate = computed(() => nextEventData.value?.label ?? '')
 
-    const getCircuitIndex = (slug: string) => {
-        return appStore.getCircuitIndex(slug)
+    const getCircuitIndex = (id: number) => {
+        return appStore.getCircuitIndex(id)
     }
   </script>
   

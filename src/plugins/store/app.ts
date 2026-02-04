@@ -119,11 +119,12 @@ const useStore = defineStore('app', () => {
     return {
       home: localData.value?.home || baseData.value.home,
       events: baseData.value.events.map(baseEvent => {
-        const localEvent = localData.value?.events.find(e => e.slug === baseEvent.slug)
+        const localEvent = localData.value?.events.find(e => e.id === baseEvent.id)
         return mergeEvent(baseEvent, localEvent)
       }),
       circuits: baseData.value.circuits.map(baseCircuit => {
-        const localCircuit = localData.value?.circuits.find(c => c.slug === baseCircuit.slug)
+        const localCircuit = localData.value?.circuits.find(c => c.id === baseCircuit.id)
+        console.log('localCircuit', localCircuit)
         return mergeCircuit(baseCircuit, localCircuit)
       })
     }
@@ -216,9 +217,10 @@ const useStore = defineStore('app', () => {
     setCurrentCircuit(circuit)
   }
 
-  /** Récupère un circuit par son index */
-  const getCircuitIndex = (slug: string): number | undefined | null => {
-    return circuits.value.findIndex((circuit: CircuitEntry) => circuit.slug === slug)
+  /** Récupère l'index d'un circuit par son ID */
+  const getCircuitIndex = (id: number): number => {
+    const index = circuits.value.findIndex((circuit: CircuitEntry) => circuit.id === id)
+    return index >= 0 ? index : -1
   }
 
 
@@ -374,27 +376,14 @@ const useStore = defineStore('app', () => {
     currentCircuitId.value = null
     currentStepIndex.value = 0
   }
-  function setCircuitBySlug(slug: string, redirectIfnotFound: boolean = false) {
-    let circuit = circuits.value.find((circuit: CircuitEntry) => circuit.slug === slug)
-
-    // Si non trouvé par slug, on vérifie si c'est dû à un changement de langue
-    if (!circuit && currentCircuitId.value !== null) {
-      circuit = circuits.value.find((c: CircuitEntry) => c.id === currentCircuitId.value)
-
-      if (circuit && router.currentRoute.value.name === 'circuit-single') {
-        console.log(`🔄 Traduction du slug: ${slug} -> ${circuit.slug}`)
-        router.replace({
-          name: 'circuit-single',
-          params: { ...router.currentRoute.value.params, slug: circuit.slug }
-        })
+  function setCircuitById(id: number, redirectIfnotFound: boolean = false) {
+    const circuit = getCircuitById(id)
+    if (!circuit) {
+      if (redirectIfnotFound) {
+        router.replace({ name: 'home' })
       }
+      return null
     }
-
-    if (!circuit && redirectIfnotFound) {
-      router.replace({ name: 'home' })
-    }
-
-    if (!circuit) return null
     setCurrentCircuit(circuit)
   }
 
@@ -459,7 +448,7 @@ const useStore = defineStore('app', () => {
     setAppReady,
     setCurrentCircuit,
     setCurrentStepIndex,
-    setCircuitBySlug,
+    setCircuitById,
     setCurrentEvent,
     reset,
   }

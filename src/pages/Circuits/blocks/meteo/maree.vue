@@ -49,9 +49,27 @@ const FENETRE_AVANT_MAREE = 6 * 60 * 60
 /** Seuil en secondes en dessous duquel on considère qu'on est "proche" de la prochaine marée */
 const SEUIL_PROCHE = 60 * 60
 
+/**
+ * Top du cercle (en %) pour qu'il reste au centre de la ligne de marée.
+ * Calqué sur le SVG tide.svg : viewBox 0 0 387 101, courbe y ≈ 96.78 aux bords, y ≈ 4.22 au creux.
+ * Parabole (2*t-1)² : 0 au centre (t=0.5), 1 aux bords (t=0 ou 1). Coefficient ajusté pour que
+ * le cercle soit visuellement centré sur le trait (ex. position 0.75 → ~30%).
+ */
+const TIDE_VIEWBOX_HEIGHT = 101
+const TIDE_Y_TOP = 4.22
+const TIDE_DEPTH = 89.5  // ajusté pour position 0.77 → top ~30% (cercle au milieu du trait, pas en dessous)
+
+function getTideTopPercent(position: number): number {
+    const t = Math.max(0, Math.min(1, position))
+    const parabola = (2 * t - 1) ** 2
+    const yViewBox = TIDE_Y_TOP + TIDE_DEPTH * parabola
+    const percent = (yViewBox / TIDE_VIEWBOX_HEIGHT) * 100
+    return Math.max(4, Math.min(97, percent))
+}
+
 const lineStyle = computed(() => {
     const next = currentMaree.value?.next_event_timestamp
-    if (next == null) return { '--tide-position': 0, '--tide-proche': 0 }
+    if (next == null) return { '--tide-position': 0, '--tide-proche': 0, '--tide-top': 80 }
 
     const now = Date.now() / 1000
     const timeUntilNext = next - now
@@ -68,10 +86,12 @@ const lineStyle = computed(() => {
                 : 0.1
             : Number(position.toFixed(2))
     const isProche = timeUntilNext > 0 && timeUntilNext <= SEUIL_PROCHE ? 1 : 0
+    const tideTop = getTideTopPercent(positionLisse)
 
     return {
         '--tide-position': positionLisse,
         '--tide-proche': isProche,
+        '--tide-top': tideTop,
     }
 })
 </script>
@@ -130,13 +150,11 @@ const lineStyle = computed(() => {
                 &[data-high="false"]
                     :deep(svg)
                         transform rotate(180deg)
-                    &::after
-                        top unquote('calc(20% + var(--tide-position) * 58%)')
                 &::after
                     content ''
                     position absolute
                     left unquote('calc(14px + var(--tide-position) * (50% - 14px))')
-                    top unquote('calc(78% - var(--tide-position) * 56%)')
+                    top unquote('calc(var(--tide-top) * 1%)')
                     transform translate(-50%, -50%)
                     size 28px
                     background-color white
@@ -145,7 +163,7 @@ const lineStyle = computed(() => {
                     box-sizing border-box
         &__content_line__arrow
             position absolute
-            left 50%
+            left 48%
             &[high="false"]
                 top 50%
                 left 47%

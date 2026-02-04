@@ -74,7 +74,7 @@ import UiButton from 'components/UiKit/Button/index.vue'
 import UiAccordions from 'components/UiKit/Accordions/Items.vue'
 import UiAccordionItem from 'components/UiKit/EventItem/index.vue'
 import UiNavBar from 'components/NavBar/index.vue'
-import { useEvents, useDate } from 'composables'
+import { useEvents, useDate } from 'plugins/utils'
 
 const { t } = useI18n()
 const sidePanelStore = useSidePanelStore()

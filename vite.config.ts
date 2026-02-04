@@ -43,7 +43,6 @@ export default defineConfig(async () => ({
       'types': `${DIRS.SRC}/types`,
       'i18n': `${DIRS.SRC}/plugins/i18n`,
       'vendors': `${DIRS.SRC}/vendors`,
-      'composables': `${DIRS.SRC}/composables`,
     },
   },
 

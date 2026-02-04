@@ -27,7 +27,7 @@
                                 :label="$t('common.link_discover')" 
                                 :icon="IconPlus" 
                                 :iconPosition="'right'"
-                                @click="router.push(`/circuits/${circuit.slug}`)"
+                                @click="router.push(`/circuits/${circuit.id}`)"
                             />
                         </div>
         </div>

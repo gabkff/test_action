@@ -1,6 +1,6 @@
 /**
  * Composable useCircuit
- * 
+ *
  * Logique centralisée pour la gestion des circuits :
  * - Navigation entre étapes
  * - Données de la carte (polylines, markers)
@@ -19,7 +19,7 @@ export interface MapMarker {
 
 /**
  * Composable pour la navigation dans un circuit
- * 
+ *
  * Fournit :
  * - Circuit courant
  * - Étape courante
@@ -29,17 +29,17 @@ export interface MapMarker {
 export function useCircuitNavigation() {
   // Circuit courant depuis le store
   const current = computed(() => appStore.current)
-  
+
   // Index de l'étape courante
   const currentStepIndex = computed(() => appStore.currentStepIndex)
-  
+
   // Étape courante
   const currentStep = computed((): CircuitStep | null => appStore.currentStep)
-  
+
   // Index du circuit dans la liste
   const circuitIndex = computed(() => {
     if (!current.value) return null
-    return appStore.getCircuitIndex(current.value.slug)
+    return appStore.getCircuitIndex(current.value.id)
   })
 
   // Prochain circuit (différent du courant)
@@ -48,7 +48,7 @@ export function useCircuitNavigation() {
   // Index du prochain circuit
   const nextCircuitIndex = computed(() => {
     if (!nextCircuit.value) return null
-    return appStore.getCircuitIndex(nextCircuit.value.slug)
+    return appStore.getCircuitIndex(nextCircuit.value.id)
   })
 
   // Vérifie si on est à la première étape
@@ -131,12 +131,12 @@ export function useCircuitNavigation() {
     nextCircuit,
     nextCircuitIndex,
     totalSteps,
-    
+
     // États
     isFirstStep,
     isLastStep,
     isAfterLastStep,
-    
+
     // Actions
     goToNextStep,
     goToPreviousStep,
@@ -148,7 +148,7 @@ export function useCircuitNavigation() {
 
 /**
  * Composable pour les données de carte d'un circuit
- * 
+ *
  * Fournit :
  * - Tous les polylines du circuit
  * - Markers de toutes les étapes

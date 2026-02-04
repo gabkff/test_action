@@ -33,7 +33,7 @@ const routes: RouteRecordRaw[] = [
     component: () => import('pages/Circuits/index.vue'),
   },
   {
-    path: '/circuits/:slug',
+    path: '/circuits/:id',
     name: 'circuit-single',
     component: () => import('pages/Circuits/step.vue'),
     props: true,

@@ -1,6 +1,6 @@
 /**
  * Composable useDate
- * 
+ *
  * Fonctions utilitaires pour le formatage des dates
  * selon la locale de l'application.
  */
@@ -54,10 +54,10 @@ export function useDate() {
    * @returns '15 janvier 2024'
    */
   function formatFullDate(date: Date): string {
-    return date.toLocaleDateString(localeCode.value, { 
-      day: 'numeric', 
-      month: 'long', 
-      year: 'numeric' 
+    return date.toLocaleDateString(localeCode.value, {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
     })
   }
 
@@ -67,10 +67,10 @@ export function useDate() {
    * @returns '15 janv. 2024'
    */
   function formatShortDate(date: Date): string {
-    return date.toLocaleDateString(localeCode.value, { 
-      day: 'numeric', 
-      month: 'short', 
-      year: 'numeric' 
+    return date.toLocaleDateString(localeCode.value, {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric'
     })
   }
 
@@ -82,10 +82,10 @@ export function useDate() {
    */
   function formatEventDate(timestamp: number): string {
     const date = new Date(timestamp * 1000)
-    const formatted = date.toLocaleDateString(localeCode.value, { 
-      weekday: 'long', 
-      day: 'numeric', 
-      month: 'long' 
+    const formatted = date.toLocaleDateString(localeCode.value, {
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long'
     })
     // Première lettre en majuscule
     return formatted.charAt(0).toUpperCase() + formatted.slice(1)

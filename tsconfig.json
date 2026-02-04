@@ -73,11 +73,11 @@
       "vendors/*": [
         "./src/vendors/*"
       ],
-      "composables": [
-        "./src/composables"
+      "plugins/utils": [
+        "./src/plugins/utils"
       ],
-      "composables/*": [
-        "./src/composables/*"
+      "plugins/utils/*": [
+        "./src/plugins/utils/*"
       ],
       "*": [
         "./src/types/*.ts",
