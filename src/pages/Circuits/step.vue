@@ -1,6 +1,7 @@
 <template>
     <div class="circuits-etape" v-if="ready && current" :data-circuit-theme="dataCircuitTheme">
       <div class="circuits-etape__container" :data-circuit-theme="circuitIndex">
+        <UiNavBar v-if="showMenu" key="navbar" class="circuits-etape__last__navbar" :back="true" :next="false" :previous="false" :home="false" @previous="showMenu = false"></UiNavBar>
         <h2 class="circuits-etape__name" :data-circuit-theme="dataCircuitTheme">{{ $t('circuits.name') }} {{ circuitIndex! + 1 }}</h2>
         <h1 class="circuits-etape__title" :data-circuit-theme="dataCircuitTheme">{{ current.title }}</h1>
         
@@ -105,7 +106,10 @@
         </div>
       </div>
       </div>
-      <menu-page v-else-if="showMenu"/>
+      <template v-else-if="showMenu">
+        <div class="circuits-etape__background" v-html="IconLine" :data-circuit-theme="dataCircuitTheme"></div>
+        <menu-page/>
+      </template>
     </div>
   </template>
   
@@ -261,6 +265,7 @@ async function sendFeedback(direction: 'up' | 'down') {
     &[data-circuit-theme="menu"]
       background-color $embruns
       .circuits-etape__container
+        position relative
         r(margin-left, 230px)
         r(margin-right, 230px)
         r(margin-top, 267px)
@@ -308,6 +313,37 @@ async function sendFeedback(direction: 'up' | 'down') {
         color $bouleau
       &[data-circuit-theme="last"]
         color $fjord
+    &__last__navbar
+      position absolute
+      right -95px
+      top 50px
+      :deep(.NavBar__cap)
+        svg
+          color $fjord
+      :deep(.NavBar__cap--top)
+        margin-bottom -2px
+      :deep(.NavBar__cap--bottom)
+        margin-top -2px
+      :deep(.NavBar__container)
+        background-color $fjord
+        button
+          color $aube
+      &[data-circuit-theme="1"]
+        :deep(.NavBar__cap)
+          svg
+            color $penombre
+        :deep(.NavBar__container)
+          background-color $penombre
+          button
+            color $crepuscule
+      &[data-circuit-theme="2"]
+        :deep(.NavBar__cap)
+          svg
+            color $epinette
+        :deep(.NavBar__container)
+          background-color $epinette
+          button
+            color $bouleau
     &__title
       f-style('h1')
       color $aube
@@ -413,7 +449,7 @@ async function sendFeedback(direction: 'up' | 'down') {
           border-color rgba($light, .5)
     &__background    
       position absolute
-      top 420px
+      top 11%
       left 0
       z-index 2
       color $aube
@@ -421,6 +457,9 @@ async function sendFeedback(direction: 'up' | 'down') {
         color $crepuscule
       &[data-circuit-theme="2"]
         color $bouleau
+      &[data-circuit-theme="menu"]
+        top 40.7%
+        z-index 0
     &__step_see_more
       width 100%
       margin-top auto

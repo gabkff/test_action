@@ -1,11 +1,21 @@
 <template>
   <nav class="NavBar">
     <!-- Décoration haut -->
-    <div class="NavBar__cap NavBar__cap--top" />
+    <div class="NavBar__cap NavBar__cap--top" v-html="IconTop" />
     
     <div class="NavBar__container">
+      <!-- Bouton Back -->
+      <button 
+        v-if="back"
+        type="button" 
+        class="NavBar__item"
+        @click="$emit('previous')"
+      >
+        <i class="NavBar__icon" v-html="IconBack" />
+      </button>
       <!-- Bouton Home -->
       <button 
+        v-if="home"
         type="button" 
         class="NavBar__item"
         :class="{ 'is-active': currentRoute === 'home' }"
@@ -63,7 +73,7 @@
     </div>
     
     <!-- Décoration bas -->
-    <div class="NavBar__cap NavBar__cap--bottom" />
+    <div class="NavBar__cap NavBar__cap--bottom" v-html="IconBottom" />
   </nav>
 </template>
 
@@ -84,6 +94,9 @@ import { AVAILABLE_LOCALES } from 'config'
 import IconHouse from 'assets/svg/house.svg?raw'
 import IconArrow from 'assets/svg/arrow.svg?raw'
 import IconClose from 'assets/svg/cross.svg?raw'
+import IconTop from 'assets/svg/top.svg?raw'
+import IconBack from 'assets/svg/back.svg?raw'
+import IconBottom from 'assets/svg/bottom.svg?raw'
 
 interface NavBarProps {
   /** Affiche les flèches de défilement */
@@ -92,11 +105,14 @@ interface NavBarProps {
   previous?: boolean
   panel?: boolean
   lastStep?: boolean
+  home?: boolean
+  back?: boolean
 }
 
 const props = withDefaults(defineProps<NavBarProps>(), {
   showScrollArrows: false,
   lastStep: false,
+  home: true,
 })
 
 defineEmits<{
@@ -157,17 +173,14 @@ function handleLanguage() {
   &__cap
     width 100%
     r(height, 132px)
-    background-image url('@/assets/svg/top.svg')
     background-size contain
     background-repeat no-repeat
     background-position center
-    
-    &--bottom
-      background-image url('@/assets/svg/bottom.svg')
-      margin-top -1px
-    
+    color white
     &--top
       margin-bottom -1px
+    &--bottom
+      margin-top -1px
 
   &__container
     display flex
