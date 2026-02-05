@@ -98,15 +98,18 @@ const lineStyle = computed(() => {
 
 <style lang="stylus" scoped>
     .maree
-        r(padding-top, 24px)
-        r(padding-bottom, 24px)
+        r(padding-top, 24px 16px)
+        r(padding-bottom, 24px 16px)
         background-color white
+        border-radius $radius-lg
+        +layout(mobile)
+            border-radius 6px
         &__title__icon
-            r(size, 40px)
+            r(size, 40px 18px)
             color $fjord
         &__title
-            padding-left 30px
-            padding-right 30px
+            r(padding-left, 30px 14px)
+            r(padding-right, 30px 14px)
             opacity 0.5
             font-size 26px
             font-family $ff-text
@@ -118,6 +121,10 @@ const lineStyle = computed(() => {
             &__text
                 &:first-letter
                     text-transform uppercase
+            +layout(mobile)
+                font-size 12px
+                line-height 1.3
+                font-weight $fw-bold
         &__content_text
             margin-top 15px
             padding-left 30px
@@ -128,19 +135,21 @@ const lineStyle = computed(() => {
                 font-family $ff-text
                 font-weight $fw-regular
                 line-height 1.3
-                font-size 26px
+                r(font-size, 26px 12px)
             &__value
                 font-family $ff-text
                 font-weight $fw-bold
                 line-height 1.2
-                font-size 64px
+                r(font-size, 64px 30px)
         &__content_line
             width 100%
             position relative
             display flex
             height 152px
+            +layout(mobile)
+                height 100px
             &__line
-                padding-top 30px
+                r(padding-top, 30px 0px)
                 width 100%
                 padding-bottom 30px
                 position relative
@@ -152,6 +161,7 @@ const lineStyle = computed(() => {
                         transform rotate(180deg)
                 &::after
                     content ''
+                    display none
                     position absolute
                     left unquote('calc(14px + var(--tide-position) * (50% - 14px))')
                     top unquote('calc(var(--tide-top) * 1%)')
@@ -167,10 +177,20 @@ const lineStyle = computed(() => {
             &[high="false"]
                 top 50%
                 left 47%
+                +layout(mobile)
+                    left 36%
+                    top 35%
+            +layout(mobile)
+                height 50%
+                width 50%
+                left 37%
+                :deep(svg)
+                    width 50%
+                    height 50%
         &__content_next_maree
-            padding-left 30px
-            padding-right 30px
-            font-size 26px
+            r(padding-left, 30px 14px)
+            r(padding-right, 30px 14px)
+            r(font-size, 26px 12px)
             font-family $ff-text
             font-weight $fw-regular
             line-height 1.3
@@ -178,8 +198,10 @@ const lineStyle = computed(() => {
             gap 5px
             f(row, $justify: center, $align: center)
             &__line
-                r(width, 33px)
+                r(width, 33px 16px)
                 :deep(svg)
                     width 100%
                     height 100%
+            +layout(mobile)
+                margin-top -35px
 </style>

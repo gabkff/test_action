@@ -66,12 +66,16 @@
 
                         </div>
                     </template>
-                    <div class="menu-page__right_part__circuits__mobile" v-else>
+                    <div class="menu-page__right_part__circu  hits__mobile" v-else>
                         <div class="menu-page__right_part__circuits__mobile__header">
                             <div class="menu-page__right_part__circuits__title"> {{ $t('menu.discover') }}</div>
+                            <div class="menu-page__right_part__circuits__mobile__header__action__wrapper">
+                                <ui-button theme="arrow" :direction="'left'" @click="swipeSlide('circuits', 'prev')"/>
+                                <ui-button theme="arrow" :direction="'right'" @click="swipeSlide('circuits', 'next')"/>
+                            </div>
                         </div>
                         <div class="menu-page__right_part__circuits__mobile__circuit_wrapper">
-                            <ui-swiper :options="{ slidesPerView: 'auto', spaceBetween: 15, centeredSlides: false }" :overflow="true" :navigation="true">
+                            <ui-swiper :options="{ slidesPerView: 1, spaceBetween: 15, centeredSlides: true }" :overflow="true" :navigation="true" ref="circuitsSwiper">
                             
                                 <div class="menu-page__right_part__circuit menu-page__right_part__circuit__mobile"
                                     v-for="(circuit, circuitIndex) in appStore.circuits.filter(circuit => circuit.id !== Number(route.params.id))"
@@ -112,8 +116,15 @@
         </template>
         <div v-else class="wrapper_meteo_sponsor">
             <div class="menu-page__part_meteo">
-                <div class="menu-page__part_meteo__title"> {{ $t('meteo.condition_meteo') }}</div>
-                <ui-swiper :options="{ slidesPerView: 2, spaceBetween: 20, centeredSlides: false }" :overflow="true" :navigation="true">
+                <div class="menu-page__part_meteo__header">
+                    <div class="menu-page__part_meteo__title"> {{ $t('meteo.condition_meteo') }}</div>
+                    <div class="menu-page__right_part__circuits__mobile__header__action__wrapper">
+                        <ui-button theme="arrow" :direction="'left'" @click="swipeSlide('meteo', 'prev')"/>
+                        <ui-button theme="arrow" :direction="'right'" @click="swipeSlide('meteo', 'next')"/>
+                    </div>
+                </div>
+                
+                <ui-swiper :options="{ slidesPerView: 2, spaceBetween: 20, centeredSlides: false }" :overflow="true" :navigation="true" ref="meteoSwiper">
                     <condition /> 
                     <vent />
                     <temperature /> 
@@ -128,7 +139,7 @@
   </template>
   
   <script setup lang="ts">
-    import { computed } from 'vue'
+    import { computed, ref } from 'vue'
     import { useRoute, useRouter } from 'vue-router'
     import IconMind from 'assets/svg/mind.svg?raw'
     import IconPlus from 'assets/svg/plus.svg?raw'
@@ -145,6 +156,8 @@
 
     const route = useRoute()
     const router = useRouter()
+    const circuitsSwiper = ref<any>(null)
+    const meteoSwiper = ref<any>(null)
 
     // Utilise le composable pour récupérer le prochain événement
     const nextEventData = useNextEvent()
@@ -155,6 +168,23 @@
 
     const getCircuitIndex = (id: number) => {
         return appStore.getCircuitIndex(id)
+    }
+
+    const swipeSlide = (swiper: string, direction: 'prev' | 'next') => {
+        if (swiper === 'circuits') {
+            console.log(circuitsSwiper.value)
+            if (direction === 'prev') {
+                circuitsSwiper.value.swiper.slidePrev()
+            } else {
+                circuitsSwiper.value.swiper.slideNext()
+            }
+        } else if (swiper === 'meteo') {
+            if (direction === 'prev') {
+                meteoSwiper.value.swiper.slidePrev()
+            } else {
+                meteoSwiper.value.swiper.slideNext()
+            }
+        }
     }
   </script>
   
@@ -263,10 +293,17 @@
     &__part_meteo
         r(margin-top, 103px 47px)
         r(height, 412px 250px)
+        &__header
+            f(row, $justify: space-between, $align: center)
+            r(margin-bottom, 20px)
+            +layout(mobile)
+                font-size 23px
+                line-height 1.1
+                font-weight $fw-bold
         &__title
             f-style('h5')
             color $fjord
-            r(margin-bottom, 45px 23px)
+            r(margin-bottom, 45px 0px)
             +layout(mobile)
                 font-size 23px
                 line-height 1.1
@@ -303,16 +340,26 @@
         width 100%
         r(margin-top, 117px 70px)
         f(column, $justify: flex-start, $align: flex-start)
+        +layout(mobile)
+            width 388px
+            overflow hidden
     &__right_part__circuits__mobile__circuit_wrapper
         f(row, $justify: flex-start, $align: flex-start)
         r(gap, 25px)
         overflow hidden
+        +layout(mobile)
+            :deep(.UiSwiper)
+                width 388px
     &__right_part__circuits__title
         f-style('h5')
         color $fjord
-        r(margin-bottom, 60px)
+        r(margin-bottom, 60px 20px)
         &:first-letter
             text-transform uppercase
+        +layout(mobile)
+            font-size 23px
+            line-height 1.1
+            font-weight $fw-bold
     &__right_part__circuit
         width 100%
         f(row, $justify: flex-start, $align: flex-start)
@@ -333,20 +380,38 @@
         &[data-circuit-theme="2"]
             background-color $epinette
     &__right_part__circuit__mobile
-        min-height 300px
+        min-height 224px
+        width 388px
         height 100%
-        width 100%
         border-radius 6px
         background-color $fjord
         r(padding, 5px 5px)
         :deep(.UiPicture)
+            flex 1 1 auto
             height 100%
             width 100%
+    &__right_part__circuits__mobile__header
+        f(row, $justify: space-between, $align: center)
+        r(margin-bottom, 20px 20px)
+        +layout(mobile)
+            font-size 23px
+            line-height 1.1
+            font-weight $fw-bold
+        &__action__wrapper
+            f(row, $justify: space-between, $align: center)
+            r(gap, 10px)
+            :deep(.UiButton)
+                r(size, 40px 40px)
+            :deep(.UiButton__arrow)
+                r(width, 15x 15px)
+                r(height, 15px 15px)
     &__right_part__circuit__content
         flex 1
         f(column, $justify: space-between, $align: flex-start)
         height 100%
         r(margin-right, 20px)
+        +layout(mobile)
+            flex 1 1 100%
     &__right_part__circuit__content__title
         font-family $ff-title
         font-size 75px

@@ -176,7 +176,7 @@ function scrollDownDesc() {
         r(padding-left, 60px 40px)
         r(padding-right, 60px 40px)
         r(gap, 40px 15px)
-        r(margin-top, 120px 40px)
+        r(margin-top, 120px 20px)
         f-style('subtitle')
         .UiButton--icon
             r(width, 94px 47px)
@@ -186,7 +186,7 @@ function scrollDownDesc() {
         r(padding-right, 60px 40px)
         f-style('h3')
         margin 0
-        r(margin-top, 50px 40px)
+        r(margin-top, 50px 20px)
         r(margin-bottom, 120px 60px)
         +layout(mobile)
             font-size 35px
@@ -243,10 +243,14 @@ function scrollDownDesc() {
         f(row, $justify: space-between)
         .SidePanel__circuit__qrcode-label
             f-style('h5')
-            width 637px
+            r(width, 637px 318px)
+            +layout(mobile)
+                font-size 23px
+                line-height 1.1
+                font-weight $fw-bold
         .SidePanel__circuit__qrcode-value
             background-color $fjord
-            width 175px
+            r(width, 175px 88px)
             img
                 width 100%
                 height 100%
@@ -264,10 +268,10 @@ function scrollDownDesc() {
         width 100%
         flex 1
     &__map
-        height 600px
+        r(height, 600px 300px)
         width 100%
     &__scroll-text
-        margin-bottom 120px
+        r(margin-bottom, 120px 30px)
     &__scroll-arrows
         position sticky
         z-index 10

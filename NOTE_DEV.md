@@ -30,3 +30,17 @@ Manquerait :
 À mon sens, freezing rain, freezing drizzle, snow grain.. ça peut tomber dans pluie et neige, fak on serait correct avec c'est deux-là qui manquent (je laisse à Nana/jm le dernier mot tho)
 
 
+ON VA REPENSER / REFAIRE L'EFFET EN HOME
+ON VA FAIRE UNE IMAGE DE BACKGROUND
+PUIS NOTRE CONTEXTE EN MODE OVERLAY
+VOICI COMMENT LES LIGNES SE COMPOSERAIT
+<div LIGNE WRAPPER>
+    <div TEXT BCKGROUND FJORD AVEC PADDING-RIGHT-GAUCHE POUR FAIRE LESPACE>
+    <DIV TRANSPARENT AVEC RADIUS DEFINIT>
+<div LIGNE DE SEPARATION PETITE>
+
+ET ON SUIT CETTE LOGIQUE POUR CHAQUE LIGNE 
+CA SAUVE DU TEMPS ET LA VIE
+GROS DEBILE
+
+

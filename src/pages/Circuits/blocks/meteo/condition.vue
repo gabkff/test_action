@@ -56,13 +56,15 @@ const currentCondition = computed(() => {
 </script>
 <style lang="stylus" scoped>
     .condition
-        r(padding-top, 24px)
-        r(padding-bottom, 24px)
-        r(padding-left, 14px)
-        r(padding-right, 14px)
+        r(padding-top, 24px 16px)
+        r(padding-bottom, 24px 16px)
+        r(padding-left, 14px 14px)
+        r(padding-right, 14px 14px)
         background-color white
         border-radius $radius-lg
         width 100%
+        +layout(mobile)
+            border-radius 6px
         &__title
             opacity 0.5
             font-size 26px
@@ -71,18 +73,26 @@ const currentCondition = computed(() => {
             line-height 1.3
             color $fjord
             f(row, $justify: flex-start, $align: center)
-            r(gap, 15px)
+            r(gap, 15px 7px)
+            +layout(mobile)
+                font-size 12px
+                line-height 1.3
+                font-weight $fw-bold
         &__title__icon
-            r(size, 40px)
+            r(size, 40px 18px)
         &__content
             f(column, $justify: flex-start, $align: flex-start)
-            r(gap, 30px)
+            r(gap, 30px 13px)
             &__img
                 margin auto
-                r(width, 242px)
+                r(width, 242px 112px)
             &__text
                 font-size 26px
                 line-height 1.3
                 font-family $ff-text
                 font-weight $fw-regular
+                +layout(mobile)
+                    font-size 12px
+                    line-height 1.3
+                    font-weight $fw-regular
 </style>

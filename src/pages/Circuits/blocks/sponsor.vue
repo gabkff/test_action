@@ -45,13 +45,15 @@ defineProps<{
 <style lang="stylus" scoped>
     .sponsor
         width 100%
-        r(margin-top, 73px 15px)
-        r(min-height, 302px, 196px)
+        r(margin-top, 73px 45px)
+        r(min-height, 302px)
         r(border-radius, $radius-lg 4px)
         background-color white
         r(padding, 20px 4px)
         f(row, $justify: flex-start, $align: stretch)
-        r(gap, 30px)
+        r(gap, 30px 15px)
+        +layout(mobile)
+            min-height 196px
         &__content
             width 100%
             height 100%

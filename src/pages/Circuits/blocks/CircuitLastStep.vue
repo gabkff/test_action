@@ -78,7 +78,7 @@
           </div>
           <ui-button 
             theme="primary"
-            :big="true"
+            :big="IsDesktop"
             :icon="IconPlus"
             :iconPosition="'right'"
             :label="$t('events.see_all')"
@@ -147,6 +147,8 @@
  */
 
 import { useRouter } from 'vue-router'
+import { computed } from 'vue'
+import { store as interfaceStore } from 'plugins/store/interface'
 import UiNavBar from 'components/NavBar/index.vue'
 import UiTag from 'components/UiKit/Tag/index.vue'
 import IconLine from 'assets/svg/line_background.svg?raw'
@@ -181,127 +183,158 @@ defineEmits<{
 }>()
 
 const router = useRouter()
+const IsDesktop = computed(() => interfaceStore.isDesktop)
 </script>
 
 <style lang="stylus" scoped>
 .circuit-last-step
   height 100%
-
   &__background
     position absolute
     left 0
-    top 35%
-    bottom 25%
+    top 1560px
+    width 100%
     color $aube
     &[data-circuit-theme="1"]
       color $crepuscule
     &[data-circuit-theme="2"]
       color $bouleau
+    +layout(mobile)
+      left -80%
+      top 135px
 
   &__navbar
     position absolute
-    right -95px
+    r(right, -95px -45px)
     top 50px
 
   &__qr-container
     background white
-    r(padding, 30px)
-    r(width, 880px)
+    r(padding, 30px 15px)
+    r(width, 880px 350px)
     position absolute
-    top 878px
-    right 273px
+    r(top, 878px 256px)
+    r(right, 273px 118px)
 
   &__qr-header
     f-style('h5')
     width 70%
     color $fjord
-    margin-bottom 140px
+    r(margin-bottom, 140px 42px)
+    +layout(mobile)
+      font-size 23px
+      line-height 1.1
+      font-weight $fw-bold
 
   &__qr-code
     width 100%
     height 100%
-    margin-bottom 80px
+    r(margin-bottom, 80px 40px)
     f(row, $justify: center, $align: center)
     img
-      r(size, 369px)
+      r(size, 369px 130px)
 
   &__recommendations
     background white
     f(column, $justify: flex-start)
-    r(width, 791px)
-    r(padding, 60px)
+    r(width, 791px 442px)
+    r(padding, 60px 30px)
     position absolute
-    top 1113px
-    left 150px
+    r(top, 1113px 256px)
+    r(left, 150px 75px)
 
   &__recommendations-header
     f-style('h5')
     color $fjord
-    margin-bottom 30px
+    r(margin-bottom, 30px 14px)
+    +layout(mobile)
+      font-size 23px
+      line-height 1.1
+      font-weight $fw-bold
 
   &__recommendations-text
     f-style('default')
     color $fjord
-    margin-bottom 80px
+    r(margin-bottom, 80px 30px)
+    +layout(mobile)
+      font-size 18px
+      line-height 1.3
+      font-weight $fw-medium
 
   &__recommendations-feedback
     f-style('h5')
     color $fjord
+    +layout(mobile)
+      font-size 23px
+      line-height 1.1
+      font-weight $fw-bold
 
   &__recommendations-buttons
     f(row, $justify: flex-start)
-    gap 20px
+    r(gap, 20px 7px)
 
   &__pouce-button
-    size 210px
+    r(size, 210px 80px)
     :deep(.UiButton__icon)
-      size 89px
+      r(size, 89px 33px)
     &[data-down="true"]
       :deep(.UiButton__icon)
         transform rotate(-180deg)
 
   &__event
-    r(width, 850px)
+    r(width, 850px 391px)
     position absolute
-    top 1941px
-    left 150px
+    r(top, 1941px 650px)
+    r(left, 150px 560px)
 
   &__event-header
     font-family $ff-title
     font-weight $fw-extrabold
     text-transform uppercase
     color $fjord
-    margin-bottom 45px
-    r(font-size, 90px 40px)
+    r(margin-bottom, 45px 15px)
+    r(font-size, 90px 24px)
+    +layout(mobile)
+      font-family $ff-text
+      text-transform none
 
   &__event-content
     background-size cover
     background-position center
-    r(height, 650px)
+    r(min-height, 650px 270px)
     color $ecume
     f(column, $justify: flex-end)
     z-index 2
+    border-radius $radius-lgxl
+    +layout(mobile)
+      border-radius 10px
 
   &__event-overlay
     background-color rgba(0,0,0,0.7)
-    r(padding, 30px)
+    r(padding, 30px 15px)
     height 100%
     color $ecume
     f(column, $justify: flex-end)
+    border-radius $radius-lgxl
+    flex 1
+    +layout(mobile)
+      border-radius 10px
+    
 
   &__event-time
-    font-size 32px
+    font-family $ff-text
+    r(font-size, 32px 16px)
     line-height 1.2
-    margin-bottom 18px
+    r(margin-bottom, 18px 9px)
     &::first-letter
       text-transform uppercase
 
   &__event-title
     font-family $ff-text
-    font-size 50px
+    r(font-size, 50px 24px)
     line-height 1.2
     font-weight $fw-bold
-    margin-bottom 45px
+    r(margin-bottom, 45px 22px)
 
   &__event-button
     width fit-content
@@ -311,49 +344,74 @@ const router = useRouter()
     top 2837px
     left 260px
     padding 60px
-    r(width, 765px)
+    r(width, 765px 389px)
     background-color white
     border-radius $radius-lg
     f(row, $justify: flex-start, $align: flex-start)
-    gap 60px
+    r(gap, 60px 28px)
+    +layout(mobile)
+      top 1000px
+      left 560px
+      padding-left 42px
+      padding-right 42px
+      padding-top 28px
+      padding-bottom 28px
 
   &__other-born-img
-    r(width, 154px)
+    r(width, 154px 54px)
     flex-shrink 0
 
   &__other-born-text
     margin auto
     f(column, $justify: flex-start, $align: flex-start)
-    gap 15px
+    r(gap, 15px 7px)
     color $fjord
 
   &__other-born-label
     opacity 0.5
     f-style('default')
+    +layout(mobile)
+      font-size 17px
+      line-height 1.4
+      font-weight $fw-medium
 
   &__other-born-content
     f-style('h5')
+    +layout(mobile)
+      font-size 24px
+      line-height 1.1
+      font-weight $fw-bold
 
   &__next-circuit
     position absolute
     top 1865px
     right 269px
-    r(width, 790px)
+    r(width, 790px 444px)
     f(column, $justify: flex-start, $align: flex-start)
-    gap 50px
+    r(gap, 50px 15px)
+    +layout(mobile)
+      top 600px
+      right 0px
+      left 75px
 
   &__next-circuit-header
     f-style('h5')
     color $fjord
+    +layout(mobile)
+      font-size 24px
+      line-height 1.1
+      font-weight $fw-bold
 
   &__next-circuit-card
-    padding 10px
+    r(padding, 10px 8px)
     padding-bottom 30px
     f(column, $justify: flex-start, $align: flex-start)
     gap 5px
     border-radius $radius-lgxl
     background-color $fjord
     color $aube
+    +layout(mobile)
+      padding-bottom 0
     &[data-circuit-theme="1"]
       background-color $penombre
       .circuit-last-step__next-circuit-title,
@@ -365,24 +423,39 @@ const router = useRouter()
       .circuit-last-step__next-circuit-description
         color $bouleau
     :deep(.UiPicture)
-      r(height, 800px)
+      r(height, 800px 284px)
       width 100%
+      +layout(mobile)
+        order 2
+        padding-bottom 7px
+
 
   &__next-circuit-info
-    padding 20px
+    r(padding, 20px 10px)
     width 100%
+    +layout(mobile)
+      padding-top 0px
 
   &__next-circuit-title
     f-style('h2')
     margin-bottom 30px
+    +layout(mobile)
+      font-family $ff-title
+      font-size 48px
+      line-height 1.1
+      font-weight $fw-extrabold
 
   &__next-circuit-description
     f-style('h6')
     f(column, $justify: flex-end)
-    gap 20px
+    r(gap, 20px 14px)
     margin-left auto
     color $aube
     text-align right
+    +layout(mobile)
+      font-size 14px
+      line-height 1.3
+      font-weight $fw-regular
 
   &__next-circuit-action
     f(row, $justify: flex-end)

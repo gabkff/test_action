@@ -72,6 +72,7 @@
   "circuits": {
     "event_today": "Aujourd'hui, {date}",
     "name": "Circuit",
+    "name_plural": "Circuits",
     "index": "Circuit {index}",
     "step": "Arrêt #{number}",
     "total_step": "{number} Arrêts",
@@ -98,7 +99,7 @@
     "text": "Tadoussac est un des meilleurs sites au monde pour observer jusqu’à 13 espèces de cétacés."
   },
   "meteo": {
-    "vent": "vent",
+    "vent": "Vent",
     "next_high_tide": "prochaine marée haute",
     "next_low_tide": "prochaine marée basse",
     "maree": "indice de marée",

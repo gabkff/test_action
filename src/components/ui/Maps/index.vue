@@ -226,6 +226,10 @@
 :deep(.custom-cluster-count)
     f-style('h4')
     color $remous
+    +layout(mobile)
+        font-size 17px
+        font-weight $fw-bold
+        line-height 1.2
 :deep(.custom-marker-container)
     trans(all, 0.3s ease)
     &.is-previous

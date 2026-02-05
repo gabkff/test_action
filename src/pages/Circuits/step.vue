@@ -2,7 +2,14 @@
     <div class="circuits-etape" v-if="ready && current" :data-circuit-theme="dataCircuitTheme">
       <div class="circuits-etape__container" :data-circuit-theme="circuitIndex">
         <UiNavBar v-if="showMenu" key="navbar" class="circuits-etape__last__navbar" :back="true" :next="false" :previous="false" :home="false" @previous="showMenu = false"></UiNavBar>
-        <h2 class="circuits-etape__name" :data-circuit-theme="dataCircuitTheme">{{ $t('circuits.name') }} {{ circuitIndex! + 1 }}</h2>
+        <div class="circuits-etape__header">
+          <h2 class="circuits-etape__name" :data-circuit-theme="dataCircuitTheme">{{ $t('circuits.name') }} {{ circuitIndex! + 1 }}</h2>
+          <ui-button theme="primary" :icon="IconHome" class="circuits-etape__home_button" @click="goSelection()"
+            :iconPosition="'right'"
+            :label="$t('circuits.name_plural')"
+            v-if="dataCircuitTheme === 'last'"
+          />
+        </div>
         <h1 class="circuits-etape__title" :data-circuit-theme="dataCircuitTheme">{{ current.title }}</h1>
         
         <div class="circuits-etape__header_wrapper" v-if="currentStepIndex < current.steps.length && !showMenu">
@@ -113,6 +120,7 @@ import { fetch as tauriFetch } from '@tauri-apps/plugin-http'
 import { getAuthHeaders } from 'utils/helpers'
 import { getApiSite } from 'plugins/api/apiSite'
 import UiSelector from 'components/ui/Selector.vue'
+import IconHome from 'assets/svg/house.svg?raw'
 import UiNavBar from 'components/NavBar/index.vue'
 import UiMap from 'components/ui/Maps/index.vue'
 import IconMap from 'assets/svg/pin.svg?raw'
@@ -244,6 +252,9 @@ async function sendFeedback(direction: 'up' | 'down') {
   }
 }
 
+function goSelection() {
+  router.push('/selection')
+}
 </script>
   
 <style lang="stylus" scoped>
@@ -270,16 +281,32 @@ async function sendFeedback(direction: 'up' | 'down') {
           .circuits-etape__title
             color $crepuscule
           :deep(.UiButton)
+            border unset !important
             background-color $crepuscule
             color $penombre
+          :deep(.NavBar__cap)
+            svg
+              color $penombre
+          :deep(.NavBar__container)
+            background-color $penombre
+            button
+              color $crepuscule
         &[data-circuit-theme="2"]
           background-color $epinette
           .circuits-etape__name,
           .circuits-etape__title
             color $bouleau
           :deep(.UiButton)
+            border unset !important
             background-color $bouleau
             color $epinette
+          :deep(.NavBar__cap)
+            svg
+              color $bouleau
+          :deep(.NavBar__container)
+            background-color $epinette
+            button
+              color $bouleau
         +layout(mobile)
           :deep(.UiButton)
             font-size 18px
@@ -293,10 +320,17 @@ async function sendFeedback(direction: 'up' | 'down') {
         color $bouleau
     &[data-circuit-theme="last"]
       background-color $embruns
+    &__header
+      f(row, $justify: space-between, $align: center)
+    &__home_button
+      border-radius 8px
+      background rgba(#D9D9D9, .2)
+      border 1px solid rgba($fjord, .2)
     &__container
       container()
       r(margin-top, 100px 33px)
       r(margin-bottom, 100px 33px)
+      z-index 1000
     &__name
       f-style('h5')
       color $aube
@@ -464,14 +498,13 @@ async function sendFeedback(direction: 'up' | 'down') {
       &[data-circuit-theme="2"]
         color $bouleau
       &[data-circuit-theme="menu"]
-        top 40.7%
+        top 1560px
         z-index 0
         +layout(mobile)
           top 10%
       +layout(mobile)
-        transform scale(0.6)
-        left -69%
-        top -50%
+        left -80%
+        top -32.6%
     &__step_see_more
       width 100%
       margin-top auto
@@ -543,6 +576,7 @@ async function sendFeedback(direction: 'up' | 'down') {
       f-style('btn-medium')
       :deep(.UiButton__icon)
         transform rotate(-180deg)
+
     &__step_container
       f(column, $justify: flex-start)
       padding 30px

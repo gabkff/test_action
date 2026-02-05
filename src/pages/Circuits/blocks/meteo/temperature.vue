@@ -113,11 +113,14 @@
 <style lang="stylus" scoped>
     .temperature
         background-color white
-        r(padding, 30px)
+        r(padding-top, 24px 16px)
+        r(padding-bottom, 24px 16px)
+        r(padding-left, 14px 14px)
+        r(padding-right, 14px 14px)
         f(column, $justify: stretch, $align: flex-start)
         width 100%
         &__title__icon
-            r(size, 40px)
+            r(size, 40px 18px)
         &__title
             margin-left auto
             margin-right auto
@@ -132,21 +135,31 @@
             &__text
                 &:first-letter
                     text-transform uppercase
+            +layout(mobile)
+                font-size 12px
+                line-height 1.3
+                font-weight $fw-bold
         &__content
-            r(margin-top, 30px)
+            r(margin-top, 30px 7px)
             margin auto
-            r(padding-top, 9px)
+            r(padding-top, 9px 4px)
             f(row, $justify: flex-start, $align: center)
-            r(gap, 22px)
+            r(gap, 22px 10px)
             :deep(.UiSelector)
-                r(width, 148px)
+                r(width, 148px 70px)
                 border 1px solid rgba($fjord, .5)
+            +layout(mobile)
+                margin-bottom 4px
             &__temperature
                 f-style('h4')
+                +layout(mobile)
+                    font-size 30px
+                    line-height 1.3
+                    font-weight $fw-bold
             &__sensation
-                margin-top 9px
+                r(margin-top, 9px 4px)
                 text-align center
-                r(font-size, 26px)
+                r(font-size, 26px 12px)
                 font-family $ff-text
                 font-weight $fw-regular
                 line-height 1.3
@@ -154,7 +167,7 @@
             &__line
                 margin-top auto
                 position relative
-                height 10px
+                r(height, 10px 5px)
                 width 100%
                 border-radius 5px
                 background-image linear-gradient(90deg, $fleuve 0%, $bouleau 50%, $crepuscule 100%)
@@ -164,9 +177,11 @@
                     top 50%
                     left unquote('calc(var(--temp-value) * 1%)')
                     transform translate(-50%, -50%)
-                    size 28px
+                    r(size, 28px 14px)
                     background-color white
                     border-radius 50%
                     border 5px solid var(--ring-color, $bouleau)
                     box-sizing border-box
+                +layout(mobile)
+                    margin-top 15px
 </style>

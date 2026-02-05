@@ -1,7 +1,7 @@
 import { ref, type ShallowRef } from 'vue'
 import { MarkerClusterer, SuperClusterAlgorithm } from "@googlemaps/markerclusterer"
 import { useMarker } from './googleServices'
-
+import { store as interfaceStore } from 'plugins/store/interface'
 export interface MarkerData {
     position: { lat: number, lng: number }
     icon?: string
@@ -152,7 +152,7 @@ export function useMarkers(map: ShallowRef<google.maps.Map | null>) {
             markers: markers.value,
             renderer: customRenderer,
             algorithm: new SuperClusterAlgorithm({
-                radius: 500,
+                radius: interfaceStore.isDesktop ? 500 : 50,
                 minZoom: 1
             })
         })

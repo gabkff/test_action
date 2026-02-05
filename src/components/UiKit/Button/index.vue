@@ -198,6 +198,7 @@ const onClick = (event: MouseEvent) => {
     border-radius $radius-lg
     padding 60px 45px
     f-style('btn-large')
+    border unset
     +layout(mobile)
       r-mobile(font-size, 16px 16px)
       padding 28px 21px
@@ -254,7 +255,7 @@ const onClick = (event: MouseEvent) => {
   &__arrow--left
     transform rotate(180deg)
   &__arrow--right
-    transform rotate(180deg)
+    transform rotate(0deg)
   &--big &__content
     r(gap, 60px 28px)
 

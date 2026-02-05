@@ -130,7 +130,7 @@
   watchEffect(() => {
     if (isAppReady.value && imgBackgroundFr.value) {
       setTimeout(() => {
-        updateHoles()
+       // updateHoles()
       }, 100)
     }
   })
