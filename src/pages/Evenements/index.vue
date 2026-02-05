@@ -136,9 +136,9 @@ const toggleEvent = (id: number) => {
     height 100%
     
     &__container
-      margin-top 69px
-      margin-left 100px
-      margin-right 228px
+      r(margin-top, 69px 47px)
+      r(margin-left, 100px 47px)
+      r(margin-right, 228px 53px)
     
     &__header
       f(row, $justify: start, $align: flex-end)
@@ -147,23 +147,36 @@ const toggleEvent = (id: number) => {
     &__title
       f-style('h1')
       width 50%
-      r(margin-top, 72px)
+      r(margin-top, 72px 26px)
+      +layout(mobile)
+        font-size 104px
+        line-height 1.1
+        font-weight $fw-extrabold
     
     &__description
       f-style('small-body')
       text-align left
       width 50%
+      +layout(mobile)
+        font-size 14px
+        line-height 1.3
+        font-weight $fw-medium
     
     &__calendar
       display flex
-      gap 61px
-      r(margin-bottom, 50px)
+      r(gap, 61px 50px)
+      r(margin-bottom, 50px 23px)
       background-color white
-      r(padding, 100px 110px)
+      r(padding, 100px 45px)
       border-radius $radius-lgxl
       
       .UiButton
         flex 1
+        +layout(mobile)
+          padding-top 32px
+          padding-bottom 32px
+          padding-left 0px
+          padding-right 0px
       
       .date-label
         display flex
@@ -173,9 +186,17 @@ const toggleEvent = (id: number) => {
         
         &__weekday
           f-style('subtitle')
+          +layout(mobile)
+            font-size 18px
+            line-height 1.2
+            font-weight $fw-medium
         
         &__date
           f-style('subtitle')
+          +layout(mobile)
+            font-size 18px
+            line-height 1.2
+            font-weight $fw-medium
     
     &__list-wrapper
       position relative
@@ -185,7 +206,8 @@ const toggleEvent = (id: number) => {
       .NavBar
         position absolute
         top 100px
-        right -90px  // Sort du listing vers la droite
+        r(right, -90px 0px)  // Sort du listing vers la droite
+
 
     &__list
       width 100%
@@ -194,17 +216,22 @@ const toggleEvent = (id: number) => {
       gap 16px
       background-color white
       border-radius $radius-lgxl
-      r(padding, 100px 110px)
+      r(padding, 100px 50px)
       max-height 2346px
-      min-height px
       overflow-y auto
+      +layout(mobile)
+        max-height unset
+        width 879px
       
     &__list-content
       overflow scroll
     &__list-header
-      r(margin-bottom, 100px)
+      r(margin-bottom, 100px 50px)
     &__list-title
       f-style('h2')
+      +layout(mobile)
+        f-style('h4')
+        font-family $ff-title
     &__empty
       f-style('small-body')
       color $fjord
@@ -212,6 +239,10 @@ const toggleEvent = (id: number) => {
       text-align center
       padding-top 60px
       padding-bottom 100px
+      +layout(mobile)
+        font-size 18px
+        line-height 1.3
+        font-weight $fw-medium
     
     &__event
       background white
@@ -219,4 +250,8 @@ const toggleEvent = (id: number) => {
       r(padding, 30px)
       f-style('h5')
       color $fjord
+      +layout(mobile)
+        font-size 23px
+        line-height 1.1
+        font-weight $fw-bold
 </style>

@@ -101,13 +101,13 @@ function handleClick() {
 
   &__content
     f(row, $justify: flex-start, $align: center)
-    gap 140px
+    r(gap, 140px 0px)
     align-items center
     padding 60px 0
 
   &__time
-    r(min-width, 200px)
-    margin-right 261px
+    r(min-width, 200px, 160px)
+    r(margin-right, 261px 114px)
     
   &__time-text
     f-style('subtitle')
@@ -126,11 +126,19 @@ function handleClick() {
     align-items center
     gap 10px
     f-style('default')
+    +layout(mobile)
+      font-size 17px
+      line-height 1.4
+      font-weight $fw-medium
     .EventItem__icon_pin
-      width 25px
-      height 35px
+      r(width, 25px 12px)
+      r(height, 35px 16px)
       display flex
       --icon-accent white
+      +layout(mobile)
+        :deep(svg)
+          width 100%
+          height 100%
 
   &__title-container
     f(row)
@@ -154,9 +162,9 @@ function handleClick() {
     display flex
     align-items center
     justify-content center
-    padding 24px
-    width 80px
-    height 80px
+    r(padding, 24px 9px)
+    r(width, 80px 40px)
+    r(height, 80px 40px)
     flex-shrink 0
     transition transform 0.3s ease
     border-radius 50%
