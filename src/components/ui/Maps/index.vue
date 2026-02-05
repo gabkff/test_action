@@ -201,12 +201,16 @@
 :deep(.custom-cluster-label)
     f-style('h4')
     color $fjord
+    +layout(mobile)
+      font-size 17px
+      font-weight $fw-bold
+      line-height 1.2
 :deep(.custom-marker-pin)
     display flex
     align-items center
     justify-content center
-    width 110px
-    height 110px
+    r(width, 110px 55px)
+    r(height, 110px 55px)
     border-radius 50%
     background-color $fjord
 :deep(.custom-marker-icon)
@@ -214,8 +218,8 @@
     align-items center
     justify-content center
     color white
-    width 50px
-    height 50px
+    r(width, 50px 25px)
+    r(height, 50px 25px)
     svg
         width 100%
         height 100%

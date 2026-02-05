@@ -66,6 +66,7 @@
           />
         </div>
         <CircuitStepNavigation
+          v-if="isDesktop"
           :view="currentView"
           :hasNext="currentView === 'map' && currentNextParcours.length > 0"
           :hasPrevious="currentStepIndex > 0"
@@ -77,30 +78,17 @@
           @next="setStep('next')"
           @previous="setStep('previous')"
         />
-        <!--
-        <UiMap 
-          :zoom="15"
-          v-if="currentStep.map"
-          :markers="markers"
-          :currentStepIndex="currentStepIndex"
-          :allPolylines="allPolylines"
-          ref="mapRef"
-        />
-        <div class="maps-zoom-control">
-          <ui-button class="maps-zoom-control__button" theme="secondary" :icon="IconZoomIn" :big="true" @click="zoomMap('in')" />
-          <ui-button class="maps-zoom-control__button" theme="secondary" :icon="IconZoomOut" :big="true" @click="zoomMap('out')" />
-        </div>-->
       </div>
       <div class="circuits-etape__map_container" v-if="currentView === 'map'">
         <UiMap 
-          :zoom="15"
+          :zoom="isDesktop ? 15 : 12"
           v-if="currentStep.map"
           :markers="markers"
           :currentStepIndex="currentStepIndex"
           :allPolylines="allPolylines"
           ref="mapRef"
         />
-        <div class="maps-zoom-control">
+        <div class="maps-zoom-control" v-if="isDesktop">
           <ui-button class="maps-zoom-control__button" theme="secondary" :icon="IconZoomIn" :big="true" @click="zoomMap('in')" />
           <ui-button class="maps-zoom-control__button" theme="secondary" :icon="IconZoomOut" :big="true" @click="zoomMap('out')" />
         </div>
@@ -120,6 +108,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { useSidePanelStore } from 'store/sidePanel'
 import { store as appStore } from 'plugins/store/app'
 import { useI18nStore } from 'plugins/i18n/store'
+import { store as interfaceStore } from 'plugins/store/interface'
 import { fetch as tauriFetch } from '@tauri-apps/plugin-http'
 import { getAuthHeaders } from 'utils/helpers'
 import { getApiSite } from 'plugins/api/apiSite'
@@ -146,6 +135,7 @@ const ready = ref(false)
 const sidePanelStore = useSidePanelStore()
 const currentView = ref<ViewCircuit>('map')
 const feedbackReco = ref(false)
+const isDesktop = computed(() => interfaceStore.isDesktop)
 
 /** Interface pour les méthodes exposées par le composant UiMap */
 interface UiMapExposed {
@@ -266,12 +256,12 @@ async function sendFeedback(direction: 'up' | 'down') {
       background-color $embruns
       .circuits-etape__container
         position relative
-        r(margin-left, 230px)
-        r(margin-right, 230px)
-        r(margin-top, 267px)
+        r(margin-left, 230px 93px)
+        r(margin-right, 230px 93px)
+        r(margin-top, 267px 72px)
         background-color $fjord
         width auto
-        padding 60px
+        r(padding, 60px 30px)
         border-radius $radius-lgxl
         &[data-circuit-theme="1"]
           background-color $penombre
@@ -290,6 +280,9 @@ async function sendFeedback(direction: 'up' | 'down') {
           :deep(.UiButton)
             background-color $bouleau
             color $epinette
+        +layout(mobile)
+          :deep(.UiButton)
+            font-size 18px
     &[data-circuit-theme="1"]
       background-color $penombre
       &__title
@@ -302,8 +295,8 @@ async function sendFeedback(direction: 'up' | 'down') {
       background-color $embruns
     &__container
       container()
-      margin-top 100px
-      margin-bottom 100px
+      r(margin-top, 100px 33px)
+      r(margin-bottom, 100px 33px)
     &__name
       f-style('h5')
       color $aube
@@ -313,6 +306,8 @@ async function sendFeedback(direction: 'up' | 'down') {
         color $bouleau
       &[data-circuit-theme="last"]
         color $fjord
+      +layout(mobile)
+        font-size 24px
     &__last__navbar
       position absolute
       right -95px
@@ -344,10 +339,13 @@ async function sendFeedback(direction: 'up' | 'down') {
           background-color $epinette
           button
             color $bouleau
+      +layout(mobile)
+        right -40px
+        top 30px
     &__title
       f-style('h1')
       color $aube
-      margin-bottom 90px
+      r(margin-bottom, 90px 35px)
       trans(color, 0.3s ease)
       &[data-circuit-theme="1"]
         color $crepuscule
@@ -355,9 +353,11 @@ async function sendFeedback(direction: 'up' | 'down') {
         color $bouleau
       &[data-circuit-theme="last"]
         color $fjord
+      +layout(mobile)
+        f-style('h2')
     &__header_wrapper
       f(row, $align: flex-start)
-      margin-bottom 100px
+      r(margin-bottom, 100px 0px)
       .UiSelector
         background $aube
         :deep(.UiSelector__container)
@@ -379,9 +379,11 @@ async function sendFeedback(direction: 'up' | 'down') {
     &__description
       f-style('small-body')
       color white
+      +layout(mobile)
+        font-size 16px
     &__actions
       f(column, $justify: flex-start)
-      gap 60px
+      r(gap, 60px 28px)
       width 43%
       .UiButton
         width fit-content
@@ -389,21 +391,25 @@ async function sendFeedback(direction: 'up' | 'down') {
       position relative
       flex-grow 1
       height 100%
+      +layout(mobile)
+        overflow hidden
       &[data-view="map"]
         background-color $embruns
         .maps
           width 100vw
       .UiPicture
-        width 1026px
-        height 1212px
+        r(width, 1026px 487px)
+        r(height, 1212px 523px)
         z-index 1
         position absolute
-        left 262px
-        top 298px
+        r(left, 262px 93px)
+        r(top, 298px 200px)
         &[data-index="0"]
-          top 811px
-          width 1273px
-          height 1367px
+          r(top, 811px 200px)
+          r(width, 1273px 487px)
+          r(height, 1367px 523px)
+          +layout(mobile)
+            left 93px
     &__step_content
       f(column, $justify: flex-start)
       height 100%
@@ -460,6 +466,12 @@ async function sendFeedback(direction: 'up' | 'down') {
       &[data-circuit-theme="menu"]
         top 40.7%
         z-index 0
+        +layout(mobile)
+          top 10%
+      +layout(mobile)
+        transform scale(0.6)
+        left -69%
+        top -50%
     &__step_see_more
       width 100%
       margin-top auto
@@ -468,10 +480,14 @@ async function sendFeedback(direction: 'up' | 'down') {
       top 198px
       right 210px
       z-index 3
+      +layout(mobile)
+        top 100px
+        right 100px
+
     &__step_container_steps_wrapper
       f(column, $justify: flex-start)
-      gap 20px
-      width 838px
+      r(gap, 20px 14px)
+      r(width, 838px 417px)
       &[data-view="map"]
         position absolute
         left -110%
@@ -531,13 +547,16 @@ async function sendFeedback(direction: 'up' | 'down') {
       f(column, $justify: flex-start)
       padding 30px
       background-color white
-      width 880px
-      min-height 1167px
-      margin-bottom 226px
+      r(width, 880px 438px)
+      r(min-height, 1167px 470px)
+      r(margin-bottom, 226px 24px)
       .NavBar
         position absolute
         right -95px
         top 50px
+        +layout(mobile)
+          right -44px
+          top 30px
     &__map_container
       position absolute
       transform-origin bottom
@@ -545,6 +564,8 @@ async function sendFeedback(direction: 'up' | 'down') {
       left 0
       height 45%
       width 100%
+      +layout(mobile)
+        height 100%
 .maps-zoom-control
     position absolute
     bottom 40px

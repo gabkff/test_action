@@ -107,12 +107,18 @@ const travelModeIcon = computed(() => {
 .step-navigation
   f(column, $justify: flex-start)
   gap 20px
-  width 838px
+  r(width, 838px 438px)
+  +layout(mobile)
+    background-color $embruns
 
   &[data-view="map"]
     position absolute
     left -110%
     top 0
+    +layout(mobile)
+      position relative
+      left 0
+      margin-top 25px
 
     .step-navigation__card
       color $fjord
@@ -132,18 +138,20 @@ const travelModeIcon = computed(() => {
 
   &__card
     color white
-    padding 30px
+    r(padding, 30px 14px)
     border solid 2px rgba($light, .5)
-    border-radius 12px
+    r(border-radius, 12px 5px)
 
   &__card-content
     f(row, $justify: space-between, $align: flex-start)
-    margin-bottom 60px
+    r(margin-bottom, 60px 28px)
 
     .UiButton
-      r(width, 128px)
-      r(height, 120px)
+      r(width, 128px 64px)
+      r(height, 120px 60px)
       border 1px solid rgba($light, .5)
+      +layout(mobile)
+        background-color transparent !important
 
       :deep(.UiButton__icon)
         transform rotate(180deg)
@@ -162,9 +170,17 @@ const travelModeIcon = computed(() => {
   &__card-title
     f-style('subtitle')
     margin-right 15px
+    +layout(mobile)
+      font-size 18px
+      font-weight $fw-bold
+      line-height 1.2
 
   &__card-label
     f-style('small-body')
+    +layout(mobile)
+      font-size 14px
+      font-weight $fw-medium
+      line-height 1.3
 
   &__itinerary
     .UiTag

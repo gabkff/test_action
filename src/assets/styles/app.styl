@@ -30,6 +30,11 @@ html
   // Min: 0.5 (1080px), Max: 1.5 (3240px)
   --ratio-clamped unquote('clamp(0.5, calc(100vw / 2160px), 1.5)')
 
+  // Pour r() / rp() : 2e valeur en dessous de $mobile (1024px), interpolation entre 1024 et 2161
+  --ratio-between unquote('clamp(0, (100vw - 1024px) / (2161px - 1024px), 1)')
+  --ratio-desktop unquote('calc(100vw / 2160px)')
+  --ratio-mobile 1
+
 body
   font-family: $font-family-base
   font-size: f-style('default')

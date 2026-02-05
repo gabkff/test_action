@@ -82,17 +82,23 @@ function getTransportIcon(transportation: string): string {
   &__step-total
     f-style('subtitle')
     color $fjord
-    margin-left 40px
-
+    r(margin-left, 40px 20px)
+    +layout(mobile)
+      font-size 14px
   &__title
     f-style('h5')
     color $fjord
-    margin-bottom 30px
-
+    r(margin-bottom, 30px 14px)
+    +layout(mobile)
+      font-size 23px
   &__description
     f-style('default')
     color $fjord
-    margin-bottom 60px
+    r(margin-bottom, 60px 28px)
+    +layout(mobile)
+      font-size 18px
+      line-height 1.3
+      font-weight $fw-medium
 
   &__itinerary
     .UiTag
@@ -106,7 +112,10 @@ function getTransportIcon(transportation: string): string {
     color $fjord
     opacity 0.5
     margin-bottom 20px
-
+    +layout(mobile)
+      font-size 12px
+      line-height 1.3
+      font-weight $fw-regular
   &__see-more
     width 100%
     margin-top auto

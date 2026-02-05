@@ -93,7 +93,7 @@ watch(
 
   &__container
     position relative
-    width 1339px
+    r(width, 1339px 716px)
     height 100%
     background white
     display flex
@@ -105,6 +105,8 @@ watch(
         top 100px
         left -95px 
         transform scaleX(-1)
+        +layout(mobile)
+          left -40px
       :deep(.NavBar__container)
         transform scaleX(-1)
 

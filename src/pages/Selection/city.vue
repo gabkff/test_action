@@ -74,6 +74,7 @@ async function submitCity() {
     height 100vh
     background-color $ecume
     f(column, $justify: center, $align: center)
+    overflow hidden
     .selection-city__container
         width 100%
         f(column, $justify: center, $align: center)
@@ -85,8 +86,8 @@ async function submitCity() {
         .input-city-container
             margin-top 30px
             f(row, $justify: center, $align: center)
-            r(width, 400px)
-            r(height, 155px)
+            r(width, 400px 600px)
+            r(height, 155px 73px)
             r(gap, 20px)
             padding 0 20px
             font-size 24px
@@ -97,7 +98,7 @@ async function submitCity() {
         .input-city
             r(margin-top, 40px)
             r(margin-bottom, 40px)
-            r(width, 400px)
+            r(width, 400px 400px)
             height 100%
             border-radius $radius-lg
             border 1px solid $aube
@@ -117,4 +118,10 @@ async function submitCity() {
             top 35%
             left 0
             color rgba($fjord, 0.3)
+            +layout(mobile)
+                top 60px
+                left -30%
+                width 100%
+                height 100%
+                transform scale(.5)
 </style>

@@ -51,41 +51,43 @@ f-style($type='default', // default | title | subtitle | fbQuote | legend
   if $type is 'h0'
     font-family $ff-title
     font-weight $fw-extrabold
-    rp(font-size, 432px 204px)
-    rp(line-height, 1, 1)
+    rp(font-size, 432px 154px)
+    rp(line-height, 1 1)
     text-transform uppercase
   if $type is 'h1'
     font-family $ff-title
     font-weight $fw-extrabold
-    rp(font-size, 220px 55px)
-    rp(line-height, 1, 1.2)
+    rp(font-size, 220px 130px)
+    rp(line-height, 1 1)
     text-transform uppercase
   if $type is 'h2'
     font-family $ff-title
     font-weight $fw-extrabold
-    rp(font-size, 114px 40px)
+    rp(font-size, 114px 100px)
     rp(line-height, 1.2 1)
     text-transform uppercase
   if $type is 'h3'
     font-family $ff-text
-    rp(font-size, 70px 35px)
+    rp(font-size, 70px 64px)
     font-weight $fw-bold
-    rp(line-height, 1.1 1)
+    rp(line-height, 1.1 1.1)
+    +layout(mobile)
+      font-family $ff-title
   if $type is 'h4'  //mobile not present in figma uikit
     font-family $ff-text
-    font-size 64px
+    r(font-size, 64px 50px)
     font-weight $fw-bold
-    line-height 1.2
+    r(line-height, 1.2 1)
   if $type is 'h5'
     font-family $ff-text
-    font-size 50px
+    r(font-size, 50px 34px)
     font-weight $fw-bold
     line-height 1.1
 
   if $type is 'small-body'
     font-family $ff-text
-    font-size 30px
-    line-height 1.3
+    r(font-size, 30px 28px)
+    r(line-height, 1.3 1.2)
     font-weight $fw-medium
 
   if $type is 'bold-infos'
@@ -96,7 +98,7 @@ f-style($type='default', // default | title | subtitle | fbQuote | legend
 
   if $type is 'small-text'
     font-family $ff-text
-    font-size 21px
+    r(font-size, 21px 11px)
     line-height 1.3
     font-weight $fw-regular
   // wysiwyg
@@ -145,7 +147,7 @@ f-style($type='default', // default | title | subtitle | fbQuote | legend
 
   if $type is 'button' or $type is 'btn'
     font-family $ff-text
-    rp(font-size, 18px 14px)
+    rp(font-size, 18px 16px)
     line-height 1.1
     font-weight $fw-regular
     text-transform uppercase

@@ -1,13 +1,13 @@
 <template>
     <div class="SidePanel__circuit" v-if="current && currentStep">
-        <div class="SidePanel__circuit__header"> {{$t('circuits.name') + '-' + current.title }} </div>
+        <div class="SidePanel__circuit__header"> {{$t('circuits.name') + ' ' + (circuitIndex! + 1) + ' - ' + current.title }} </div>
         <div class="SidePanel__circuit__step"> 
             <ui-button theme="icon" :icon="currentStep.icon"/>
             <div>{{ $t('circuits.step', { number: data.index }) }} </div>
         </div>
         <div class="SidePanel__circuit__title"> {{ currentStep.title }}</div>
         <div class="SidePanel__circuit__image-wrapper">
-        <ui-swiper :options="{ slidesPerView: 'auto', spaceBetween: 30, centeredSlides: false }" :overflow="true" :navigation="true">
+        <ui-swiper :options="{ slidesPerView: 'auto', spaceBetween: isDesktop ? 30 : 15, centeredSlides: false }" :overflow="true" :navigation="true">
             <ui-picture v-for="image in currentStep.images as Image[]" :key="image.meta" :images="image.images" class="SidePanel__circuit__image"/>
         </ui-swiper>
         </div>
@@ -36,7 +36,6 @@
                 <div class="SidePanel__circuit__content-info-item-value"> {{ currentStep.activity_type }}</div>
             </div>
         </div>
-
         <div class="SidePanel__circuit__qrcode" v-if="data.qr">
             <div class="SidePanel__circuit__qrcode-label">{{ $t('circuits.qrcode') }}</div>
             <div class="SidePanel__circuit__qrcode-value">
@@ -47,7 +46,7 @@
          <!-- Zone scrollable -->
          <div class="SidePanel__circuit__scroll" ref="descriptionEventRef">
             <!-- Flèches de navigation -->
-            <div class="SidePanel__circuit__scroll-arrows" v-if="isScrollable">
+            <div class="SidePanel__circuit__scroll-arrows" v-if="isScrollable && isDesktop">
                 <UiButton theme="arrow" :direction="'up'" @click="scrollUpDesc()"/>
                 <UiButton theme="arrow" :direction="'down'" @click="scrollDownDesc()"/>
             </div>
@@ -78,9 +77,11 @@
 import { useTemplateRef, computed, ComputedRef, ref, watch, nextTick } from 'vue'
 import { store as appStore } from 'plugins/store/app'
 import { useI18nStore } from 'plugins/i18n/store'
+import { store as interfaceStore } from 'plugins/store/interface'
 import UiButton from 'components/UiKit/Button/index.vue'
 import UiMap from 'components/ui/Maps/index.vue'
 import UiWysiwyg from 'components/UiKit/Wysiwyg/index.vue'
+import { useCircuit } from 'plugins/utils'
 const props = defineProps({
   data: {
     type: Object,
@@ -90,6 +91,8 @@ const props = defineProps({
 const current = computed(() => {
   return appStore.current
 })
+const { circuitIndex } = useCircuit()
+const isDesktop = computed(() => interfaceStore.isDesktop)
 const i18nStore = useI18nStore()
 const isScrollable = ref(false)
 const markers: any = computed(() => {
@@ -160,66 +163,83 @@ function scrollDownDesc() {
     overflow-x hidden
     height 100%
     &__header
-        f-style('body')
-        r(padding-left, 60px 60px)
-        r(padding-right, 60px 60px)
+        f-style('default')
+        r(padding-left, 60px 40px)
+        r(padding-right, 60px 40px)
+        +layout(mobile)
+            font-family $ff-text
+            font-size 18px
+            font-weight $fw-medium
+            line-height 1.4
     &__step
         f(row, $justify: flex-start)
-        r(padding-left, 60px 60px)
-        r(padding-right, 60px 60px)
-        gap 40px
-        margin-top 120px
+        r(padding-left, 60px 40px)
+        r(padding-right, 60px 40px)
+        r(gap, 40px 15px)
+        r(margin-top, 120px 40px)
         f-style('subtitle')
         .UiButton--icon
-            width 94px
-            height 94px
+            r(width, 94px 47px)
+            r(height, 94px 47px)
     &__title
-        r(padding-left, 60px 60px)
-        r(padding-right, 60px 60px)
+        r(padding-left, 60px 40px)
+        r(padding-right, 60px 40px)
         f-style('h3')
         margin 0
-        margin-top 125px
-        margin-bottom 120px
+        r(margin-top, 50px 40px)
+        r(margin-bottom, 120px 60px)
+        +layout(mobile)
+            font-size 35px
+            font-weight $fw-bold
+            line-height 1.1
     &__image-wrapper
         width 100%
-        height 650px
-        padding-left 60px
+        r(height, 650px 244px)
+        r(padding-left, 60px 40px)
         .SidePanel__circuit__image
             height 100%
             width 1155px !important
             background-color $fjord
             object-fit cover
-    &__header
-        f-style('default')
+            +layout(mobile)
+                width 433px !important
     &__content-info
         f(row, $justify: flex-start)
-        r(padding-left, 60px 60px)
-        r(padding-right, 60px 60px)
-        margin-top 120px
+        r(padding-left, 60px 40px)
+        r(padding-right, 60px 40px)
+        r(margin-top, 120px 40px)
         width 100%
         flex-wrap wrap
         .SidePanel__circuit__content-info-item
             f(column, $justify: flex-start)
             width 50%
-            margin-bottom 60px
+            r(margin-bottom, 60px 30px)
             .SidePanel__circuit__content-info-item-label
                 f-style('subtitle')
                 opacity .5
+                +layout(mobile)
+                    font-size 15px
+                    font-weight $fw-medium
+                    line-height 1.3
             .SidePanel__circuit__content-info-item-label:first-letter
                 text-transform uppercase
             .SidePanel__circuit__content-info-item-value
                 f-style('bold-infos')
-                margin-top 8px
+                r(margin-top, 8px 4px)
+                +layout(mobile)
+                    font-size 15px
+                    font-weight $fw-bold
+                    line-height 1.3
             .SidePanel__circuit__content-info-item-value:first-letter
                 text-transform uppercase
     &__qrcode
         border-top 2px solid $fjord
         border-bottom 2px solid $fjord
-        padding-top 60px
-        padding-bottom 60px
-        margin-bottom 80px
-        margin-left 60px
-        margin-right 60px
+        r(padding-top, 60px 40px)
+        r(padding-bottom, 60px 40px)
+        r(margin-bottom, 80px 40px)
+        r(margin-left, 60px 40px)
+        r(margin-right, 60px 40px)
         f(row, $justify: space-between)
         .SidePanel__circuit__qrcode-label
             f-style('h5')
@@ -233,8 +253,8 @@ function scrollDownDesc() {
     &__scroll
         f(column, $justify: flex-start, $align: flex-start)
         padding-bottom 80px
-        r(margin-right, 60px 60px)
-        r(margin-left, 60px 60px)
+        r(margin-right, 60px 40px)
+        r(margin-left, 60px 40px)
         overflow-y scroll
         overflow-x hidden
         min-height 0

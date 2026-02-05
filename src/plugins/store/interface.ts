@@ -137,7 +137,7 @@ const useStore = defineStore('interface', () => {
 
     //getters
     // those values are sync with our koddein styling settings... be carefull with those
-    isMobile: computed(() => state.value.viewport.width <= 600),
+    isMobile: computed(() => state.value.viewport.width <= 1024),
     isTablet: computed(() => state.value.viewport.width > 600 && state.value.viewport.width < 1280),
     isDesktop: computed(() => state.value.viewport.width >= 1280),
     // just like our +layout(desktop)

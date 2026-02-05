@@ -168,11 +168,11 @@ function handleLanguage() {
   display flex
   flex-direction column
   align-items flex-start
-  r(width, 124px)
+  r(width, 124px 58px)
   z-index 1
   &__cap
     width 100%
-    r(height, 132px)
+    r(height, 132px 62px)
     background-size contain
     background-repeat no-repeat
     background-position center
@@ -181,20 +181,23 @@ function handleLanguage() {
       margin-bottom -1px
     &--bottom
       margin-top -1px
+    +layout(mobile)
+      :deep(svg)
+        width 100%
+        height 100%
 
   &__container
     display flex
     flex-direction column
     align-items center
-    r(gap, 20px)
-    r(padding, 50px 40px)
+    r(gap, 20px 10px)
+    r(padding, 50px 9px)
     width 100%
     background white
     transform scaleX(1)
 
   &__item
-    width 86px
-    height 86px
+    r(size, 86px 20px)
     display flex
     align-items center
     justify-content center
@@ -246,13 +249,15 @@ function handleLanguage() {
         transform rotate(0deg)
 
   &__icon--arrow
-    width 60px
-    height 60px
+    r(width, 60px 30px)
+    r(height, 60px 30px)
 
   &__item--lang
     color $fjord
     
   &__lang-text
     f-style('small-body')
+    +layout(mobile)
+      font-size 14px
 </style>
 

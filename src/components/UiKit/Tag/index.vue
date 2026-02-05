@@ -44,13 +44,15 @@ withDefaults(defineProps<TagProps>(), {
   color $embruns
   backdrop-filter blur(10px)
   -webkit-backdrop-filter blur(10px)
+  +layout(mobile)
+    padding 7px 9px
+    border-radius 4px
 
   &__icon
     display flex
     align-items center
     justify-content center
-    width 32px
-    height 32px
+    r(size, 32px 23px)
     flex-shrink 0
 
     :deep(svg)
@@ -63,5 +65,8 @@ withDefaults(defineProps<TagProps>(), {
   &__label
     f-style('small-text')
     white-space nowrap
+    +layout(mobile)
+      font-size 12px
+      line-height 1.3
 </style>
 

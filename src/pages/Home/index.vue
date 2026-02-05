@@ -21,7 +21,7 @@
         </div>
       </div>
     </div>
-    <div class="home__part" ref="partEnRef" :style="{ backgroundImage: `url(${imgBackgroundEn})` }">
+    <div class="home__part bg_en" ref="partEnRef" :style="{ backgroundImage: `url(${imgBackgroundEn})` }">
       <div class="home__part__overlay" ref="overlayEnRef" :style="overlayEnMaskStyle"></div>
       <div class="home__part__content">
         <div class="line line_1_en">
@@ -180,19 +180,19 @@
 .home
   background $fjord
   f(column, $justify: flex-start, $align: flex-start)
-  r(gap, 183px)
+  r(gap, 183px 45px)
   width 100vw
   height 100vh
-  r(padding-top, 600px)
-  r(padding-left, 271px)
-  r(padding-right, 271px)
-  r(padding-bottom, 656px)
+  r(padding-top, 600px 222px)
+  r(padding-left, 271px 220px)
+  r(padding-right, 271px 220px)
+  r(padding-bottom, 656px 222px)
   background-size cover
   position relative
   
   :deep(.UiButton)
-    r(width, 401px)
-    r(height, 312px)
+    r(width, 401px 180px)
+    r(height, 312px 111px)
     margin-top auto
     margin-bottom auto
     text-align left
@@ -216,7 +216,7 @@
     height 100%
     transform scale(1.003)
     f(column, $align: flex-start, $justify: flex-start)
-    r(gap, 30px)
+    r(gap, 30px 30px)
     
     
   .home__part__overlay
@@ -236,7 +236,7 @@
     width 100%
     height 100%
     f(column, $align: flex-start, $justify: flex-start)
-    r(gap, 30px)
+    r(gap, 30px 30px)
     
   .bg
     position absolute
@@ -244,8 +244,11 @@
     left 0
     width 100%
     height 100%
+  .bg, .bg_en
     z-index 0
     background-size cover
+    background-position center
+    background-repeat no-repeat
     background-position center
     
   .wrapper-mask-svg
@@ -267,7 +270,7 @@
     width 100%
     flex 1
     f(row, $justify: flex-start, $align: center)
-    r(gap, 30px)
+    r(gap, 30px 14px)
     r(margin-top, -40px)
     r(margin-bottom, -40px)
     
@@ -278,12 +281,12 @@
     margin-bottom 0
     
   .line_3_fr
-    r(min-height, 433px)
+    r(min-height, 433px 154px)
     
   .mask
     flex 1
     min-width 0
-    r(height, 312px)
+    r(height, 312px 111px)
     border-radius 20px
     visibility hidden
 </style>

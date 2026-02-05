@@ -45,11 +45,11 @@ defineProps<{
 <style lang="stylus" scoped>
     .sponsor
         width 100%
-        r(margin-top, 73px)
-        r(min-height, 302px)
-        border-radius $radius-lg
+        r(margin-top, 73px 15px)
+        r(min-height, 302px, 196px)
+        r(border-radius, $radius-lg 4px)
         background-color white
-        r(padding, 20px)
+        r(padding, 20px 4px)
         f(row, $justify: flex-start, $align: stretch)
         r(gap, 30px)
         &__content
@@ -60,7 +60,7 @@ defineProps<{
             align-items stretch
         &__image
             flex-shrink 0
-            r(width, 276px)
+            r(width, 276px 130px)
             :deep(.UiPicture)
                 height 100%
         &__content__header
@@ -69,8 +69,12 @@ defineProps<{
             opacity 0.5
             f-style('h6')
             color $fjord
+            +layout(mobile)
+                font-size 10px
+                line-height 1.3
+                font-weight $fw-regular
         &__content__header__logo
-            r(size, 90px)
+            r(size, 90px 42px)
             display flex
             :deep(.UiPicture)
                 border-radius 0
@@ -84,7 +88,15 @@ defineProps<{
             &__title
                 f-style('h5')
                 color $fjord
+                +layout(mobile)
+                    font-size 23px
+                    line-height 1.1
+                    font-weight $fw-bold
             &__city
                 f-style('default')
                 color $fjord
+                +layout(mobile)
+                    font-size 17px
+                    line-height 1.4
+                    font-weight $fw-medium
 </style>

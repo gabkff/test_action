@@ -8,6 +8,7 @@ import { Navigation} from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/effect-creative';
 import IconArrow from 'assets/svg/arrow.svg?raw'
+import { store as interfaceStore } from 'plugins/store/interface'
 import type { 
   SwiperOptions, 
   AutoplayOptions, 
@@ -171,7 +172,7 @@ export default defineComponent({
     const prev = templateRef('prev')
     const progressBar = templateRef('progressBar')
     const slots = useSlots();
-
+    const isDesktop = computed(() => interfaceStore.isDesktop)
     const isSingle = computed(() => {
       return wrapper?.value ? isNumber(wrapper?.value.children?.length) && wrapper?.value.children?.length <= 1 : false;
     })
@@ -264,7 +265,7 @@ export default defineComponent({
 
       return opts as SwiperOptions;
     }
-
+    
     /* compute pagination to easy set up if pass `pagination` props to true */
     const computePagination = (): boolean | PaginationOptions => {
       if (!props.pagination || isSingle.value) return false;
@@ -416,6 +417,7 @@ export default defineComponent({
     return {
       ...toRefs(data), //data for refs...
       slots,
+      isDesktop,
       // hasCursor: props.cursor, // not reactive
       hasProgressBar: props.progressBar,
       IconArrow,
@@ -464,7 +466,7 @@ export default defineComponent({
            ref="progressBar"
            :class="`swiper-progress-bar ${cursor ? 'cursor-remove' : ''}`"
       />
-      <div class="swiper-button-wrapper" v-if="hasNavigation">
+      <div class="swiper-button-wrapper" v-if="hasNavigation && isDesktop">
         <!-- need `navigation` props to true (default)  -->
         <button 
                 ref="prev"
@@ -550,8 +552,8 @@ export default defineComponent({
     gap 13px
   .swiper-button-next,
   .swiper-button-prev
-    width 128px
-    height 120px
+    r(width, 128px 64px)
+    r(height, 120px 60px)
     border-radius $radius-md
     background white
     f(row)

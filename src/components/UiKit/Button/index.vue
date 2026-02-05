@@ -131,14 +131,16 @@ const onClick = (event: MouseEvent) => {
   align-items center
   justify-content center
   gap 8px
-  padding 20px
+  r(padding, 20px 9px)
   border none
   border-radius $radius-md
   f-style('button')
   text-decoration none
   cursor pointer
   transition all 0.2s ease
-  
+  +layout(mobile)
+    border-radius 4px
+    font-size 11px
   &:focus-visible
     outline 2px solid $primary
     outline-offset 2px
@@ -182,13 +184,13 @@ const onClick = (event: MouseEvent) => {
       text-decoration underline
 
   &--icon
-    padding 20px
+    r(padding, 20px 10px)
     border-radius 50%
     background $fjord
     color white
     .UiButton__icon
-      width 40px
-      height 40px
+      r(width, 40px 20px)
+      r(height, 40px 20px)
       svg
         width 100%
         height 100%
@@ -196,6 +198,12 @@ const onClick = (event: MouseEvent) => {
     border-radius $radius-lg
     padding 60px 45px
     f-style('btn-large')
+    +layout(mobile)
+      r-mobile(font-size, 16px 16px)
+      padding 28px 21px
+      border-radius 6px
+
+
 
   &--reset
     background none
@@ -227,7 +235,7 @@ const onClick = (event: MouseEvent) => {
   &__content
     display flex
     align-items center
-    gap 30px
+    r(gap, 30px 15px)
   &--arrow
     r(width, 128px)
     r(height, 120px)
@@ -248,13 +256,12 @@ const onClick = (event: MouseEvent) => {
   &__arrow--right
     transform rotate(180deg)
   &--big &__content
-    gap 60px
+    r(gap, 60px 28px)
 
   &__icon
-    width 20px
-    height 20px
+    r(width, 20px 15px)
+    r(height, 20px 15px)
     flex-shrink 0
-
   &__arrow
     width 50px
     height 50px
@@ -266,6 +273,9 @@ const onClick = (event: MouseEvent) => {
   &--big &__icon
     width 40px
     height 40px
+    +layout(mobile)
+      r-mobile(width, 25px 25px)
+      r-mobile(height, 25px 25px)
 
   &__loader
     position absolute

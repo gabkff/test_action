@@ -102,10 +102,13 @@ function selectOption(value: string | number) {
   position relative
   display inline-flex
   border-radius $radius-lg
-  padding 8px
-  height 80px
-  width 370px
+  r(padding, 8px 4px)
+  r(height, 80px 45px)
+  r(width, 370px 180px)
   gap 0
+  +layout(mobile)
+    border-radius 4px
+    padding 
 
   .UiSelector__container
     f(row, $align: center)
@@ -128,18 +131,20 @@ function selectOption(value: string | number) {
     align-items center
     justify-content center
     width 100%
-    gap 8px
+    r(gap, 8px 4px)
     padding 15px
     background none
     border none
     cursor pointer
     transition color 0.3s ease
     f-style('btn-medium')
+    +layout(mobile)
+      font-size 12px
+      padding 0px
 
   &__icon-container
-    width 50px
-    height 50px
-    padding 8px
+    r(size, 50px 23px)
+    r(padding, 8px 0px)
     display flex
     align-items center
     justify-content center
