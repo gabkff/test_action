@@ -254,6 +254,8 @@ function handleLanguage() {
 
   &__item--lang
     color $fjord
+    +layout(mobile)
+      margin-top 1rem
     
   &__lang-text
     f-style('small-body')
