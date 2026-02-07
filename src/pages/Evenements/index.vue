@@ -55,7 +55,7 @@
       </div>
       
       <UiNavBar 
-        :show-scroll-arrows="filteredEvents.length > 5"
+        :show-scroll-arrows="filteredEvents.length > 5 && isDesktop"
         @scrollup="scrollListUp"
         @scrolldown="scrollListDown"
         @menu="router.push('/selection')"
@@ -66,9 +66,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { store as appStore } from 'plugins/store/app'
+import { store as interfaceStore } from 'plugins/store/interface'
 import { useSidePanelStore } from 'store/sidePanel'
 import { useRouter } from 'vue-router'
 import IconPlus from 'assets/svg/plus.svg?raw'
@@ -90,6 +91,7 @@ const {
   selectDate 
 } = useEvents()
 
+const isDesktop = computed(() => interfaceStore.isDesktop)
 const { isToday } = useDate()
 
 const listRef = ref<HTMLElement | null>(null)

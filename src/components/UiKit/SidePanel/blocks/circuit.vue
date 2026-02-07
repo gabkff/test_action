@@ -35,6 +35,13 @@
                 <div class="SidePanel__circuit__content-info-item-label">{{ $t('circuits.type') }}</div>
                 <div class="SidePanel__circuit__content-info-item-value"> {{ currentStep.activity_type }}</div>
             </div>
+            <div class="SidePanel__circuit__content-info-item" v-if="currentStep.map_address">
+                <div class="SidePanel__circuit__address-icon">
+                    <div class="SidePanel__circuit__address-icon-icon" v-html="IconLocation" />
+                    <div class="SidePanel__circuit__content-info-item-label">{{ $t('circuits.adress') }}</div>
+                </div>
+                <div class="SidePanel__circuit__content-info-item-value"> {{ currentStep.map_address }}</div>
+            </div>
         </div>
         <div class="SidePanel__circuit__qrcode" v-if="data.qr">
             <div class="SidePanel__circuit__qrcode-label">{{ $t('circuits.qrcode') }}</div>
@@ -81,6 +88,7 @@ import { store as interfaceStore } from 'plugins/store/interface'
 import UiButton from 'components/UiKit/Button/index.vue'
 import UiMap from 'components/ui/Maps/index.vue'
 import UiWysiwyg from 'components/UiKit/Wysiwyg/index.vue'
+import IconLocation from 'assets/svg/location.svg?raw'
 import { useCircuit } from 'plugins/utils'
 const props = defineProps({
   data: {
@@ -162,6 +170,19 @@ function scrollDownDesc() {
     overflow-y visible
     overflow-x hidden
     height 100%
+    &__address-icon
+        f(row, $justify: flex-start)
+        gap 12px
+        opacity 0.5
+    &__address-icon-icon
+        r(width, 21px 10px)
+        r(height, 29px 14px)
+        display flex
+        --icon-accent white
+        +layout(mobile)
+            :deep(svg)
+                width 100%
+                height 100%
     &__header
         f-style('default')
         r(padding-left, 60px 40px)

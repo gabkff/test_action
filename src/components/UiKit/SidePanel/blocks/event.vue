@@ -25,8 +25,8 @@
         </div>
         <div class="SidePanel__event__address">
             <div class="SidePanel__event__address-icon">
-            <div class="SidePanel__event__address-icon-icon" v-html="IconLocation" />
-            <div class="SidePanel__event__address-icon-text"> Adresse</div>
+              <div class="SidePanel__event__address-icon-icon" v-html="IconLocation" />
+              <div class="SidePanel__event__address-icon-text"> {{ $t('circuits.adress') }}</div>
             </div>
             <div class="SidePanel__event__address-text"> {{ currentEvent.address }}</div>
       </div>
@@ -37,7 +37,7 @@
 
         <div class="SidePanel__event__scroll" ref="descriptionEventRef">
             <!-- Flèches de navigation -->
-            <div class="SidePanel__event__scroll-arrows" v-if="isScrollable">
+            <div class="SidePanel__event__scroll-arrows" v-if="isScrollable && isDesktop">
                 <UiButton theme="arrow" :direction="'up'" @click="scrollUpDesc()"/>
                 <UiButton theme="arrow" :direction="'down'" @click="scrollDownDesc()"/>
             </div>
@@ -118,48 +118,66 @@ function scrollDownDesc() {
     overflow-x hidden
     height 100%
     &__title
-        r(padding-left, 60px 60px)
-        r(padding-right, 60px 60px)
+        r(padding-left, 60px 40px)
+        r(padding-right, 60px 40px)
         f-style('h3')
         color $fjord
         margin 0
-        margin-top 125px
-        margin-bottom 120px
+        r(margin-top, 125px 0px)
+        r(margin-bottom, 120px 60px)
+        +layout(mobile)
+          font-size 35px
+          font-weight $fw-bold
+          line-height 1.1
     &__address
-        r(margin-left, 60px 60px)
-        r(margin-right, 60px 60px)
+        r(margin-left, 60px 40px)
+        r(margin-right, 60px 40px)
         f(column)
         align-items flex-start
         gap 10px
         f-style('small-body')
         color $fjord
+        +layout(mobile)
+            font-size 15px
+            font-weight $fw-medium
+            line-height 1.3
     &__address-icon
-        f(row)
+        f(row, $justify: flex-start)
         gap 12px
         opacity 0.5
     &__address-icon-icon
-        width 21px
-        height 29px
+        r(width, 21px 10px)
+        r(height, 29px 14px)
         display flex
         --icon-accent white
+        +layout(mobile)
+            :deep(svg)
+                width 100%
+                height 100%
     &__address-text
         f-style('bold-infos')
         text-align left
+        +layout(mobile)
+            font-size 15px
+            font-weight $fw-bold
+            line-height 1.3
     &__content-dates-price
-        margin-left 60px
-        margin-right 60px
+        r(margin-left, 60px 40px)
+        r(margin-right, 60px 40px)
         f(row)
-        margin-top 120px
-        margin-bottom 60px
+        r(margin-top, 120px 60px)
+        r(margin-bottom, 60px 30px)
     &__image-wrapper
         width 100%
-        height 650px
-        padding-left 60px
+        r(height, 650px 244px)
+        r(padding-left, 60px 40px)
         .SidePanel__event__image
             height 100%
             width 1155px !important
             background-color $fjord
             object-fit cover
+            +layout(mobile)
+                width 433px !important
     &__dates-item
         f(row, $justify: space-between)
         width 100%
@@ -168,39 +186,59 @@ function scrollDownDesc() {
         f-style('small-body')
         color $fjord
         opacity 0.5
+        +layout(mobile)
+            font-size 15px
+            font-weight $fw-medium
+            line-height 1.3
     &__dates-start-value, &__dates-end-value
         f-style('bold-infos')
+        +layout(mobile)
+            font-size 15px
+            font-weight $fw-bold
+            line-height 1.3
     &__price
-        margin-bottom 60px
-        r(margin-left, 60px 60px)
-        r(margin-right, 60px 60px)
+        r(margin-bottom, 60px 30px)
+        r(margin-left, 60px 40px)
+        r(margin-right, 60px 40px)
     &__price-label
         f-style('small-body')
         color $fjord
         opacity 0.5
+        +layout(mobile)
+            font-size 15px
+            font-weight $fw-medium
+            line-height 1.3
     &__price-value
         f-style('bold-infos')
+        +layout(mobile)
+            font-size 15px
+            font-weight $fw-bold
+            line-height 1.3
     &__qrcode
         border-top 2px solid $fjord
         border-bottom 2px solid $fjord
-        padding-top 60px
-        padding-bottom 60px
+        r(padding-top, 60px 30px)
+        r(padding-bottom, 60px 30px)
         f(row, $justify: space-between)
-        r(margin-top, 60px 60px)
-        r(margin-left, 60px 60px)
-        r(margin-right, 60px 60px)
+        r(margin-top, 60px 30px)
+        r(margin-left, 60px 40px)
+        r(margin-right, 60px 40px)
     &__qrcode-label
         f-style('h5')
-        width 637px
+        r(width, 637px 318px)
+        +layout(mobile)
+            font-size 25px
+            line-height 1.1
+            font-weight $fw-bold
     &__qrcode-value
         background-color $fjord
-        width 175px
+        r(width, 175px 88px)
     &__scroll
         f(column, $justify: flex-start, $align: flex-start)
-        margin-top 80px
-        r(padding-right, 60px 60px)
-        r(padding-left, 60px 60px)
-        padding-bottom 80px
+        r(margin-top, 80px 40px)
+        r(padding-right, 60px 40px)
+        r(padding-left, 60px 40px)
+        r(padding-bottom, 80px 40px)
         overflow-y scroll
         overflow-x hidden
         min-height 0
@@ -209,11 +247,8 @@ function scrollDownDesc() {
     &__scroll-content
         width 100%
         flex 1
-    &__map
-        height 600px
-        width 100%
     &__scroll-text
-        margin-bottom 120px
+       r(margin-bottom, 120px 0px)
     &__scroll-arrows
         position sticky
         z-index 10

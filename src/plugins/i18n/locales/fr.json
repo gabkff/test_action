@@ -70,6 +70,7 @@
     "time_start_end": "De {start} à {end}"
   },
   "circuits": {
+    "adress": "Adresse",
     "event_today": "Aujourd'hui, {date}",
     "name": "Circuit",
     "name_plural": "Circuits",
