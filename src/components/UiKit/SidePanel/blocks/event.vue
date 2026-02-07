@@ -53,6 +53,7 @@
 <script setup lang="ts">
 import { store as appStore } from 'plugins/store/app'
 import { useI18nStore } from 'plugins/i18n/store'
+import { store as interfaceStore } from 'plugins/store/interface'
 import IconLocation from 'assets/svg/location.svg?raw'
 import UiWysiwyg from 'components/UiKit/Wysiwyg/index.vue'
 import UiSwiper from 'components/UiKit/Swiper/index.vue'
@@ -66,6 +67,8 @@ const descriptionEvent = useTemplateRef<HTMLElement | null>('descriptionEventRef
 const currentEvent = computed(() => {
   return appStore.currentEvent
 })
+
+const isDesktop = computed(() => interfaceStore.isDesktop)
 
 // Liste des images de l'événement (main_image + images additionnelles)
 const eventImages = computed(() => {
