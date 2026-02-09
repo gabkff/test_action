@@ -15,7 +15,10 @@
         "title": "Tcn App",
         "width": 2160,
         "height": 3840,
-        "fullscreen": true
+        "fullscreen": true,
+        "decorations": false,
+        "alwaysOnTop": false,
+        "resizable": true
       }
     ],
     "security": {
@@ -34,6 +37,9 @@
       "icons/128x128@2x.png",
       "icons/icon.icns",
       "icons/icon.ico"
+    ],
+    "resources": [
+      "site-config.md"
     ],
     "iOS": {
       "developmentTeam": "MSA628LD3H"

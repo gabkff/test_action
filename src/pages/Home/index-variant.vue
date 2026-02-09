@@ -1,8 +1,14 @@
 <template>
   <div class="home" v-if="isAppReady">
     <div class="home__part">
-      <div class="bg bg_fr" :style="{backgroundImage: `url(${imgBackgroundFr})`}"></div>
-      <div class="home__part__wrapper" ref="wrapperFrRef" :style="wrapperFrMaskStyle">
+      <div class="bg bg_fr" :style="{backgroundImage: `url(${imgBackgroundFr})`}">
+        <div class="line">
+          <div class="line_ line_1_fr__title text_fr"> LAISSEZ</div>
+          <div class="mask mask1_fr"></div>
+        </div>
+        
+      </div>
+      <!--div class="home__part__wrapper" ref="wrapperFrRef" :style="wrapperFrMaskStyle">
         <div class="line_1_fr line">
           <div class="line_1_fr__title text_fr"> LAISSEZ</div>
           <div class="mask mask1_fr"></div>
@@ -19,7 +25,7 @@
           <div class="line_4_fr__title text_fr"> GUIDER</div>
           <ui-button class="button_fr" theme="primary" :label="'touchez pour commencer'" @click="goSelect('fr')" :icon="IconArrow" :big="true" :iconPosition="'right'"/>
         </div>
-      </div>
+      </div >-->
     </div>
     <div class="home__part bg_en" ref="partEnRef" :style="{ backgroundImage: `url(${imgBackgroundEn})` }">
       <div class="home__part__overlay" ref="overlayEnRef" :style="overlayEnMaskStyle"></div>
@@ -130,7 +136,7 @@
   watchEffect(() => {
     if (isAppReady.value && imgBackgroundFr.value) {
       setTimeout(() => {
-       updateHoles()
+       // updateHoles()
       }, 100)
     }
   })
@@ -260,6 +266,7 @@
     
   .text_fr
     f-style('h0')
+    background $fjord
     color $ecume
     
   .text_en
@@ -288,5 +295,6 @@
     min-width 0
     r(height, 312px 111px)
     border-radius 20px
-    visibility hidden
+    background transparent
+    border 1px solid $fjord
 </style>

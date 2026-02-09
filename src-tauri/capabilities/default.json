@@ -6,6 +6,8 @@
   "permissions": [
     "core:default",
     "core:path:default",
+    "core:window:default",
+    "core:window:allow-close",
     "opener:default",
     "fs:default",
     "fs:allow-app-read",
@@ -14,11 +16,14 @@
     "fs:allow-app-write-recursive",
     "fs:allow-cache-read",
     "fs:allow-cache-write",
+    "fs:allow-resource-read",
+    "fs:allow-resource-read-recursive",
     "http:default",
     {
       "identifier": "http:allow-fetch",
       "allow": [
-        { "url": "https://tcn.dev.kffein.work/*" }
+        { "url": "https://tcn.dev.kffein.work/*" },
+        { "url": "https://bornes-stage.tourismecote-nord.com/*" }
       ]
     }
   ]
