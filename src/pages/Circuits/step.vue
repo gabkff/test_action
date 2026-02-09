@@ -117,6 +117,7 @@ import { store as appStore } from 'plugins/store/app'
 import { useI18nStore } from 'plugins/i18n/store'
 import { store as interfaceStore } from 'plugins/store/interface'
 import { fetch as tauriFetch } from '@tauri-apps/plugin-http'
+import { getApiUrl, getApiKey } from 'config'
 import { getAuthHeaders } from 'utils/helpers'
 import { getApiSite } from 'plugins/api/apiSite'
 import UiSelector from 'components/ui/Selector.vue'
@@ -228,14 +229,13 @@ function zoomMap(direction: 'in' | 'out') {
 async function sendFeedback(direction: 'up' | 'down') {
   feedbackReco.value = !feedbackReco.value
   const method = direction === 'down' ? 'DELETE' : 'POST'
-  const apiUrl = import.meta.env.VITE_API_URL
   const apiSite = getApiSite()
   const locale = i18nStore.locale
-  const url = `${apiUrl}/${locale}/${apiSite}/circuit/${current.value?.id}/vote`
+  const url = `${getApiUrl()}/${locale}/${apiSite}/circuit/${current.value?.id}/vote`
 
   const headers = {
     'Content-Type': 'application/json',
-    'x-api-key': import.meta.env.VITE_API_KEY,
+    'x-api-key': getApiKey(),
     ...getAuthHeaders()
   }
 

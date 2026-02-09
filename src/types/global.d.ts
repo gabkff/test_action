@@ -32,13 +32,20 @@ declare global {
   type Obj = Record<string, any>
 }
 
-// Augmentation des types d'environnement Vite
+// Augmentation des types d'environnement Vite (toutes optionnelles ; en kiosk, app-config.json peut les surcharger)
 interface ImportMetaEnv {
-  readonly VITE_API_URL: string
-  readonly VITE_API_SITE: string
-  readonly VITE_APP_MODE: 'kiosk' | 'ipad'
-  readonly VITE_REFRESH_INTERVAL: string
-  readonly VITE_USE_MOCK_DATA: string
+  readonly VITE_API_URL?: string
+  readonly VITE_API_SITE?: string
+  readonly VITE_APP_MODE?: 'kiosk' | 'ipad'
+  readonly VITE_REFRESH_INTERVAL?: string
+  readonly VITE_USE_MOCK_DATA?: string
+  readonly VITE_API_KEY?: string
+  readonly VITE_DEFAULT_LOCALE?: string
+  readonly VITE_GOOGLE_MAP_KEY?: string
+  readonly VITE_GOOGLE_MAP_ID?: string
+  readonly VITE_API_AUTH_USER?: string
+  readonly VITE_API_AUTH_PASS?: string
+  readonly VITE_IS_DEV?: string
 }
 
 interface ImportMeta {

@@ -1,16 +1,8 @@
 import { fetch as tauriFetch } from '@tauri-apps/plugin-http'
+import { getApiUrl, getApiKey, getUseMockData, getDefaultLocale } from 'config'
 import { mockApiData } from './mock-data'
 import { getAuthHeaders } from 'utils/helpers'
 import { getApiSite } from './apiSite'
-
-/**
- * Configuration de l'API
- * URL: https://tcn.dev.kffein.work/api/bornes/{langue}/{site}
- * En mode ipad, le site vient du localStorage ; en mode kiosk, du .env.
- */
-const API_BASE_URL = import.meta.env.VITE_API_URL
-const DEFAULT_LOCALE = import.meta.env.VITE_DEFAULT_LOCALE
-const API_KEY = import.meta.env.VITE_API_KEY
 
 /**
  * Service API simplifié
@@ -23,12 +15,10 @@ const API_KEY = import.meta.env.VITE_API_KEY
  * Note: La gestion du cache fichier est faite par le store (app.ts)
  */
 class ApiService {
-  private useMockData: boolean
   private currentLocale: string
 
   constructor() {
-    this.useMockData = import.meta.env.VITE_USE_MOCK_DATA === 'true'
-    this.currentLocale = DEFAULT_LOCALE || 'fr'
+    this.currentLocale = getDefaultLocale()
   }
 
   /**
@@ -51,7 +41,7 @@ class ApiService {
    * Ex: https://tcn.dev.kffein.work/api/bornes/fr/tadoussac
    */
   private getFullUrl(): string {
-    return `${API_BASE_URL}/${this.currentLocale}/${getApiSite()}`
+    return `${getApiUrl()}/${this.currentLocale}/${getApiSite()}`
   }
 
   /**
@@ -71,8 +61,7 @@ class ApiService {
    * 3. Si erreur API → fallback sur mock
    */
   async fetchData(locale?: string): Promise<ApiResponse> {
-    // Mode mock forcé (dev sans API)
-    if (this.useMockData) {
+    if (getUseMockData()) {
       return this.getMockData()
     }
 
@@ -93,12 +82,12 @@ class ApiService {
    */
   private async fetchFromApi(locale?: string): Promise<ApiResponse> {
     const targetLocale = locale || this.currentLocale
-    const url = `${API_BASE_URL}/${targetLocale}/${getApiSite()}`
+    const url = `${getApiUrl()}/${targetLocale}/${getApiSite()}`
     console.log(`📡 Appel API: ${url}`)
 
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',
-      'x-api-key': API_KEY,
+      'x-api-key': getApiKey(),
       ...getAuthHeaders()
     }
 
@@ -128,8 +117,7 @@ class ApiService {
   async refresh(): Promise<ApiResponse> {
     console.log('🔄 Rafraîchissement des données depuis l\'API')
 
-    // Si mode mock, retourne les mock
-    if (this.useMockData) {
+    if (getUseMockData()) {
       return this.getMockData()
     }
 
@@ -148,7 +136,7 @@ class ApiService {
    * Vérifie si le mode mock est activé
    */
   isMockMode(): boolean {
-    return this.useMockData
+    return getUseMockData()
   }
 
   /**
@@ -159,12 +147,12 @@ class ApiService {
     const targetLocale = locale || this.currentLocale
     const siteTrim = (site || '').trim()
     if (!siteTrim) throw new Error('Code site vide')
-    const url = `${API_BASE_URL}/${targetLocale}/${siteTrim}`
+    const url = `${getApiUrl()}/${targetLocale}/${siteTrim}`
     console.log(`📡 Test API site: ${url}`)
 
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',
-      'x-api-key': import.meta.env.VITE_API_KEY,
+      'x-api-key': getApiKey(),
       ...getAuthHeaders()
     }
 

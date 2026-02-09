@@ -8,6 +8,7 @@
      * * Refactorisé pour recevoir tout le tracé et gérer l'état via l'index d'étape.
      */
     import { ref, onMounted, watch, onBeforeUnmount, shallowRef } from 'vue'
+    import { getGoogleMapId } from 'config'
     import { initMap } from './googleServices'
     // Assurez-vous d'avoir mis à jour usePolylines.ts avec la version "Architecture Map-Centric" proposée précédemment
     import { usePolylines } from './usePolylines'
@@ -94,7 +95,7 @@
             gestureHandling: props.lock ? 'none' : 'auto',
             disableDoubleClickZoom: props.lock,
             zoomControl: false,
-            mapId: import.meta.env.VITE_GOOGLE_MAP_ID
+            mapId: getGoogleMapId()
         })
         
         // 1. On dessine TOUT le circuit d'un coup

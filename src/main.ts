@@ -18,6 +18,7 @@ import router from 'router'
 import installUiKit from 'components/UiKit'
 import { startPeriodicRefresh } from 'utils/refresh'
 import { initApiSite } from 'plugins/api/apiSite'
+import { initRuntimeConfig } from 'config/runtimeConfig'
 
 // Import des styles globaux
 import 'assets/styles/index.styl'
@@ -26,8 +27,10 @@ import 'assets/styles/index.styl'
  * Initialisation de l'application
  */
 async function setup() {
-  // Charge le site API depuis le fichier de config (mode kiosk uniquement, no-op sinon)
+  // Charge le site API depuis site-config.md (mode kiosk uniquement)
   await initApiSite()
+  // Surcharge optionnelle depuis app-config.json (mode kiosk uniquement)
+  await initRuntimeConfig()
 
   // Création des plugins
   const head = createHead()

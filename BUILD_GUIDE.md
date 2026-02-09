@@ -277,6 +277,43 @@ Fonctionnalités :
 - ❌ Pas de cache local
 - ✅ Données en temps réel
 
+### Fichier `app-config.json` (mode kiosk)
+
+En mode borne (exe Tauri), la configuration peut être surchargée au runtime par un fichier **`app-config.json`** à la racine du projet, bundlé à côté de `site-config.md`. Toutes les clés sont optionnelles ; les valeurs absentes restent celles du `.env` / build.
+
+Exemple (voir `app-config.example.json`) :
+```json
+{
+  "apiUrl": "https://api-production.com/api",
+  "refreshInterval": 300000,
+  "apiSite": "votre-code-site",
+  "apiKey": "votre-clé-api",
+  "useMockData": false,
+  "defaultLocale": "fr",
+  "googleMapKey": "",
+  "googleMapId": "",
+  "apiAuthUser": "",
+  "apiAuthPass": "",
+  "isDev": false
+}
+```
+
+Toutes les clés sont optionnelles. Correspondance avec le `.env` :
+
+| Clé app-config     | Variable .env           | Description |
+|--------------------|-------------------------|-------------|
+| apiUrl             | VITE_API_URL            | URL de base de l’API |
+| refreshInterval    | VITE_REFRESH_INTERVAL   | Intervalle de rafraîchissement (ms) |
+| apiSite            | site-config.md / VITE_API_SITE | Code site (prioritaire sur site-config si présent) |
+| apiKey             | VITE_API_KEY            | Clé API |
+| useMockData        | VITE_USE_MOCK_DATA      | `true` = données mock |
+| defaultLocale      | VITE_DEFAULT_LOCALE     | Locale par défaut (ex. `fr`) |
+| googleMapKey       | VITE_GOOGLE_MAP_KEY     | Clé Google Maps JavaScript API |
+| googleMapId        | VITE_GOOGLE_MAP_ID      | ID de carte Google (Map ID) |
+| apiAuthUser        | VITE_API_AUTH_USER      | Utilisateur HTTP Basic (dev) |
+| apiAuthPass        | VITE_API_AUTH_PASS      | Mot de passe HTTP Basic (dev) |
+| isDev              | VITE_IS_DEV             | `true` = active l’auth Basic si user/pass présents |
+
 ---
 
 ## 🔧 Troubleshooting

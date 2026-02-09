@@ -44,6 +44,15 @@ export async function initApiSite(): Promise<void> {
 }
 
 /**
+ * Surcharge le site API en mode kiosk (ex. depuis app-config.json).
+ * À n'appeler qu'après initApiSite() si on veut priorité au fichier app-config.
+ */
+export function setApiSiteKioskOverride(site: string): void {
+  if (appConfig.mode !== 'kiosk') return
+  cachedSite = (site || '').trim() || null
+}
+
+/**
  * Retourne le code site utilisé pour les appels API.
  * - Mode kiosk : valeur lue depuis site-config.md (via initApiSite), sinon fallback .env (VITE_API_SITE).
  * - Mode ipad : valeur en localStorage (saisie utilisateur), ou chaîne vide si non renseigné.

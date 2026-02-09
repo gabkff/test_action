@@ -24,7 +24,9 @@
     "security": {
       "assetProtocol": {
         "enable": true,
-        "scope": ["$APPCACHE/**"]
+        "scope": [
+          "$APPCACHE/**"
+        ]
       }
     }
   },
@@ -39,7 +41,8 @@
       "icons/icon.ico"
     ],
     "resources": [
-      "../site-config.md"
+      "../site-config.md",
+      "../app-config.json"
     ],
     "iOS": {
       "developmentTeam": "MSA628LD3H"

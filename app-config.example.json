@@ -1,0 +1,13 @@
+{
+  "apiUrl": "https://votre-api.example.com/api",
+  "refreshInterval": 300000,
+  "apiSite": "votre-code-site",
+  "apiKey": "",
+  "useMockData": false,
+  "defaultLocale": "fr",
+  "googleMapKey": "",
+  "googleMapId": "",
+  "apiAuthUser": "",
+  "apiAuthPass": "",
+  "isDev": false
+}

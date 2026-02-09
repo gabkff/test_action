@@ -1,12 +1,11 @@
 /**
  * Helpers d'authentification
- * 
+ *
  * Fonctions utilitaires pour gérer l'authentification HTTP Basic
  * utilisée pour les appels API et le téléchargement d'assets.
+ * En kiosk, les valeurs peuvent venir de app-config.json.
  */
-const IS_DEV = import.meta.env.VITE_IS_DEV  || true
-const API_AUTH_USER = import.meta.env.VITE_API_AUTH_USER || ''
-const API_AUTH_PASS = import.meta.env.VITE_API_AUTH_PASS || ''
+import { getApiAuthUser, getApiAuthPass, getIsDev } from 'config'
 
 /**
  * Retourne les headers d'authentification HTTP Basic si configurés
@@ -14,12 +13,14 @@ const API_AUTH_PASS = import.meta.env.VITE_API_AUTH_PASS || ''
  */
 export function getAuthHeaders(): Record<string, string> {
   const headers: Record<string, string> = {}
-  
-  if (API_AUTH_USER && API_AUTH_PASS && IS_DEV) {
-    const credentials = btoa(`${API_AUTH_USER}:${API_AUTH_PASS}`)
+  const user = getApiAuthUser()
+  const pass = getApiAuthPass()
+
+  if (user && pass && getIsDev()) {
+    const credentials = btoa(`${user}:${pass}`)
     headers['Authorization'] = `Basic ${credentials}`
   }
-  
+
   return headers
 }
 
@@ -28,7 +29,7 @@ export function getAuthHeaders(): Record<string, string> {
  * @returns true si les credentials sont présents
  */
 export function hasAuthCredentials(): boolean {
-  return Boolean(API_AUTH_USER && API_AUTH_PASS)
+  return Boolean(getApiAuthUser() && getApiAuthPass())
 }
 
 /**

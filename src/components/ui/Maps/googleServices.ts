@@ -1,5 +1,6 @@
-import { setOptions, importLibrary } from "@googlemaps/js-api-loader";
-import customStyles from './assets/map-styles.json';
+import { setOptions, importLibrary } from "@googlemaps/js-api-loader"
+import { getGoogleMapKey } from 'config'
+import customStyles from './assets/map-styles.json'
 
 interface GoogleClients {
   Geocoder?: google.maps.Geocoder,
@@ -22,7 +23,7 @@ export async function initMap() {
     return clients.MapLibrary
   } else {
     setOptions({
-      key: import.meta.env.VITE_GOOGLE_MAP_KEY,
+      key: getGoogleMapKey(),
       v: "weekly",
     })
     const googleMaps = (await importLibrary('maps')) as google.maps.MapsLibrary;

@@ -1,0 +1,13 @@
+{
+  "apiUrl": "",
+  "refreshInterval": 300000,
+  "apiSite": "",
+  "apiKey": "",
+  "useMockData": false,
+  "defaultLocale": "fr",
+  "googleMapKey": "",
+  "googleMapId": "",
+  "apiAuthUser": "",
+  "apiAuthPass": "",
+  "isDev": false
+}
