@@ -3,7 +3,7 @@ import { resolveResource } from '@tauri-apps/api/path'
 import { readTextFile } from '@tauri-apps/plugin-fs'
 
 const STORAGE_KEY = 'tcn_api_site'
-const CONFIG_FILENAME = 'site-config.md'
+const CONFIG_FILENAME = '../site-config.md'
 
 /**
  * Cache interne : stocke la valeur lue depuis le fichier site-config.md
