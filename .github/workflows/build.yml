@@ -2,7 +2,7 @@ name: Build Tauri app
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "master" ]
 
 jobs:
   build:
