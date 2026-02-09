@@ -16,10 +16,16 @@
     "enabled": "Activé",
     "disabled": "Désactivé (Live)",
     "backToHome": "Retour à l'accueil",
+    "backToCircuit": "Retour au circuit",
     "pageNotFound": "Page non trouvée",
     "createdAt": "Créée le",
     "updatedAt": "Mise à jour",
-    "availableTranslations": "Traductions disponibles"
+    "availableTranslations": "Traductions disponibles",
+    "go_further": "Aller plus loin",
+    "other_born": "Retrouvez nos autres bornes à Tadoussac et Natashquan",
+    "discover_more": "Découvrez aussi",
+    "link_discover": "Découvrir",
+    "discover_circuits": "Découvrez les circuits locaux"
   },
   "home": {
     "title": "Page d'accueil",
@@ -29,13 +35,96 @@
     "siteInfo": "Informations du site",
     "name": "Nom",
     "language": "Langue",
-    "lastUpdate": "Dernière mise à jour"
+    "lastUpdate": "Dernière mise à jour",
+    "touch_to_start": "Touchez pour commencer"
+  },
+  "menu": {
+    "sponsorised": "sponsorisé",
+    "follow": "Suivez-nous sur instagram {'@'}{account}",
+    "discover": "à découvrir aussi"
   },
   "navigation": {
     "home": "Accueil",
     "about": "À propos",
     "contact": "Contact",
     "services": "Services"
+  },
+  "events": {
+    "no_event": "Aucun événement à venir",
+    "today": "Aujourd'hui, {date}",
+    "see_all": "Tous les évènements",
+    "title": "activités & évènements",
+    "description": "Vous recherchez quelque chose à faire? <br>Ne cherchez plus, voici tous les évènements à venir dans le coin pour les 5 prochains jours !",
+    "create": "Créer un événement",
+    "edit": "Modifier un événement",
+    "delete": "Supprimer un événement",
+    "view": "Voir un événement",
+    "date_debut": "Début de l'évènement",
+    "date_fin": "Fin de l'évènement",
+    "adresse": "Adresse",
+    "price": "Prix",
+    "url": "URL de l'évènement",
+    "qrcode": "QRCode de l'évènement",
+    "access_site": "Scannez le code pour accéder au site internet de l'évènement",
+    "time_start": "À partir de {time}",
+    "time_start_end": "De {start} à {end}"
+  },
+  "circuits": {
+    "adress": "Adresse",
+    "event_today": "Aujourd'hui, {date}",
+    "name": "Circuit",
+    "name_plural": "Circuits",
+    "index": "Circuit {index}",
+    "step": "Arrêt #{number}",
+    "total_step": "{number} Arrêts",
+    "step_total": "Arrêt {number} / {total}",
+    "activity_time": "Durée de l'activité",
+    "best_season": "Meilleure saison",
+    "need": "Indispensable",
+    "description": "Description",
+    "type": "Type",
+    "scan": "Scanner le circuit",
+    "from_here": "Depuis cet emplacement",
+    "previous_step": "Arrêt précédent",
+    "itinerary_time": "Temps de route",
+    "next_step": "Arrêt suivant",
+    "qrcode": "Scannez le code pour télécharger ce parcours et le conserver",
+    "qrcode_panel": "Scannez le code dès maintenant pour télécharger le parcours et le conserver",
+    "more": "Plus d'infos",
+    "recommendations": "Est-ce que vous aimez nos recommandations ?",
+    "recommendations_text": "Plus d’informations à retrouver sur notre site toursimecote-nord.com",
+    "recommendations_feedback": "Merci pour votre avis !",
+  },
+  "did_you_know": {
+    "title": "Le saviez-vous ?",
+    "text": "Tadoussac est un des meilleurs sites au monde pour observer jusqu’à 13 espèces de cétacés."
+  },
+  "meteo": {
+    "vent": "Vent",
+    "next_high_tide": "prochaine marée haute",
+    "next_low_tide": "prochaine marée basse",
+    "maree": "indice de marée",
+    "temperature": "température",
+    "condition": "Conditions",
+    "condition_meteo": "Conditions météo",
+    "sun": "Ensoleillé",
+    "sun_cloud": "Ensoleillé avec nuages",
+    "sun_rain": "Ensoleillé avec pluie",
+    "cloud": "Nuageux",
+    "rain": "Pluvieux",
+    "thunder": "Orageux",
+    "thunder_rain": "Orage et pluie",
+    "ressenti": "ressenti",
+    "sensation": "Le vent augmente la sensation de froid",
+    "next_tide": "Prochaine marée",
+    "low_tide": "Marée basse",
+    "high_tide": "Marée haute"
+  },
+  "selection": {
+    "city_title": "Sélection de la ville",
+    "city_placeholder": "Entrez le code de la ville",
+    "city_validate": "Valider",
+    "city_error": "Code ville invalide ou API indisponible. Vérifiez le code et réessayez."
   },
   "errors": {
     "notFound": "Page non trouvée",
@@ -44,4 +133,3 @@
     "unauthorized": "Non autorisé"
   }
 }
-

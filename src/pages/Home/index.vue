@@ -1,802 +1,292 @@
 <template>
-  <div class="touch-test">
-    <!-- Zone centrale avec image du premier circuit -->
-    <div class="center-zone">
-      <!-- Loading state -->
-      <div v-if="isLoading" class="loading-state">
-        <div class="spinner"></div>
-        <p>Chargement...</p>
-      </div>
-
-      <!-- Error state -->
-      <div v-else-if="error" class="error-state">
-        <div class="error-icon">❌</div>
-        <p>{{ error }}</p>
-        <button @click="refreshData" class="retry-button">Réessayer</button>
-      </div>
-
-      <!-- Image du premier circuit -->
-      <div v-else-if="firstCircuitImage" class="circuit-preview">
-        <ui-picture 
-          :images="firstCircuitImage" 
-          :alt="firstCircuit?.title" 
-          cover="cover"
-          class="circuit-image" 
-        />
-        <div class="circuit-info">
-          <h2>{{ firstCircuit?.title }}</h2>
-          <p v-if="circuitsCount > 0">{{ circuitsCount }} circuit(s) disponible(s)</p>
+  <div class="home" v-if="isAppReady">
+    <div class="home__part">
+      <div class="bg bg_fr" :style="{backgroundImage: `url(${imgBackgroundFr})`}"></div>
+      <div class="home__part__wrapper" ref="wrapperFrRef" :style="wrapperFrMaskStyle">
+        <div class="line_1_fr line">
+          <div class="line_1_fr__title text_fr"> LAISSEZ</div>
+          <div class="mask mask1_fr"></div>
+        </div>
+        <div class="line_2_fr line">
+          <div class="line_2_fr__title text_fr"> VOUS</div>
+          <div class="mask mask2_fr"></div>
+        </div>
+        <div class="line_3_fr line">
+          <div class="mask mask3_fr"></div>
+        </div>
+        <div class="line_4_fr line">
+          <div class="mask mask4_fr"></div>
+          <div class="line_4_fr__title text_fr"> GUIDER</div>
+          <ui-button class="button_fr" theme="primary" :label="'touchez pour commencer'" @click="goSelect('fr')" :icon="IconArrow" :big="true" :iconPosition="'right'"/>
         </div>
       </div>
-
-      <!-- Fallback si pas d'image -->
-      <div v-else class="no-image">
-        <div class="placeholder-icon">🏔️</div>
-        <p>Aucune image disponible</p>
-      </div>
-
-      <!-- Zone de feedback tactile (superposée) -->
-      <transition name="pop" mode="out-in">
-        <div v-if="lastTouch" :key="touchCount" class="feedback-overlay">
-          <div class="feedback-icon">{{ lastTouch.icon }}</div>
-          <div class="feedback-label">{{ lastTouch.label }}</div>
-          <div class="feedback-count">Touch #{{ touchCount }}</div>
+    </div>
+    <div class="home__part bg_en" ref="partEnRef" :style="{ backgroundImage: `url(${imgBackgroundEn})` }">
+      <div class="home__part__overlay" ref="overlayEnRef" :style="overlayEnMaskStyle"></div>
+      <div class="home__part__content">
+        <div class="line line_1_en">
+          <div class="mask mask1_en"></div>
+          <div class="line_1_en__title text_en"> LET US</div>
         </div>
-      </transition>
-    </div>
-
-    <!-- Infos mode et cache -->
-    <div class="mode-info">
-      <span class="mode-badge">{{ appConfig.mode.toUpperCase() }}</span>
-      <span class="cache-badge" :class="{ enabled: appConfig.enableCache }">
-        Cache: {{ appConfig.enableCache ? 'ON' : 'OFF' }}
-      </span>
-    </div>
-
-    <!-- Historique des touches -->
-    <div class="touch-history">
-      <div 
-        v-for="(touch, index) in touchHistory" 
-        :key="index" 
-        class="history-item"
-        :style="{ backgroundColor: touch.color }"
-      >
-        {{ touch.icon }}
+        <div class="line line_2_en">
+          <div class="line_2_en__title text_en"> GUIDE</div>
+          <div class="mask mask2_en"></div>
+        </div>
+        <div class="line line_3_en">
+          <div class="mask mask3_en"></div>
+          <div class="line_3_en__title text_en"> YOU</div>
+          <ui-button class="button_en" theme="primary" :label="'touch to start'" @click="goSelect('en')" :icon="IconArrow" :big="true" :iconPosition="'right'"/>
+        </div>
       </div>
     </div>
-
-    <!-- Boutons d'actions -->
-    <div class="actions">
-      <button class="action-button reset" @click="resetTest">
-        🔄 Reset Touch
-      </button>
-      <button class="action-button refresh" @click="refreshData" :disabled="isLoading">
-        🔄 Refresh Data
-      </button>
-      <button 
-        v-if="appConfig.enableCache" 
-        class="action-button clear" 
-        @click="clearCache"
-        :disabled="isLoading"
-      >
-        🗑️ Clear Cache
-      </button>
-      <button class="action-button quit" @click="closeApp">
-        Close app
-      </button>
-    </div>
-
-    <!-- Les 4 boutons de coins -->
-    <button
-      class="corner-button top-left"
-      @click="handleTouch('top-left')"
-      @touchstart.prevent="handleTouch('top-left')"
-    >
-      <span class="corner-icon">↖️</span>
-      <span class="corner-label">1</span>
-    </button>
-
-    <button
-      class="corner-button top-right"
-      @click="handleTouch('top-right')"
-      @touchstart.prevent="handleTouch('top-right')"
-    >
-      <span class="corner-icon">↗️</span>
-      <span class="corner-label">2</span>
-    </button>
-
-    <button
-      class="corner-button bottom-left"
-      @click="handleTouch('bottom-left')"
-      @touchstart.prevent="handleTouch('bottom-left')"
-    >
-      <span class="corner-icon">↙️</span>
-      <span class="corner-label">3</span>
-    </button>
-
-    <button
-      class="corner-button bottom-right"
-      @click="handleTouch('bottom-right')"
-      @touchstart.prevent="handleTouch('bottom-right')"
-    >
-      <span class="corner-icon">↘️</span>
-      <span class="corner-label">4</span>
-    </button>
-
-    <!-- Modal de confirmation -->
-    <Teleport to="body">
-      <Transition name="modal">
-        <div v-if="showModal" class="modal-overlay" @click.self="closeModal">
-          <div class="modal-content">
-            <div class="modal-icon">{{ modalConfig.icon }}</div>
-            <h3 class="modal-title">{{ modalConfig.title }}</h3>
-            <p class="modal-message">{{ modalConfig.message }}</p>
-            <div class="modal-actions">
-              <button 
-                v-if="modalConfig.showCancel" 
-                class="modal-btn cancel" 
-                @click="closeModal"
-              >
-                Annuler
-              </button>
-              <button 
-                class="modal-btn confirm" 
-                :class="modalConfig.kind"
-                @click="confirmModal"
-              >
-                {{ modalConfig.confirmText }}
-              </button>
-            </div>
-          </div>
-        </div>
-      </Transition>
-    </Teleport>
+    
+    <!-- SVG masks inline dans le DOM -->
+    <svg class="wrapper-mask-svg" aria-hidden="true">
+      <defs>
+        <mask id="wrapper-mask-fr" maskUnits="objectBoundingBox" maskContentUnits="objectBoundingBox">
+          <rect x="0" y="0" width="1" height="1" fill="white"/>
+          <rect
+            v-for="(h, i) in holeRectsFr"
+            :key="i"
+            :x="h.x"
+            :y="h.y"
+            :width="h.w"
+            :height="h.h"
+            rx="0.02"
+            ry="0.02"
+            fill="black"
+          />
+        </mask>
+        <mask id="wrapper-mask-en" maskUnits="objectBoundingBox" maskContentUnits="objectBoundingBox">
+          <rect x="0" y="0" width="1" height="1" fill="white"/>
+          <rect
+            v-for="(h, i) in holeRectsEn"
+            :key="i"
+            :x="h.x"
+            :y="h.y"
+            :width="h.w"
+            :height="h.h"
+            rx="0.02"
+            ry="0.02"
+            fill="black"
+          />
+        </mask>
+      </defs>
+    </svg>
   </div>
 </template>
 
 <script setup lang="ts">
-import { getCurrentWindow } from '@tauri-apps/api/window';
-import { ref, reactive, computed, onMounted } from 'vue'
-import { storeToRefs } from 'pinia'
-import { useAppStore } from 'store/app'
-import { cacheService } from 'plugins/api/cache.service'
-import { assetsService } from 'plugins/api/assets.service'
-import { appConfig } from 'config'
+  import IconArrow from 'assets/svg/arrow.svg?raw'
+  import ImgBackgroundBackupFr from './assets/back_fr.png'
+  import ImgBackgroundBackupEn from './assets/back_en.png'
+  import { useI18nStore } from 'plugins/i18n/store'
+  import { useRouter } from 'vue-router'
+  import { store as appStore } from 'plugins/store/app'
+  import { ref, computed, onMounted, onUnmounted, nextTick, watchEffect } from 'vue'
 
-// ============================================
-// STORE & DATA
-// ============================================
+  const i18nStore = useI18nStore()
+  const router = useRouter()
+  const isAppReady = computed(() => appStore.isAppReady)
+  const wrapperFrRef = ref<HTMLElement | null>(null)
+  const overlayEnRef = ref<HTMLElement | null>(null)
+  const partEnRef = ref<HTMLElement | null>(null)
 
-const store = useAppStore()
-const { isLoading, error, circuits, circuitsCount } = storeToRefs(store)
+  type HoleRect = { x: number; y: number; w: number; h: number }
+  const holeRectsFr = ref<HoleRect[]>([])
+  const holeRectsEn = ref<HoleRect[]>([])
+  const holesReady = ref(false)
 
-// Récupère le premier circuit
-const firstCircuit = computed(() => {
-  return circuits.value[0] ?? null
-})
-
-// Récupère l'image du premier circuit
-const firstCircuitImage = computed(() => {
-  return firstCircuit.value?.image ?? null
-})
-
-// ============================================
-// MODAL PERSONNALISÉE
-// ============================================
-
-interface ModalConfig {
-  icon: string
-  title: string
-  message: string
-  kind: 'warning' | 'success' | 'error' | 'info'
-  showCancel: boolean
-  confirmText: string
-  onConfirm?: () => void
-}
-
-const showModal = ref(false)
-const modalConfig = reactive<ModalConfig>({
-  icon: '⚠️',
-  title: '',
-  message: '',
-  kind: 'warning',
-  showCancel: true,
-  confirmText: 'OK',
-  onConfirm: undefined
-})
-
-const openModal = (config: Partial<ModalConfig>) => {
-  Object.assign(modalConfig, {
-    icon: '⚠️',
-    title: 'Confirmation',
-    message: '',
-    kind: 'warning',
-    showCancel: true,
-    confirmText: 'OK',
-    onConfirm: undefined,
-    ...config
+  const maskStyle = (id: string) => ({
+    maskImage: `url(#${id})`,
+    WebkitMaskImage: `url(#${id})`,
   })
-  showModal.value = true
-}
 
-const closeModal = () => {
-  showModal.value = false
-}
 
-const confirmModal = () => {
-  if (modalConfig.onConfirm) {
-    modalConfig.onConfirm()
-  }
-  closeModal()
-}
-
-// ============================================
-// ACTIONS (délègue au store)
-// ============================================
-
-/** Rafraîchit les données via le store */
-const refreshData = () => {
-  store.initData()
-}
-
-/** Vide le cache et recharge les données */
-const clearCache = () => {
-  openModal({
-    icon: '🗑️',
-    title: 'Vider le cache',
-    message: 'Êtes-vous sûr de vouloir vider le cache ? Les données seront rechargées depuis le serveur.',
-    kind: 'warning',
-    showCancel: true,
-    confirmText: 'Vider',
-    onConfirm: async () => {
-      try {
-        await cacheService.clear()
-        await assetsService.clearAssets()
-        // Affiche un message de succès
-        openModal({
-          icon: '✅',
-          title: 'Succès',
-          message: 'Cache vidé avec succès !',
-          kind: 'success',
-          showCancel: false,
-          confirmText: 'OK',
-          onConfirm: () => store.initData()
-        })
-      } catch (err) {
-        console.error('Erreur lors du vidage du cache:', err)
-        openModal({
-          icon: '❌',
-          title: 'Erreur',
-          message: 'Erreur lors du vidage du cache',
-          kind: 'error',
-          showCancel: false,
-          confirmText: 'OK'
-        })
-      }
-    }
-  })
-}
-
-async function closeApp() {
-  await getCurrentWindow().close();
-}
-
-onMounted(() => {
-  document.addEventListener('keydown', async (e) => {
-    if (e.key === 'Escape') {
-      const window = getCurrentWindow();
-      const isFullscreen = await window.isFullscreen();
-      
-      if (isFullscreen) {
-        await window.setFullscreen(false);
-        await window.setDecorations(true);
-      }
-    }
-  })
-})
-// ============================================
-// TOUCH TEST
-// ============================================
-
-interface TouchInfo {
-  icon: string
-  label: string
-  color: string
-  position: string
-}
-
-const corners: Record<string, TouchInfo> = {
-  'top-left': {
-    icon: '↖️',
-    label: 'Coin Haut-Gauche',
-    color: '#667eea',
-    position: 'top-left'
-  },
-  'top-right': {
-    icon: '↗️',
-    label: 'Coin Haut-Droite',
-    color: '#f093fb',
-    position: 'top-right'
-  },
-  'bottom-left': {
-    icon: '↙️',
-    label: 'Coin Bas-Gauche',
-    color: '#4facfe',
-    position: 'bottom-left'
-  },
-  'bottom-right': {
-    icon: '↘️',
-    label: 'Coin Bas-Droite',
-    color: '#43e97b',
-    position: 'bottom-right'
-  }
-}
-
-const lastTouch = ref<TouchInfo | null>(null)
-const touchCount = ref(0)
-const touchHistory = reactive<TouchInfo[]>([])
-
-const handleTouch = (position: string) => {
-  const touch = corners[position]
-  lastTouch.value = touch
-  touchCount.value++
   
-  // Ajoute à l'historique (max 10 derniers)
-  touchHistory.unshift({ ...touch })
-  if (touchHistory.length > 10) {
-    touchHistory.pop()
-  }
-  
-  // Feedback haptique si disponible (mobile/tablette)
-  if (navigator.vibrate) {
-    navigator.vibrate(50)
-  }
+  const wrapperFrMaskStyle = computed(() =>
+    holesReady.value && holeRectsFr.value.length ? maskStyle('wrapper-mask-fr') : {},
+  )
+  const overlayEnMaskStyle = computed(() =>
+    holesReady.value && holeRectsEn.value.length ? maskStyle('wrapper-mask-en') : {},
+  )
 
-  // Efface le feedback après 2 secondes
-  setTimeout(() => {
-    if (lastTouch.value?.position === position) {
-      lastTouch.value = null
+  const imgBackgroundFr = computed(() => {
+    if (appStore.getAllData?.fr?.home?.main_image) {
+      return appStore.getAllData!.fr!.home!.main_image!.images!.original!.url
+    } else {
+      return ImgBackgroundBackupFr
     }
-  }, 2000)
-}
+  })
 
-const resetTest = () => {
-  lastTouch.value = null
-  touchCount.value = 0
-  touchHistory.splice(0, touchHistory.length)
-}
+  const imgBackgroundEn = computed(() => {
+    if (appStore.getAllData?.en?.home?.main_image) {
+      return appStore.getAllData?.en!.home!.main_image!.images!.original!.url
+    } else {
+      return ImgBackgroundBackupEn
+    }
+  })
+  // TODO VOIR SI ON PEUT PAS FAIRE MIEUX NIVEAU BACKGROUND
+  watchEffect(() => {
+    if (isAppReady.value && imgBackgroundFr.value) {
+      setTimeout(() => {
+       updateHoles()
+      }, 100)
+    }
+  })
+  function getHoleRects(container: HTMLElement): HoleRect[] {
+    const rect = container.getBoundingClientRect()
+    const masks = container.querySelectorAll<HTMLElement>('.mask')
+    return Array.from(masks).map((el) => {
+      const r = el.getBoundingClientRect()
+      return {
+        x: (r.left - rect.left) / rect.width,
+        y: (r.top - rect.top) / rect.height,
+        w: r.width / rect.width,
+        h: r.height / rect.height,
+      }
+    })
+  }
 
-// Note: Plus besoin de onMounted car TheApp.vue appelle store.initData() au démarrage
+  function updateHoles() {
+    console.log('updateHoles')
+    if (wrapperFrRef.value) holeRectsFr.value = getHoleRects(wrapperFrRef.value)
+    if (overlayEnRef.value && partEnRef.value) {
+      const partRect = partEnRef.value.getBoundingClientRect()
+      const masks = partEnRef.value.querySelectorAll<HTMLElement>('.mask')
+      holeRectsEn.value = Array.from(masks).map((el) => {
+        const r = el.getBoundingClientRect()
+        return {
+          x: (r.left - partRect.left) / partRect.width,
+          y: (r.top - partRect.top) / partRect.height,
+          w: r.width / partRect.width,
+          h: r.height / partRect.height,
+        }
+      })
+    }
+    holesReady.value = true
+  }
+
+  function goSelect(lang: string) {
+    console.log('goEnglish')
+    i18nStore.setLocale(lang as LocaleKey)
+    console.log('i18nStore', i18nStore.locale)
+    router.push('/selection')
+  }
+
 </script>
 
 <style lang="stylus" scoped>
-.touch-test
-  position: fixed
-  inset: 0
-  background-image: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)
-  display: flex
-  align-items: center
-  justify-content: center
-  overflow: hidden
-
-// ============================================
-// ZONE CENTRALE
-// ============================================
-
-.center-zone
-  position: relative
-  width: 500px
-  height: 400px
-  background: rgba(255, 255, 255, 0.05)
-  border: 2px solid rgba(255, 255, 255, 0.1)
-  border-radius: 24px
-  display: flex
-  align-items: center
-  justify-content: center
-  overflow: hidden
-  backdrop-filter: blur(10px)
-
-.circuit-preview
-  width: 100%
-  height: 100%
-  position: relative
-
-.circuit-image
-  width: 100%
-  height: 100%
-  border-radius: 22px
-
-.circuit-info
-  position: absolute
-  bottom: 0
-  left: 0
-  right: 0
-  padding: 1.5rem
-  background-image: linear-gradient(to top, rgba(0,0,0,0.8), transparent)
-  border-radius: 0 0 22px 22px
-
-  h2
-    color: white
-    font-size: 1.5rem
-    margin-bottom: 0.5rem
-    f-style('h1')
-
-  p
-    color: rgba(255,255,255,0.7)
-    font-size: 1rem
-
-.no-image
-  text-align: center
-  color: rgba(255,255,255,0.5)
-
-  .placeholder-icon
-    font-size: 4rem
-    margin-bottom: 1rem
-
-// ============================================
-// LOADING & ERROR STATES
-// ============================================
-
-.loading-state
-  text-align: center
-  color: white
-
-  .spinner
-    border: 4px solid rgba(255,255,255,0.1)
-    border-top: 4px solid #667eea
-    border-radius: 50%
-    width: 50px
-    height: 50px
-    animation: spin 1s linear infinite
-    margin: 0 auto 1rem
-
-  p
-    opacity: 0.7
-
-.error-state
-  text-align: center
-  color: white
-  padding: 2rem
-
-  .error-icon
-    font-size: 3rem
-    margin-bottom: 1rem
-
-  p
-    margin-bottom: 1rem
-    opacity: 0.8
-
-  .retry-button
-    padding: 0.75rem 1.5rem
-    background: #667eea
-    color: white
-    border: none
-    border-radius: 8px
-    cursor: pointer
-    font-size: 1rem
-
-@keyframes spin
-  0%
-    transform: rotate(0deg)
-  100%
-    transform: rotate(360deg)
-
-// ============================================
-// FEEDBACK OVERLAY
-// ============================================
-
-.feedback-overlay
-  position: absolute
-  inset: 0
-  background: rgba(0,0,0,0.85)
-  display: flex
-  flex-direction: column
-  align-items: center
-  justify-content: center
-  border-radius: 22px
-  color: white
-  z-index: 10
-
-  .feedback-icon
-    font-size: 4rem
-    margin-bottom: 1rem
-    animation: bounce 0.5s ease
-
-  .feedback-label
-    font-size: 1.5rem
-    font-weight: 600
-    margin-bottom: 0.5rem
-
-  .feedback-count
-    font-size: 1rem
-    opacity: 0.6
-
-// ============================================
-// MODE INFO
-// ============================================
-
-.mode-info
-  position: fixed
-  top: 20px
-  left: 50%
-  transform: translateX(-50%)
-  display: flex
-  gap: 1rem
-  z-index: 100
-
-.mode-badge
-.cache-badge
-  padding: 0.5rem 1rem
-  background: rgba(255,255,255,0.1)
-  border: 1px solid rgba(255,255,255,0.2)
-  border-radius: 20px
-  color: white
-  font-size: 0.85rem
-  font-weight: 600
-
-.cache-badge.enabled
-  background: rgba(67, 233, 123, 0.2)
-  border-color: rgba(67, 233, 123, 0.5)
-  color: #43e97b
-
-// ============================================
-// HISTORIQUE DES TOUCHES
-// ============================================
-
-.touch-history
-  position: fixed
-  bottom: 140px
-  left: 50%
-  transform: translateX(-50%)
-  display: flex
-  gap: 8px
-  z-index: 100
-
-.history-item
-  width: 40px
-  height: 40px
-  border-radius: 50%
-  display: flex
-  align-items: center
-  justify-content: center
-  font-size: 1.2rem
-  animation: fadeIn 0.3s ease
-
-// ============================================
-// BOUTONS D'ACTIONS
-// ============================================
-
-.actions
-  position: fixed
-  bottom: 50px
-  left: 50%
-  transform: translateX(-50%)
-  display: flex
-  gap: 1rem
-  z-index: 100
-
-.action-button
-  padding: 12px 24px
-  background: rgba(255, 255, 255, 0.1)
-  border: 1px solid rgba(255, 255, 255, 0.2)
-  border-radius: 30px
-  color: white
-  font-size: 0.95rem
-  cursor: pointer
-  transition: all 0.2s ease
-  white-space: nowrap
-
-  &:hover
-  &:active
-    background: rgba(255, 255, 255, 0.2)
-    transform: scale(1.05)
-
-  &:disabled
-    opacity: 0.5
-    cursor: not-allowed
-    transform: none
-
-  &.refresh
-    background: rgba(102, 126, 234, 0.3)
-    border-color: rgba(102, 126, 234, 0.5)
-
-  &.clear
-    background: rgba(255, 100, 100, 0.2)
-    border-color: rgba(255, 100, 100, 0.4)
-
-// ============================================
-// BOUTONS DE COINS
-// ============================================
-
-.corner-button
-  position: fixed
-  width: 120px
-  height: 120px
-  background: rgba(255, 255, 255, 0.1)
-  border: 2px solid rgba(255, 255, 255, 0.2)
-  border-radius: 16px
-  display: flex
-  flex-direction: column
-  align-items: center
-  justify-content: center
-  cursor: pointer
-  transition: all 0.2s ease
-  backdrop-filter: blur(5px)
-  z-index: 100
-
-  &:active
-    transform: scale(0.95)
-    background: rgba(255, 255, 255, 0.3)
-
-  .corner-icon
-    font-size: 2.5rem
-    margin-bottom: 0.5rem
-
-  .corner-label
-    font-size: 1.5rem
-    font-weight: 700
-    color: white
-
-// Positions des coins
-.top-left
-  top: 40px
-  left: 40px
-  background-image: linear-gradient(135deg, rgba(102, 126, 234, 0.3), rgba(102, 126, 234, 0.1))
-  border-color: rgba(102, 126, 234, 0.5)
-
-.top-right
-  top: 40px
-  right: 40px
-  background-image: linear-gradient(135deg, rgba(240, 147, 251, 0.3), rgba(240, 147, 251, 0.1))
-  border-color: rgba(240, 147, 251, 0.5)
-
-.bottom-left
-  bottom: 40px
-  left: 40px
-  background-image: linear-gradient(135deg, rgba(79, 172, 254, 0.3), rgba(79, 172, 254, 0.1))
-  border-color: rgba(79, 172, 254, 0.5)
-
-.bottom-right
-  bottom: 40px
-  right: 40px
-  background-image: linear-gradient(135deg, rgba(67, 233, 123, 0.3), rgba(67, 233, 123, 0.1))
-  border-color: rgba(67, 233, 123, 0.5)
-
-// ============================================
-// ANIMATIONS
-// ============================================
-
-@keyframes bounce
-  0%, 100%
-    transform: scale(1)
-  50%
-    transform: scale(1.2)
-
-@keyframes fadeIn
-  from
-    opacity: 0
-    transform: scale(0.5)
-  to
-    opacity: 1
-    transform: scale(1)
-
-// Transitions Vue
-.pop-enter-active
-  animation: pop 0.3s ease
-
-.pop-leave-active
-  animation: pop 0.2s ease reverse
-
-@keyframes pop
-  0%
-    opacity: 0
-    transform: scale(0.8)
-  100%
-    opacity: 1
-    transform: scale(1)
-
-// ============================================
-// MODAL PERSONNALISÉE
-// ============================================
-
-.modal-overlay
-  position: fixed
-  inset: 0
-  background: rgba(0, 0, 0, 0.8)
-  display: flex
-  align-items: center
-  justify-content: center
-  z-index: 9999
-  backdrop-filter: blur(4px)
-
-.modal-content
-  background-image: linear-gradient(135deg, #1e2a3a 0%, #2d3a4a 100%)
-  border: 1px solid rgba(255, 255, 255, 0.1)
-  border-radius: 20px
-  padding: 2rem
-  min-width: 320px
-  max-width: 90vw
-  text-align: center
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5)
-
-.modal-icon
-  font-size: 3.5rem
-  margin-bottom: 1rem
-
-.modal-title
-  color: white
-  font-size: 1.5rem
-  font-weight: 600
-  margin-bottom: 0.75rem
-
-.modal-message
-  color: rgba(255, 255, 255, 0.7)
-  font-size: 1rem
-  line-height: 1.5
-  margin-bottom: 1.5rem
-
-.modal-actions
-  display: flex
-  gap: 1rem
-  justify-content: center
-
-.modal-btn
-  padding: 12px 28px
-  border-radius: 30px
-  font-size: 1rem
-  font-weight: 600
-  cursor: pointer
-  transition: all 0.2s ease
-  border: none
-
-  &:active
-    transform: scale(0.95)
-
-  &.cancel
-    background: rgba(255, 255, 255, 0.1)
-    color: white
-    border: 1px solid rgba(255, 255, 255, 0.2)
-
-    &:hover
-      background: rgba(255, 255, 255, 0.2)
-
-  &.confirm
-    color: white
-
-    &.warning
-      background-image: linear-gradient(135deg, #f093fb, #f5576c)
-
-    &.success
-      background-image: linear-gradient(135deg, #43e97b, #38f9d7)
-      color: #1a1a2e
-
-    &.error
-      background-image: linear-gradient(135deg, #ff6b6b, #ee5a5a)
-
-    &.info
-      background-image: linear-gradient(135deg, #667eea, #764ba2)
-
-    &:hover
-      filter: brightness(1.1)
-
-// Transitions Vue pour la modal
-.modal-enter-active
-  transition: all 0.3s ease
-
-.modal-leave-active
-  transition: all 0.2s ease
-
-.modal-enter-from
-.modal-leave-to
-  opacity: 0
-
-  .modal-content
-    transform: scale(0.9) translateY(-20px)
-
-.modal-enter-to
-.modal-leave-from
-  opacity: 1
-
-  .modal-content
-    transform: scale(1) translateY(0)
+.home
+  background $fjord
+  f(column, $justify: flex-start, $align: flex-start)
+  r(gap, 183px 45px)
+  width 100vw
+  height 100vh
+  r(padding-top, 600px 222px)
+  r(padding-left, 271px 220px)
+  r(padding-right, 271px 220px)
+  r(padding-bottom, 656px 222px)
+  background-size cover
+  position relative
+  
+  :deep(.UiButton)
+    r(width, 401px 180px)
+    r(height, 312px 111px)
+    margin-top auto
+    margin-bottom auto
+    text-align left
+    
+  .button_fr
+    background $fleuve
+    
+  .button_en
+    background $bouleau
+    
+  .home__part
+    width 100%
+    height 100%
+    position relative
+    
+  .home__part__wrapper
+    background-color $fjord
+    position relative
+    z-index 1
+    width 100%
+    height 100%
+    transform scale(1.003)
+    f(column, $align: flex-start, $justify: flex-start)
+    r(gap, 30px 30px)
+    
+    
+  .home__part__overlay
+    position absolute
+    top 0
+    left 0
+    width 100%
+    height 100%
+    z-index 1
+    transform scale(1.004)
+    background-color $fjord
+    pointer-events none
+    
+  .home__part__content
+    position relative
+    z-index 2
+    width 100%
+    height 100%
+    f(column, $align: flex-start, $justify: flex-start)
+    r(gap, 30px 30px)
+    
+  .bg
+    position absolute
+    top 0
+    left 0
+    width 100%
+    height 100%
+  .bg, .bg_en
+    z-index 0
+    background-size cover
+    background-position center
+    background-repeat no-repeat
+    background-position center
+    
+  .wrapper-mask-svg
+    position absolute
+    width 0
+    height 0
+    overflow hidden
+    pointer-events none
+    
+  .text_fr
+    f-style('h0')
+    color $ecume
+    
+  .text_en
+    f-style('h0')
+    color $lueur
+    
+  .line
+    width 100%
+    flex 1
+    f(row, $justify: flex-start, $align: center)
+    r(gap, 30px 14px)
+    r(margin-top, -40px)
+    r(margin-bottom, -40px)
+    
+  .line:first-child
+    margin-top 0
+    
+  .line:last-child
+    margin-bottom 0
+    
+  .line_3_fr
+    r(min-height, 433px 154px)
+    
+  .mask
+    flex 1
+    min-width 0
+    r(height, 312px 111px)
+    border-radius 20px
+    visibility hidden
 </style>

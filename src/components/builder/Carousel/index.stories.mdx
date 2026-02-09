@@ -1,0 +1,46 @@
+import { Meta, Story, Canvas, ArgsTable, Description, Source } from '@storybook/addon-docs';
+import { WithApp, scrollable } from 'decorators'
+
+import BuilderGallery from './index.vue'
+import Builder from '../index.vue'
+import Types from './api.d.ts?raw'
+import MocGallery from './moc/gallery.json'
+import MocOne from './moc/one.json'
+import MocTwo from './moc/two.json'
+
+<Meta title='Components / Builder / Gallery' component={BuilderGallery, Builder} decorators={[WithApp, scrollable]}/>
+
+<Canvas>
+  <Story default name='Gallery'
+         args={{ ...MocGallery.data }}>
+    {(args)=>({
+      components: { BuilderGallery },
+      setup() { return {args} },
+      template: `<BuilderGallery v-bind="args"/>`
+    })}
+  </Story>
+</Canvas>
+
+## Props
+
+<ArgsTable story="Gallery" />
+
+<div className="col">
+  <Source code={Types} language="ts" />
+  <Source code={JSON.stringify(MocGallery, null, 4)} language="ts" />
+</div>
+
+> please check base types for `Image` and `Video`
+
+export const render = (moc) => ({
+  components: { Builder },
+  setup(){ return {moc} },
+  template: `<builder :components="[moc]" />`
+});
+
+<Canvas>
+  <Story name='- single'>{render(MocOne)}</Story>
+  <Story name='- two'>{render(MocTwo)}</Story>
+  <Story name='- many'>{render(MocGallery)}</Story>
+</Canvas>
+

@@ -1,31 +1,571 @@
 {
   "meta": {
-    "timestamp": 1767888071000,
-    "execution_time": "Time: 00:00.344, Memory: 12.00 MB",
+    "timestamp": 1769627757000,
+    "execution_time": "Time: 00:00.953, Memory: 60.50 MB",
     "site": {
-      "id": 7,
-      "name": "Borne tadoussac FR",
-      "handle": "borne_tadoussac_fr",
-      "language": "fr-CA",
+      "id": 8,
+      "name": "Borne tadoussac EN",
+      "handle": "borne_tadoussac_en",
+      "language": "en-CA",
       "primary": false
     }
   },
   "data": {
-    "lang": "fr",
+    "lang": "en",
     "ville": "tadoussac",
-    "siteId": 7,
+    "siteId": 8,
     "data": {
-      "siteId": 7,
-      "siteHandle": "borne_tadoussac_fr",
-      "siteName": "Borne tadoussac FR",
+      "siteId": 8,
+      "siteHandle": "borne_tadoussac_en",
+      "siteName": "Borne tadoussac EN",
       "home": {
         "id": 12647,
         "slug": "accueil-borne",
-        "lastUpdate": 1767730074000,
+        "lastUpdate": 1769626828000,
         "title": "Accueil borne",
-        "inspirational_text": ""
+        "main_image": {
+          "meta": {
+            "title": "Yourtes de la ferme maricole Purmer c"
+          },
+          "images": {
+            "optimized": {
+              "standard": {
+                "576": "https://tcn.dev.kffein.work/upload/images/_576x432_crop_center-center_100_line/Yourtes-de-la-ferme-maricole-Purmer_c.jpg",
+                "768": "https://tcn.dev.kffein.work/upload/images/_768x576_crop_center-center_100_line/Yourtes-de-la-ferme-maricole-Purmer_c.jpg",
+                "992": "https://tcn.dev.kffein.work/upload/images/_992x558_crop_center-center_100_line/Yourtes-de-la-ferme-maricole-Purmer_c.jpg",
+                "1200": "https://tcn.dev.kffein.work/upload/images/_1200x675_crop_center-center_100_line/Yourtes-de-la-ferme-maricole-Purmer_c.jpg"
+              },
+              "webp": {
+                "576": "https://tcn.dev.kffein.work/upload/images/_576x432_crop_center-center_100_line/Yourtes-de-la-ferme-maricole-Purmer_c.jpg.webp",
+                "768": "https://tcn.dev.kffein.work/upload/images/_768x576_crop_center-center_100_line/Yourtes-de-la-ferme-maricole-Purmer_c.jpg.webp",
+                "992": "https://tcn.dev.kffein.work/upload/images/_992x558_crop_center-center_100_line/Yourtes-de-la-ferme-maricole-Purmer_c.jpg.webp",
+                "1200": "https://tcn.dev.kffein.work/upload/images/_1200x675_crop_center-center_100_line/Yourtes-de-la-ferme-maricole-Purmer_c.jpg.webp"
+              }
+            },
+            "original": {
+              "url": "https://tcn.dev.kffein.work/upload/images/Yourtes-de-la-ferme-maricole-Purmer_c.jpg",
+              "sizes": {
+                "width": 4337,
+                "height": 2889
+              }
+            },
+            "focalPoint": {
+              "x": 0.5,
+              "y": 0.5
+            }
+          }
+        },
+        "instagram_account": null,
+        "weather": {
+          "current_temperature": -14.8,
+          "apparent_temperature": -23,
+          "wmo_code": 0
+        },
+        "I18n": "",
+        "featured_partners": [
+          {
+            "title": "Du Fleuve - Excursions en kayak de mer",
+            "city": "Les Escoumins",
+            "image": null
+          },
+          {
+            "title": "Café l'Abri Côtier",
+            "city": "Tadoussac",
+            "image": {
+              "meta": {
+                "title": "2373_1_20241007151811-0e2a0377-copie"
+              },
+              "images": {
+                "optimized": {
+                  "standard": {
+                    "576": "https://tcn.dev.kffein.work/upload/membres/images/_576x432_crop_center-center_100_line/2373_1_20241007151811-0e2a0377-copie.jpg"
+                  },
+                  "webp": {
+                    "576": "https://tcn.dev.kffein.work/upload/membres/images/_576x432_crop_center-center_100_line/2373_1_20241007151811-0e2a0377-copie.jpg.webp"
+                  }
+                },
+                "original": {
+                  "url": "https://tcn.dev.kffein.work/upload/membres/images/2373_1_20241007151811-0e2a0377-copie.jpg",
+                  "sizes": {
+                    "width": 910,
+                    "height": 533
+                  }
+                },
+                "focalPoint": {
+                  "x": 0.5,
+                  "y": 0.5
+                }
+              }
+            }
+          },
+          {
+            "title": "Hôtel Comfort Inn Baie-Comeau",
+            "city": "Baie-Comeau",
+            "image": {
+              "meta": {
+                "title": "150_1_softsystem_images-priviliegies-comfortinn-jpg"
+              },
+              "images": {
+                "optimized": {
+                  "standard": [],
+                  "webp": []
+                },
+                "original": {
+                  "url": "https://tcn.dev.kffein.work/upload/membres/images/150_1_softsystem_images-priviliegies-comfortinn-jpg.jpg",
+                  "sizes": {
+                    "width": 910,
+                    "height": 533
+                  }
+                },
+                "focalPoint": []
+              }
+            }
+          },
+          {
+            "title": "Comité ZIP de la rive nord de l'estuaire",
+            "city": "Baie-Comeau",
+            "image": {
+              "meta": {
+                "title": "151_1_20190111111614-img-0060"
+              },
+              "images": {
+                "optimized": {
+                  "standard": [],
+                  "webp": []
+                },
+                "original": {
+                  "url": "https://tcn.dev.kffein.work/upload/membres/images/151_1_20190111111614-img-0060.jpg",
+                  "sizes": {
+                    "width": 910,
+                    "height": 533
+                  }
+                },
+                "focalPoint": []
+              }
+            }
+          },
+          {
+            "title": "Complexe hôtelier Escoumins",
+            "city": "Les Escoumins",
+            "image": {
+              "meta": {
+                "title": "152_1_20191031090904-085"
+              },
+              "images": {
+                "optimized": {
+                  "standard": [],
+                  "webp": []
+                },
+                "original": {
+                  "url": "https://tcn.dev.kffein.work/upload/membres/images/152_1_20191031090904-085.jpg",
+                  "sizes": {
+                    "width": 910,
+                    "height": 533
+                  }
+                },
+                "focalPoint": []
+              }
+            }
+          },
+          {
+            "title": "Essipit",
+            "city": "Essipit",
+            "image": {
+              "meta": {
+                "title": "153_1_20210517131734-terrain-sur-plateforme-dans-la-pointe"
+              },
+              "images": {
+                "optimized": {
+                  "standard": [],
+                  "webp": []
+                },
+                "original": {
+                  "url": "https://tcn.dev.kffein.work/upload/membres/images/153_1_20210517131734-terrain-sur-plateforme-dans-la-pointe.jpg",
+                  "sizes": {
+                    "width": 910,
+                    "height": 533
+                  }
+                },
+                "focalPoint": []
+              }
+            }
+          },
+          {
+            "title": "Camping Manic 2",
+            "city": "Baie-Comeau",
+            "image": {
+              "meta": {
+                "title": "135_1_20230425140616-image00044"
+              },
+              "images": {
+                "optimized": {
+                  "standard": [],
+                  "webp": []
+                },
+                "original": {
+                  "url": "https://tcn.dev.kffein.work/upload/membres/images/135_1_20230425140616-image00044.jpeg",
+                  "sizes": {
+                    "width": 910,
+                    "height": 533
+                  }
+                },
+                "focalPoint": []
+              }
+            }
+          },
+          {
+            "title": "Hôtel Le Manoir Baie-Comeau",
+            "city": "Baie-Comeau",
+            "image": {
+              "meta": {
+                "title": "137_1_20211214094245-sebastien-st-jean-7"
+              },
+              "images": {
+                "optimized": {
+                  "standard": [],
+                  "webp": []
+                },
+                "original": {
+                  "url": "https://tcn.dev.kffein.work/upload/membres/images/137_1_20211214094245-sebastien-st-jean-7.jpg",
+                  "sizes": {
+                    "width": 910,
+                    "height": 533
+                  }
+                },
+                "focalPoint": []
+              }
+            }
+          },
+          {
+            "title": "Bistro La Marée Haute",
+            "city": "Baie-Comeau",
+            "image": {
+              "meta": {
+                "title": "138_1_20211214095125-sebastien-st-jean-3"
+              },
+              "images": {
+                "optimized": {
+                  "standard": [],
+                  "webp": []
+                },
+                "original": {
+                  "url": "https://tcn.dev.kffein.work/upload/membres/images/138_1_20211214095125-sebastien-st-jean-3.jpg",
+                  "sizes": {
+                    "width": 910,
+                    "height": 533
+                  }
+                },
+                "focalPoint": []
+              }
+            }
+          },
+          {
+            "title": "Centre Archéo Topo",
+            "city": "Les Bergeronnes",
+            "image": {
+              "meta": {
+                "title": "139_1_20240605094746-20240605-093706"
+              },
+              "images": {
+                "optimized": {
+                  "standard": [],
+                  "webp": []
+                },
+                "original": {
+                  "url": "https://tcn.dev.kffein.work/upload/membres/images/139_1_20240605094746-20240605-093706.jpg",
+                  "sizes": {
+                    "width": 910,
+                    "height": 533
+                  }
+                },
+                "focalPoint": []
+              }
+            }
+          }
+        ],
+        "inspirational_text": "",
+        "tides": {
+          "current_direction": "DOWN",
+          "next_event_type": "LOW TIDE",
+          "next_event_timestamp": 1769637631,
+          "next_event_height": "-1.36",
+          "previous_event_type": "HIGH TIDE",
+          "previous_event_timestamp": 1769612478,
+          "previous_event_height": "1.64"
+        }
       },
-      "events": [],
+      "events": [
+        {
+          "id": 14744,
+          "url": "https://tcn.dev.kffein.work/evenement-borne/cinoche-festival-3",
+          "title": "Cinoche festival EN",
+          "slug": "cinoche-festival-3",
+          "entry_type": "template_bornes_event",
+          "dates": {
+            "created": 1769029238000,
+            "updated": 1769614857000,
+            "posted": 1769025720000
+          },
+          "address": "Baie-Comeau",
+          "date_start": "15/01/2026",
+          "time_start": "10:00",
+          "datetime_start_timestamp": 1768489200,
+          "date_end": "31/01/2026",
+          "time_end": null,
+          "datetime_end_timestamp": 1769835600,
+          "price_range": "Étudiants 12 ans et moins : 7$, Aînés (60 ans et plus) : 9$, Étudiants 25 ans et moins : 9$, Adultes : 10,50$. Passeports disponibles",
+          "description": "\u003Cp\u003ECinoche présentera sa 37\u003Csup\u003Ee\u003C/sup\u003E édition du 15 au 25 janvier prochains au Ciné-Centre Baie-Comeau. Le festival proposera 37 films en provenance de 19 pays, dont 24 en compétition officielle. À travers une programmation riche et diversifiée, où la quête d’identité se décline sous de multiples formes, le public pourra également rencontrer quatre invités principaux, assister à plusieurs causeries et conférences, participer aux matinées familiales et prendre part à d’autres activités parallèles.\u003C/p\u003E",
+          "main_image": {
+            "meta": {
+              "title": "615348317 1493738756093240 8623747099286935186 n"
+            },
+            "images": {
+              "optimized": {
+                "standard": {
+                  "851": "https://tcn.dev.kffein.work/upload/images/_851x315_crop_center-center_line/615348317_1493738756093240_8623747099286935186_n.png"
+                },
+                "webp": {
+                  "851": "https://tcn.dev.kffein.work/upload/images/_851x315_crop_center-center_line/615348317_1493738756093240_8623747099286935186_n.png.webp"
+                }
+              },
+              "original": {
+                "url": "https://tcn.dev.kffein.work/upload/images/615348317_1493738756093240_8623747099286935186_n.png",
+                "sizes": {
+                  "width": 851,
+                  "height": 315
+                }
+              },
+              "focalPoint": {
+                "x": 0.5,
+                "y": 0.5
+              }
+            }
+          },
+          "images": [
+            {
+              "meta": {
+                "title": "Capture decran le 2026 01 21 a 15 01 05"
+              },
+              "images": {
+                "optimized": {
+                  "standard": {
+                    "416": "https://tcn.dev.kffein.work/upload/images/_416x306_crop_center-center_line/Capture-decran-le-2026-01-21-a-15.01.05.png"
+                  },
+                  "webp": {
+                    "416": "https://tcn.dev.kffein.work/upload/images/_416x306_crop_center-center_line/Capture-decran-le-2026-01-21-a-15.01.05.png.webp"
+                  }
+                },
+                "original": {
+                  "url": "https://tcn.dev.kffein.work/upload/images/Capture-decran-le-2026-01-21-a-15.01.05.png",
+                  "sizes": {
+                    "width": 416,
+                    "height": 306
+                  }
+                },
+                "focalPoint": {
+                  "x": 0.5,
+                  "y": 0.5
+                }
+              }
+            },
+            {
+              "meta": {
+                "title": "Capture decran le 2026 01 21 a 15 00 28"
+              },
+              "images": {
+                "optimized": {
+                  "standard": {
+                    "576": "https://tcn.dev.kffein.work/upload/images/_576x432_crop_center-center_100_line/Capture-decran-le-2026-01-21-a-15.00.28.png",
+                    "768": "https://tcn.dev.kffein.work/upload/images/_768x576_crop_center-center_100_line/Capture-decran-le-2026-01-21-a-15.00.28.png",
+                    "992": "https://tcn.dev.kffein.work/upload/images/_992x558_crop_center-center_100_line/Capture-decran-le-2026-01-21-a-15.00.28.png",
+                    "1200": "https://tcn.dev.kffein.work/upload/images/_1200x675_crop_center-center_100_line/Capture-decran-le-2026-01-21-a-15.00.28.png"
+                  },
+                  "webp": {
+                    "576": "https://tcn.dev.kffein.work/upload/images/_576x432_crop_center-center_100_line/Capture-decran-le-2026-01-21-a-15.00.28.png.webp",
+                    "768": "https://tcn.dev.kffein.work/upload/images/_768x576_crop_center-center_100_line/Capture-decran-le-2026-01-21-a-15.00.28.png.webp",
+                    "992": "https://tcn.dev.kffein.work/upload/images/_992x558_crop_center-center_100_line/Capture-decran-le-2026-01-21-a-15.00.28.png.webp",
+                    "1200": "https://tcn.dev.kffein.work/upload/images/_1200x675_crop_center-center_100_line/Capture-decran-le-2026-01-21-a-15.00.28.png.webp"
+                  }
+                },
+                "original": {
+                  "url": "https://tcn.dev.kffein.work/upload/images/Capture-decran-le-2026-01-21-a-15.00.28.png",
+                  "sizes": {
+                    "width": 2682,
+                    "height": 1634
+                  }
+                },
+                "focalPoint": {
+                  "x": 0.5,
+                  "y": 0.5
+                }
+              }
+            },
+            {
+              "meta": {
+                "title": "La venue de lavenir bandeau"
+              },
+              "images": {
+                "optimized": {
+                  "standard": {
+                    "576": "https://tcn.dev.kffein.work/upload/images/_576x432_crop_center-center_100_line/la_venue_de_lavenir_bandeau.jpg"
+                  },
+                  "webp": {
+                    "576": "https://tcn.dev.kffein.work/upload/images/_576x432_crop_center-center_100_line/la_venue_de_lavenir_bandeau.jpg.webp"
+                  }
+                },
+                "original": {
+                  "url": "https://tcn.dev.kffein.work/upload/images/la_venue_de_lavenir_bandeau.jpg",
+                  "sizes": {
+                    "width": 1800,
+                    "height": 500
+                  }
+                },
+                "focalPoint": {
+                  "x": 0.5,
+                  "y": 0.5
+                }
+              }
+            }
+          ],
+          "event_url": "https://www.festivalcinoche.ca/",
+          "event_qr": null
+        },
+        {
+          "id": 14722,
+          "url": "https://tcn.dev.kffein.work/evenement-borne/cinoche-festival",
+          "title": "Cinoche festival",
+          "slug": "cinoche-festival",
+          "entry_type": "template_bornes_event",
+          "dates": {
+            "created": 1769025128000,
+            "updated": 1769453619000,
+            "posted": 1769025720000
+          },
+          "address": "Baie-Comeau",
+          "date_start": "15/01/2026",
+          "time_start": "10:00",
+          "datetime_start_timestamp": 1768489200,
+          "date_end": "31/01/2026",
+          "time_end": "22:00",
+          "datetime_end_timestamp": 1769914800,
+          "price_range": "Étudiants 12 ans et moins : 7$, Aînés (60 ans et plus) : 9$, Étudiants 25 ans et moins : 9$, Adultes : 10,50$. Passeports disponibles",
+          "description": "\u003Cp\u003ECinoche présentera sa 37\u003Csup\u003Ee\u003C/sup\u003E édition du 15 au 25 janvier prochains au Ciné-Centre Baie-Comeau. Le festival proposera 37 films en provenance de 19 pays, dont 24 en compétition officielle. À travers une programmation riche et diversifiée, où la quête d’identité se décline sous de multiples formes, le public pourra également rencontrer quatre invités principaux, assister à plusieurs causeries et conférences, participer aux matinées familiales et prendre part à d’autres activités parallèles.\u003C/p\u003E",
+          "main_image": {
+            "meta": {
+              "title": "615348317 1493738756093240 8623747099286935186 n"
+            },
+            "images": {
+              "optimized": {
+                "standard": {
+                  "851": "https://tcn.dev.kffein.work/upload/images/_851x315_crop_center-center_line/615348317_1493738756093240_8623747099286935186_n.png"
+                },
+                "webp": {
+                  "851": "https://tcn.dev.kffein.work/upload/images/_851x315_crop_center-center_line/615348317_1493738756093240_8623747099286935186_n.png.webp"
+                }
+              },
+              "original": {
+                "url": "https://tcn.dev.kffein.work/upload/images/615348317_1493738756093240_8623747099286935186_n.png",
+                "sizes": {
+                  "width": 851,
+                  "height": 315
+                }
+              },
+              "focalPoint": {
+                "x": 0.5,
+                "y": 0.5
+              }
+            }
+          },
+          "images": [
+            {
+              "meta": {
+                "title": "Capture decran le 2026 01 21 a 15 01 05"
+              },
+              "images": {
+                "optimized": {
+                  "standard": {
+                    "416": "https://tcn.dev.kffein.work/upload/images/_416x306_crop_center-center_line/Capture-decran-le-2026-01-21-a-15.01.05.png"
+                  },
+                  "webp": {
+                    "416": "https://tcn.dev.kffein.work/upload/images/_416x306_crop_center-center_line/Capture-decran-le-2026-01-21-a-15.01.05.png.webp"
+                  }
+                },
+                "original": {
+                  "url": "https://tcn.dev.kffein.work/upload/images/Capture-decran-le-2026-01-21-a-15.01.05.png",
+                  "sizes": {
+                    "width": 416,
+                    "height": 306
+                  }
+                },
+                "focalPoint": {
+                  "x": 0.5,
+                  "y": 0.5
+                }
+              }
+            },
+            {
+              "meta": {
+                "title": "Capture decran le 2026 01 21 a 15 00 28"
+              },
+              "images": {
+                "optimized": {
+                  "standard": {
+                    "576": "https://tcn.dev.kffein.work/upload/images/_576x432_crop_center-center_100_line/Capture-decran-le-2026-01-21-a-15.00.28.png",
+                    "768": "https://tcn.dev.kffein.work/upload/images/_768x576_crop_center-center_100_line/Capture-decran-le-2026-01-21-a-15.00.28.png",
+                    "992": "https://tcn.dev.kffein.work/upload/images/_992x558_crop_center-center_100_line/Capture-decran-le-2026-01-21-a-15.00.28.png",
+                    "1200": "https://tcn.dev.kffein.work/upload/images/_1200x675_crop_center-center_100_line/Capture-decran-le-2026-01-21-a-15.00.28.png"
+                  },
+                  "webp": {
+                    "576": "https://tcn.dev.kffein.work/upload/images/_576x432_crop_center-center_100_line/Capture-decran-le-2026-01-21-a-15.00.28.png.webp",
+                    "768": "https://tcn.dev.kffein.work/upload/images/_768x576_crop_center-center_100_line/Capture-decran-le-2026-01-21-a-15.00.28.png.webp",
+                    "992": "https://tcn.dev.kffein.work/upload/images/_992x558_crop_center-center_100_line/Capture-decran-le-2026-01-21-a-15.00.28.png.webp",
+                    "1200": "https://tcn.dev.kffein.work/upload/images/_1200x675_crop_center-center_100_line/Capture-decran-le-2026-01-21-a-15.00.28.png.webp"
+                  }
+                },
+                "original": {
+                  "url": "https://tcn.dev.kffein.work/upload/images/Capture-decran-le-2026-01-21-a-15.00.28.png",
+                  "sizes": {
+                    "width": 2682,
+                    "height": 1634
+                  }
+                },
+                "focalPoint": {
+                  "x": 0.5,
+                  "y": 0.5
+                }
+              }
+            },
+            {
+              "meta": {
+                "title": "La venue de lavenir bandeau"
+              },
+              "images": {
+                "optimized": {
+                  "standard": {
+                    "576": "https://tcn.dev.kffein.work/upload/images/_576x432_crop_center-center_100_line/la_venue_de_lavenir_bandeau.jpg"
+                  },
+                  "webp": {
+                    "576": "https://tcn.dev.kffein.work/upload/images/_576x432_crop_center-center_100_line/la_venue_de_lavenir_bandeau.jpg.webp"
+                  }
+                },
+                "original": {
+                  "url": "https://tcn.dev.kffein.work/upload/images/la_venue_de_lavenir_bandeau.jpg",
+                  "sizes": {
+                    "width": 1800,
+                    "height": 500
+                  }
+                },
+                "focalPoint": {
+                  "x": 0.5,
+                  "y": 0.5
+                }
+              }
+            }
+          ],
+          "event_url": "https://www.festivalcinoche.ca/",
+          "event_qr": null
+        }
+      ],
       "circuits": [
         {
           "id": 12712,
@@ -35,7 +575,7 @@
           "entry_type": "template_circuit_bornes",
           "dates": {
             "created": 1765874508000,
-            "updated": 1765958961000,
+            "updated": 1769611384000,
             "posted": 1765876620000
           },
           "image": {
@@ -66,17 +606,26 @@
               }
             }
           },
-          "description": null,
+          "description": "Découvrez Tadoussac à travers les yeux des enfants ! Entre visites ludiques, sentiers accessibles et aventures dans les dunes, vivez un séjour rempli de découvertes et de nature.",
+          "commuting": [
+            {
+              "transportation": "DRIVE",
+              "time": 40
+            },
+            {
+              "transportation": "WALK",
+              "time": 10
+            }
+          ],
           "steps": [
             {
               "title": "Balade dans le village pour découvrir l'architecture traditionnelle",
-              "description": null,
-              "main_text": "\u003Ch3\u003EÀ quoi vous attendre ?\u003C/h3\u003E\u003Cp\u003EOn y trouve la plus belle vue sur le fjard (oui oui fjard et non fjord) et l’anse St-Pancrace, mais aussi sur le fleuve Saint-Laurent qui s’étend à perte de vue devant nos yeux éblouis. \u003Cbr /\u003E\u003Cbr /\u003EEn marchant encore quelques pas une fois au sommet, on peut également apercevoir le lac Low de l’autre côté de la route 138 et faire un pique-nique assis sur une roche plate qui surplombe la falaise.  Si on a le vertige, on recule un peu et on se colle aux épinettes!\u003C/p\u003E\u003Cp\u003E \u003C/p\u003E\u003Ch3\u003EPourquoi on recommande ?\u003C/h3\u003E\u003Cul\u003E\u003Cli\u003EManteau imperméables\u003C/li\u003E\u003Cli\u003EPaire de jumelles\u003C/li\u003E\u003Cli\u003ESac imperméable\u003C/li\u003E\u003C/ul\u003E",
-              "essentials": null,
-              "estimated_time": "2 jours",
-              "activity_type": [
-                "randonnée"
-              ],
+              "icon": "\u003Csvg xmlns=\"http://www.w3.org/2000/svg\" width=\"100%\" height=\"100%\" viewBox=\"0 0 11 10\" fill=\"none\"\u003E\n  \u003Cmask id=\"path-1-inside-1_5181_64745\" fill=\"white\"\u003E\n    \u003Cpath d=\"M9.41797 8.40918H10.0908V9.08105H10.7627V9.41797H0V9.08105H0.651367V8.40918H1.34473V7.73633H9.41797V8.40918ZM9.41797 3.7002V7.39941H8.07227V4.37207C8.07205 4.00059 7.77095 3.7002 7.39941 3.7002C7.02795 3.70028 6.72678 4.00064 6.72656 4.37207V7.39941H6.05371V4.37207C6.05349 4.00072 5.75319 3.70041 5.38184 3.7002C5.0103 3.7002 4.7092 4.00059 4.70898 4.37207V7.39941H4.03613V4.37207C4.03591 4.00059 3.73482 3.7002 3.36328 3.7002C2.99174 3.7002 2.69065 4.00059 2.69043 4.37207V7.39941H1.34473V3.7002L1.00879 3.02734H9.75391L9.41797 3.7002ZM10.0908 2.01855V2.69043H0.671875V2.01855L5.38184 0L10.0908 2.01855Z\"\u003E\u003C/path\u003E\n  \u003C/mask\u003E\n  \u003Cpath d=\"M9.41797 8.40918H10.0908V9.08105H10.7627V9.41797H0V9.08105H0.651367V8.40918H1.34473V7.73633H9.41797V8.40918ZM9.41797 3.7002V7.39941H8.07227V4.37207C8.07205 4.00059 7.77095 3.7002 7.39941 3.7002C7.02795 3.70028 6.72678 4.00064 6.72656 4.37207V7.39941H6.05371V4.37207C6.05349 4.00072 5.75319 3.70041 5.38184 3.7002C5.0103 3.7002 4.7092 4.00059 4.70898 4.37207V7.39941H4.03613V4.37207C4.03591 4.00059 3.73482 3.7002 3.36328 3.7002C2.99174 3.7002 2.69065 4.00059 2.69043 4.37207V7.39941H1.34473V3.7002L1.00879 3.02734H9.75391L9.41797 3.7002ZM10.0908 2.01855V2.69043H0.671875V2.01855L5.38184 0L10.0908 2.01855Z\" fill=\"currentColor\"\u003E\u003C/path\u003E\n  \u003Cpath d=\"M9.41797 8.40918H9.19979V8.62736H9.41797V8.40918ZM10.0908 8.40918H10.309V8.191H10.0908V8.40918ZM10.0908 9.08105H9.87264V9.29924H10.0908V9.08105ZM10.7627 9.08105H10.9809V8.86287H10.7627V9.08105ZM10.7627 9.41797V9.63615H10.9809V9.41797H10.7627ZM0 9.41797H-0.218182V9.63615H0V9.41797ZM0 9.08105V8.86287H-0.218182V9.08105H0ZM0.651367 9.08105V9.29924H0.869549V9.08105H0.651367ZM0.651367 8.40918V8.191H0.433185V8.40918H0.651367ZM1.34473 8.40918V8.62736H1.56291V8.40918H1.34473ZM1.34473 7.73633V7.51815H1.12654V7.73633H1.34473ZM9.41797 7.73633H9.63615V7.51815H9.41797V7.73633ZM9.41797 3.7002L9.22276 3.60273L9.19979 3.64876V3.7002H9.41797ZM9.41797 7.39941V7.6176H9.63615V7.39941H9.41797ZM8.07227 7.39941H7.85408V7.6176H8.07227V7.39941ZM8.07227 4.37207H8.29045V4.37194L8.07227 4.37207ZM7.39941 3.7002V3.48201H7.39936L7.39941 3.7002ZM6.72656 4.37207L6.50838 4.37194V4.37207H6.72656ZM6.72656 7.39941V7.6176H6.94474V7.39941H6.72656ZM6.05371 7.39941H5.83553V7.6176H6.05371V7.39941ZM6.05371 4.37207H6.27189V4.37194L6.05371 4.37207ZM5.38184 3.7002L5.38196 3.48201H5.38184V3.7002ZM4.70898 4.37207L4.4908 4.37194V4.37207H4.70898ZM4.70898 7.39941V7.6176H4.92717V7.39941H4.70898ZM4.03613 7.39941H3.81795V7.6176H4.03613V7.39941ZM4.03613 4.37207H4.25431V4.37194L4.03613 4.37207ZM3.36328 3.7002V3.48201H3.36328L3.36328 3.7002ZM2.69043 4.37207L2.47225 4.37194V4.37207H2.69043ZM2.69043 7.39941V7.6176H2.90861V7.39941H2.69043ZM1.34473 7.39941H1.12654V7.6176H1.34473V7.39941ZM1.34473 3.7002H1.56291V3.64876L1.53993 3.60273L1.34473 3.7002ZM1.00879 3.02734V2.80916H0.655993L0.813585 3.1248L1.00879 3.02734ZM9.75391 3.02734L9.94911 3.1248L10.1067 2.80916H9.75391V3.02734ZM10.0908 2.01855H10.309V1.8747L10.1768 1.81802L10.0908 2.01855ZM10.0908 2.69043V2.90861H10.309V2.69043H10.0908ZM0.671875 2.69043H0.453693V2.90861H0.671875V2.69043ZM0.671875 2.01855L0.585929 1.81801L0.453693 1.87469V2.01855H0.671875ZM5.38184 0L5.4678 -0.200534L5.38184 -0.237379L5.29589 -0.200541L5.38184 0ZM9.41797 8.40918V8.62736H10.0908V8.40918V8.191H9.41797V8.40918ZM10.0908 8.40918H9.87264V9.08105H10.0908H10.309V8.40918H10.0908ZM10.0908 9.08105V9.29924H10.7627V9.08105V8.86287H10.0908V9.08105ZM10.7627 9.08105H10.5445V9.41797H10.7627H10.9809V9.08105H10.7627ZM10.7627 9.41797V9.19979H0V9.41797V9.63615H10.7627V9.41797ZM0 9.41797H0.218182V9.08105H0H-0.218182V9.41797H0ZM0 9.08105V9.29924H0.651367V9.08105V8.86287H0V9.08105ZM0.651367 9.08105H0.869549V8.40918H0.651367H0.433185V9.08105H0.651367ZM0.651367 8.40918V8.62736H1.34473V8.40918V8.191H0.651367V8.40918ZM1.34473 8.40918H1.56291V7.73633H1.34473H1.12654V8.40918H1.34473ZM1.34473 7.73633V7.95451H9.41797V7.73633V7.51815H1.34473V7.73633ZM9.41797 7.73633H9.19979V8.40918H9.41797H9.63615V7.73633H9.41797ZM9.41797 3.7002H9.19979V7.39941H9.41797H9.63615V3.7002H9.41797ZM9.41797 7.39941V7.18123H8.07227V7.39941V7.6176H9.41797V7.39941ZM8.07227 7.39941H8.29045V4.37207H8.07227H7.85408V7.39941H8.07227ZM8.07227 4.37207L8.29045 4.37194C8.29016 3.87978 7.89117 3.48201 7.39941 3.48201V3.7002V3.91838C7.65074 3.91838 7.85394 4.1214 7.85408 4.3722L8.07227 4.37207ZM7.39941 3.7002L7.39936 3.48201C6.90778 3.48213 6.50867 3.87978 6.50838 4.37194L6.72656 4.37207L6.94474 4.3722C6.94489 4.12151 7.14813 3.91844 7.39947 3.91838L7.39941 3.7002ZM6.72656 4.37207H6.50838V7.39941H6.72656H6.94474V4.37207H6.72656ZM6.72656 7.39941V7.18123H6.05371V7.39941V7.6176H6.72656V7.39941ZM6.05371 7.39941H6.27189V4.37207H6.05371H5.83553V7.39941H6.05371ZM6.05371 4.37207L6.27189 4.37194C6.2716 3.8802 5.87371 3.4823 5.38196 3.48201L5.38184 3.7002L5.38171 3.91838C5.63266 3.91852 5.83538 4.12125 5.83553 4.3722L6.05371 4.37207ZM5.38184 3.7002V3.48201C4.89008 3.48201 4.49109 3.87978 4.4908 4.37194L4.70898 4.37207L4.92717 4.3722C4.92731 4.1214 5.13051 3.91838 5.38184 3.91838V3.7002ZM4.70898 4.37207H4.4908V7.39941H4.70898H4.92717V4.37207H4.70898ZM4.70898 7.39941V7.18123H4.03613V7.39941V7.6176H4.70898V7.39941ZM4.03613 7.39941H4.25431V4.37207H4.03613H3.81795V7.39941H4.03613ZM4.03613 4.37207L4.25431 4.37194C4.25402 3.87978 3.85503 3.48201 3.36328 3.48201V3.7002V3.91838C3.6146 3.91838 3.8178 4.1214 3.81795 4.3722L4.03613 4.37207ZM3.36328 3.7002L3.36328 3.48201C2.87153 3.48201 2.47254 3.87978 2.47225 4.37194L2.69043 4.37207L2.90861 4.3722C2.90876 4.1214 3.11196 3.91838 3.36328 3.91838L3.36328 3.7002ZM2.69043 4.37207H2.47225V7.39941H2.69043H2.90861V4.37207H2.69043ZM2.69043 7.39941V7.18123H1.34473V7.39941V7.6176H2.69043V7.39941ZM1.34473 7.39941H1.56291V3.7002H1.34473H1.12654V7.39941H1.34473ZM1.34473 3.7002L1.53993 3.60273L1.20399 2.92988L1.00879 3.02734L0.813585 3.1248L1.14952 3.79766L1.34473 3.7002ZM1.00879 3.02734V3.24553H9.75391V3.02734V2.80916H1.00879V3.02734ZM9.75391 3.02734L9.5587 2.92988L9.22276 3.60273L9.41797 3.7002L9.61317 3.79766L9.94911 3.1248L9.75391 3.02734ZM10.0908 2.01855H9.87264V2.69043H10.0908H10.309V2.01855H10.0908ZM10.0908 2.69043V2.47225H0.671875V2.69043V2.90861H10.0908V2.69043ZM0.671875 2.69043H0.890057V2.01855H0.671875H0.453693V2.69043H0.671875ZM0.671875 2.01855L0.757821 2.2191L5.46778 0.200541L5.38184 0L5.29589 -0.200541L0.585929 1.81801L0.671875 2.01855ZM5.38184 0L5.29588 0.200534L10.0049 2.21909L10.0908 2.01855L10.1768 1.81802L5.4678 -0.200534L5.38184 0Z\" fill=\"currentColor\" mask=\"url(#path-1-inside-1_5181_64745)\"\u003E\u003C/path\u003E\n\u003C/svg\u003E",
+              "description": "descrition",
+              "main_text": "\u003Cp\u003Etest\u003C/p\u003E",
+              "essentials": "un paquet de mouchoirs",
+              "estimated_time": "50 minutes",
+              "activity_type": "Promenade",
               "seasons": [
                 "hiver",
                 "printemps"
@@ -85,28 +634,145 @@
                 "latitude": 48.1433429,
                 "longitude": -69.7174574
               },
-              "images": [],
+              "images": [
+                {
+                  "meta": {
+                    "title": "Tadoussac HC3 A9bergement Le Roupillon"
+                  },
+                  "images": {
+                    "optimized": {
+                      "standard": {
+                        "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/TadoussacHC3A9bergementLeRoupillon.jpg",
+                        "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/TadoussacHC3A9bergementLeRoupillon.jpg",
+                        "992": "https://tcn.dev.kffein.work/upload/images/bornes/_992x558_crop_center-center_100_line/TadoussacHC3A9bergementLeRoupillon.jpg",
+                        "1200": "https://tcn.dev.kffein.work/upload/images/bornes/_1200x675_crop_center-center_100_line/TadoussacHC3A9bergementLeRoupillon.jpg"
+                      },
+                      "webp": {
+                        "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/TadoussacHC3A9bergementLeRoupillon.jpg.webp",
+                        "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/TadoussacHC3A9bergementLeRoupillon.jpg.webp",
+                        "992": "https://tcn.dev.kffein.work/upload/images/bornes/_992x558_crop_center-center_100_line/TadoussacHC3A9bergementLeRoupillon.jpg.webp",
+                        "1200": "https://tcn.dev.kffein.work/upload/images/bornes/_1200x675_crop_center-center_100_line/TadoussacHC3A9bergementLeRoupillon.jpg.webp"
+                      }
+                    },
+                    "original": {
+                      "url": "https://tcn.dev.kffein.work/upload/images/bornes/TadoussacHC3A9bergementLeRoupillon.jpg",
+                      "sizes": {
+                        "width": 1200,
+                        "height": 800
+                      }
+                    },
+                    "focalPoint": {
+                      "x": 0.5,
+                      "y": 0.5
+                    }
+                  }
+                },
+                {
+                  "meta": {
+                    "title": "5 Photo Croisi C3 A8rebateautadoussac1200x800"
+                  },
+                  "images": {
+                    "optimized": {
+                      "standard": {
+                        "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/5_PhotoCroisiC3A8rebateautadoussac1200x800.jpg",
+                        "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/5_PhotoCroisiC3A8rebateautadoussac1200x800.jpg",
+                        "992": "https://tcn.dev.kffein.work/upload/images/bornes/_992x558_crop_center-center_100_line/5_PhotoCroisiC3A8rebateautadoussac1200x800.jpg"
+                      },
+                      "webp": {
+                        "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/5_PhotoCroisiC3A8rebateautadoussac1200x800.jpg.webp",
+                        "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/5_PhotoCroisiC3A8rebateautadoussac1200x800.jpg.webp",
+                        "992": "https://tcn.dev.kffein.work/upload/images/bornes/_992x558_crop_center-center_100_line/5_PhotoCroisiC3A8rebateautadoussac1200x800.jpg.webp"
+                      }
+                    },
+                    "original": {
+                      "url": "https://tcn.dev.kffein.work/upload/images/bornes/5_PhotoCroisiC3A8rebateautadoussac1200x800.jpg",
+                      "sizes": {
+                        "width": 1000,
+                        "height": 667
+                      }
+                    },
+                    "focalPoint": {
+                      "x": 0.5,
+                      "y": 0.5
+                    }
+                  }
+                }
+              ],
               "next_step": {
-                "transportation": [
-                  "à cheval"
-                ],
-                "time": 56
+                "polyline": "iazdHftohLn@oHB_AjCRdCRf@Ef@SZBq@kA",
+                "time_to_next_step": 1
               }
             },
             {
               "title": "Balade dans le village pour découvrir l'architecture traditionnelle",
-              "description": null,
-              "main_text": "\u003Ch3\u003EÀ quoi vous attendre ?\u003C/h3\u003E\u003Cp\u003EOn y trouve la plus belle vue sur le fjard (oui oui fjard et non fjord) et l’anse St-Pancrace, mais aussi sur le fleuve Saint-Laurent qui s’étend à perte de vue devant nos yeux éblouis. \u003Cbr /\u003E\u003Cbr /\u003EEn marchant encore quelques pas une fois au sommet, on peut également apercevoir le lac Low de l’autre côté de la route 138 et faire un pique-nique assis sur une roche plate qui surplombe la falaise.  Si on a le vertige, on recule un peu et on se colle aux épinettes!\u003C/p\u003E\u003Cp\u003E \u003C/p\u003E\u003Ch3\u003EPourquoi on recommande ?\u003C/h3\u003E\u003Cul\u003E\u003Cli\u003EManteau imperméables\u003C/li\u003E\u003Cli\u003EPaire de jumelles\u003C/li\u003E\u003Cli\u003ESac imperméable\u003C/li\u003E\u003C/ul\u003E",
-              "essentials": null,
-              "estimated_time": "2 jours",
-              "activity_type": [],
+              "icon": "\u003Csvg xmlns=\"http://www.w3.org/2000/svg\" width=\"100%\" height=\"100%\" viewBox=\"0 0 11 10\" fill=\"none\"\u003E\n  \u003Cmask id=\"path-1-inside-1_5181_64745\" fill=\"white\"\u003E\n    \u003Cpath d=\"M9.41797 8.40918H10.0908V9.08105H10.7627V9.41797H0V9.08105H0.651367V8.40918H1.34473V7.73633H9.41797V8.40918ZM9.41797 3.7002V7.39941H8.07227V4.37207C8.07205 4.00059 7.77095 3.7002 7.39941 3.7002C7.02795 3.70028 6.72678 4.00064 6.72656 4.37207V7.39941H6.05371V4.37207C6.05349 4.00072 5.75319 3.70041 5.38184 3.7002C5.0103 3.7002 4.7092 4.00059 4.70898 4.37207V7.39941H4.03613V4.37207C4.03591 4.00059 3.73482 3.7002 3.36328 3.7002C2.99174 3.7002 2.69065 4.00059 2.69043 4.37207V7.39941H1.34473V3.7002L1.00879 3.02734H9.75391L9.41797 3.7002ZM10.0908 2.01855V2.69043H0.671875V2.01855L5.38184 0L10.0908 2.01855Z\"\u003E\u003C/path\u003E\n  \u003C/mask\u003E\n  \u003Cpath d=\"M9.41797 8.40918H10.0908V9.08105H10.7627V9.41797H0V9.08105H0.651367V8.40918H1.34473V7.73633H9.41797V8.40918ZM9.41797 3.7002V7.39941H8.07227V4.37207C8.07205 4.00059 7.77095 3.7002 7.39941 3.7002C7.02795 3.70028 6.72678 4.00064 6.72656 4.37207V7.39941H6.05371V4.37207C6.05349 4.00072 5.75319 3.70041 5.38184 3.7002C5.0103 3.7002 4.7092 4.00059 4.70898 4.37207V7.39941H4.03613V4.37207C4.03591 4.00059 3.73482 3.7002 3.36328 3.7002C2.99174 3.7002 2.69065 4.00059 2.69043 4.37207V7.39941H1.34473V3.7002L1.00879 3.02734H9.75391L9.41797 3.7002ZM10.0908 2.01855V2.69043H0.671875V2.01855L5.38184 0L10.0908 2.01855Z\" fill=\"currentColor\"\u003E\u003C/path\u003E\n  \u003Cpath d=\"M9.41797 8.40918H9.19979V8.62736H9.41797V8.40918ZM10.0908 8.40918H10.309V8.191H10.0908V8.40918ZM10.0908 9.08105H9.87264V9.29924H10.0908V9.08105ZM10.7627 9.08105H10.9809V8.86287H10.7627V9.08105ZM10.7627 9.41797V9.63615H10.9809V9.41797H10.7627ZM0 9.41797H-0.218182V9.63615H0V9.41797ZM0 9.08105V8.86287H-0.218182V9.08105H0ZM0.651367 9.08105V9.29924H0.869549V9.08105H0.651367ZM0.651367 8.40918V8.191H0.433185V8.40918H0.651367ZM1.34473 8.40918V8.62736H1.56291V8.40918H1.34473ZM1.34473 7.73633V7.51815H1.12654V7.73633H1.34473ZM9.41797 7.73633H9.63615V7.51815H9.41797V7.73633ZM9.41797 3.7002L9.22276 3.60273L9.19979 3.64876V3.7002H9.41797ZM9.41797 7.39941V7.6176H9.63615V7.39941H9.41797ZM8.07227 7.39941H7.85408V7.6176H8.07227V7.39941ZM8.07227 4.37207H8.29045V4.37194L8.07227 4.37207ZM7.39941 3.7002V3.48201H7.39936L7.39941 3.7002ZM6.72656 4.37207L6.50838 4.37194V4.37207H6.72656ZM6.72656 7.39941V7.6176H6.94474V7.39941H6.72656ZM6.05371 7.39941H5.83553V7.6176H6.05371V7.39941ZM6.05371 4.37207H6.27189V4.37194L6.05371 4.37207ZM5.38184 3.7002L5.38196 3.48201H5.38184V3.7002ZM4.70898 4.37207L4.4908 4.37194V4.37207H4.70898ZM4.70898 7.39941V7.6176H4.92717V7.39941H4.70898ZM4.03613 7.39941H3.81795V7.6176H4.03613V7.39941ZM4.03613 4.37207H4.25431V4.37194L4.03613 4.37207ZM3.36328 3.7002V3.48201H3.36328L3.36328 3.7002ZM2.69043 4.37207L2.47225 4.37194V4.37207H2.69043ZM2.69043 7.39941V7.6176H2.90861V7.39941H2.69043ZM1.34473 7.39941H1.12654V7.6176H1.34473V7.39941ZM1.34473 3.7002H1.56291V3.64876L1.53993 3.60273L1.34473 3.7002ZM1.00879 3.02734V2.80916H0.655993L0.813585 3.1248L1.00879 3.02734ZM9.75391 3.02734L9.94911 3.1248L10.1067 2.80916H9.75391V3.02734ZM10.0908 2.01855H10.309V1.8747L10.1768 1.81802L10.0908 2.01855ZM10.0908 2.69043V2.90861H10.309V2.69043H10.0908ZM0.671875 2.69043H0.453693V2.90861H0.671875V2.69043ZM0.671875 2.01855L0.585929 1.81801L0.453693 1.87469V2.01855H0.671875ZM5.38184 0L5.4678 -0.200534L5.38184 -0.237379L5.29589 -0.200541L5.38184 0ZM9.41797 8.40918V8.62736H10.0908V8.40918V8.191H9.41797V8.40918ZM10.0908 8.40918H9.87264V9.08105H10.0908H10.309V8.40918H10.0908ZM10.0908 9.08105V9.29924H10.7627V9.08105V8.86287H10.0908V9.08105ZM10.7627 9.08105H10.5445V9.41797H10.7627H10.9809V9.08105H10.7627ZM10.7627 9.41797V9.19979H0V9.41797V9.63615H10.7627V9.41797ZM0 9.41797H0.218182V9.08105H0H-0.218182V9.41797H0ZM0 9.08105V9.29924H0.651367V9.08105V8.86287H0V9.08105ZM0.651367 9.08105H0.869549V8.40918H0.651367H0.433185V9.08105H0.651367ZM0.651367 8.40918V8.62736H1.34473V8.40918V8.191H0.651367V8.40918ZM1.34473 8.40918H1.56291V7.73633H1.34473H1.12654V8.40918H1.34473ZM1.34473 7.73633V7.95451H9.41797V7.73633V7.51815H1.34473V7.73633ZM9.41797 7.73633H9.19979V8.40918H9.41797H9.63615V7.73633H9.41797ZM9.41797 3.7002H9.19979V7.39941H9.41797H9.63615V3.7002H9.41797ZM9.41797 7.39941V7.18123H8.07227V7.39941V7.6176H9.41797V7.39941ZM8.07227 7.39941H8.29045V4.37207H8.07227H7.85408V7.39941H8.07227ZM8.07227 4.37207L8.29045 4.37194C8.29016 3.87978 7.89117 3.48201 7.39941 3.48201V3.7002V3.91838C7.65074 3.91838 7.85394 4.1214 7.85408 4.3722L8.07227 4.37207ZM7.39941 3.7002L7.39936 3.48201C6.90778 3.48213 6.50867 3.87978 6.50838 4.37194L6.72656 4.37207L6.94474 4.3722C6.94489 4.12151 7.14813 3.91844 7.39947 3.91838L7.39941 3.7002ZM6.72656 4.37207H6.50838V7.39941H6.72656H6.94474V4.37207H6.72656ZM6.72656 7.39941V7.18123H6.05371V7.39941V7.6176H6.72656V7.39941ZM6.05371 7.39941H6.27189V4.37207H6.05371H5.83553V7.39941H6.05371ZM6.05371 4.37207L6.27189 4.37194C6.2716 3.8802 5.87371 3.4823 5.38196 3.48201L5.38184 3.7002L5.38171 3.91838C5.63266 3.91852 5.83538 4.12125 5.83553 4.3722L6.05371 4.37207ZM5.38184 3.7002V3.48201C4.89008 3.48201 4.49109 3.87978 4.4908 4.37194L4.70898 4.37207L4.92717 4.3722C4.92731 4.1214 5.13051 3.91838 5.38184 3.91838V3.7002ZM4.70898 4.37207H4.4908V7.39941H4.70898H4.92717V4.37207H4.70898ZM4.70898 7.39941V7.18123H4.03613V7.39941V7.6176H4.70898V7.39941ZM4.03613 7.39941H4.25431V4.37207H4.03613H3.81795V7.39941H4.03613ZM4.03613 4.37207L4.25431 4.37194C4.25402 3.87978 3.85503 3.48201 3.36328 3.48201V3.7002V3.91838C3.6146 3.91838 3.8178 4.1214 3.81795 4.3722L4.03613 4.37207ZM3.36328 3.7002L3.36328 3.48201C2.87153 3.48201 2.47254 3.87978 2.47225 4.37194L2.69043 4.37207L2.90861 4.3722C2.90876 4.1214 3.11196 3.91838 3.36328 3.91838L3.36328 3.7002ZM2.69043 4.37207H2.47225V7.39941H2.69043H2.90861V4.37207H2.69043ZM2.69043 7.39941V7.18123H1.34473V7.39941V7.6176H2.69043V7.39941ZM1.34473 7.39941H1.56291V3.7002H1.34473H1.12654V7.39941H1.34473ZM1.34473 3.7002L1.53993 3.60273L1.20399 2.92988L1.00879 3.02734L0.813585 3.1248L1.14952 3.79766L1.34473 3.7002ZM1.00879 3.02734V3.24553H9.75391V3.02734V2.80916H1.00879V3.02734ZM9.75391 3.02734L9.5587 2.92988L9.22276 3.60273L9.41797 3.7002L9.61317 3.79766L9.94911 3.1248L9.75391 3.02734ZM10.0908 2.01855H9.87264V2.69043H10.0908H10.309V2.01855H10.0908ZM10.0908 2.69043V2.47225H0.671875V2.69043V2.90861H10.0908V2.69043ZM0.671875 2.69043H0.890057V2.01855H0.671875H0.453693V2.69043H0.671875ZM0.671875 2.01855L0.757821 2.2191L5.46778 0.200541L5.38184 0L5.29589 -0.200541L0.585929 1.81801L0.671875 2.01855ZM5.38184 0L5.29588 0.200534L10.0049 2.21909L10.0908 2.01855L10.1768 1.81802L5.4678 -0.200534L5.38184 0Z\" fill=\"currentColor\" mask=\"url(#path-1-inside-1_5181_64745)\"\u003E\u003C/path\u003E\n\u003C/svg\u003E",
+              "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\"",
+              "main_text": "\u003Ch4\u003EDescription\u003C/h4\u003E\u003Cp\u003ELorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\"\u003C/p\u003E",
+              "essentials": "appareil photo",
+              "estimated_time": "1h",
+              "activity_type": "Visite",
               "seasons": [
                 "hiver",
                 "printemps"
               ],
               "map": {
-                "latitude": null,
-                "longitude": null
+                "latitude": 48.1418919,
+                "longitude": -69.7153156
+              },
+              "images": [
+                {
+                  "meta": {
+                    "title": "Capture decran le 2026 01 20 a 13 20 20"
+                  },
+                  "images": {
+                    "optimized": {
+                      "standard": {
+                        "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/Capture-decran-le-2026-01-20-a-13.20.20.png",
+                        "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/Capture-decran-le-2026-01-20-a-13.20.20.png",
+                        "992": "https://tcn.dev.kffein.work/upload/images/bornes/_992x558_crop_center-center_100_line/Capture-decran-le-2026-01-20-a-13.20.20.png",
+                        "1200": "https://tcn.dev.kffein.work/upload/images/bornes/_1200x675_crop_center-center_100_line/Capture-decran-le-2026-01-20-a-13.20.20.png"
+                      },
+                      "webp": {
+                        "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/Capture-decran-le-2026-01-20-a-13.20.20.png.webp",
+                        "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/Capture-decran-le-2026-01-20-a-13.20.20.png.webp",
+                        "992": "https://tcn.dev.kffein.work/upload/images/bornes/_992x558_crop_center-center_100_line/Capture-decran-le-2026-01-20-a-13.20.20.png.webp",
+                        "1200": "https://tcn.dev.kffein.work/upload/images/bornes/_1200x675_crop_center-center_100_line/Capture-decran-le-2026-01-20-a-13.20.20.png.webp"
+                      }
+                    },
+                    "original": {
+                      "url": "https://tcn.dev.kffein.work/upload/images/bornes/Capture-decran-le-2026-01-20-a-13.20.20.png",
+                      "sizes": {
+                        "width": 1952,
+                        "height": 1440
+                      }
+                    },
+                    "focalPoint": {
+                      "x": 0.5,
+                      "y": 0.5
+                    }
+                  }
+                }
+              ],
+              "next_step": {
+                "polyline": "iuydH|fohLp@jAZJJLlAtB",
+                "time_to_next_step": 0
+              }
+            },
+            {
+              "title": "Balade dans le village pour découvrir l'architecture traditionnelle",
+              "icon": "\u003Csvg xmlns=\"http://www.w3.org/2000/svg\" width=\"100%\" height=\"100%\" viewBox=\"0 0 12 12\" fill=\"none\"\u003E\n  \u003Cpath d=\"M4.86452 10.6379L5.24589 10.3112C5.4394 10.1438 5.68672 10.0516 5.94261 10.0516C6.19849 10.0515 6.44584 10.1436 6.6394 10.311L7.02077 10.6379C7.36887 10.9363 7.82125 11.0842 8.27838 11.049C8.73551 11.0139 9.15995 10.7986 9.45834 10.4505C9.75672 10.1024 9.90459 9.65 9.86944 9.19286C9.83428 8.73573 9.61897 8.31129 9.27087 8.01291L8.04532 6.96244C7.92795 6.86201 7.83373 6.73735 7.76915 6.59702C7.70457 6.45669 7.67117 6.30404 7.67123 6.14957V5.54299C7.67123 5.08454 7.48911 4.64486 7.16494 4.32069C6.84076 3.99651 6.40109 3.81439 5.94264 3.81439C5.48418 3.81439 5.04451 3.99651 4.72033 4.32069C4.39616 4.64486 4.21404 5.08454 4.21404 5.54299V6.14954C4.21411 6.30399 4.1807 6.45661 4.11612 6.5969C4.05154 6.73719 3.95732 6.86182 3.83995 6.96221L2.6144 8.01291C2.44204 8.16065 2.30046 8.3409 2.19776 8.54336C2.09506 8.74582 2.03324 8.96652 2.01583 9.19287C1.99842 9.41922 2.02577 9.64679 2.09631 9.86257C2.16685 10.0783 2.2792 10.2781 2.42694 10.4505C2.57469 10.6228 2.75494 10.7644 2.95739 10.8671C3.15985 10.9698 3.38056 11.0316 3.60691 11.0491C3.83326 11.0665 4.06082 11.0391 4.2766 10.9686C4.49238 10.898 4.69216 10.7857 4.86452 10.6379Z\" fill=\"currentColor\"\u003E\u003C/path\u003E\n  \u003Cpath d=\"M3.54113 3.33419C3.73956 3.44579 3.96268 3.50617 4.19032 3.50988C4.35841 3.5112 4.52425 3.47118 4.67324 3.39333C4.84417 3.29355 4.98754 3.15277 5.09041 2.98369C5.19328 2.81461 5.2524 2.62257 5.26244 2.42491C5.29574 1.99083 5.20178 1.55646 4.99206 1.17494C4.79516 0.786565 4.4893 0.46402 4.11191 0.2468C3.94298 0.143641 3.75099 0.0842123 3.55332 0.0738872C3.35565 0.0635622 3.15852 0.102666 2.97976 0.187664C2.32631 0.532839 2.18619 1.50747 2.66097 2.40604C2.85787 2.79442 3.16374 3.11697 3.54113 3.33419Z\" fill=\"currentColor\"\u003E\u003C/path\u003E\n  \u003Cpath d=\"M1.25181 3.49231C1.07835 3.45239 0.897686 3.45633 0.726133 3.50376C0.55458 3.5512 0.397552 3.64063 0.269241 3.76399C0.15112 3.89729 0.0681327 4.05797 0.0278015 4.23145C-0.0125297 4.40493 -0.00893002 4.58574 0.0382743 4.75748C0.130626 5.13033 0.32973 5.46815 0.611191 5.72955C0.938769 6.06509 1.38157 6.26367 1.85001 6.28511C1.98683 6.28914 2.12302 6.26506 2.25016 6.21435C2.3773 6.16364 2.49269 6.08738 2.58918 5.9903C2.7073 5.85699 2.79029 5.69631 2.83062 5.52283C2.87095 5.34935 2.86735 5.16854 2.82015 4.9968C2.72774 4.62397 2.52864 4.28617 2.24723 4.02474C1.97435 3.75413 1.62838 3.56908 1.25181 3.49231Z\" fill=\"currentColor\"\u003E\u003C/path\u003E\n  \u003Cpath d=\"M7.19282 3.40832C7.345 3.48776 7.51437 3.52859 7.68603 3.52724C7.91895 3.52345 8.14724 3.46159 8.35021 3.34727C8.73782 3.12456 9.05193 2.79348 9.25393 2.39469C9.46926 2.00306 9.56576 1.55715 9.5316 1.11153C9.52139 0.909448 9.461 0.713097 9.35589 0.540205C9.25078 0.367313 9.10426 0.223326 8.92956 0.121248C8.25938 -0.232699 7.35523 0.213166 6.86844 1.13467C6.65293 1.52623 6.55643 1.9722 6.59077 2.41783C6.6009 2.61996 6.66125 2.81638 6.76637 2.98932C6.87149 3.16226 7.01806 3.30627 7.19282 3.40832Z\" fill=\"currentColor\"\u003E\u003C/path\u003E\n  \u003Cpath d=\"M10.297 6.21742C10.6805 6.13264 11.0332 5.94396 11.3166 5.67206C11.5999 5.40016 11.803 5.05552 11.9035 4.67589C11.9517 4.5007 11.9554 4.31626 11.9143 4.13927C11.8732 3.96229 11.7887 3.79833 11.6683 3.66226C11.5374 3.53613 11.3771 3.4447 11.2019 3.39628C11.0267 3.34787 10.8422 3.344 10.6651 3.38502C10.2795 3.4638 9.9252 3.65338 9.6457 3.93052C8.9798 4.5692 8.82554 5.45193 9.2939 5.94043C9.39285 6.03921 9.51094 6.11673 9.64092 6.16823C9.7709 6.21974 9.91003 6.24415 10.0498 6.23996C10.1327 6.23971 10.2154 6.23217 10.297 6.21742Z\" fill=\"currentColor\"\u003E\u003C/path\u003E\n\u003C/svg\u003E",
+              "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+              "main_text": "\u003Cp\u003ELorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\"\u003C/p\u003E",
+              "essentials": "votre parapluie",
+              "estimated_time": "10 jours",
+              "activity_type": "randonnée",
+              "seasons": [
+                "hiver",
+                "printemps"
+              ],
+              "map": {
+                "latitude": 48.1410623,
+                "longitude": -69.7164392
               },
               "images": [
                 {
@@ -139,24 +805,172 @@
                 }
               ],
               "next_step": {
-                "transportation": [],
-                "time": 56
+                "polyline": "apydHxmohLzBjDh@n@Z\\b@JbCfBTLd@HBl@c@z@Mj@",
+                "time_to_next_step": 1
               }
             },
             {
               "title": "Balade dans le village pour découvrir l'architecture traditionnelle",
-              "description": null,
-              "main_text": "\u003Ch3\u003EÀ quoi vous attendre ?\u003C/h3\u003E\u003Cp\u003EOn y trouve la plus belle vue sur le fjard (oui oui fjard et non fjord) et l’anse St-Pancrace, mais aussi sur le fleuve Saint-Laurent qui s’étend à perte de vue devant nos yeux éblouis. \u003Cbr /\u003E\u003Cbr /\u003EEn marchant encore quelques pas une fois au sommet, on peut également apercevoir le lac Low de l’autre côté de la route 138 et faire un pique-nique assis sur une roche plate qui surplombe la falaise.  Si on a le vertige, on recule un peu et on se colle aux épinettes!\u003C/p\u003E\u003Cp\u003E \u003C/p\u003E\u003Ch3\u003EPourquoi on recommande ?\u003C/h3\u003E\u003Cul\u003E\u003Cli\u003EManteau imperméables\u003C/li\u003E\u003Cli\u003EPaire de jumelles\u003C/li\u003E\u003Cli\u003ESac imperméable\u003C/li\u003E\u003C/ul\u003E",
-              "essentials": null,
+              "icon": "\u003Csvg xmlns=\"http://www.w3.org/2000/svg\" width=\"100%\" height=\"100%\" viewBox=\"0 0 12 12\" fill=\"none\"\u003E\n  \u003Cpath d=\"M4.86452 10.6379L5.24589 10.3112C5.4394 10.1438 5.68672 10.0516 5.94261 10.0516C6.19849 10.0515 6.44584 10.1436 6.6394 10.311L7.02077 10.6379C7.36887 10.9363 7.82125 11.0842 8.27838 11.049C8.73551 11.0139 9.15995 10.7986 9.45834 10.4505C9.75672 10.1024 9.90459 9.65 9.86944 9.19286C9.83428 8.73573 9.61897 8.31129 9.27087 8.01291L8.04532 6.96244C7.92795 6.86201 7.83373 6.73735 7.76915 6.59702C7.70457 6.45669 7.67117 6.30404 7.67123 6.14957V5.54299C7.67123 5.08454 7.48911 4.64486 7.16494 4.32069C6.84076 3.99651 6.40109 3.81439 5.94264 3.81439C5.48418 3.81439 5.04451 3.99651 4.72033 4.32069C4.39616 4.64486 4.21404 5.08454 4.21404 5.54299V6.14954C4.21411 6.30399 4.1807 6.45661 4.11612 6.5969C4.05154 6.73719 3.95732 6.86182 3.83995 6.96221L2.6144 8.01291C2.44204 8.16065 2.30046 8.3409 2.19776 8.54336C2.09506 8.74582 2.03324 8.96652 2.01583 9.19287C1.99842 9.41922 2.02577 9.64679 2.09631 9.86257C2.16685 10.0783 2.2792 10.2781 2.42694 10.4505C2.57469 10.6228 2.75494 10.7644 2.95739 10.8671C3.15985 10.9698 3.38056 11.0316 3.60691 11.0491C3.83326 11.0665 4.06082 11.0391 4.2766 10.9686C4.49238 10.898 4.69216 10.7857 4.86452 10.6379Z\" fill=\"currentColor\"\u003E\u003C/path\u003E\n  \u003Cpath d=\"M3.54113 3.33419C3.73956 3.44579 3.96268 3.50617 4.19032 3.50988C4.35841 3.5112 4.52425 3.47118 4.67324 3.39333C4.84417 3.29355 4.98754 3.15277 5.09041 2.98369C5.19328 2.81461 5.2524 2.62257 5.26244 2.42491C5.29574 1.99083 5.20178 1.55646 4.99206 1.17494C4.79516 0.786565 4.4893 0.46402 4.11191 0.2468C3.94298 0.143641 3.75099 0.0842123 3.55332 0.0738872C3.35565 0.0635622 3.15852 0.102666 2.97976 0.187664C2.32631 0.532839 2.18619 1.50747 2.66097 2.40604C2.85787 2.79442 3.16374 3.11697 3.54113 3.33419Z\" fill=\"currentColor\"\u003E\u003C/path\u003E\n  \u003Cpath d=\"M1.25181 3.49231C1.07835 3.45239 0.897686 3.45633 0.726133 3.50376C0.55458 3.5512 0.397552 3.64063 0.269241 3.76399C0.15112 3.89729 0.0681327 4.05797 0.0278015 4.23145C-0.0125297 4.40493 -0.00893002 4.58574 0.0382743 4.75748C0.130626 5.13033 0.32973 5.46815 0.611191 5.72955C0.938769 6.06509 1.38157 6.26367 1.85001 6.28511C1.98683 6.28914 2.12302 6.26506 2.25016 6.21435C2.3773 6.16364 2.49269 6.08738 2.58918 5.9903C2.7073 5.85699 2.79029 5.69631 2.83062 5.52283C2.87095 5.34935 2.86735 5.16854 2.82015 4.9968C2.72774 4.62397 2.52864 4.28617 2.24723 4.02474C1.97435 3.75413 1.62838 3.56908 1.25181 3.49231Z\" fill=\"currentColor\"\u003E\u003C/path\u003E\n  \u003Cpath d=\"M7.19282 3.40832C7.345 3.48776 7.51437 3.52859 7.68603 3.52724C7.91895 3.52345 8.14724 3.46159 8.35021 3.34727C8.73782 3.12456 9.05193 2.79348 9.25393 2.39469C9.46926 2.00306 9.56576 1.55715 9.5316 1.11153C9.52139 0.909448 9.461 0.713097 9.35589 0.540205C9.25078 0.367313 9.10426 0.223326 8.92956 0.121248C8.25938 -0.232699 7.35523 0.213166 6.86844 1.13467C6.65293 1.52623 6.55643 1.9722 6.59077 2.41783C6.6009 2.61996 6.66125 2.81638 6.76637 2.98932C6.87149 3.16226 7.01806 3.30627 7.19282 3.40832Z\" fill=\"currentColor\"\u003E\u003C/path\u003E\n  \u003Cpath d=\"M10.297 6.21742C10.6805 6.13264 11.0332 5.94396 11.3166 5.67206C11.5999 5.40016 11.803 5.05552 11.9035 4.67589C11.9517 4.5007 11.9554 4.31626 11.9143 4.13927C11.8732 3.96229 11.7887 3.79833 11.6683 3.66226C11.5374 3.53613 11.3771 3.4447 11.2019 3.39628C11.0267 3.34787 10.8422 3.344 10.6651 3.38502C10.2795 3.4638 9.9252 3.65338 9.6457 3.93052C8.9798 4.5692 8.82554 5.45193 9.2939 5.94043C9.39285 6.03921 9.51094 6.11673 9.64092 6.16823C9.7709 6.21974 9.91003 6.24415 10.0498 6.23996C10.1327 6.23971 10.2154 6.23217 10.297 6.21742Z\" fill=\"currentColor\"\u003E\u003C/path\u003E\n\u003C/svg\u003E",
+              "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempo",
+              "main_text": "\u003Cp\u003ELorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\"\u003C/p\u003E",
+              "essentials": "longue vue",
               "estimated_time": "2 jours",
-              "activity_type": [],
+              "activity_type": "Visite",
               "seasons": [
                 "hiver",
                 "printemps"
               ],
               "map": {
-                "latitude": null,
-                "longitude": null
+                "latitude": 48.1391715,
+                "longitude": -69.7189292
+              },
+              "images": [
+                {
+                  "meta": {
+                    "title": "Capture decran le 2026 01 20 a 13 20 20"
+                  },
+                  "images": {
+                    "optimized": {
+                      "standard": {
+                        "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/Capture-decran-le-2026-01-20-a-13.20.20.png",
+                        "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/Capture-decran-le-2026-01-20-a-13.20.20.png",
+                        "992": "https://tcn.dev.kffein.work/upload/images/bornes/_992x558_crop_center-center_100_line/Capture-decran-le-2026-01-20-a-13.20.20.png",
+                        "1200": "https://tcn.dev.kffein.work/upload/images/bornes/_1200x675_crop_center-center_100_line/Capture-decran-le-2026-01-20-a-13.20.20.png"
+                      },
+                      "webp": {
+                        "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/Capture-decran-le-2026-01-20-a-13.20.20.png.webp",
+                        "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/Capture-decran-le-2026-01-20-a-13.20.20.png.webp",
+                        "992": "https://tcn.dev.kffein.work/upload/images/bornes/_992x558_crop_center-center_100_line/Capture-decran-le-2026-01-20-a-13.20.20.png.webp",
+                        "1200": "https://tcn.dev.kffein.work/upload/images/bornes/_1200x675_crop_center-center_100_line/Capture-decran-le-2026-01-20-a-13.20.20.png.webp"
+                      }
+                    },
+                    "original": {
+                      "url": "https://tcn.dev.kffein.work/upload/images/bornes/Capture-decran-le-2026-01-20-a-13.20.20.png",
+                      "sizes": {
+                        "width": 1952,
+                        "height": 1440
+                      }
+                    },
+                    "focalPoint": {
+                      "x": 0.5,
+                      "y": 0.5
+                    }
+                  }
+                },
+                {
+                  "meta": {
+                    "title": "5 Photo Croisi C3 A8rebateautadoussac1200x800"
+                  },
+                  "images": {
+                    "optimized": {
+                      "standard": {
+                        "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/5_PhotoCroisiC3A8rebateautadoussac1200x800.jpg",
+                        "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/5_PhotoCroisiC3A8rebateautadoussac1200x800.jpg",
+                        "992": "https://tcn.dev.kffein.work/upload/images/bornes/_992x558_crop_center-center_100_line/5_PhotoCroisiC3A8rebateautadoussac1200x800.jpg"
+                      },
+                      "webp": {
+                        "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/5_PhotoCroisiC3A8rebateautadoussac1200x800.jpg.webp",
+                        "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/5_PhotoCroisiC3A8rebateautadoussac1200x800.jpg.webp",
+                        "992": "https://tcn.dev.kffein.work/upload/images/bornes/_992x558_crop_center-center_100_line/5_PhotoCroisiC3A8rebateautadoussac1200x800.jpg.webp"
+                      }
+                    },
+                    "original": {
+                      "url": "https://tcn.dev.kffein.work/upload/images/bornes/5_PhotoCroisiC3A8rebateautadoussac1200x800.jpg",
+                      "sizes": {
+                        "width": 1000,
+                        "height": 667
+                      }
+                    },
+                    "focalPoint": {
+                      "x": 0.5,
+                      "y": 0.5
+                    }
+                  }
+                },
+                {
+                  "meta": {
+                    "title": "5 WEBSITE Z6 Tadoussac Jr1 0092"
+                  },
+                  "images": {
+                    "optimized": {
+                      "standard": {
+                        "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/5_WEBSITE_Z6TadoussacJr1_0092.jpg",
+                        "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/5_WEBSITE_Z6TadoussacJr1_0092.jpg",
+                        "992": "https://tcn.dev.kffein.work/upload/images/bornes/_992x558_crop_center-center_100_line/5_WEBSITE_Z6TadoussacJr1_0092.jpg"
+                      },
+                      "webp": {
+                        "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/5_WEBSITE_Z6TadoussacJr1_0092.jpg.webp",
+                        "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/5_WEBSITE_Z6TadoussacJr1_0092.jpg.webp",
+                        "992": "https://tcn.dev.kffein.work/upload/images/bornes/_992x558_crop_center-center_100_line/5_WEBSITE_Z6TadoussacJr1_0092.jpg.webp"
+                      }
+                    },
+                    "original": {
+                      "url": "https://tcn.dev.kffein.work/upload/images/bornes/5_WEBSITE_Z6TadoussacJr1_0092.jpg",
+                      "sizes": {
+                        "width": 1000,
+                        "height": 665
+                      }
+                    },
+                    "focalPoint": {
+                      "x": 0.5,
+                      "y": 0.5
+                    }
+                  }
+                },
+                {
+                  "meta": {
+                    "title": "Tadoussac HC3 A9bergement Le Roupillon"
+                  },
+                  "images": {
+                    "optimized": {
+                      "standard": {
+                        "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/TadoussacHC3A9bergementLeRoupillon.jpg",
+                        "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/TadoussacHC3A9bergementLeRoupillon.jpg",
+                        "992": "https://tcn.dev.kffein.work/upload/images/bornes/_992x558_crop_center-center_100_line/TadoussacHC3A9bergementLeRoupillon.jpg",
+                        "1200": "https://tcn.dev.kffein.work/upload/images/bornes/_1200x675_crop_center-center_100_line/TadoussacHC3A9bergementLeRoupillon.jpg"
+                      },
+                      "webp": {
+                        "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/TadoussacHC3A9bergementLeRoupillon.jpg.webp",
+                        "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/TadoussacHC3A9bergementLeRoupillon.jpg.webp",
+                        "992": "https://tcn.dev.kffein.work/upload/images/bornes/_992x558_crop_center-center_100_line/TadoussacHC3A9bergementLeRoupillon.jpg.webp",
+                        "1200": "https://tcn.dev.kffein.work/upload/images/bornes/_1200x675_crop_center-center_100_line/TadoussacHC3A9bergementLeRoupillon.jpg.webp"
+                      }
+                    },
+                    "original": {
+                      "url": "https://tcn.dev.kffein.work/upload/images/bornes/TadoussacHC3A9bergementLeRoupillon.jpg",
+                      "sizes": {
+                        "width": 1200,
+                        "height": 800
+                      }
+                    },
+                    "focalPoint": {
+                      "x": 0.5,
+                      "y": 0.5
+                    }
+                  }
+                }
+              ],
+              "next_step": {
+                "polyline": "idydHt~ohLLk@b@{@Cm@b@APKVs@b@cB^kBt@uFN}@b@mA",
+                "time_to_next_step": 1
+              }
+            },
+            {
+              "title": "Balade dans le village pour découvrir l'architecture traditionnelle",
+              "icon": "\u003Csvg xmlns=\"http://www.w3.org/2000/svg\" width=\"100%\" height=\"100%\" viewBox=\"0 0 52 49\" fill=\"none\"\u003E\n  \u003Cpath d=\"M1.64109 28.98C6.90872 32.0274 12.6139 34.1383 18.5851 35.2209C22.072 35.8613 25.3995 36.8014 28.4629 38.0132L37.3801 41.5482C41.047 43.0034 44.9296 44.053 48.832 44.6528L48.8 44.644L50.1524 44.8527L50.0011 45.2152C48.8865 47.8926 45.9362 49.3349 43.138 48.5657L42.1955 48.3066C41.6118 48.1462 41.2696 47.5445 41.4301 46.9608C41.5004 46.705 41.349 46.4403 41.0932 46.3699L40.0706 46.0888C39.8148 46.0185 39.5493 46.1687 39.479 46.4245C39.3186 47.0081 38.7169 47.3503 38.1333 47.1899L37.5739 47.0361C36.9903 46.8757 36.6481 46.274 36.8085 45.6904C36.8788 45.4346 36.7284 45.1701 36.4726 45.0998L35.4491 44.8184C35.1933 44.7481 34.9288 44.8985 34.8584 45.1543C34.698 45.7379 34.0963 46.0801 33.5127 45.9197L32.9533 45.7659C32.3697 45.6055 32.0275 45.0038 32.1879 44.4202C32.2582 44.1644 32.1069 43.8996 31.8511 43.8293L30.8285 43.5482C30.5727 43.4779 30.3072 43.6281 30.2369 43.8839C30.0765 44.4675 29.4748 44.8097 28.8911 44.6493L18.0426 41.667C17.459 41.5066 17.1168 40.9049 17.2772 40.3213C17.3475 40.0655 17.197 39.801 16.9413 39.7306L15.9177 39.4493C15.6619 39.379 15.3974 39.5294 15.3271 39.7852C15.1667 40.3688 14.5649 40.711 13.9814 40.5506L13.422 40.3968C12.8384 40.2364 12.4962 39.6347 12.6566 39.0511C12.7269 38.7953 12.5756 38.5305 12.3198 38.4602L11.2972 38.1791C11.0413 38.1087 10.7759 38.2589 10.7056 38.5147C10.5451 39.0984 9.94344 39.4406 9.35983 39.2801L8.8005 39.1264C8.21692 38.9659 7.87468 38.3642 8.03511 37.7806C8.10539 37.5248 7.95494 37.2604 7.69918 37.19L6.67562 36.9086C6.41984 36.8384 6.15533 36.9888 6.08499 37.2445C5.92456 37.8281 5.32284 38.1703 4.73924 38.0099L2.62811 37.4296C0.725603 36.9063 -0.398375 34.9291 0.124617 33.0265L1.29153 28.7816L1.64109 28.98ZM29.5541 1.29472C30.1353 1.21371 30.6061 1.75626 30.4501 2.3239L28.6611 8.83152C28.3864 9.83083 28.2622 10.8458 28.2711 11.8457L24.9787 12.3423C24.6493 11.9766 24.1678 11.7236 23.5889 11.702C22.9317 11.6848 22.2941 12.0346 21.9672 12.5982C21.2933 13.7369 21.8954 15.0798 23.0624 15.4008C23.9736 15.6513 24.8974 15.2007 25.2729 14.3668L28.4744 13.8877C28.7033 15.0254 29.1104 16.1094 29.6741 17.1242L26.8498 18.5486C26.3617 18.2596 25.8361 18.0728 24.6286 18.9619C24.371 19.1489 24.1596 19.4175 24.0818 19.7312C23.8457 20.7154 24.4304 21.7189 25.4138 21.9893C26.3971 22.2594 27.4525 21.6723 27.7294 20.6651C27.7557 20.5693 27.7639 20.4768 27.7743 20.3766L30.868 18.8196C31.5848 19.653 32.4342 20.4107 33.4082 20.9966C33.4118 21.0148 33.4094 21.0233 33.413 21.0415L31.0984 23.2684C30.12 23.0424 29.1268 23.6209 28.8587 24.5962C28.5467 25.7315 29.348 26.915 30.5855 26.98C31.2041 27.0125 31.8204 26.7088 32.19 26.2088C32.5349 25.7362 32.6077 25.2226 32.5163 24.7418L35.0982 22.2613C36.0326 22.9911 37.1511 23.9602 38.2646 24.9456L36.4622 27.0297C35.4094 26.8865 34.3916 27.6478 34.3281 28.8171C34.2904 29.486 34.6473 30.1603 35.2247 30.4997C36.3577 31.1634 37.7112 30.5548 38.032 29.3876C38.1264 29.0439 38.1127 28.6878 38.0138 28.3597L39.787 26.3192C41.405 27.7529 43.119 29.0577 45.0224 30.0797C49.004 32.2061 52.0622 36.848 50.9062 41.0533L50.9215 41.0565L50.6181 42.1601L49.2464 41.9552C45.5266 41.3797 41.8765 40.3936 38.3731 39.0006L29.394 35.4405C26.0058 34.0963 22.4773 33.1687 18.8887 32.4918C17.2444 32.186 15.6219 31.7998 14.0215 31.3341C14.2676 30.7827 14.4703 30.2023 14.6351 29.6028C16.5032 22.8073 12.4951 15.7723 5.70781 13.9065L9.36488 0.603088C9.49018 0.147418 9.96319 -0.101365 10.4065 0.0376718L16.9886 2.14889C18.2337 2.40519 19.4971 2.50278 20.7618 2.4377L29.5541 1.29472ZM4.93782 16.7038C10.1824 18.1455 13.2806 23.5807 11.8366 28.8335C11.6828 29.3931 11.4851 29.924 11.2419 30.4333C8.28937 29.3808 5.43981 28.0468 2.7153 26.4466L2.32237 26.218L4.93782 16.7038Z\" fill=\"currentColor\"\u003E\u003C/path\u003E\n\u003C/svg\u003E",
+              "description": "Lorem ipsum",
+              "main_text": "\u003Cp\u003ELorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\"\u003C/p\u003E",
+              "essentials": "voiture",
+              "estimated_time": "1h",
+              "activity_type": "randonnée",
+              "seasons": [
+                "hiver",
+                "printemps"
+              ],
+              "map": {
+                "latitude": 48.1356994,
+                "longitude": -69.7167506
               },
               "images": [
                 {
@@ -189,24 +1003,172 @@
                 }
               ],
               "next_step": {
-                "transportation": [],
-                "time": 56
+                "polyline": "_{xdHjeohLc@lAg@bD]nCm@tCm@lBQJs@?a@MeAs@gA{@c@KUU",
+                "time_to_next_step": 2
               }
             },
             {
               "title": "Balade dans le village pour découvrir l'architecture traditionnelle",
-              "description": null,
-              "main_text": "\u003Ch3\u003EÀ quoi vous attendre ?\u003C/h3\u003E\u003Cp\u003EOn y trouve la plus belle vue sur le fjard (oui oui fjard et non fjord) et l’anse St-Pancrace, mais aussi sur le fleuve Saint-Laurent qui s’étend à perte de vue devant nos yeux éblouis. \u003Cbr /\u003E\u003Cbr /\u003EEn marchant encore quelques pas une fois au sommet, on peut également apercevoir le lac Low de l’autre côté de la route 138 et faire un pique-nique assis sur une roche plate qui surplombe la falaise.  Si on a le vertige, on recule un peu et on se colle aux épinettes!\u003C/p\u003E\u003Cp\u003E \u003C/p\u003E\u003Ch3\u003EPourquoi on recommande ?\u003C/h3\u003E\u003Cul\u003E\u003Cli\u003EManteau imperméables\u003C/li\u003E\u003Cli\u003EPaire de jumelles\u003C/li\u003E\u003Cli\u003ESac imperméable\u003C/li\u003E\u003C/ul\u003E",
-              "essentials": null,
+              "icon": "\u003Csvg xmlns=\"http://www.w3.org/2000/svg\" width=\"100%\" height=\"100%\" viewBox=\"0 0 47 40\" fill=\"none\"\u003E\n  \u003Cpath fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M23.5004 0C24.222 0 24.8059 0.588619 24.8059 1.31604V7.89625C24.8059 8.62369 24.222 9.21229 23.5004 9.21229C22.7788 9.21229 22.1949 8.62367 22.1949 7.89625V1.31604C22.1949 0.5886 22.7788 0 23.5004 0ZM11.297 2.1514C11.9217 1.7864 12.7199 2.00232 13.0794 2.63206L16.3432 8.33066C16.7053 8.9604 16.4911 9.76494 15.8664 10.1274C15.2417 10.4924 14.4436 10.2765 14.0815 9.64672L10.8177 3.94813C10.4581 3.31838 10.6723 2.51384 11.297 2.1514ZM35.9028 2.1514C36.5275 2.51382 36.7418 3.31833 36.3797 3.94813L33.1159 9.64672C32.7563 10.2765 31.9582 10.4924 31.3335 10.1274C30.7088 9.76496 30.4946 8.96045 30.8567 8.33066L34.1205 2.63206C34.48 2.00232 35.2781 1.78638 35.9028 2.1514ZM0.921415 8.06076C1.35999 7.48241 2.1785 7.37187 2.75221 7.814L7.93859 11.8084C8.5123 12.2505 8.62196 13.0756 8.18337 13.6539C7.74735 14.2297 6.92629 14.3402 6.35512 13.9007L1.1662 9.90631C0.592483 9.46419 0.482826 8.63909 0.921415 8.06076ZM46.2778 8.06076C46.7138 8.6391 46.6042 9.46418 46.033 9.90631L40.8441 13.9007C40.2704 14.3402 39.4519 14.2297 39.0133 13.6539C38.5773 13.0756 38.6869 12.2505 39.2606 11.8084L44.447 7.814C45.0207 7.37189 45.8392 7.48241 46.2778 8.06076ZM10.0574 18.0054C7.44895 19.4628 5.00365 21.3752 2.81311 23.7399L0.120478 26.6471C-0.0401594 26.8193 -0.0401594 27.138 0.120478 27.3102L2.81311 30.2174C4.90142 32.4742 7.22688 34.3172 9.70039 35.7488C8.10674 33.2607 7.18112 30.3125 7.18112 27.1432C7.18112 23.7477 8.24454 20.5991 10.0574 18.0054ZM17.008 15.2602C16.9825 15.2782 16.9545 15.2936 16.9264 15.3091C12.6631 17.6044 9.79177 22.0538 9.79177 27.1429C9.79177 31.821 12.2141 35.9545 15.9139 38.378C15.9369 38.3908 15.9573 38.4062 15.9802 38.4217C20.9015 39.8328 26.098 39.8328 31.0192 38.4217C31.0421 38.4062 31.0625 38.3908 31.0855 38.378C34.7853 35.9541 37.2076 31.8209 37.2076 27.1429C37.2076 22.0535 34.3365 17.6042 30.073 15.3091C30.0449 15.2936 30.0169 15.2782 29.9914 15.2602C25.7229 14.2141 21.2757 14.2141 17.0073 15.2602H17.008ZM36.9427 18.0054C38.7556 20.5989 39.8189 23.7477 39.8189 27.1434C39.8189 30.3127 38.8933 33.2609 37.2996 35.749C39.773 34.3172 42.0984 32.4742 44.1869 30.2175L46.8795 27.3104C47.0402 27.1381 47.0402 26.8194 46.8795 26.6472L44.1869 23.7401C41.9965 21.3753 39.5514 19.4628 36.9427 18.0054ZM23.4997 22.3725C20.9754 22.3725 18.9304 24.434 18.9304 26.9787C18.9304 29.5234 20.9754 31.5848 23.4997 31.5848C26.0241 31.5848 28.0691 29.5234 28.0691 26.9787C28.0691 24.434 26.0241 22.3725 23.4997 22.3725ZM16.3194 26.9787C16.3194 22.9817 19.5347 19.7404 23.4997 19.7404C27.4647 19.7404 30.6801 22.9817 30.6801 26.9787C30.6801 30.9756 27.4647 34.2169 23.4997 34.2169C19.5347 34.2169 16.3194 30.9756 16.3194 26.9787Z\" fill=\"currentColor\"\u003E\u003C/path\u003E\n\u003C/svg\u003E",
+              "description": "Lorem ipsum du texte",
+              "main_text": "\u003Cp\u003ELorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\"\u003C/p\u003E\u003Cp\u003E \u003C/p\u003E",
+              "essentials": "Indispensables",
               "estimated_time": "2 jours",
-              "activity_type": [],
+              "activity_type": "Point de vue",
               "seasons": [
                 "hiver",
                 "printemps"
               ],
               "map": {
-                "latitude": null,
-                "longitude": null
+                "latitude": 48.1401141,
+                "longitude": -69.7174436
+              },
+              "images": [
+                {
+                  "meta": {
+                    "title": "Capture decran le 2026 01 20 a 13 20 20"
+                  },
+                  "images": {
+                    "optimized": {
+                      "standard": {
+                        "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/Capture-decran-le-2026-01-20-a-13.20.20.png",
+                        "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/Capture-decran-le-2026-01-20-a-13.20.20.png",
+                        "992": "https://tcn.dev.kffein.work/upload/images/bornes/_992x558_crop_center-center_100_line/Capture-decran-le-2026-01-20-a-13.20.20.png",
+                        "1200": "https://tcn.dev.kffein.work/upload/images/bornes/_1200x675_crop_center-center_100_line/Capture-decran-le-2026-01-20-a-13.20.20.png"
+                      },
+                      "webp": {
+                        "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/Capture-decran-le-2026-01-20-a-13.20.20.png.webp",
+                        "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/Capture-decran-le-2026-01-20-a-13.20.20.png.webp",
+                        "992": "https://tcn.dev.kffein.work/upload/images/bornes/_992x558_crop_center-center_100_line/Capture-decran-le-2026-01-20-a-13.20.20.png.webp",
+                        "1200": "https://tcn.dev.kffein.work/upload/images/bornes/_1200x675_crop_center-center_100_line/Capture-decran-le-2026-01-20-a-13.20.20.png.webp"
+                      }
+                    },
+                    "original": {
+                      "url": "https://tcn.dev.kffein.work/upload/images/bornes/Capture-decran-le-2026-01-20-a-13.20.20.png",
+                      "sizes": {
+                        "width": 1952,
+                        "height": 1440
+                      }
+                    },
+                    "focalPoint": {
+                      "x": 0.5,
+                      "y": 0.5
+                    }
+                  }
+                },
+                {
+                  "meta": {
+                    "title": "5 Photo Croisi C3 A8rebateautadoussac1200x800"
+                  },
+                  "images": {
+                    "optimized": {
+                      "standard": {
+                        "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/5_PhotoCroisiC3A8rebateautadoussac1200x800.jpg",
+                        "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/5_PhotoCroisiC3A8rebateautadoussac1200x800.jpg",
+                        "992": "https://tcn.dev.kffein.work/upload/images/bornes/_992x558_crop_center-center_100_line/5_PhotoCroisiC3A8rebateautadoussac1200x800.jpg"
+                      },
+                      "webp": {
+                        "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/5_PhotoCroisiC3A8rebateautadoussac1200x800.jpg.webp",
+                        "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/5_PhotoCroisiC3A8rebateautadoussac1200x800.jpg.webp",
+                        "992": "https://tcn.dev.kffein.work/upload/images/bornes/_992x558_crop_center-center_100_line/5_PhotoCroisiC3A8rebateautadoussac1200x800.jpg.webp"
+                      }
+                    },
+                    "original": {
+                      "url": "https://tcn.dev.kffein.work/upload/images/bornes/5_PhotoCroisiC3A8rebateautadoussac1200x800.jpg",
+                      "sizes": {
+                        "width": 1000,
+                        "height": 667
+                      }
+                    },
+                    "focalPoint": {
+                      "x": 0.5,
+                      "y": 0.5
+                    }
+                  }
+                },
+                {
+                  "meta": {
+                    "title": "5 WEBSITE Z6 Tadoussac Jr1 0092"
+                  },
+                  "images": {
+                    "optimized": {
+                      "standard": {
+                        "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/5_WEBSITE_Z6TadoussacJr1_0092.jpg",
+                        "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/5_WEBSITE_Z6TadoussacJr1_0092.jpg",
+                        "992": "https://tcn.dev.kffein.work/upload/images/bornes/_992x558_crop_center-center_100_line/5_WEBSITE_Z6TadoussacJr1_0092.jpg"
+                      },
+                      "webp": {
+                        "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/5_WEBSITE_Z6TadoussacJr1_0092.jpg.webp",
+                        "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/5_WEBSITE_Z6TadoussacJr1_0092.jpg.webp",
+                        "992": "https://tcn.dev.kffein.work/upload/images/bornes/_992x558_crop_center-center_100_line/5_WEBSITE_Z6TadoussacJr1_0092.jpg.webp"
+                      }
+                    },
+                    "original": {
+                      "url": "https://tcn.dev.kffein.work/upload/images/bornes/5_WEBSITE_Z6TadoussacJr1_0092.jpg",
+                      "sizes": {
+                        "width": 1000,
+                        "height": 665
+                      }
+                    },
+                    "focalPoint": {
+                      "x": 0.5,
+                      "y": 0.5
+                    }
+                  }
+                },
+                {
+                  "meta": {
+                    "title": "Tadoussac HC3 A9bergement Le Roupillon"
+                  },
+                  "images": {
+                    "optimized": {
+                      "standard": {
+                        "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/TadoussacHC3A9bergementLeRoupillon.jpg",
+                        "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/TadoussacHC3A9bergementLeRoupillon.jpg",
+                        "992": "https://tcn.dev.kffein.work/upload/images/bornes/_992x558_crop_center-center_100_line/TadoussacHC3A9bergementLeRoupillon.jpg",
+                        "1200": "https://tcn.dev.kffein.work/upload/images/bornes/_1200x675_crop_center-center_100_line/TadoussacHC3A9bergementLeRoupillon.jpg"
+                      },
+                      "webp": {
+                        "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/TadoussacHC3A9bergementLeRoupillon.jpg.webp",
+                        "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/TadoussacHC3A9bergementLeRoupillon.jpg.webp",
+                        "992": "https://tcn.dev.kffein.work/upload/images/bornes/_992x558_crop_center-center_100_line/TadoussacHC3A9bergementLeRoupillon.jpg.webp",
+                        "1200": "https://tcn.dev.kffein.work/upload/images/bornes/_1200x675_crop_center-center_100_line/TadoussacHC3A9bergementLeRoupillon.jpg.webp"
+                      }
+                    },
+                    "original": {
+                      "url": "https://tcn.dev.kffein.work/upload/images/bornes/TadoussacHC3A9bergementLeRoupillon.jpg",
+                      "sizes": {
+                        "width": 1200,
+                        "height": 800
+                      }
+                    },
+                    "focalPoint": {
+                      "x": 0.5,
+                      "y": 0.5
+                    }
+                  }
+                }
+              ],
+              "next_step": {
+                "polyline": "ujydH|tohLsAgB}AeCiAoBUOOE[Cg@Rg@DaGg@O?GuBPcH`@uHDgAbB{Zf@sJ\\gEn@mBlCwGn@_CZcBB{@a@iEoB_TaAwLw@kMMeBYeFKsG",
+                "time_to_next_step": 4
+              }
+            },
+            {
+              "title": "Balade dans le village pour découvrir l'architecture traditionnelle",
+              "icon": "\u003Csvg xmlns=\"http://www.w3.org/2000/svg\" width=\"100%\" height=\"100%\" viewBox=\"0 0 52 49\" fill=\"none\"\u003E\n  \u003Cpath d=\"M1.64109 28.98C6.90872 32.0274 12.6139 34.1383 18.5851 35.2209C22.072 35.8613 25.3995 36.8014 28.4629 38.0132L37.3801 41.5482C41.047 43.0034 44.9296 44.053 48.832 44.6528L48.8 44.644L50.1524 44.8527L50.0011 45.2152C48.8865 47.8926 45.9362 49.3349 43.138 48.5657L42.1955 48.3066C41.6118 48.1462 41.2696 47.5445 41.4301 46.9608C41.5004 46.705 41.349 46.4403 41.0932 46.3699L40.0706 46.0888C39.8148 46.0185 39.5493 46.1687 39.479 46.4245C39.3186 47.0081 38.7169 47.3503 38.1333 47.1899L37.5739 47.0361C36.9903 46.8757 36.6481 46.274 36.8085 45.6904C36.8788 45.4346 36.7284 45.1701 36.4726 45.0998L35.4491 44.8184C35.1933 44.7481 34.9288 44.8985 34.8584 45.1543C34.698 45.7379 34.0963 46.0801 33.5127 45.9197L32.9533 45.7659C32.3697 45.6055 32.0275 45.0038 32.1879 44.4202C32.2582 44.1644 32.1069 43.8996 31.8511 43.8293L30.8285 43.5482C30.5727 43.4779 30.3072 43.6281 30.2369 43.8839C30.0765 44.4675 29.4748 44.8097 28.8911 44.6493L18.0426 41.667C17.459 41.5066 17.1168 40.9049 17.2772 40.3213C17.3475 40.0655 17.197 39.801 16.9413 39.7306L15.9177 39.4493C15.6619 39.379 15.3974 39.5294 15.3271 39.7852C15.1667 40.3688 14.5649 40.711 13.9814 40.5506L13.422 40.3968C12.8384 40.2364 12.4962 39.6347 12.6566 39.0511C12.7269 38.7953 12.5756 38.5305 12.3198 38.4602L11.2972 38.1791C11.0413 38.1087 10.7759 38.2589 10.7056 38.5147C10.5451 39.0984 9.94344 39.4406 9.35983 39.2801L8.8005 39.1264C8.21692 38.9659 7.87468 38.3642 8.03511 37.7806C8.10539 37.5248 7.95494 37.2604 7.69918 37.19L6.67562 36.9086C6.41984 36.8384 6.15533 36.9888 6.08499 37.2445C5.92456 37.8281 5.32284 38.1703 4.73924 38.0099L2.62811 37.4296C0.725603 36.9063 -0.398375 34.9291 0.124617 33.0265L1.29153 28.7816L1.64109 28.98ZM29.5541 1.29472C30.1353 1.21371 30.6061 1.75626 30.4501 2.3239L28.6611 8.83152C28.3864 9.83083 28.2622 10.8458 28.2711 11.8457L24.9787 12.3423C24.6493 11.9766 24.1678 11.7236 23.5889 11.702C22.9317 11.6848 22.2941 12.0346 21.9672 12.5982C21.2933 13.7369 21.8954 15.0798 23.0624 15.4008C23.9736 15.6513 24.8974 15.2007 25.2729 14.3668L28.4744 13.8877C28.7033 15.0254 29.1104 16.1094 29.6741 17.1242L26.8498 18.5486C26.3617 18.2596 25.8361 18.0728 24.6286 18.9619C24.371 19.1489 24.1596 19.4175 24.0818 19.7312C23.8457 20.7154 24.4304 21.7189 25.4138 21.9893C26.3971 22.2594 27.4525 21.6723 27.7294 20.6651C27.7557 20.5693 27.7639 20.4768 27.7743 20.3766L30.868 18.8196C31.5848 19.653 32.4342 20.4107 33.4082 20.9966C33.4118 21.0148 33.4094 21.0233 33.413 21.0415L31.0984 23.2684C30.12 23.0424 29.1268 23.6209 28.8587 24.5962C28.5467 25.7315 29.348 26.915 30.5855 26.98C31.2041 27.0125 31.8204 26.7088 32.19 26.2088C32.5349 25.7362 32.6077 25.2226 32.5163 24.7418L35.0982 22.2613C36.0326 22.9911 37.1511 23.9602 38.2646 24.9456L36.4622 27.0297C35.4094 26.8865 34.3916 27.6478 34.3281 28.8171C34.2904 29.486 34.6473 30.1603 35.2247 30.4997C36.3577 31.1634 37.7112 30.5548 38.032 29.3876C38.1264 29.0439 38.1127 28.6878 38.0138 28.3597L39.787 26.3192C41.405 27.7529 43.119 29.0577 45.0224 30.0797C49.004 32.2061 52.0622 36.848 50.9062 41.0533L50.9215 41.0565L50.6181 42.1601L49.2464 41.9552C45.5266 41.3797 41.8765 40.3936 38.3731 39.0006L29.394 35.4405C26.0058 34.0963 22.4773 33.1687 18.8887 32.4918C17.2444 32.186 15.6219 31.7998 14.0215 31.3341C14.2676 30.7827 14.4703 30.2023 14.6351 29.6028C16.5032 22.8073 12.4951 15.7723 5.70781 13.9065L9.36488 0.603088C9.49018 0.147418 9.96319 -0.101365 10.4065 0.0376718L16.9886 2.14889C18.2337 2.40519 19.4971 2.50278 20.7618 2.4377L29.5541 1.29472ZM4.93782 16.7038C10.1824 18.1455 13.2806 23.5807 11.8366 28.8335C11.6828 29.3931 11.4851 29.924 11.2419 30.4333C8.28937 29.3808 5.43981 28.0468 2.7153 26.4466L2.32237 26.218L4.93782 16.7038Z\" fill=\"currentColor\"\u003E\u003C/path\u003E\n\u003C/svg\u003E",
+              "description": "Description",
+              "main_text": "\u003Cul\u003E\u003Cli\u003ELorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\"\u003C/li\u003E\u003Cli\u003Ekokeof\u003C/li\u003E\u003Cli\u003Efekowf\u003C/li\u003E\u003Cli\u003E\u003Cp\u003Ekofew\u003C/p\u003E\u003Cp\u003Elplp\u003C/p\u003E\u003Cp\u003E \u003C/p\u003E\u003C/li\u003E\u003C/ul\u003E",
+              "essentials": "Indispensables",
+              "estimated_time": "2 jours",
+              "activity_type": "Promenade",
+              "seasons": [
+                "hiver",
+                "printemps"
+              ],
+              "map": {
+                "latitude": 48.1450305,
+                "longitude": -69.689141
               },
               "images": [
                 {
@@ -239,24 +1201,25 @@
                 }
               ],
               "next_step": {
-                "transportation": [],
-                "time": 56
+                "polyline": "kzydHrbjhLkAeh@WaMSqBgAqGQo@oB{Fa@{@sBkCeFcEsGaF}FcFcJiI_LyHsBsAkHaH",
+                "time_to_next_step": 3
               }
             },
             {
               "title": "Balade dans le village pour découvrir l'architecture traditionnelle",
-              "description": null,
-              "main_text": "\u003Ch3\u003EÀ quoi vous attendre ?\u003C/h3\u003E\u003Cp\u003EOn y trouve la plus belle vue sur le fjard (oui oui fjard et non fjord) et l’anse St-Pancrace, mais aussi sur le fleuve Saint-Laurent qui s’étend à perte de vue devant nos yeux éblouis. \u003Cbr /\u003E\u003Cbr /\u003EEn marchant encore quelques pas une fois au sommet, on peut également apercevoir le lac Low de l’autre côté de la route 138 et faire un pique-nique assis sur une roche plate qui surplombe la falaise.  Si on a le vertige, on recule un peu et on se colle aux épinettes!\u003C/p\u003E\u003Cp\u003E \u003C/p\u003E\u003Ch3\u003EPourquoi on recommande ?\u003C/h3\u003E\u003Cul\u003E\u003Cli\u003EManteau imperméables\u003C/li\u003E\u003Cli\u003EPaire de jumelles\u003C/li\u003E\u003Cli\u003ESac imperméable\u003C/li\u003E\u003C/ul\u003E",
-              "essentials": null,
+              "icon": "\u003Csvg xmlns=\"http://www.w3.org/2000/svg\" width=\"100%\" height=\"100%\" viewBox=\"0 0 52 49\" fill=\"none\"\u003E\n  \u003Cpath d=\"M1.64109 28.98C6.90872 32.0274 12.6139 34.1383 18.5851 35.2209C22.072 35.8613 25.3995 36.8014 28.4629 38.0132L37.3801 41.5482C41.047 43.0034 44.9296 44.053 48.832 44.6528L48.8 44.644L50.1524 44.8527L50.0011 45.2152C48.8865 47.8926 45.9362 49.3349 43.138 48.5657L42.1955 48.3066C41.6118 48.1462 41.2696 47.5445 41.4301 46.9608C41.5004 46.705 41.349 46.4403 41.0932 46.3699L40.0706 46.0888C39.8148 46.0185 39.5493 46.1687 39.479 46.4245C39.3186 47.0081 38.7169 47.3503 38.1333 47.1899L37.5739 47.0361C36.9903 46.8757 36.6481 46.274 36.8085 45.6904C36.8788 45.4346 36.7284 45.1701 36.4726 45.0998L35.4491 44.8184C35.1933 44.7481 34.9288 44.8985 34.8584 45.1543C34.698 45.7379 34.0963 46.0801 33.5127 45.9197L32.9533 45.7659C32.3697 45.6055 32.0275 45.0038 32.1879 44.4202C32.2582 44.1644 32.1069 43.8996 31.8511 43.8293L30.8285 43.5482C30.5727 43.4779 30.3072 43.6281 30.2369 43.8839C30.0765 44.4675 29.4748 44.8097 28.8911 44.6493L18.0426 41.667C17.459 41.5066 17.1168 40.9049 17.2772 40.3213C17.3475 40.0655 17.197 39.801 16.9413 39.7306L15.9177 39.4493C15.6619 39.379 15.3974 39.5294 15.3271 39.7852C15.1667 40.3688 14.5649 40.711 13.9814 40.5506L13.422 40.3968C12.8384 40.2364 12.4962 39.6347 12.6566 39.0511C12.7269 38.7953 12.5756 38.5305 12.3198 38.4602L11.2972 38.1791C11.0413 38.1087 10.7759 38.2589 10.7056 38.5147C10.5451 39.0984 9.94344 39.4406 9.35983 39.2801L8.8005 39.1264C8.21692 38.9659 7.87468 38.3642 8.03511 37.7806C8.10539 37.5248 7.95494 37.2604 7.69918 37.19L6.67562 36.9086C6.41984 36.8384 6.15533 36.9888 6.08499 37.2445C5.92456 37.8281 5.32284 38.1703 4.73924 38.0099L2.62811 37.4296C0.725603 36.9063 -0.398375 34.9291 0.124617 33.0265L1.29153 28.7816L1.64109 28.98ZM29.5541 1.29472C30.1353 1.21371 30.6061 1.75626 30.4501 2.3239L28.6611 8.83152C28.3864 9.83083 28.2622 10.8458 28.2711 11.8457L24.9787 12.3423C24.6493 11.9766 24.1678 11.7236 23.5889 11.702C22.9317 11.6848 22.2941 12.0346 21.9672 12.5982C21.2933 13.7369 21.8954 15.0798 23.0624 15.4008C23.9736 15.6513 24.8974 15.2007 25.2729 14.3668L28.4744 13.8877C28.7033 15.0254 29.1104 16.1094 29.6741 17.1242L26.8498 18.5486C26.3617 18.2596 25.8361 18.0728 24.6286 18.9619C24.371 19.1489 24.1596 19.4175 24.0818 19.7312C23.8457 20.7154 24.4304 21.7189 25.4138 21.9893C26.3971 22.2594 27.4525 21.6723 27.7294 20.6651C27.7557 20.5693 27.7639 20.4768 27.7743 20.3766L30.868 18.8196C31.5848 19.653 32.4342 20.4107 33.4082 20.9966C33.4118 21.0148 33.4094 21.0233 33.413 21.0415L31.0984 23.2684C30.12 23.0424 29.1268 23.6209 28.8587 24.5962C28.5467 25.7315 29.348 26.915 30.5855 26.98C31.2041 27.0125 31.8204 26.7088 32.19 26.2088C32.5349 25.7362 32.6077 25.2226 32.5163 24.7418L35.0982 22.2613C36.0326 22.9911 37.1511 23.9602 38.2646 24.9456L36.4622 27.0297C35.4094 26.8865 34.3916 27.6478 34.3281 28.8171C34.2904 29.486 34.6473 30.1603 35.2247 30.4997C36.3577 31.1634 37.7112 30.5548 38.032 29.3876C38.1264 29.0439 38.1127 28.6878 38.0138 28.3597L39.787 26.3192C41.405 27.7529 43.119 29.0577 45.0224 30.0797C49.004 32.2061 52.0622 36.848 50.9062 41.0533L50.9215 41.0565L50.6181 42.1601L49.2464 41.9552C45.5266 41.3797 41.8765 40.3936 38.3731 39.0006L29.394 35.4405C26.0058 34.0963 22.4773 33.1687 18.8887 32.4918C17.2444 32.186 15.6219 31.7998 14.0215 31.3341C14.2676 30.7827 14.4703 30.2023 14.6351 29.6028C16.5032 22.8073 12.4951 15.7723 5.70781 13.9065L9.36488 0.603088C9.49018 0.147418 9.96319 -0.101365 10.4065 0.0376718L16.9886 2.14889C18.2337 2.40519 19.4971 2.50278 20.7618 2.4377L29.5541 1.29472ZM4.93782 16.7038C10.1824 18.1455 13.2806 23.5807 11.8366 28.8335C11.6828 29.3931 11.4851 29.924 11.2419 30.4333C8.28937 29.3808 5.43981 28.0468 2.7153 26.4466L2.32237 26.218L4.93782 16.7038Z\" fill=\"currentColor\"\u003E\u003C/path\u003E\n\u003C/svg\u003E",
+              "description": "la description",
+              "main_text": "\u003Col\u003E\u003Cli\u003ELorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\"\u003C/li\u003E\u003Cli\u003Efewf\u003C/li\u003E\u003Cli\u003Efewf\u003C/li\u003E\u003Cli\u003Efew\u003C/li\u003E\u003Cli\u003Efew\u003C/li\u003E\u003C/ol\u003E",
+              "essentials": "Indispensables",
               "estimated_time": "2 jours",
-              "activity_type": [],
+              "activity_type": "Promenade",
               "seasons": [
                 "hiver",
                 "printemps"
               ],
               "map": {
-                "latitude": null,
-                "longitude": null
+                "latitude": 48.1545753396945,
+                "longitude": -69.6669432520867
               },
               "images": [
                 {
@@ -289,161 +1252,13 @@
                 }
               ],
               "next_step": {
-                "transportation": [],
-                "time": 56
-              }
-            },
-            {
-              "title": "Balade dans le village pour découvrir l'architecture traditionnelle",
-              "description": null,
-              "main_text": "\u003Ch3\u003EÀ quoi vous attendre ?\u003C/h3\u003E\u003Cp\u003EOn y trouve la plus belle vue sur le fjard (oui oui fjard et non fjord) et l’anse St-Pancrace, mais aussi sur le fleuve Saint-Laurent qui s’étend à perte de vue devant nos yeux éblouis. \u003Cbr /\u003E\u003Cbr /\u003EEn marchant encore quelques pas une fois au sommet, on peut également apercevoir le lac Low de l’autre côté de la route 138 et faire un pique-nique assis sur une roche plate qui surplombe la falaise.  Si on a le vertige, on recule un peu et on se colle aux épinettes!\u003C/p\u003E\u003Cp\u003E \u003C/p\u003E\u003Ch3\u003EPourquoi on recommande ?\u003C/h3\u003E\u003Cul\u003E\u003Cli\u003EManteau imperméables\u003C/li\u003E\u003Cli\u003EPaire de jumelles\u003C/li\u003E\u003Cli\u003ESac imperméable\u003C/li\u003E\u003C/ul\u003E",
-              "essentials": null,
-              "estimated_time": "2 jours",
-              "activity_type": [],
-              "seasons": [
-                "hiver",
-                "printemps"
-              ],
-              "map": {
-                "latitude": null,
-                "longitude": null
-              },
-              "images": [
-                {
-                  "meta": {
-                    "title": "960px Parc marin du Saguenay Saint Laurent 15 cropped"
-                  },
-                  "images": {
-                    "optimized": {
-                      "standard": {
-                        "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg",
-                        "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg"
-                      },
-                      "webp": {
-                        "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg.webp",
-                        "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg.webp"
-                      }
-                    },
-                    "original": {
-                      "url": "https://tcn.dev.kffein.work/upload/images/bornes/tadoussac_2026-01-08-160059_vpev.jpeg",
-                      "sizes": {
-                        "width": 960,
-                        "height": 670
-                      }
-                    },
-                    "focalPoint": {
-                      "x": 0.5,
-                      "y": 0.5
-                    }
-                  }
-                }
-              ],
-              "next_step": {
-                "transportation": [],
-                "time": 56
-              }
-            },
-            {
-              "title": "Balade dans le village pour découvrir l'architecture traditionnelle",
-              "description": null,
-              "main_text": "\u003Ch3\u003EÀ quoi vous attendre ?\u003C/h3\u003E\u003Cp\u003EOn y trouve la plus belle vue sur le fjard (oui oui fjard et non fjord) et l’anse St-Pancrace, mais aussi sur le fleuve Saint-Laurent qui s’étend à perte de vue devant nos yeux éblouis. \u003Cbr /\u003E\u003Cbr /\u003EEn marchant encore quelques pas une fois au sommet, on peut également apercevoir le lac Low de l’autre côté de la route 138 et faire un pique-nique assis sur une roche plate qui surplombe la falaise.  Si on a le vertige, on recule un peu et on se colle aux épinettes!\u003C/p\u003E\u003Cp\u003E \u003C/p\u003E\u003Ch3\u003EPourquoi on recommande ?\u003C/h3\u003E\u003Cul\u003E\u003Cli\u003EManteau imperméables\u003C/li\u003E\u003Cli\u003EPaire de jumelles\u003C/li\u003E\u003Cli\u003ESac imperméable\u003C/li\u003E\u003C/ul\u003E",
-              "essentials": null,
-              "estimated_time": "2 jours",
-              "activity_type": [],
-              "seasons": [
-                "hiver",
-                "printemps"
-              ],
-              "map": {
-                "latitude": null,
-                "longitude": null
-              },
-              "images": [
-                {
-                  "meta": {
-                    "title": "960px Parc marin du Saguenay Saint Laurent 15 cropped"
-                  },
-                  "images": {
-                    "optimized": {
-                      "standard": {
-                        "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg",
-                        "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg"
-                      },
-                      "webp": {
-                        "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg.webp",
-                        "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg.webp"
-                      }
-                    },
-                    "original": {
-                      "url": "https://tcn.dev.kffein.work/upload/images/bornes/tadoussac_2026-01-08-160059_vpev.jpeg",
-                      "sizes": {
-                        "width": 960,
-                        "height": 670
-                      }
-                    },
-                    "focalPoint": {
-                      "x": 0.5,
-                      "y": 0.5
-                    }
-                  }
-                }
-              ],
-              "next_step": {
-                "transportation": [],
-                "time": 56
-              }
-            },
-            {
-              "title": "Balade dans le village pour découvrir l'architecture traditionnelle",
-              "description": null,
-              "main_text": "\u003Ch3\u003EÀ quoi vous attendre ?\u003C/h3\u003E\u003Cp\u003EOn y trouve la plus belle vue sur le fjard (oui oui fjard et non fjord) et l’anse St-Pancrace, mais aussi sur le fleuve Saint-Laurent qui s’étend à perte de vue devant nos yeux éblouis. \u003Cbr /\u003E\u003Cbr /\u003EEn marchant encore quelques pas une fois au sommet, on peut également apercevoir le lac Low de l’autre côté de la route 138 et faire un pique-nique assis sur une roche plate qui surplombe la falaise.  Si on a le vertige, on recule un peu et on se colle aux épinettes!\u003C/p\u003E\u003Cp\u003E \u003C/p\u003E\u003Ch3\u003EPourquoi on recommande ?\u003C/h3\u003E\u003Cul\u003E\u003Cli\u003EManteau imperméables\u003C/li\u003E\u003Cli\u003EPaire de jumelles\u003C/li\u003E\u003Cli\u003ESac imperméable\u003C/li\u003E\u003C/ul\u003E",
-              "essentials": null,
-              "estimated_time": "2 jours",
-              "activity_type": [],
-              "seasons": [
-                "hiver",
-                "printemps"
-              ],
-              "map": {
-                "latitude": null,
-                "longitude": null
-              },
-              "images": [
-                {
-                  "meta": {
-                    "title": "960px Parc marin du Saguenay Saint Laurent 15 cropped"
-                  },
-                  "images": {
-                    "optimized": {
-                      "standard": {
-                        "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg",
-                        "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg"
-                      },
-                      "webp": {
-                        "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg.webp",
-                        "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/tadoussac_2026-01-08-160059_vpev.jpeg.webp"
-                      }
-                    },
-                    "original": {
-                      "url": "https://tcn.dev.kffein.work/upload/images/bornes/tadoussac_2026-01-08-160059_vpev.jpeg",
-                      "sizes": {
-                        "width": 960,
-                        "height": 670
-                      }
-                    },
-                    "focalPoint": {
-                      "x": 0.5,
-                      "y": 0.5
-                    }
-                  }
-                }
-              ],
-              "next_step": {
-                "transportation": [],
-                "time": 56
+                "polyline": null,
+                "time_to_next_step": null
               }
             }
-          ]
+          ],
+          "base64_qr": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAUAAAAFACAIAAABC8jL9AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAGp0lEQVR4nO3dwXIiORAA0WVj//+XvTdfZqKxhRCV8N55BmNMhg5dUbp9fX39AzT9++o3AKwTMIQJGMIEDGEChjABQ5iAIUzAECZgCBMwhP1391/cbrcD7+NJ1gZFL37lk5On2z/5ize/9rPWXnDI25jvJ182JzCECRjCBAxhAoYwAUOYgCFMwBAmYAi7P8hxYcg+rbWH9dsf8Z+cGRgyoLJ9WuPkNyr97f3mBIYwAUOYgCFMwBAmYAgTMIQJGMIEDGEPDXJcOLlNYvsLXrz57SsjhhgyhTJkxmP+t/ebExjCBAxhAoYwAUOYgCFMwBAmYAgTMIQ9a5BjvpO3eJy8Z2TN9o0cJ9/GJ3MCQ5iAIUzAECZgCBMwhAkYwgQMYQKGsM8d5Bhymcia7QMP8y+aMePxV05gCBMwhAkYwgQMYQKGMAFDmIAhTMAQ9qxBjvmP3dO3eGyfJxly3cn2rSZr5n97vzmBIUzAECZgCBMwhAkYwgQMYQKGMAFD2EODHCfv/nhXQ+Yu0v9rzXt8e53AECZgCBMwhAkYwgQMYQKGMAFDmIAh7BZaPtC1NjPwgZe/DFmTEuIEhjABQ5iAIUzAECZgCBMwhAkYwgQMYfc3cgxZXHByCGHNyXtGthtym8yQ2ZUh/+snnMAQJmAIEzCECRjCBAxhAoYwAUOYgCFs1kaOIQsZpj2sL/6skys+hnwaF5737XUCQ5iAIUzAECZgCBMwhAkYwgQMYQKGsGdt5Fh7cr19MODk+Mf8N7828HDyTzlkXGeNjRzA7wgYwgQMYQKGMAFDmIAhTMAQJmAIe2gjR/pyiiEXlwy5Z2TtBU9Kz8ms+ck7dAJDmIAhTMAQJmAIEzCECRjCBAxhAoaw+xs5LqT3XWx/GxeG3E6yfeBhyFKL7S845Iv9E05gCBMwhAkYwgQMYQKGMAFDmIAhTMAQ9tAgx4WTowvz911sHww4OWlw0pC/19oLXnje38sJDGEChjABQ5iAIUzAECZgCBMwhAkYwu4Pckx7cv2nIXd/XBiyW2O7k7MQ20dohqwTsZEDPpeAIUzAECZgCBMwhAkYwgQMYQKGsBds5Liw/VH4ezys/5UhMx7z38b2P8rJAZVvTmAIEzCECRjCBAxhAoYwAUOYgCFMwBB2e4NLOt71Po6TTk41fOBnaCMH8BcChjABQ5iAIUzAECZgCBMwhAkYwmZdrTJkj8eF7S84f5Dm5ATFkL/Xyf/1ICcwhAkYwgQMYQKGMAFDmIAhTMAQJmAIm7WR4+T9KUOeyKcXTaw5+SsPuXbngqtV4HMJGMIEDGEChjABQ5iAIUzAECZgCJu1kWPNkF0NFy5ecMiYxJBfeciFLKOmm645gSFMwBAmYAgTMIQJGMIEDGEChjABQ9hDGzmGPCUfMpJxYf58wvx3uOY91m5ccAJDmIAhTMAQJmAIEzCECRjCBAxhAoawhzZyDHnEf/L6jCHjH0OkP43tX5uTN/J8cwJDmIAhTMAQJmAIEzCECRjCBAxhAoaw+4McJw1ZdzBk/OOktQ9qyMd74eSQz0u+vU5gCBMwhAkYwgQMYQKGMAFDmIAhTMAQdv9qlZN7Bk6OZJx8xL9myMKTIWs33vUFH+QEhjABQ5iAIUzAECZgCBMwhAkYwgQMYc/ayDFkS8b2RRNDxlpOGjKuk16T8ryvjRMYwgQMYQKGMAFDmIAhTMAQJmAIEzCE3d/I8a5OToas2T7wMOTNbzd/1OR5n7wTGMIEDGEChjABQ5iAIUzAECZgCBMwhN3fyDFkL8SaIRs5hkw1DLln5ORneHK44iUzHk5gCBMwhAkYwgQMYQKGMAFDmIAhTMAQdn8jx5ANDxfedT7h5Jtfe8E126c1hlxq85K/lxMYwgQMYQKGMAFDmIAhTMAQJmAIEzCE3d/Isebk0/81Q+YThkxrXDi5aWTtZ6WXxjzICQxhAoYwAUOYgCFMwBAmYAgTMIQJGMKeNciRtn0k4+QqjPmXv2z/DIcsIXnJOhEnMIQJGMIEDGEChjABQ5iAIUzAECZgCDPIsc2QvRDpy1+2z0KcfMGX3DTkBIYwAUOYgCFMwBAmYAgTMIQJGMIEDGHPGuR4yUPtXU4OPAy5dWX7FMrJgYftv/LJjRwXfvJBOYEhTMAQJmAIEzCECRjCBAxhAoYwAUPYQ4McQ3ZQDHFyxuOkk3MXa4Ys0HC1CvA7AoYwAUOYgCFMwBAmYAgTMIQJGMJu6dUZ8OGcwBAmYAgTMIQJGMIEDGEChjABQ5iAIUzAECZgCBMwhP0P0hz2rAgEf5EAAAAASUVORK5CYII=",
+          "main_travel_mode": "DRIVE"
         },
         {
           "id": 12709,
@@ -453,12 +1268,73 @@
           "entry_type": "template_circuit_bornes",
           "dates": {
             "created": 1765816797000,
-            "updated": 1765816797000,
+            "updated": 1769611594000,
             "posted": 1765565013000
           },
-          "image": null,
-          "description": null,
-          "steps": []
+          "image": {
+            "meta": {
+              "title": "Image"
+            },
+            "images": {
+              "optimized": {
+                "standard": {
+                  "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/image.png",
+                  "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/image.png",
+                  "992": "https://tcn.dev.kffein.work/upload/images/bornes/_992x558_crop_center-center_100_line/image.png",
+                  "1200": "https://tcn.dev.kffein.work/upload/images/bornes/_1200x675_crop_center-center_100_line/image.png"
+                },
+                "webp": {
+                  "576": "https://tcn.dev.kffein.work/upload/images/bornes/_576x432_crop_center-center_100_line/image.png.webp",
+                  "768": "https://tcn.dev.kffein.work/upload/images/bornes/_768x576_crop_center-center_100_line/image.png.webp",
+                  "992": "https://tcn.dev.kffein.work/upload/images/bornes/_992x558_crop_center-center_100_line/image.png.webp",
+                  "1200": "https://tcn.dev.kffein.work/upload/images/bornes/_1200x675_crop_center-center_100_line/image.png.webp"
+                }
+              },
+              "original": {
+                "url": "https://tcn.dev.kffein.work/upload/images/bornes/image.png",
+                "sizes": {
+                  "width": 1538,
+                  "height": 1604
+                }
+              },
+              "focalPoint": {
+                "x": 0.5,
+                "y": 0.5
+              }
+            }
+          },
+          "description": "Entre ciel et mer, d’étranges géants de pierre veillent sur un monde hors du temps.",
+          "commuting": [
+            {
+              "transportation": "DRIVE",
+              "time": 20
+            }
+          ],
+          "steps": [
+            {
+              "title": "test",
+              "icon": "\u003Csvg xmlns=\"http://www.w3.org/2000/svg\" width=\"100%\" height=\"100%\" viewBox=\"0 0 47 40\" fill=\"none\"\u003E\n  \u003Cpath fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M23.5004 0C24.222 0 24.8059 0.588619 24.8059 1.31604V7.89625C24.8059 8.62369 24.222 9.21229 23.5004 9.21229C22.7788 9.21229 22.1949 8.62367 22.1949 7.89625V1.31604C22.1949 0.5886 22.7788 0 23.5004 0ZM11.297 2.1514C11.9217 1.7864 12.7199 2.00232 13.0794 2.63206L16.3432 8.33066C16.7053 8.9604 16.4911 9.76494 15.8664 10.1274C15.2417 10.4924 14.4436 10.2765 14.0815 9.64672L10.8177 3.94813C10.4581 3.31838 10.6723 2.51384 11.297 2.1514ZM35.9028 2.1514C36.5275 2.51382 36.7418 3.31833 36.3797 3.94813L33.1159 9.64672C32.7563 10.2765 31.9582 10.4924 31.3335 10.1274C30.7088 9.76496 30.4946 8.96045 30.8567 8.33066L34.1205 2.63206C34.48 2.00232 35.2781 1.78638 35.9028 2.1514ZM0.921415 8.06076C1.35999 7.48241 2.1785 7.37187 2.75221 7.814L7.93859 11.8084C8.5123 12.2505 8.62196 13.0756 8.18337 13.6539C7.74735 14.2297 6.92629 14.3402 6.35512 13.9007L1.1662 9.90631C0.592483 9.46419 0.482826 8.63909 0.921415 8.06076ZM46.2778 8.06076C46.7138 8.6391 46.6042 9.46418 46.033 9.90631L40.8441 13.9007C40.2704 14.3402 39.4519 14.2297 39.0133 13.6539C38.5773 13.0756 38.6869 12.2505 39.2606 11.8084L44.447 7.814C45.0207 7.37189 45.8392 7.48241 46.2778 8.06076ZM10.0574 18.0054C7.44895 19.4628 5.00365 21.3752 2.81311 23.7399L0.120478 26.6471C-0.0401594 26.8193 -0.0401594 27.138 0.120478 27.3102L2.81311 30.2174C4.90142 32.4742 7.22688 34.3172 9.70039 35.7488C8.10674 33.2607 7.18112 30.3125 7.18112 27.1432C7.18112 23.7477 8.24454 20.5991 10.0574 18.0054ZM17.008 15.2602C16.9825 15.2782 16.9545 15.2936 16.9264 15.3091C12.6631 17.6044 9.79177 22.0538 9.79177 27.1429C9.79177 31.821 12.2141 35.9545 15.9139 38.378C15.9369 38.3908 15.9573 38.4062 15.9802 38.4217C20.9015 39.8328 26.098 39.8328 31.0192 38.4217C31.0421 38.4062 31.0625 38.3908 31.0855 38.378C34.7853 35.9541 37.2076 31.8209 37.2076 27.1429C37.2076 22.0535 34.3365 17.6042 30.073 15.3091C30.0449 15.2936 30.0169 15.2782 29.9914 15.2602C25.7229 14.2141 21.2757 14.2141 17.0073 15.2602H17.008ZM36.9427 18.0054C38.7556 20.5989 39.8189 23.7477 39.8189 27.1434C39.8189 30.3127 38.8933 33.2609 37.2996 35.749C39.773 34.3172 42.0984 32.4742 44.1869 30.2175L46.8795 27.3104C47.0402 27.1381 47.0402 26.8194 46.8795 26.6472L44.1869 23.7401C41.9965 21.3753 39.5514 19.4628 36.9427 18.0054ZM23.4997 22.3725C20.9754 22.3725 18.9304 24.434 18.9304 26.9787C18.9304 29.5234 20.9754 31.5848 23.4997 31.5848C26.0241 31.5848 28.0691 29.5234 28.0691 26.9787C28.0691 24.434 26.0241 22.3725 23.4997 22.3725ZM16.3194 26.9787C16.3194 22.9817 19.5347 19.7404 23.4997 19.7404C27.4647 19.7404 30.6801 22.9817 30.6801 26.9787C30.6801 30.9756 27.4647 34.2169 23.4997 34.2169C19.5347 34.2169 16.3194 30.9756 16.3194 26.9787Z\" fill=\"currentColor\"\u003E\u003C/path\u003E\n\u003C/svg\u003E",
+              "description": "descir",
+              "main_text": "\u003Cp\u003Edescription\u003C/p\u003E",
+              "essentials": "appareil photo",
+              "estimated_time": "12",
+              "activity_type": "Visite",
+              "seasons": [
+                "hiver"
+              ],
+              "map": {
+                "latitude": null,
+                "longitude": null
+              },
+              "images": [],
+              "next_step": {
+                "polyline": null,
+                "time_to_next_step": null
+              }
+            }
+          ],
+          "base64_qr": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAUAAAAFACAIAAABC8jL9AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAGp0lEQVR4nO3dwXIaOxBA0cer/P8vJzuvUkMsNKKvOWedYIy5pcV0tR6/f//+D2j6/91vAFgnYAgTMIQJGMIEDGEChjABQ5iAIUzAECZgCPv19F88Ho8D7+Mma4OiF7/ykMnTtT/KxZs/+YJD3sZ8//JlcwJDmIAhTMAQJmAIEzCECRjCBAxhAoaw54McF9JTDdsf8W9/we0f7/YBle3TGie/Uelv7xcnMIQJGMIEDGEChjABQ5iAIUzAECZgCHtpkOPC/KmGtUmDISsjtr/gyc0V82c85n97vziBIUzAECZgCBMwhAkYwgQMYQKGMAFD2F2DHPMNmaAYci3I9o0cJ9/GJ3MCQ5iAIUzAECZgCBMwhAkYwgQMYQKGsM8d5Pipl4kMGckw43GGExjCBAxhAoYwAUOYgCFMwBAmYAgTMITdNcgx/7H7kOGK7Xs8LsyfQlm71GbIMMxbOIEhTMAQJmAIEzCECRjCBAxhAoYwAUPYS4McJ+/+SNs+QXHyZ83/X2t+xrfXCQxhAoYwAUOYgCFMwBAmYAgTMIQJGMIeoeUDXUOWWpwckzi5M+STOYEhTMAQJmAIEzCECRjCBAxhAoYwAUPY840cQxYXnBxCWHNyJGO7k2MS26c1hiwGecv1NE5gCBMwhAkYwgQMYQKGMAFDmIAhTMAQ9tJGDosm3mXt9xoyJrHmLWMS3/pZF+772jiBIUzAECZgCBMwhAkYwgQMYQKGMAFD2PNBjiHP8ddsf4fzf+U1NnK8zkYO4HsEDGEChjABQ5iAIUzAECZgCBMwhN21kePCyefd8x/xb3fyMzzp5EzOmrd8bZzAECZgCBMwhAkYwgQMYQKGMAFDmIAh7KVBju2GzAxcGDKFctKQiZf01NAFGzngcwkYwgQMYQKGMAFDmIAhTMAQJmAI+/XKf/7ASYPtKz7WnuOPGr/ZaMhKlrUXvHDf38sJDGEChjABQ5iAIUzAECZgCBMwhAkYwu7ayDHkAfpJQy5/GbJA48IHvo3tOXxxAkOYgCFMwBAmYAgTMIQJGMIEDGEChrC7NnIMGSc4eR/Hhfm/8nbz38b2Eabt341/eYdOYAgTMIQJGMIEDGEChjABQ5iAIUzAEPbSIMfJFQQXLzjttotvGTKFcvLTGPIFGDJdYyMHfC4BQ5iAIUzAECZgCBMwhAkYwgQMYXdt5DhpyM0aF7aPSay94PwP6uT8z8mba+6bk3ECQ5iAIUzAECZgCBMwhAkYwgQMYQKGsMcrj5hPXq0y5DKRIW/jpCFXkKwZcsXPBVerwOcSMIQJGMIEDGEChjABQ5iAIUzAEPbSIMfV686Y8bgwZJxguyFzMm+ZavjWC14Y8vcyyAE/nIAhTMAQJmAIEzCECRjCBAxhAoaw54McQ57jDzFkw8PJaY30BMXPWLtxwQkMYQKGMAFDmIAhTMAQJmAIEzCECRjCfp3/kduXdZz8Xyffxpoh2yQuDBny2T4nc/Kv/MUJDGEChjABQ5iAIUzAECZgCBMwhAkYwl7ayHFygmLNkOGKIXshhhhyqc2QKRQbOeBzCRjCBAxhAoYwAUOYgCFMwBAmYAi7a5Bj7QXXnJy7mPYc/1s/68JPHXiY/4IvcgJDmIAhTMAQJmAIEzCECRjCBAxhAoawu65WOfkAPT1psPazThoyJ7P90zj58drIAfyFgCFMwBAmYAgTMIQJGMIEDGEChrDnGzl+qpPjBPOHRrYbcn/KmpPXCb3ICQxhAoYwAUOYgCFMwBAmYAgTMIQJGMKeb+QYshdizZAJipPXnZycNDj5NtY+w5PDFW+Z8XACQ5iAIUzAECZgCBMwhAkYwgQMYQKGsOcbOebvhRgyd3FhyHDFEEMWnlwI7V1xAkOYgCFMwBAmYAgTMIQJGMIEDGEChrDnGznWnJyFWHNyQGX7Nok1Q36vC2szHvNnV+7jBIYwAUOYgCFMwBAmYAgTMIQJGMIEDGF3DXKkbV/IMH+C4uQsxNoIzfytJm9ZJ+IEhjABQ5iAIUzAECZgCBMwhAkYwgQMYQY5/mL+3MXJWzxOjklsn4U4+YJvuWnICQxhAoYwAUOYgCFMwBAmYAgTMIQJGMLuGuR4y0PtA05uXRhyccmaITfXnLyr5S3jOk5gCBMwhAkYwgQMYQKGMAFDmIAhTMAQ9nj6sPjkpRvbnRxdGLLU4sLJ6ZqTX5shCzRcrQJ8j4AhTMAQJmAIEzCECRjCBAxhAoaw54McwFhOYAgTMIQJGMIEDGEChjABQ5iAIUzAECZgCBMwhAkYwv4AV4DqtSf3smUAAAAASUVORK5CYII=",
+          "main_travel_mode": "DRIVE"
         }
       ]
     }

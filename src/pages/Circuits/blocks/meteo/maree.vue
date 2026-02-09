@@ -1,0 +1,207 @@
+<template>
+    <div class="maree">
+        <div class="maree__title">
+            <div class="maree__title__icon" v-html="IconMaree"></div>
+            <span class="maree__title__text">{{ $t('meteo.maree') }}</span>
+        </div>
+        <div class="maree__content_text">
+            <div class="maree__content_text__title">
+                {{ currentMaree?.next_event_type === 'HIGH TIDE' ? $t('meteo.next_high_tide') : $t('meteo.next_low_tide') }}
+            </div>
+            <div class="maree__content_text__value">
+                {{ currentMaree?.next_event_timestamp ? new Date(currentMaree?.next_event_timestamp * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false }) : 'XX:XX' }}
+            </div>
+        </div>
+        <div class="maree__content_line">
+            <div
+                class="maree__content_line__line"
+                :style="lineStyle"
+                v-html="IconLine"
+                :data-high="currentMaree?.next_event_type === 'HIGH TIDE'"
+            ></div>
+            <div class="maree__content_line__arrow" v-html="IconArrow" :high="currentMaree?.next_event_type === 'HIGH TIDE'"></div>
+        </div>
+        <div class="maree__content_next_maree">
+            <span class="maree__content_next_maree__title">
+                {{ currentMaree?.previous_event_type === 'HIGH TIDE' ? $t('meteo.high_tide') : $t('meteo.low_tide') }}
+            </span>
+            <div class="maree__content_next_maree__line" v-html="IconArrowLeft"></div>
+            <span class="maree__content_next_maree__value">{{ currentMaree?.previous_event_timestamp ? new Date(currentMaree?.previous_event_timestamp * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false }) : 'XX:XX' }}</span>
+        </div>
+    </div>
+</template>
+
+<script setup lang="ts">
+import IconMaree from 'assets/svg/summit.svg?raw'
+import IconArrow from 'assets/svg/big_line.svg?raw'
+import IconArrowLeft from 'assets/svg/small_arrow.svg?raw'
+import IconLine from 'assets/svg/tide.svg?raw'
+import { store as appStore } from 'plugins/store/app'
+import { computed } from 'vue'
+
+const currentMaree = computed(() => {
+    if (!appStore.home?.tides) return null
+    return appStore.home?.tides
+})
+
+/** Fenêtre de temps avant la prochaine marée pour le calcul de la position (en secondes) */
+const FENETRE_AVANT_MAREE = 6 * 60 * 60
+/** Seuil en secondes en dessous duquel on considère qu'on est "proche" de la prochaine marée */
+const SEUIL_PROCHE = 60 * 60
+
+/**
+ * Top du cercle (en %) pour qu'il reste au centre de la ligne de marée.
+ * Calqué sur le SVG tide.svg : viewBox 0 0 387 101, courbe y ≈ 96.78 aux bords, y ≈ 4.22 au creux.
+ * Parabole (2*t-1)² : 0 au centre (t=0.5), 1 aux bords (t=0 ou 1). Coefficient ajusté pour que
+ * le cercle soit visuellement centré sur le trait (ex. position 0.75 → ~30%).
+ */
+const TIDE_VIEWBOX_HEIGHT = 101
+const TIDE_Y_TOP = 4.22
+const TIDE_DEPTH = 89.5  // ajusté pour position 0.77 → top ~30% (cercle au milieu du trait, pas en dessous)
+
+function getTideTopPercent(position: number): number {
+    const t = Math.max(0, Math.min(1, position))
+    const parabola = (2 * t - 1) ** 2
+    const yViewBox = TIDE_Y_TOP + TIDE_DEPTH * parabola
+    const percent = (yViewBox / TIDE_VIEWBOX_HEIGHT) * 100
+    return Math.max(4, Math.min(97, percent))
+}
+
+const lineStyle = computed(() => {
+    const next = currentMaree.value?.next_event_timestamp
+    if (next == null) return { '--tide-position': 0, '--tide-proche': 0, '--tide-top': 80 }
+
+    const now = Date.now() / 1000
+    const timeUntilNext = next - now
+
+    const position = Math.max(
+        0,
+        Math.min(1, 1 - timeUntilNext / FENETRE_AVANT_MAREE),
+    )
+    const PIVOT = 0.05
+    const positionLisse =
+        position >= 0 && position <= 0.1
+            ? position < PIVOT
+                ? 0
+                : 0.1
+            : Number(position.toFixed(2))
+    const isProche = timeUntilNext > 0 && timeUntilNext <= SEUIL_PROCHE ? 1 : 0
+    const tideTop = getTideTopPercent(positionLisse)
+
+    return {
+        '--tide-position': positionLisse,
+        '--tide-proche': isProche,
+        '--tide-top': tideTop,
+    }
+})
+</script>
+
+<style lang="stylus" scoped>
+    .maree
+        r(padding-top, 24px 16px)
+        r(padding-bottom, 24px 16px)
+        background-color white
+        border-radius $radius-lg
+        +layout(mobile)
+            border-radius 6px
+        &__title__icon
+            r(size, 40px 18px)
+            color $fjord
+        &__title
+            r(padding-left, 30px 14px)
+            r(padding-right, 30px 14px)
+            opacity 0.5
+            font-size 26px
+            font-family $ff-text
+            font-weight $fw-regular
+            line-height 1.3
+            color $fjord
+            f(row, $justify: flex-start, $align: center)
+            r(gap, 15px)
+            &__text
+                &:first-letter
+                    text-transform uppercase
+            +layout(mobile)
+                font-size 12px
+                line-height 1.3
+                font-weight $fw-bold
+        &__content_text
+            margin-top 15px
+            padding-left 30px
+            padding-right 30px
+            f(column, $justify: flex-start, $align: center)
+            color $fjord
+            &__title
+                font-family $ff-text
+                font-weight $fw-regular
+                line-height 1.3
+                r(font-size, 26px 12px)
+            &__value
+                font-family $ff-text
+                font-weight $fw-bold
+                line-height 1.2
+                r(font-size, 64px 30px)
+        &__content_line
+            width 100%
+            position relative
+            display flex
+            height 152px
+            +layout(mobile)
+                height 100px
+            &__line
+                r(padding-top, 30px 0px)
+                width 100%
+                padding-bottom 30px
+                position relative
+                :deep(svg)
+                    width 100%
+                    height 100%
+                &[data-high="false"]
+                    :deep(svg)
+                        transform rotate(180deg)
+                &::after
+                    content ''
+                    display none
+                    position absolute
+                    left unquote('calc(14px + var(--tide-position) * (50% - 14px))')
+                    top unquote('calc(var(--tide-top) * 1%)')
+                    transform translate(-50%, -50%)
+                    size 28px
+                    background-color white
+                    border-radius 50%
+                    border 5px solid $fleuve
+                    box-sizing border-box
+        &__content_line__arrow
+            position absolute
+            left 48%
+            &[high="false"]
+                top 50%
+                left 47%
+                +layout(mobile)
+                    left 36%
+                    top 35%
+            +layout(mobile)
+                height 50%
+                width 50%
+                left 37%
+                :deep(svg)
+                    width 50%
+                    height 50%
+        &__content_next_maree
+            r(padding-left, 30px 14px)
+            r(padding-right, 30px 14px)
+            r(font-size, 26px 12px)
+            font-family $ff-text
+            font-weight $fw-regular
+            line-height 1.3
+            color $fjord
+            gap 5px
+            f(row, $justify: center, $align: center)
+            &__line
+                r(width, 33px 16px)
+                :deep(svg)
+                    width 100%
+                    height 100%
+            +layout(mobile)
+                margin-top -35px
+</style>

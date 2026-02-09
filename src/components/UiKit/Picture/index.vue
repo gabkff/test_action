@@ -114,7 +114,7 @@ const webpSrcset = computed(() => {
  * Srcset pour les images standard (optimisées)
  */
 const standardSrcset = computed(() => {
-  const standard = props.images?.images?.optimized?.standard
+  const standard = props.images?.images?.optimized?.standard || (props.images as ImageDetail)?.optimized?.standard
   if (!standard) return null
   
   return Object.entries(standard)
@@ -147,6 +147,7 @@ onMounted(() => {
   overflow hidden
   display block
   line-height 0
+  border-radius 12px
 
 .container
   display inline-block

@@ -6,13 +6,12 @@
  */
 
 import { createI18n } from 'vue-i18n'
-import { DEFAULT_LOCALE, AVAILABLE_LOCALES } from 'config'
+import { DEFAULT_LOCALE } from 'config'
 
 // Import des fichiers de traduction
 import fr from './locales/fr.json'
 import en from './locales/en.json'
 
-export type LocaleKey = typeof AVAILABLE_LOCALES[number]
 
 // Messages de traduction
 const messages = {

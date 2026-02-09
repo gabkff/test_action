@@ -1,5 +1,3 @@
-import type { AppConfig, AppMode } from 'types/api.types'
-
 /**
  * Configuration de l'application
  * 
@@ -31,8 +29,8 @@ export const DEBUG = import.meta.env.DEV
 export const IS_DEV = import.meta.env.DEV
 
 // Animation config - activé par défaut, peut être désactivé via prefers-reduced-motion
-export const motion = typeof window !== 'undefined' 
-  ? !window.matchMedia('(prefers-reduced-motion: reduce)').matches 
+export const motion = typeof window !== 'undefined'
+  ? !window.matchMedia('(prefers-reduced-motion: reduce)').matches
   : true
 
 // Locales disponibles

@@ -25,11 +25,17 @@ declare global {
     isPrerender: boolean
     __TAURI__?: unknown
   }
+  type Multiline = string
+  type HtmlText = string 
+  type Wysiwyg = string
+  type Timestamp = number
+  type Obj = Record<string, any>
 }
 
 // Augmentation des types d'environnement Vite
 interface ImportMetaEnv {
   readonly VITE_API_URL: string
+  readonly VITE_API_SITE: string
   readonly VITE_APP_MODE: 'kiosk' | 'ipad'
   readonly VITE_REFRESH_INTERVAL: string
   readonly VITE_USE_MOCK_DATA: string

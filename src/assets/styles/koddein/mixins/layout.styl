@@ -9,36 +9,18 @@
  * @param $type - 'default' | 'pagebuilder'
  */
 container($type = default)
-  $fullwidth = 100%
   margin-left auto
   margin-right auto
 
-  // Mobile layout
-  +layout(mobile)
-    width calc($fullwidth - (2 * $gutter-tablet))
-    +mobile()
-      width calc($fullwidth - (2 * $gutter-mobile))
-
   if $type is default
-    $responsive_gutter = 'calc( %s * var(--ratio-between, 1))' % (2 * $gutter)
-    $responsive_gutter_d = 'calc( %s * var(--ratio-desktop))' % (2 * $gutter)
-    $responsive_gutter_m = 'calc( %s * var(--ratio-mobile))' % (2 * $gutter)
-    width calc($fullwidth - $responsive_gutter)
-    +layout($desktop)
-      width calc($fullwidth - $responsive_gutter_d)
-    +below($mobile)
-      width calc($fullwidth - $responsive_gutter_m)
+    $gutter-val = 2 * $gutter
+    // Scale proportionnellement avec la viewport
+    width 'calc(100% - (%s * var(--ratio)))' % $gutter-val
 
   // Custom grid for pagebuilder
   if $type is 'pagebuilder'
-    $responsive_gutter = 'calc( %s * var(--ratio-between, 1))' % (2 * 2 * $gutter)
-    $responsive_gutter_d = 'calc( %s * var(--ratio-desktop))' % (2 * 2 * $gutter)
-    $responsive_gutter_m = 'calc( %s * var(--ratio-mobile))' % (2 * 2 * $gutter)
-    width calc($fullwidth - $responsive_gutter)
-    +above($desktop)
-      width calc($fullwidth - $responsive_gutter_d)
-    +below($mobile)
-      width calc($fullwidth - $responsive_gutter_m)
+    $gutter-val = 4 * $gutter
+    width 'calc(100% - (%s * var(--ratio)))' % $gutter-val
     max-width 1100px
 
 /**

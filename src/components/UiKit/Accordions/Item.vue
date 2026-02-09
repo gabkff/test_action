@@ -102,10 +102,16 @@ watch(
     }
   }
 )
+const emit = defineEmits<{
+  toggle: [uid: string]
+}>()
 
 const onToggle = () => {
+  console.log('test')
   if (!props.disabled) {
     updateActive(uid, props.disabled)
+    console.log('onToggle', uid)
+    emit('toggle', uid)
   }
 }
 </script>

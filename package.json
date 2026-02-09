@@ -17,6 +17,8 @@
     "lint": "eslint 'src/**/*.{js,ts,vue}' --fix"
   },
   "dependencies": {
+    "@googlemaps/js-api-loader": "^2.0.2",
+    "@googlemaps/markerclusterer": "^2.6.2",
     "@tauri-apps/api": "^2",
     "@tauri-apps/plugin-fs": "^2.4.4",
     "@tauri-apps/plugin-http": "^2.5.4",
@@ -28,6 +30,7 @@
     "gsap": "^3.12.5",
     "lodash": "^4.17.21",
     "pinia": "^2.3.1",
+    "swiper": "11.1.14",
     "vue": "^3.5.13",
     "vue-i18n": "^11.1.11",
     "vue-router": "^4.6.3"
@@ -35,8 +38,11 @@
   "devDependencies": {
     "@intlify/unplugin-vue-i18n": "^6.0.8",
     "@tauri-apps/cli": "^2",
+    "@types/google.maps": "^3.58.1",
     "@types/lodash": "^4.17.20",
     "@types/node": "^24.3.0",
+    "@typescript-eslint/eslint-plugin": "^8.53.0",
+    "@typescript-eslint/parser": "^8.53.0",
     "@vitejs/plugin-vue": "^5.2.1",
     "eslint": "^9.33.0",
     "eslint-plugin-vue": "^10.4.0",
@@ -47,7 +53,7 @@
     "stylus": "^0.64.0",
     "typescript": "~5.6.2",
     "vite": "^6.0.3",
-    "vue-tsc": "^2.1.10",
+    "vue-tsc": "^3.2.2",
     "webpack": "^5.95.0"
   }
 }

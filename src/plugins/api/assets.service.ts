@@ -4,7 +4,6 @@ import { fetch as tauriFetch } from '@tauri-apps/plugin-http'
 import { convertFileSrc } from '@tauri-apps/api/core'
 import { appConfig } from 'config'
 import { getAuthHeaders } from 'utils/helpers'
-import type { ApiResponse, ApiData, CircuitEntry, CircuitStep, EventEntry } from 'types/api.types'
 
 // Constante pour le dossier assets
 const ASSETS_DIR = 'assets'
@@ -140,9 +139,9 @@ class AssetsService {
         return e.id
       })
 
-    const hasChanges = homeChanged || 
-      changedCircuits.length > 0 || 
-      changedEvents.length > 0 || 
+    const hasChanges = homeChanged ||
+      changedCircuits.length > 0 ||
+      changedEvents.length > 0 ||
       removedCircuitIds.length > 0 ||
       removedEventIds.length > 0
 
@@ -171,88 +170,93 @@ class AssetsService {
 
   /**
    * Télécharge les assets UNIQUEMENT pour les éléments modifiés
-   * et fusionne avec les données en cache
+   * et fusionne avec les données en cache (Multi-langues)
    */
   async downloadAndReplaceUrlsOptimized(
-    freshData: ApiResponse,
-    cachedData: ApiResponse | null
-  ): Promise<ApiResponse> {
+    freshMultiData: any, // MultiLanguageData
+    cachedMultiData: any | null // MultiLanguageData | null
+  ): Promise<any> {
     if (!this.enableCache || !this.isTauriEnvironment) {
-      return freshData
+      return freshMultiData
     }
 
     await this.init()
 
     if (!this.assetsDir) {
       console.warn('⚠️ Dossier assets non initialisé')
-      return freshData
+      return freshMultiData
     }
 
-    // Compare les données
-    const cachedApiData = cachedData?.data?.data || null
-    const changes = this.compareData(freshData.data.data, cachedApiData)
-
-    // Si aucun changement, retourne le cache tel quel
-    if (!changes.hasChanges && cachedData) {
-      console.log('✨ Aucun changement détecté, utilisation du cache')
-      return cachedData
-    }
-
-    console.log('⬇️ Téléchargement des assets pour les éléments modifiés...')
+    console.log('⬇️ Traitement des assets pour toutes les langues...')
 
     // Clone les données fraîches
-    const result = JSON.parse(JSON.stringify(freshData)) as ApiResponse
+    const result = JSON.parse(JSON.stringify(freshMultiData))
 
-    // Crée une map des circuits en cache (avec URLs locales)
-    const cachedCircuitsMap = new Map<number, CircuitEntry>()
-    if (cachedData?.data?.data?.circuits) {
-      cachedData.data.data.circuits.forEach(c => cachedCircuitsMap.set(c.id, c))
-    }
+    // Parcourt chaque langue
+    for (const locale of Object.keys(result)) {
+      const freshData = result[locale] as ApiResponse
+      const cachedData = cachedMultiData ? cachedMultiData[locale] as ApiResponse : null
 
-    // Crée une map des events en cache
-    const cachedEventsMap = new Map<number, EventEntry>()
-    if (cachedData?.data?.data?.events) {
-      cachedData.data.data.events.forEach(e => cachedEventsMap.set(e.id, e))
-    }
+      // Compare les données pour cette langue
+      const cachedApiData = cachedData?.data?.data || null
+      const changes = this.compareData(freshData.data.data, cachedApiData)
 
-    // Traite les circuits
-    for (let i = 0; i < result.data.data.circuits.length; i++) {
-      const circuit = result.data.data.circuits[i]
-      const isChanged = changes.changedCircuits.some(c => c.id === circuit.id)
+      // Si aucun changement pour cette langue, on restaure le cache
+      if (!changes.hasChanges && cachedData) {
+        console.log(`✨ Aucun changement détecté pour [${locale}], utilisation du cache`)
+        result[locale] = cachedData
+        continue
+      }
 
-      if (isChanged) {
-        // Circuit modifié → télécharge ses assets
-        await this.processCircuitAssets(circuit)
-      } else {
-        // Circuit non modifié → récupère du cache (URLs déjà locales)
-        const cachedCircuit = cachedCircuitsMap.get(circuit.id)
-        if (cachedCircuit) {
-          result.data.data.circuits[i] = cachedCircuit
+      console.log(`⬇️ Téléchargement des assets pour [${locale}]...`)
+
+      // Crée une map des circuits en cache pour cette langue
+      const cachedCircuitsMap = new Map<number, CircuitEntry>()
+      if (cachedData?.data?.data?.circuits) {
+        cachedData.data.data.circuits.forEach(c => cachedCircuitsMap.set(c.id, c))
+      }
+
+      // Crée une map des events en cache pour cette langue
+      const cachedEventsMap = new Map<number, EventEntry>()
+      if (cachedData?.data?.data?.events) {
+        cachedData.data.data.events.forEach(e => cachedEventsMap.set(e.id, e))
+      }
+
+      // Traite les circuits de cette langue
+      for (let i = 0; i < freshData.data.data.circuits.length; i++) {
+        const circuit = freshData.data.data.circuits[i]
+        const isChanged = changes.changedCircuits.some(c => c.id === circuit.id)
+
+        if (isChanged) {
+          await this.processCircuitAssets(circuit)
+        } else {
+          const cachedCircuit = cachedCircuitsMap.get(circuit.id)
+          if (cachedCircuit) {
+            freshData.data.data.circuits[i] = cachedCircuit
+          }
+        }
+      }
+
+      // Traite les events de cette langue
+      for (let i = 0; i < freshData.data.data.events.length; i++) {
+        const event = freshData.data.data.events[i]
+        const isChanged = changes.changedEvents.some(e => e.id === event.id)
+
+        if (isChanged) {
+          await this.processEventAssets(event)
+        } else {
+          const cachedEvent = cachedEventsMap.get(event.id)
+          if (cachedEvent) {
+            freshData.data.data.events[i] = cachedEvent
+          }
         }
       }
     }
 
-    // Traite les events
-    for (let i = 0; i < result.data.data.events.length; i++) {
-      const event = result.data.data.events[i]
-      const isChanged = changes.changedEvents.some(e => e.id === event.id)
+    // Nettoyage global basé sur TOUTES les langues
+    await this.cleanupOrphanedAssets(result)
 
-      if (isChanged) {
-        await this.processEventAssets(event)
-      } else {
-        const cachedEvent = cachedEventsMap.get(event.id)
-        if (cachedEvent) {
-          result.data.data.events[i] = cachedEvent
-        }
-      }
-    }
-
-    // Nettoie les assets des éléments supprimés
-    if (changes.removedCircuitIds.length > 0 || changes.removedEventIds.length > 0) {
-      await this.cleanupOrphanedAssets(result, cachedData)
-    }
-
-    console.log('✅ Traitement des assets terminé')
+    console.log('✅ Traitement global des assets terminé')
     return result
   }
 
@@ -260,7 +264,12 @@ class AssetsService {
    * Ancienne méthode (garde pour compatibilité) - télécharge TOUT
    */
   async downloadAndReplaceUrls(apiData: ApiResponse): Promise<ApiResponse> {
-    return this.downloadAndReplaceUrlsOptimized(apiData, null)
+    // Cette méthode n'est plus utilisée pour le cache multi-langues, 
+    // mais on la garde pour ne pas casser d'éventuels autres appels.
+    // On l'adapte pour qu'elle fonctionne avec un seul objet ApiResponse.
+    const wrapped = { [apiData.data.lang]: apiData }
+    const result = await this.downloadAndReplaceUrlsOptimized(wrapped, null)
+    return result[apiData.data.lang]
   }
 
   // ============================================
@@ -268,18 +277,23 @@ class AssetsService {
   // ============================================
 
   /**
-   * Supprime les fichiers assets qui ne sont plus référencés
+   * Supprime les fichiers assets qui ne sont plus référencés (dans aucune langue)
    */
   private async cleanupOrphanedAssets(
-    currentData: ApiResponse,
-    oldData: ApiResponse | null
+    currentMultiData: any // MultiLanguageData
   ): Promise<void> {
-    if (!this.assetsDir || !oldData) return
+    if (!this.assetsDir) return
 
     try {
-      // Collecte toutes les URLs locales référencées dans les nouvelles données
+      // Collecte toutes les URLs locales référencées dans TOUTES les langues
       const referencedFiles = new Set<string>()
-      this.collectAssetFileNames(currentData.data.data, referencedFiles)
+
+      for (const locale of Object.keys(currentMultiData)) {
+        const apiResponse = currentMultiData[locale] as ApiResponse
+        if (apiResponse?.data?.data) {
+          this.collectAssetFileNames(apiResponse.data.data, referencedFiles)
+        }
+      }
 
       // Liste les fichiers existants
       const existingFiles = await readDir(this.assetsDir)
@@ -322,6 +336,12 @@ class AssetsService {
     for (const event of data.events || []) {
       if ((event as any).image) {
         this.collectImageFileNames((event as any).image, fileNames)
+      }
+      if (event.main_image) {
+        this.collectImageFileNames(event.main_image, fileNames)
+      }
+      if (event.images) {
+        event.images.forEach(img => this.collectImageFileNames(img, fileNames))
       }
     }
   }
@@ -393,7 +413,7 @@ class AssetsService {
       for (const size of Object.keys(image.images.optimized.standard)) {
         const url = image.images.optimized.standard[size as keyof typeof image.images.optimized.standard]
         if (url) {
-          (image.images.optimized.standard as Record<string, string>)[size] = 
+          (image.images.optimized.standard as Record<string, string>)[size] =
             await this.downloadAndGetAssetUrl(url)
         }
       }
@@ -404,7 +424,7 @@ class AssetsService {
       for (const size of Object.keys(image.images.optimized.webp)) {
         const url = image.images.optimized.webp[size as keyof typeof image.images.optimized.webp]
         if (url) {
-          (image.images.optimized.webp as Record<string, string>)[size] = 
+          (image.images.optimized.webp as Record<string, string>)[size] =
             await this.downloadAndGetAssetUrl(url)
         }
       }
@@ -425,7 +445,7 @@ class AssetsService {
       const localPath = await join(this.assetsDir, fileName)
 
       const fileExists = await exists(localPath)
-      
+
       if (fileExists) {
         // Fichier en cache → on l'utilise
         console.log('📦 Asset en cache:', fileName)
