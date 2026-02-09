@@ -51,7 +51,7 @@ async function setup() {
   // Configuration en mode dev
   if (import.meta.env.DEV) {
     console.log('🚀 Application démarrée en mode développement')
-    console.log('📦 Plugins chargés: Pinia, Router, i18n, Head, UiKit')
+    console.log('📦 Plugins chargés')
   }
 }
 
