@@ -39,7 +39,7 @@
       "icons/icon.ico"
     ],
     "resources": [
-      "site-config.md"
+      "../site-config.md"
     ],
     "iOS": {
       "developmentTeam": "MSA628LD3H"
