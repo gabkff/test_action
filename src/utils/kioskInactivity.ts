@@ -24,8 +24,9 @@ function getForceRetourMs(): number {
 function scheduleRedirect(router: Router): void {
   if (timeoutId) clearTimeout(timeoutId)
   // FORCE CLOSE SIDE PANEL
-  useSidePanelStore().close()
+  
   timeoutId = setTimeout(() => {
+    useSidePanelStore().close()
     router.push('/')
     timeoutId = null
   }, getForceRetourMs())
