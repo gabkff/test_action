@@ -62,6 +62,9 @@ VITE_API_URL=http://localhost:3000/api
 
 # Intervalle de rafraîchissement pour les bornes (ms)
 VITE_REFRESH_INTERVAL=300000
+
+# Délai d'inactivité avant retour à la home en mode kiosk (ms)
+VITE_FORCE_RETOUR=300000
 ```
 
 ## 🖥️ Développement

@@ -15,6 +15,7 @@
             v-for="(circuit, circuitIndex) in appStore.circuits"
             :key="circuitIndex"
             :data-circuit-theme="circuitIndex"
+            @click="router.push(`/circuits/${circuit.id}`)"
         >
         <ui-picture v-if="circuit.image" :images="circuit.image.images" :cover="'cover'" :data-circuit-theme="circuitIndex"/>
         <div class="selection__circuits__item__content">

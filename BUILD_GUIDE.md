@@ -255,12 +255,14 @@ VITE_APP_MODE=kiosk
 VITE_USE_MOCK_DATA=false
 VITE_API_URL=https://api-production.com
 VITE_REFRESH_INTERVAL=300000
+VITE_FORCE_RETOUR=300000
 ```
 
 Fonctionnalités :
 - ✅ Cache local (IndexedDB)
 - ✅ Assets téléchargés localement
 - ✅ Rafraîchissement automatique toutes les 5 min
+- ✅ Retour à la home après inactivité (délai configurable via `VITE_FORCE_RETOUR` / `forceRetour`)
 - ✅ Fonctionne hors ligne
 
 ### Mode iPad
@@ -304,6 +306,7 @@ Toutes les clés sont optionnelles. Correspondance avec le `.env` :
 |--------------------|-------------------------|-------------|
 | apiUrl             | VITE_API_URL            | URL de base de l’API |
 | refreshInterval    | VITE_REFRESH_INTERVAL   | Intervalle de rafraîchissement (ms) |
+| forceRetour        | VITE_FORCE_RETOUR       | Délai d'inactivité avant retour à la home (ms) |
 | apiSite            | site-config.md / VITE_API_SITE | Code site (prioritaire sur site-config si présent) |
 | apiKey             | VITE_API_KEY            | Clé API |
 | useMockData        | VITE_USE_MOCK_DATA      | `true` = données mock |

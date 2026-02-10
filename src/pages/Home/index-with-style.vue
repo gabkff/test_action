@@ -2,9 +2,13 @@
   <div class="home" v-if="isAppReady">
     <div class="home__part">
       <div class="bg bg_fr" :style="{backgroundImage: `url(${imgBackgroundFr})`}">
-        <div class="line">
+        <div class="line line-wrapper">
           <div class="line_ line_1_fr__title text_fr"> LAISSEZ</div>
-          <div class="mask mask1_fr"></div>
+          <div class="mask_wrapper">
+            <div class="line_top_1_fr"></div>
+            <div class="mask"></div>
+            <div class="line_bottom_1_fr"></div>
+          </div>
         </div>
         
       </div>
@@ -277,7 +281,7 @@
     width 100%
     flex 1
     f(row, $justify: flex-start, $align: center)
-    r(gap, 30px 14px)
+    gap 0
     r(margin-top, -40px)
     r(margin-bottom, -40px)
     
@@ -290,11 +294,52 @@
   .line_3_fr
     r(min-height, 433px 154px)
     
+  .line_
+    background $fjord
+  .mask_wrapper
+    f(column, $justify: stretch, $align: flex-start)
+    position relative
+    height 100%
+  .line_top_1_fr
+    background red
+    height 25px
+    width 100%
+    position relative
+  .line_top_1_fr::before
+    content ""
+    position absolute
+    bottom -14px
+    width 7px
+    height 14px
+    left 1px
+    background-color transparent
+    border-top-left-radius 7px
+    box-shadow -1px -7px 0 0 red
+  .line_bottom_1_fr
+    background green
+    height 25px
+    width 100%
+  .mask_wrapper
+    width 100%
+    height 154px
   .mask
-    flex 1
-    min-width 0
-    r(height, 312px 111px)
-    border-radius 20px
     background transparent
-    border 1px solid $fjord
+    width 100%
+    height 100%
+    flex 1
+    position relative
+    border-right 1px solid red
+    border-left 1px solid red
+  .mask::before
+    content ""
+    position absolute
+    top 0px
+    right 0
+    width 7px
+    height 14px
+    background-color transparent
+    border-top-right-radius 7px
+    box-shadow 1px -7px 0 0 red
+  .line-wrapper
+    f(row)
 </style>

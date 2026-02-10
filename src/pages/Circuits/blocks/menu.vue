@@ -11,7 +11,7 @@
                     </span>
                 </div>
             </div>
-            <div class="menu-page__left_part__event" v-if="nextEvent">
+            <div class="menu-page__left_part__event" v-if="nextEvent"  @click="router.push(`/evenements`)">
                 <div class="menu-page__left_part__event__title">
                     {{  nextEventDate ?? '' }}
                 </div>
@@ -51,6 +51,7 @@
                             v-for="(circuit, circuitIndex) in appStore.circuits.filter(circuit => circuit.id !== Number(route.params.id))"
                             :key="circuit.id"
                             :data-circuit-theme="getCircuitIndex(circuit.id)"
+                            @click="router.push(`/circuits/${circuit.id}`)"
                         >
                         <ui-picture v-if="circuit.image" :images="circuit.image.images" :cover="'cover'" />
                         <div class="menu-page__right_part__circuit__content">
@@ -81,6 +82,7 @@
                                     v-for="(circuit, circuitIndex) in appStore.circuits.filter(circuit => circuit.id !== Number(route.params.id))"
                                     :key="circuit.id"
                                     :data-circuit-theme="getCircuitIndex(circuit.id)"
+                                    @click="router.push(`/circuits/${circuit.id}`)"
                                 >
                                     <ui-picture v-if="circuit.image" :images="circuit.image.images" :cover="'cover'" />
                                     <div class="menu-page__right_part__circuit__content">
@@ -382,7 +384,6 @@
     &__right_part__circuit__mobile
         min-height 224px
         width 388px
-        height 100%
         border-radius 6px
         background-color $fjord
         r(padding, 5px 5px)

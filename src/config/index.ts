@@ -22,11 +22,12 @@ const getAppMode = (): AppMode => {
 
 const appMode = getAppMode()
 
-// Configuration de l'application (apiUrl, refreshInterval peuvent être surchargés par app-config.json en mode kiosk)
+// Configuration de l'application (apiUrl, refreshInterval, forceRetour peuvent être surchargés par app-config.json en mode kiosk)
 export const appConfig: AppConfig = {
   mode: appMode,
   apiUrl: import.meta.env.VITE_API_URL || 'http://localhost:3000/api',
-  refreshInterval: parseInt(import.meta.env.VITE_REFRESH_INTERVAL || '300000'), // 5 minutes par défaut
+  refreshInterval: parseInt(import.meta.env.VITE_REFRESH_INTERVAL || '300000', 10), // 5 minutes par défaut
+  forceRetour: parseInt(import.meta.env.VITE_FORCE_RETOUR || '300000', 10), // 5 minutes avant retour à la home (kiosk)
   enableCache: appMode === 'kiosk',
 }
 

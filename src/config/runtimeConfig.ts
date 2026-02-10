@@ -14,6 +14,7 @@ const CONFIG_FILENAME = '../app-config.json'
 export interface AppConfigFile {
   apiUrl?: string
   refreshInterval?: number
+  forceRetour?: number
   apiSite?: string
   apiKey?: string
   useMockData?: boolean
@@ -44,6 +45,10 @@ export async function initRuntimeConfig(): Promise<void> {
     if (typeof data.refreshInterval === 'number' && data.refreshInterval > 0) {
       appConfig.refreshInterval = data.refreshInterval
       console.info('[runtimeConfig] refreshInterval depuis app-config.json')
+    }
+    if (typeof data.forceRetour === 'number' && data.forceRetour > 0) {
+      appConfig.forceRetour = data.forceRetour
+      console.info('[runtimeConfig] forceRetour depuis app-config.json')
     }
     if (typeof data.apiSite === 'string' && data.apiSite.trim()) {
       setApiSiteKioskOverride(data.apiSite.trim())

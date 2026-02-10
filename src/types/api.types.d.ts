@@ -182,6 +182,8 @@ declare interface AppConfig {
   mode: AppMode
   apiUrl: string
   refreshInterval?: number
+  /** Délai d'inactivité avant retour à la home (ms), mode kiosk. */
+  forceRetour?: number
   enableCache: boolean
 }
 

@@ -41,6 +41,9 @@ body
   line-height: $line-height-normal
   color: $text-primary
   background-color: $bg-primary
+  outline: none !important
+  user-select: none !important
+  outline-color: transparent !important
 
 // App container
 #app
@@ -90,6 +93,10 @@ img
   max-width: 100%
   height: auto
   display: block
+  user-select: none !important
+  user-drag: none !important
+  -webkit-user-drag: none
+  -webkit-user-select: none
 
 // Buttons (base)
 button
@@ -104,16 +111,15 @@ button
 a
   -webkit-tap-highlight-color: transparent
   touch-action: manipulation
+  cursor none !important
 
 // Selection
 ::selection
-  background-color: $primary
-  color: $text-inverse
+  background: transparent
 
 // Focus styles
 :focus-visible
-  outline: 2px solid $primary
-  outline-offset: 2px
+  outline: none
 
 // Scrollbar (webkit)
 ::-webkit-scrollbar

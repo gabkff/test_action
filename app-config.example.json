@@ -1,13 +1,1 @@
-{
-  "apiUrl": "https://votre-api.example.com/api",
-  "refreshInterval": 300000,
-  "apiSite": "votre-code-site",
-  "apiKey": "",
-  "useMockData": false,
-  "defaultLocale": "fr",
-  "googleMapKey": "",
-  "googleMapId": "",
-  "apiAuthUser": "",
-  "apiAuthPass": "",
-  "isDev": false
-}
+{"apiUrl":"https://prod.tourismecote-nord.com/api/bornes","refreshInterval":300000,"forceRetour":300000,"apiSite":"tadoussac","apiKey":"850900a7-b786-4031-bf3f-a48be17ee0ad","useMockData":false,"defaultLocale":"fr","googleMapKey":"AIzaSyDeEKBgYd4ZKd1MGQWGUKXiPNdx_KEAlpQ","googleMapId":"30049f81e1ed4a1ece2cad03","apiAuthUser":"kff","apiAuthPass":"ein","isDev":false}

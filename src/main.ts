@@ -17,6 +17,7 @@ import i18n from 'plugins/i18n'
 import router from 'router'
 import installUiKit from 'components/UiKit'
 import { startPeriodicRefresh } from 'utils/refresh'
+import { startKioskInactivityTimer } from 'utils/kioskInactivity'
 import { initApiSite } from 'plugins/api/apiSite'
 import { initRuntimeConfig } from 'config/runtimeConfig'
 
@@ -50,6 +51,9 @@ async function setup() {
 
   // Démarre le rafraîchissement périodique pour les bornes (mode kiosk uniquement)
   startPeriodicRefresh()
+
+  // Timer d'inactivité : retour à la home après 5 min sans interaction (mode kiosk uniquement)
+  startKioskInactivityTimer(router)
 
   // Configuration en mode dev
   if (import.meta.env.DEV) {
