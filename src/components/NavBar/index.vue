@@ -19,7 +19,7 @@
         type="button" 
         class="NavBar__item"
         :class="{ 'is-active': currentRoute === 'home' }"
-        @click="panel ? handleClose() : handleHome(); $emit('menu');"
+        @click="panel ? handleClose() : handleHome()"
       >
         <i class="NavBar__icon" v-html="panel ? IconClose : IconHouse" />
       </button>
@@ -90,6 +90,7 @@ import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useSidePanelStore } from 'store/sidePanel'
 import { useI18nStore } from 'plugins/i18n/store'
+import { store as appStore } from 'store/app'
 import { AVAILABLE_LOCALES } from 'config'
 import IconHouse from 'assets/svg/house.svg?raw'
 import IconArrow from 'assets/svg/arrow.svg?raw'
@@ -115,7 +116,7 @@ const props = withDefaults(defineProps<NavBarProps>(), {
   home: true,
 })
 
-defineEmits<{
+const emit = defineEmits<{
   scrollup: []
   scrolldown: []
   next: []
@@ -143,7 +144,11 @@ const otherLang = computed(() => {
  */
 function handleHome() {
   sidePanelStore.close()
-  if (props.lastStep) router.push('/selection')
+  if (props.lastStep) {
+    router.push('/selection')
+  } else {
+    emit('menu')
+  }
 }
 
 /**

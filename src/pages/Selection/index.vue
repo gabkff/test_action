@@ -51,6 +51,7 @@
     const router = useRouter()
     onMounted(() => {
         selectedLang.value = i18nStore.locale
+        appStore.setCurrentStepIndex(0)
     })
     function onLangChange(value: string | number) {
         i18nStore.setLocale(selectedLang.value as LocaleKey)

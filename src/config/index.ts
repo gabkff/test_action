@@ -28,7 +28,7 @@ export const appConfig: AppConfig = {
   apiUrl: import.meta.env.VITE_API_URL || 'http://localhost:3000/api',
   refreshInterval: parseInt(import.meta.env.VITE_REFRESH_INTERVAL || '300000', 10), // 5 minutes par défaut
   forceRetour: parseInt(import.meta.env.VITE_FORCE_RETOUR || '300000', 10), // 5 minutes avant retour à la home (kiosk)
-  enableCache: true, // true pour le test en cours
+  enableCache: false, // true pour le test en cours
   // appMode === 'kiosk',
 }
 

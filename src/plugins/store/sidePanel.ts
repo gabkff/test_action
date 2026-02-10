@@ -81,27 +81,24 @@ export const useSidePanelStore = defineStore('sidePanel', () => {
     title.value = data.title || ''
     payload.value = data.payload || {}
     isOpening.value = true
-  }
-
-  /**
-   * Appelé par le composant à la fin de l'animation d'ouverture (@after-enter).
-   * Passe le panneau en "vraiment ouvert" : les clics pourront le fermer.
-   */
-  function openAnimationEnd() {
-    isOpening.value = false
-    isOpen.value = true
+    setTimeout(() => {
+      isOpen.value = true
+      isOpening.value = false
+    }, 1000)
   }
 
   /**
    * Ouvre le panneau pour afficher un événement
    */
   function openEvent() {
+    if (isOpening.value) return
     open({
       type: 'event'
     })
   }
 
   function openCircuitStep(data: CircuitStepPayload) {
+    if (isOpening.value) return
     open({
       type: 'circuitStep',
       title: data.title,
@@ -110,6 +107,7 @@ export const useSidePanelStore = defineStore('sidePanel', () => {
   }
 
   function openQrCode(data: QrCodePayload) {
+    if (isOpening.value) return
     open({
       type: 'qrCode',
       title: data.title,
@@ -121,6 +119,7 @@ export const useSidePanelStore = defineStore('sidePanel', () => {
    * Ouvre le panneau home
    */
   function openHome() {
+    if (isOpening.value) return
     open({
       type: 'home',
       title: 'Accueil',
@@ -128,19 +127,10 @@ export const useSidePanelStore = defineStore('sidePanel', () => {
   }
 
   /**
-   * Ouvre le panneau de sélection de langue
-   */
-  function openLanguage() {
-    open({
-      type: 'language',
-      title: 'Langue',
-    })
-  }
-
-  /**
    * Ferme le panneau
    */
   function close() {
+    if (isOpening.value || !isOpen.value) return
     isOpen.value = false
     isOpening.value = false
   }
@@ -170,9 +160,7 @@ export const useSidePanelStore = defineStore('sidePanel', () => {
     openEvent,
     openCircuitStep,
     openHome,
-    openLanguage,
     openQrCode,
-    openAnimationEnd,
     close,
     reset,
   }

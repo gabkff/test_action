@@ -110,7 +110,7 @@
   
 <script setup lang="ts">
 declare type ViewCircuit = 'list' | 'map'
-import { watchEffect, ref, computed } from 'vue'
+import { watchEffect, ref, computed, onBeforeMount } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useSidePanelStore } from 'store/sidePanel'
 import { store as appStore } from 'plugins/store/app'
@@ -255,6 +255,11 @@ async function sendFeedback(direction: 'up' | 'down') {
 function goSelection() {
   router.push('/selection')
 }
+
+onBeforeMount(() => {
+  // reset le step current
+  appStore.setCurrentStepIndex(0)
+})
 </script>
   
 <style lang="stylus" scoped>

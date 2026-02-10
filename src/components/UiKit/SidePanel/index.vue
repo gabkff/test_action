@@ -1,7 +1,7 @@
 <template>
   <Teleport to="body">
-    <Transition name="panel" @after-enter="store.openAnimationEnd">
-      <div v-if="store.isOpen || store.isOpening" class="SidePanel" @click.self="handleClose">
+    <Transition name="panel">
+      <div v-if="store.isOpen || store.isOpening" class="SidePanel">
         <div class="SidePanel__overlay" @click="handleClose" />
         
         <div class="SidePanel__container">
@@ -100,6 +100,7 @@ watch(
     background white
     display flex
     flex-direction column
+    z-index 100
     box-shadow -10px 0 40px rgba(0, 0, 0, 0.15)
     .NavBar
         z-index 1
