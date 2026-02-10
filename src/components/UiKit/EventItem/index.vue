@@ -80,12 +80,6 @@ function handleClick() {
   width 100%
   cursor pointer
   transition background 0.2s ease
-  
-  &:hover
-    background rgba($fjord, 0.03)
-    
-    .EventItem__icon
-      transform rotate(90deg)
 
   &__border
     position absolute

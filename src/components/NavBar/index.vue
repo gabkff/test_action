@@ -208,9 +208,6 @@ function handleLanguage() {
     transition all 0.2s ease
     color $fjord
     
-    &:hover
-      opacity 0.7
-    
     &.is-active
       color $primary
 

@@ -141,9 +141,6 @@ const onClick = (event: MouseEvent) => {
   +layout(mobile)
     border-radius 4px
     font-size 11px
-  &:focus-visible
-    outline 2px solid $primary
-    outline-offset 2px
 
   &--disabled
   &[disabled]
@@ -160,28 +157,16 @@ const onClick = (event: MouseEvent) => {
   &--primary
     background $brume
     color $fjord
-    
-    &:hover, &:active
-      background $fjord
-      color $ecume
-      transform translateY(-2px)
-      box-shadow $shadow-md
 
   &--secondary
     background $fjord
     color $ecume
-    
-    &:hover, &:active
-      background $brume
-      color $fjord
 
   &--link
     background transparent
     color $primary
     padding 8px 0
     
-    &:hover
-      text-decoration underline
 
   &--icon
     r(padding, 20px 10px)
@@ -222,9 +207,6 @@ const onClick = (event: MouseEvent) => {
       f-style('subtitle')
       color $fjord
     
-    &:hover
-      border-color rgba(#102838, 0.5)
-      background rgba(#102838, 0.05)
     
     &.is-active
       background $fjord
@@ -242,9 +224,6 @@ const onClick = (event: MouseEvent) => {
     r(height, 120px)
     border 1px solid rgba($fjord, 0.3)
     border-radius $radius-lg
-    &:hover
-      background $fjord
-      color white
     &.is-active
       background $fjord
       color white

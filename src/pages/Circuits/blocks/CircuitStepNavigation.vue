@@ -1,7 +1,7 @@
 <template>
   <div class="step-navigation" :data-view="view">
     <!-- Étape suivante -->
-    <div class="step-navigation__card" v-if="hasNext">
+    <div class="step-navigation__card" v-if="hasNext" @click="$emit('next')">
       <div class="step-navigation__card-content">
         <div class="step-navigation__card-info">
           <div class="step-navigation__card-label">{{ $t('circuits.next_step') }}</div>
@@ -28,7 +28,7 @@
     </div>
 
     <!-- Étape précédente -->
-    <div class="step-navigation__card" v-if="hasPrevious">
+    <div class="step-navigation__card" v-if="hasPrevious" @click="$emit('previous')">
       <div class="step-navigation__card-content" :data-view="view">
         <div class="step-navigation__card-info">
           <div class="step-navigation__card-label">{{ $t('circuits.previous_step') }}</div>

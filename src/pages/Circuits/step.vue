@@ -608,6 +608,8 @@ function goSelection() {
     display flex
     flex-direction column
     gap 10px
+    +layout(mobile)
+        display none
   .maps-zoom-control__button
     r(width, 128px)
     r(height, 120px)

@@ -147,9 +147,6 @@ watch(
       path
         fill white
 
-    &:hover
-      transform rotate(135deg)
-
   &__content
     flex 1
     overflow visible
