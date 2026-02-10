@@ -18,8 +18,7 @@
         "fullscreen": true,
         "decorations": false,
         "alwaysOnTop": false,
-        "resizable": false,
-        "menu": null
+        "resizable": false
       }
     ],
     "security": {
