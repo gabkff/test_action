@@ -60,6 +60,11 @@ async function setup() {
     console.log('🚀 Application démarrée en mode développement')
     console.log('📦 Plugins chargés')
   }
+  // prevent right click
+  window.addEventListener('contextmenu', (e) => {
+    //e.preventDefault();
+    console.log('right click disabled a decommenter')
+  });
 }
 
 // Lance l'application
