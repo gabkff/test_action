@@ -18,10 +18,10 @@ export function getAuthHeaders(): Record<string, string> {
   const user = "kff"
   const pass = "ein"
   // user && pass && getIsDev()
-  if (user && pass) {
-    const credentials = btoa(`${user}:${pass}`)
-    headers['Authorization'] = `Basic ${credentials}`
-  }
+  //if (user && pass) {
+  const credentials = btoa(`${user}:${pass}`)
+  headers['Authorization'] = `Basic ${credentials}`
+  //}
 
   return headers
 }
