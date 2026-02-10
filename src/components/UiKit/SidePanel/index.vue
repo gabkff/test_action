@@ -1,7 +1,7 @@
 <template>
   <Teleport to="body">
-    <Transition name="panel">
-      <div v-if="store.isOpen" class="SidePanel" @click.self="handleClose">
+    <Transition name="panel" @after-enter="store.openAnimationEnd">
+      <div v-if="store.isOpen || store.isOpening" class="SidePanel" @click.self="handleClose">
         <div class="SidePanel__overlay" @click="handleClose" />
         
         <div class="SidePanel__container">
@@ -54,14 +54,16 @@ const store = useSidePanelStore()
 const descriptionEvent = useTemplateRef<HTMLElement | null>('descriptionEventRef')
 
 function handleClose() {
-  store.close()
+  if (!store.isOpening) {
+    store.close()
+  }
 }
 
-// Bloquer le scroll du body quand le panneau est ouvert
+// Bloquer le scroll du body quand le panneau est visible (ouvert ou en cours d'ouverture)
 watch(
-  () => store.isOpen,
-  (isOpen) => {
-    if (isOpen) {
+  () => store.isOpen || store.isOpening,
+  (visible) => {
+    if (visible) {
       document.body.style.overflow = 'hidden'
     } else {
       document.body.style.overflow = ''

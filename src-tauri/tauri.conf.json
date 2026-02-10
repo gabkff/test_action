@@ -17,8 +17,9 @@
         "height": 3840,
         "fullscreen": true,
         "decorations": false,
-        "alwaysOnTop": true,
-        "resizable": false
+        "alwaysOnTop": false,
+        "resizable": false,
+        "menu": null
       }
     ],
     "security": {

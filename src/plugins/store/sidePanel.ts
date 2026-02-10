@@ -43,6 +43,9 @@ export const useSidePanelStore = defineStore('sidePanel', () => {
   /** État d'ouverture du panneau */
   const isOpen = ref(false)
 
+  /** En cours d'ouverture (animation) — les clics ne ferment pas encore */
+  const isOpening = ref(false)
+
   /** Type de contenu actuel */
   const currentType = ref<SidePanelType | null>(null)
 
@@ -77,6 +80,15 @@ export const useSidePanelStore = defineStore('sidePanel', () => {
     currentType.value = data.type
     title.value = data.title || ''
     payload.value = data.payload || {}
+    isOpening.value = true
+  }
+
+  /**
+   * Appelé par le composant à la fin de l'animation d'ouverture (@after-enter).
+   * Passe le panneau en "vraiment ouvert" : les clics pourront le fermer.
+   */
+  function openAnimationEnd() {
+    isOpening.value = false
     isOpen.value = true
   }
 
@@ -130,6 +142,7 @@ export const useSidePanelStore = defineStore('sidePanel', () => {
    */
   function close() {
     isOpen.value = false
+    isOpening.value = false
   }
 
   /**
@@ -137,6 +150,7 @@ export const useSidePanelStore = defineStore('sidePanel', () => {
    */
   function reset() {
     isOpen.value = false
+    isOpening.value = false
     currentType.value = null
     title.value = ''
     payload.value = {}
@@ -145,6 +159,7 @@ export const useSidePanelStore = defineStore('sidePanel', () => {
   return {
     // State
     isOpen,
+    isOpening,
     currentType,
     title,
     payload,
@@ -157,6 +172,7 @@ export const useSidePanelStore = defineStore('sidePanel', () => {
     openHome,
     openLanguage,
     openQrCode,
+    openAnimationEnd,
     close,
     reset,
   }

@@ -4,6 +4,7 @@
  */
 
 import type { Router } from 'vue-router'
+import { useSidePanelStore } from 'store/sidePanel'
 import { appConfig } from 'config'
 
 const DEFAULT_FORCE_RETOUR_MS = 5 * 60 * 1000 // 5 minutes
@@ -22,6 +23,8 @@ function getForceRetourMs(): number {
 
 function scheduleRedirect(router: Router): void {
   if (timeoutId) clearTimeout(timeoutId)
+  // FORCE CLOSE SIDE PANEL
+  useSidePanelStore().close()
   timeoutId = setTimeout(() => {
     router.push('/')
     timeoutId = null
