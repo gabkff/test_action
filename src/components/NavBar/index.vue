@@ -9,7 +9,7 @@
         v-if="back"
         type="button" 
         class="NavBar__item"
-        @pointerup="$emit('previous')"
+        @pointerdown="$emit('previous')"
       >
         <i class="NavBar__icon" v-html="IconBack" />
       </button>
@@ -48,7 +48,7 @@
         v-if="next"
         type="button" 
         class="NavBar__item NavBar__item--arrow NavBar__item--arrow-next"
-        @pointerup="$emit('next')"
+        @pointerdown="$emit('next')"
       >
         <i class="NavBar__icon NavBar__icon--arrow" v-html="IconArrow" />
       </button>
@@ -57,7 +57,7 @@
         v-if="previous"
         type="button" 
         class="NavBar__item NavBar__item--arrow NavBar__item--arrow-previous"
-        @pointerup="$emit('previous')"
+        @pointerdown="$emit('previous')"
       >
         <i class="NavBar__icon NavBar__icon--arrow" v-html="IconArrow" />
       </button>

@@ -105,7 +105,7 @@ watch(
     .NavBar
         z-index 1
         position absolute
-        top 100px
+        top 39%
         left -95px 
         transform scaleX(-1)
         +layout(mobile)

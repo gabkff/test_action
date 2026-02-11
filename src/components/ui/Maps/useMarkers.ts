@@ -65,7 +65,7 @@ export function useMarkers(map: ShallowRef<google.maps.Map | null>) {
 
         // Label au-dessus (Arrêt #)
         const label = document.createElement('div')
-        label.textContent = 'Arrêt #' + (index + 1)
+        label.textContent = (index + 1).toString()
         label.className = 'custom-marker-label'
         container.appendChild(label)
 
@@ -115,7 +115,7 @@ export function useMarkers(map: ShallowRef<google.maps.Map | null>) {
                 map: null,
                 position: markerData.position,
                 content: markerElement,
-                title: 'arrêt #' + i,
+                title: i.toString(),
                 zIndex: i === currentIndex ? 1000 : i
             })
             markers.value.push(marker)
