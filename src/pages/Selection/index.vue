@@ -113,6 +113,8 @@
             r(width, 789px 375px)
             r(left, 188px)
             r(top, 1376px)
+            &:active
+                box-shadow $shadow-custom
             +layout(mobile)
                 border-radius $radius-tab
                 position relative

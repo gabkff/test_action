@@ -4,6 +4,7 @@ import { fetch as tauriFetch } from '@tauri-apps/plugin-http'
 import { convertFileSrc } from '@tauri-apps/api/core'
 import { appConfig } from 'config'
 import { getAuthHeaders } from 'utils/helpers'
+import { getApiKey } from 'config'
 
 // Constante pour le dossier assets
 const ASSETS_DIR = 'assets'
@@ -450,11 +451,16 @@ class AssetsService {
         // Fichier en cache → on l'utilise
         console.log('📦 Asset en cache:', fileName)
       } else {
+        const headers: Record<string, string> = {
+          'Content-Type': 'application/json',
+          'x-api-key': getApiKey(),
+          ...getAuthHeaders()
+        }
         // Pas en cache → on télécharge
         console.log('⬇️ Téléchargement:', fileName)
         const response = await tauriFetch(url, {
           method: 'GET',
-          headers: getAuthHeaders()
+          headers
         })
 
         if (!response.ok) {

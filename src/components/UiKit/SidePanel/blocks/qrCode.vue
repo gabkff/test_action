@@ -30,11 +30,17 @@ defineProps<{
             padding-left 61px
             padding-right 61px
         &-title-index
-            f-style('small-text')
+            f-style('subtitle')
             margin-bottom 15px
+            opacity 0.6
+            &::first-letter
+                text-transform uppercase
         &-title
             f-style('h2')
             margin-bottom 80px
+                align-text center
+        &-logo
+            position absolute
         &-img
             size 265px
             margin-bottom 80px

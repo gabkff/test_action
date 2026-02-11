@@ -83,7 +83,10 @@ f-style($type='default', // default | title | subtitle | fbQuote | legend
     r(font-size, 50px 34px)
     font-weight $fw-bold
     line-height 1.1
-
+  if $type is 'h6'
+    font-family $ff-text
+    r(font-size, 21x 11px)
+    line-height 1.1
   if $type is 'small-body'
     font-family $ff-text
     r(font-size, 30px 28px)

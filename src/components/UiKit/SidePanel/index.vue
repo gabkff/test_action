@@ -2,9 +2,9 @@
   <Teleport to="body">
     <Transition name="panel">
       <div v-if="store.isOpen || store.isOpening" class="SidePanel">
-        <div class="SidePanel__overlay" @click="handleClose" />
+        <div class="SidePanel__overlay" ref="overlayRef" @click="handleClose($event)" />
         
-        <div class="SidePanel__container">
+        <div class="SidePanel__container" @click.stop>
           <UiNavBar key="nav" :panel="true"/>
           <div class="SidePanel__content">
             <!-- Contenu dynamique basé sur le type -->
@@ -50,13 +50,12 @@ import Circuit from './blocks/circuit.vue'
 import Event from './blocks/event.vue'
 import QrCode from './blocks/qrCode.vue'
 const store = useSidePanelStore()
-
+const overlayRef = useTemplateRef<HTMLElement | null>('overlayRef')
 const descriptionEvent = useTemplateRef<HTMLElement | null>('descriptionEventRef')
 
-function handleClose() {
-  if (!store.isOpening) {
-    store.close()
-  }
+function handleClose(e: MouseEvent) {
+  if (store.isOpening) return
+  store.close()
 }
 
 // Bloquer le scroll du body quand le panneau est visible (ouvert ou en cours d'ouverture)
@@ -90,6 +89,7 @@ watch(
     left 0
     right 0
     bottom 0
+    z-index -1
     background rgba($fjord, 0.5)
     backdrop-filter blur(4px)
 

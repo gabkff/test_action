@@ -97,6 +97,7 @@
         />
         <div class="maps-zoom-control" v-if="isDesktop">
           <ui-button class="maps-zoom-control__button" theme="secondary" :icon="IconZoomIn" :big="true" @click="zoomMap('in')" />
+          <ui-button class="maps-zoom-control__button" theme="secondary" :icon="IconCenter" :big="true" @click="zoomMap('center')" />
           <ui-button class="maps-zoom-control__button" theme="secondary" :icon="IconZoomOut" :big="true" @click="zoomMap('out')" />
         </div>
       </div>
@@ -131,6 +132,7 @@ import IconLine from 'assets/svg/line_background.svg?raw'
 import IconArrow from 'assets/svg/arrow.svg?raw'
 import IconZoomIn from 'assets/svg/plus.svg?raw'
 import IconZoomOut from 'assets/svg/moins.svg?raw'
+import IconCenter from 'assets/svg/center.svg?raw'
 import { UiButton } from '@/components/UiKit'
 import MenuPage from './blocks/menu.vue'
 import CircuitLastStep from './blocks/CircuitLastStep.vue'
@@ -215,9 +217,11 @@ function setStep(direction: 'next' | 'previous', restart: boolean = false) {
 /**
  * Zoom sur la carte
  */
-function zoomMap(direction: 'in' | 'out') {
+function zoomMap(direction: 'in' | 'out' | 'center') {
   if (direction === 'in') {
     mapRef?.value?.handleZoom(1)
+  } else if (direction === 'center') {
+    mapRef?.value?.handleCenter()
   } else {
     mapRef?.value?.handleZoom(-1)
   }

@@ -108,6 +108,8 @@ const travelModeIcon = computed(() => {
   f(column, $justify: flex-start)
   gap 20px
   r(width, 838px 438px)
+  &:active
+    box-shadow $shadow-custom
   +layout(mobile)
     background-color $embruns
 
@@ -123,6 +125,8 @@ const travelModeIcon = computed(() => {
     .step-navigation__card
       color $fjord
       border 1px solid rgba($fjord, 0.5)
+      &:active
+        box-shadow $shadow-custom
 
       .UiButton
         background-color $embruns

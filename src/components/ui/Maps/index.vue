@@ -16,7 +16,7 @@
     
     const el = ref<HTMLElement | null>(null)
     const map = shallowRef<google.maps.Map | null>(null)
-    
+    const baseZoom = ref<number | undefined>(undefined)
     const props = defineProps({
         center: {
             type: Object,
@@ -126,6 +126,7 @@
                     strictBounds: false
                 }
             })
+            baseZoom.value = map.value.getZoom()
         } else if (props.lock) {
             map.value.setCenter({ lat: props.center.latitude, lng: props.center.longitude })
             map.value.setZoom(19)
@@ -172,8 +173,16 @@
             map.value.panTo({ lat: pos.lat, lng: pos.lng })
         }
     }
+
+    function handleCenter() {
+        console.log('handleCenter')
+        if (!map.value) return
+        map.value.panTo({ lat: props.center.latitude, lng: props.center.longitude })
+        map.value.setZoom(baseZoom.value || props.zoom)
+    }
     defineExpose({
-        handleZoom
+        handleZoom,
+        handleCenter
     })
 </script>
 

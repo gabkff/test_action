@@ -71,6 +71,8 @@ defineProps<{
             opacity 0.5
             f-style('h6')
             color $fjord
+            &::first-letter
+                text-transform uppercase
             +layout(mobile)
                 font-size 10px
                 line-height 1.3

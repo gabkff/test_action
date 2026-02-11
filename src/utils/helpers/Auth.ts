@@ -13,15 +13,13 @@ import { getApiAuthUser, getApiAuthPass } from 'config'
  */
 export function getAuthHeaders(): Record<string, string> {
   const headers: Record<string, string> = {}
-  //const user = getApiAuthUser()
-  //const pass = getApiAuthPass()
-  const user = "kff"
-  const pass = "ein"
+  const user = getApiAuthUser()
+  const pass = getApiAuthPass()
   // user && pass && getIsDev()
-  //if (user && pass) {
-  const credentials = btoa(`${user}:${pass}`)
-  headers['Authorization'] = `Basic ${credentials}`
-  //}
+  if (user && pass) {
+    const credentials = btoa(`${user}:${pass}`)
+    headers['Authorization'] = `Basic ${credentials}`
+  }
 
   return headers
 }

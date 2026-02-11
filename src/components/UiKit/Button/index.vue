@@ -138,6 +138,9 @@ const onClick = (event: MouseEvent) => {
   text-decoration none
   cursor pointer
   transition all 0.2s ease
+  &:active
+    transform translateY(-2px)
+    box-shadow $shadow-md
   +layout(mobile)
     border-radius 4px
     font-size 11px
@@ -157,6 +160,10 @@ const onClick = (event: MouseEvent) => {
   &--primary
     background $brume
     color $fjord
+    &:active
+      background $fjord
+      color $ecume
+      box-shadow $shadow-md
 
   &--secondary
     background $fjord

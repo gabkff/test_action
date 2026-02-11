@@ -262,4 +262,8 @@ function scrollDownDesc() {
         pointer-events none
         :deep(.UiButton)
             pointer-events all
+            background white
+            &:active
+                background $fjord
+                color white
 </style>
