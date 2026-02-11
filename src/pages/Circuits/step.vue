@@ -151,6 +151,7 @@ const isDesktop = computed(() => interfaceStore.isDesktop)
 /** Interface pour les méthodes exposées par le composant UiMap */
 interface UiMapExposed {
   handleZoom: (delta: number) => void
+  handleCenter: () => void
 }
 const mapRef = ref<UiMapExposed | null>(null)
 const i18nStore = useI18nStore()

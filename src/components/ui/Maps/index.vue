@@ -175,7 +175,6 @@
     }
 
     function handleCenter() {
-        console.log('handleCenter')
         if (!map.value) return
         map.value.panTo({ lat: props.center.latitude, lng: props.center.longitude })
         map.value.setZoom(baseZoom.value || props.zoom)
