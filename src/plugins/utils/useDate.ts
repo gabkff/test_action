@@ -42,10 +42,11 @@ export function useDate() {
    * @param date - Date à formater
    * @returns { weekday: 'lundi', dateMonth: '15 janvier' }
    */
-  function formatDate(date: Date): { weekday: string; dateMonth: string } {
+  function formatDate(date: Date): { weekday: string; dateMonth: string; dayNumber: string } {
     const weekday = date.toLocaleDateString(localeCode.value, { weekday: 'long' })
-    const dateMonth = date.toLocaleDateString(localeCode.value, { day: 'numeric', month: 'long' })
-    return { weekday, dateMonth }
+    const dayNumber = date.toLocaleDateString(localeCode.value, { day: 'numeric' })
+    const dateMonth = date.toLocaleDateString(localeCode.value, { month: 'long' })
+    return { weekday, dateMonth, dayNumber }
   }
 
   /**
@@ -126,11 +127,12 @@ export function useDate() {
     for (let i = 0; i < count; i++) {
       const date = new Date(today)
       date.setDate(today.getDate() + i)
-      const { weekday, dateMonth } = formatDate(date)
+      const { weekday, dateMonth, dayNumber } = formatDate(date)
       days.push({
         timestamp: date.getTime(),
         weekday,
-        dateMonth
+        dateMonth,
+        dayNumber
       })
     }
 

@@ -59,7 +59,7 @@
         class="NavBar__item NavBar__item--arrow NavBar__item--arrow-previous"
         @pointerdown="$emit('previous')"
       >
-        <i class="NavBar__icon NavBar__icon--arrow" v-html="IconArrow" />
+        <i :class="['NavBar__icon', 'NavBar__icon--arrow', lastStep ? 'NavBar__icon--arrow-back' : '']" v-html="lastStep ? IconBack : IconArrow" />
       </button>
 
       <!-- Bouton Langue -->
@@ -253,7 +253,8 @@ function handleLanguage() {
   &__icon--arrow
     r(width, 60px 30px)
     r(height, 60px 30px)
-
+  &__icon--arrow-back
+    transform rotate(0deg) !important
   &__item--lang
     color $fjord
     +layout(mobile)

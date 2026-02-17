@@ -13,10 +13,11 @@
           :class="{ 'is-active': selectedDate === day.timestamp }"
           @click="selectDate(day.timestamp)"
         >
-          <span class="date-label">
-            <span class="date-label__weekday">{{ day.weekday }}</span>
-            <span class="date-label__date">{{ day.dateMonth }}</span>
-          </span>
+          <div class="date-label">
+            <div class="date-label__weekday">{{ day.weekday }}</div>
+            <div class="date-label__date">{{ day.dayNumber }}</div>
+            <div class="date-label__date">{{ day.dateMonth }}</div>
+            </div>
         </UiButton>
       </div>
       
@@ -166,14 +167,16 @@ const toggleEvent = (id: number) => {
     
     &__calendar
       display flex
-      r(gap, 61px 50px)
+      flex-direction row
+      gap 16px
       r(margin-bottom, 50px 23px)
       background-color white
       r(padding, 100px 45px)
       border-radius $radius-lgxl
       
       .UiButton
-        flex 1
+        flex 1 1 0
+        min-width 0
         +layout(mobile)
           padding-top 32px
           padding-bottom 32px

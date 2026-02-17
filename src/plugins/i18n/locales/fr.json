@@ -131,5 +131,12 @@
     "serverError": "Erreur serveur",
     "networkError": "Erreur de connexion",
     "unauthorized": "Non autorisé"
+  },
+  "seasons": {
+    "winter": "Hiver",
+    "spring": "Printemps",
+    "summer": "Été",
+    "autumn": "Automne",
+    "year_long": "Tout l'année"
   }
 }

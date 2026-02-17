@@ -17,7 +17,7 @@
         <div class="line_4_fr line">
           <div class="mask mask4_fr"></div>
           <div class="line_4_fr__title text_fr"> GUIDER</div>
-          <ui-button class="button_fr" theme="primary" :label="'touchez pour commencer'" @click="goSelect('fr')" :icon="IconArrow" :big="true" :iconPosition="'right'"/>
+          <ui-button class="button_fr" theme="primary" :label="$t('home.touch_to_start')" @click="goSelect('fr')" :icon="IconArrow" :big="true" :iconPosition="'right'"/>
         </div>
       </div>
     </div>

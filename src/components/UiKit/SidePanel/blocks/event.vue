@@ -129,6 +129,7 @@ function scrollDownDesc() {
         r(margin-top, 125px 0px)
         r(margin-bottom, 120px 60px)
         +layout(mobile)
+          font-family $ff-text
           font-size 35px
           font-weight $fw-bold
           line-height 1.1

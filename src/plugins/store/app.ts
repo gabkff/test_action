@@ -9,6 +9,8 @@ import { apiService } from 'plugins/api'
 import { AVAILABLE_LOCALES, appConfig } from 'config'
 import { useI18nStore } from 'plugins/i18n/store'
 import { hasApiSiteInCache } from 'plugins/api/apiSite'
+import i18n from 'plugins/i18n/index'
+
 
 const isTauriEnvironment = typeof window !== 'undefined' && '__TAURI_INTERNALS__' in window
 
@@ -328,6 +330,19 @@ const useStore = defineStore('app', () => {
 
     // Extrait les données utiles pour cette langue
     localizedData.value[locale] = response.data.data
+
+    // Merge les traductions I18n de l'API dans vue-i18n
+    const rawI18n = response.data.data.home?.I18n
+    if (rawI18n) {
+      try {
+        console.log('🌐 Traductions I18n', JSON.parse(rawI18n))
+        const i18nMessages = typeof rawI18n === 'string' ? JSON.parse(rawI18n) : rawI18n
+        i18n.global.mergeLocaleMessage(locale, i18nMessages)
+        console.log(`🌐 Traductions I18n mergées pour [${locale}]`)
+      } catch (e) {
+        console.warn(`⚠️ Erreur parsing I18n pour [${locale}]:`, e)
+      }
+    }
 
     // Met à jour les timestamps
     lastUpdate.value = Date.now()

@@ -62,6 +62,7 @@ declare interface HomeData {
   featured_partners: Sponsor[]
   main_image: Image
   instagram_account: string
+  I18n?: string
 }
 
 declare interface TidesData {
@@ -147,6 +148,7 @@ declare interface CircuitStep {
   seasons: string[]
   map: GeoCoordinates
   images: Image[]
+  main_image?: Image
   next_step: NextStepInfo
   icon?: string | undefined
   map_address: string | null

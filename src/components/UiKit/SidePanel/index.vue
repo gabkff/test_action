@@ -105,11 +105,12 @@ watch(
     .NavBar
         z-index 1
         position absolute
-        top 39%
+        top 32%
         left -95px 
         transform scaleX(-1)
         +layout(mobile)
           left -40px
+          top 3.5%
       :deep(.NavBar__container)
         transform scaleX(-1)
 

@@ -11,7 +11,6 @@
           />
         </div>
         <h1 class="circuits-etape__title" :data-circuit-theme="dataCircuitTheme">{{ current.title }}</h1>
-        
         <div class="circuits-etape__header_wrapper" v-if="currentStepIndex < current.steps.length && !showMenu">
           <UiSelector
             v-model="currentView"
@@ -56,9 +55,9 @@
           />
         </div>
       </div>
-      <div class="circuits-etape__view_container" v-if="currentStep && currentStep.images && !showMenu" :data-view="currentView">
+      <div class="circuits-etape__view_container" v-if="currentStep && currentStep.main_image && !showMenu" :data-view="currentView">
         
-        <ui-picture :images="currentStep.images[0]" :data-index="currentStepIndex" cover="cover" v-if="currentView === 'list'"/>
+        <ui-picture :images="currentStep.main_image" :data-index="currentStepIndex" cover="cover" v-if="currentView === 'list'"/>
         <div class="circuits-etape__background" v-html="IconLine" :data-circuit-theme="dataCircuitTheme" v-if="currentView === 'list'"></div>
         <div class="circuits-etape__step_container_wrapper">
         <div class="circuits-etape__step_container">
@@ -72,25 +71,13 @@
             @more="sidePanelStore.openCircuitStep({ title: current.title, step: currentStep, index: currentStepIndex + 1, qr: current.base64_qr})"
           />
         </div>
-        <CircuitStepNavigation
-          v-if="isDesktop"
-          :view="currentView"
-          :hasNext="currentView === 'map' && currentNextParcours.length > 0"
-          :hasPrevious="currentStepIndex > 0"
-          :nextStepTitle="current.steps[currentStepIndex + 1]?.title"
-          :nextStepTime="current.steps[currentStepIndex]?.next_step?.time_to_next_step"
-          :previousStepTitle="current.steps[currentStepIndex - 1]?.title"
-          :previousStepTime="current.steps[currentStepIndex - 1]?.next_step?.time_to_next_step"
-          :travelMode="current.main_travel_mode"
-          @next="setStep('next')"
-          @previous="setStep('previous')"
-        />
       </div>
       <div class="circuits-etape__map_container" v-if="currentView === 'map'">
         <UiMap 
           :zoom="isDesktop ? 15 : 12"
           v-if="currentStep.map"
           :markers="markers"
+          :currenStep="currentStep.map"
           :currentStepIndex="currentStepIndex"
           :allPolylines="allPolylines"
           ref="mapRef"
@@ -137,7 +124,6 @@ import { UiButton } from '@/components/UiKit'
 import MenuPage from './blocks/menu.vue'
 import CircuitLastStep from './blocks/CircuitLastStep.vue'
 import CircuitStepContent from './blocks/CircuitStepContent.vue'
-import CircuitStepNavigation from './blocks/CircuitStepNavigation.vue'
 import { useCircuit, useNextEvent } from 'plugins/utils'
 
 const route = useRoute()
@@ -404,6 +390,7 @@ onBeforeMount(() => {
       r(margin-bottom, 100px 0px)
       .UiSelector
         background $aube
+        height 160px
         :deep(.UiSelector__container)
           color $aube
           .is-active
@@ -604,9 +591,9 @@ onBeforeMount(() => {
     &__map_container
       position absolute
       transform-origin bottom
-      bottom 0
+      top 0
       left 0
-      height 45%
+      height 100%
       width 100%
       +layout(mobile)
         height 100%

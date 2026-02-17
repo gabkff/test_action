@@ -20,7 +20,7 @@
                 <div class="SidePanel__circuit__content-info-item-label">{{ $t('circuits.best_season') }}</div>
                 <div class="SidePanel__circuit__content-info-item-value"> 
                     <template v-for="(season, seasondex) in currentStep.seasons" :key="season">
-                        <span>{{ season }}</span>
+                        <span>{{ $t(`seasons.${season}`) }}</span>
                         <template v-if="seasondex as number < (currentStep.seasons.length - 1)">,&nbsp;</template>
                     </template>
                 </div>
@@ -52,11 +52,11 @@
         <!-- Flèches -->
          <!-- Zone scrollable -->
          <div class="SidePanel__circuit__scroll" ref="descriptionEventRef">
-            <!-- Flèches de navigation -->
+            <!-- Flèches de navigation
             <div class="SidePanel__circuit__scroll-arrows" v-if="isScrollable && isDesktop">
                 <UiButton theme="arrow" :direction="'up'" @click="scrollUpDesc()"/>
                 <UiButton theme="arrow" :direction="'down'" @click="scrollDownDesc()"/>
-            </div>
+            </div>  -->
             <div class="SidePanel__circuit__scroll-content">
                 <div class="SidePanel__circuit__scroll-text"> 
                     <UiWysiwyg v-html="currentStep.main_text"/>
@@ -66,10 +66,10 @@
                         ref="mapRef"
                         id="sidepanel-map"
                         :lock="true"
-                        :zoom="15"
+                        :zoom="13"
                         :center="currentStep.map"
                         v-if="currentStep.map"
-                        :currentStep="currentStep"
+                        :currentStep="currentStep.map"
                         :currentStepIndex="currentStepIndex"
                         :allPolylines="allPolylines"
                         :markers="markers"
@@ -169,7 +169,7 @@ function scrollDownDesc() {
     flex-direction column
     overflow-y visible
     overflow-x hidden
-    height 100%
+    height 100vh
     &__address-icon
         f(row, $justify: flex-start)
         gap 12px
@@ -254,6 +254,7 @@ function scrollDownDesc() {
             .SidePanel__circuit__content-info-item-value:first-letter
                 text-transform uppercase
     &__qrcode
+        position sticky
         border-top 2px solid $fjord
         border-bottom 2px solid $fjord
         r(padding-top, 60px 40px)
@@ -280,9 +281,7 @@ function scrollDownDesc() {
         padding-bottom 80px
         r(margin-right, 60px 40px)
         r(margin-left, 60px 40px)
-        overflow-y scroll
-        overflow-x hidden
-        min-height 0
+ç        min-height 0
         position relative
         flex 1
     &__scroll-content

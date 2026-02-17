@@ -111,9 +111,9 @@
                     <maree/>
                 </div>
             </div>
-            <div class="menu-page__sponsor">
-                <sponsor :left="true" />
-                <sponsor :left="false" />
+            <div class="menu-page__sponsor"v-if="currentSponsor">
+                <sponsor :left="true" :currentSponsor="currentSponsor[0] ?? null"/>
+                <sponsor :left="false" :currentSponsor="currentSponsor[1] ?? null"/>
             </div>
         </template>
         <div v-else class="wrapper_meteo_sponsor">
@@ -141,7 +141,7 @@
   </template>
   
   <script setup lang="ts">
-    import { computed, ref } from 'vue'
+    import { computed, ref, onMounted } from 'vue'
     import { useRoute, useRouter } from 'vue-router'
     import IconMind from 'assets/svg/mind.svg?raw'
     import IconPlus from 'assets/svg/plus.svg?raw'
@@ -160,6 +160,7 @@
     const router = useRouter()
     const circuitsSwiper = ref<any>(null)
     const meteoSwiper = ref<any>(null)
+    const currentSponsor = ref<Sponsor[] | null>(null)
 
     // Utilise le composable pour récupérer le prochain événement
     const nextEventData = useNextEvent()
@@ -188,6 +189,23 @@
             }
         }
     }
+    onMounted(() => {
+        if (appStore.home?.featured_partners?.length && appStore.home?.featured_partners?.length > 1 ) {
+            const sponsors = []
+            const getIndex = (max: number) => {
+                return Math.floor(Math.random() * max)
+            }
+            let first = getIndex(appStore.home.featured_partners.length)
+            let second = -1;
+            do {
+            second = getIndex(appStore.home.featured_partners.length)
+            console.log(second, first)
+            } while (second === first)
+            sponsors.push(appStore.home?.featured_partners[first])
+            sponsors.push(appStore.home?.featured_partners[second])
+            currentSponsor.value = sponsors
+        }
+    })
   </script>
   
   <style lang="stylus" scoped>

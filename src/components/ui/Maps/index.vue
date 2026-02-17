@@ -17,6 +17,7 @@
     const el = ref<HTMLElement | null>(null)
     const map = shallowRef<google.maps.Map | null>(null)
     const baseZoom = ref<number | undefined>(undefined)
+    const optRestriction = ref<google.maps.MapOptions['restriction'] | null>(null)
     const props = defineProps({
         center: {
             type: Object,
@@ -46,6 +47,14 @@
             type: Number,
             required: false,
             default: 0
+        },
+        currenStep: {
+            type: Object,
+            required: false,
+            default: () => ({
+                latitude: 0,
+                longitude: 0
+            })
         },
         polylineOptions: {
             type: Object,
@@ -107,30 +116,38 @@
 
         // 3. Gestion du centrage (Fit Bounds)
         if (!props.lock && bounds && !bounds.isEmpty()) {
-            map.value.fitBounds(bounds, 50)
+           
             
             // Logique de restriction de la vue (marge de 5%)
             const ne = bounds.getNorthEast()
             const sw = bounds.getSouthWest()
-            const latMargin = (ne.lat() - sw.lat()) * 0.05
-            const lngMargin = (ne.lng() - sw.lng()) * 0.05
+            const latMargin = (ne.lat() - sw.lat()) * 0.8
+            const lngMargin = (ne.lng() - sw.lng()) * 0.8
             
             const restrictedBounds = new google.maps.LatLngBounds(
                 new google.maps.LatLng(sw.lat() - latMargin, sw.lng() - lngMargin),
                 new google.maps.LatLng(ne.lat() + latMargin, ne.lng() + lngMargin)
             )
+            optRestriction.value = {
+                latLngBounds: restrictedBounds,
+                strictBounds: true
+            }
             
-            map.value.setOptions({
-                restriction: {
-                    latLngBounds: restrictedBounds,
-                    strictBounds: false
-                }
-            })
+            map.value.fitBounds(bounds, { top: 2000, right: 2000, bottom: 2000, left: 2000 })
             baseZoom.value = map.value.getZoom()
+            map.value.setZoom(13)
+            map.value.setOptions({
+                restriction: optRestriction.value
+            })
+            map.value.setCenter({ lat: props.currenStep.latitude, lng: props.currenStep.longitude })
+            map.value.panBy(200, 150)
         } else if (props.lock) {
             map.value.setCenter({ lat: props.center.latitude, lng: props.center.longitude })
             map.value.setZoom(19)
         }
+        google.maps.event.addListenerOnce(map.value, 'idle', () => {
+            console.log('idle', map.value)
+        })
     })
     
     onBeforeUnmount(() => {
@@ -144,7 +161,6 @@
         if (!map.value) return
         await setStepIndex(newIndex)
         updateMarkersStyle(newIndex)
-        
     })
 
     // Si le circuit change complètement (changement de page/circuit)
@@ -152,7 +168,9 @@
         if (!map.value) return
         const bounds = await initPolylines(newPolylines, props.currentStepIndex)
         if (bounds && !bounds.isEmpty() && !props.lock) {
-             map.value.fitBounds(bounds)
+             map.value.fitBounds(bounds, { top: 50, right: 50, bottom: 2000, left: 50 })
+             map.value.panBy(0, -1800)
+             console.log('fitBounds', map.value)
         }
     }, { deep: true })
     
@@ -161,6 +179,21 @@
         if (!map.value) return
         if (JSON.stringify(newMarkers) === JSON.stringify(oldMarkers)) return
         await drawMarkers(newMarkers, props.currentStepIndex)
+    }, { deep: true })
+
+    watch(() => props.currenStep, async (newStep, oldStep) => {
+        if (!map.value || !oldStep) return
+        map.value.setOptions({ restriction: null });
+        map.value.panTo({ lat: newStep.latitude, lng: newStep.longitude })
+        map.value.panBy(200, 150)
+        setTimeout(() => {
+            map.value.setOptions({
+                restriction: optRestriction.value
+            })
+        }, 100)
+        /* const containerWidth = el.value?.offsetWidth || 0
+        const containerHeight = el.value?.offsetHeight || 0
+        map.value.panBy(containerWidth * 0.25, containerHeight * 0.2) */
     }, { deep: true })
 
     function handleZoom(delta: number) {

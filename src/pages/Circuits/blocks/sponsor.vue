@@ -25,20 +25,11 @@
 </template>
 
 <script setup lang="ts">
-import { store as appStore } from 'plugins/store/app'
-import { computed } from 'vue'
 import UiPicture from 'components/UiKit/Picture/index.vue'
-const currentSponsor = computed(() => {
-    // Trouvé une logique de random pour afficher les sponsors
-    if (appStore.home?.featured_partners?.length && appStore.home?.featured_partners?.length > 0 ) {
-        const index = Math.floor(Math.random() * ( (appStore.home.featured_partners.length -1) - 0 +1))
-        return appStore.home?.featured_partners[index]
-    }
-    return null
-})
 
 defineProps<{
-    left: boolean
+    left: boolean,
+    currentSponsor: Sponsor | null
 }>()
 </script>
 
@@ -69,7 +60,7 @@ defineProps<{
             f(row, $justify: space-between, $align: flex-start)
         &__content__header__title
             opacity 0.5
-            f-style('h6')
+            f-style('default')
             color $fjord
             &::first-letter
                 text-transform uppercase
