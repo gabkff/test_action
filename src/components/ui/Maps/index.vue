@@ -187,7 +187,7 @@
         map.value.panTo({ lat: newStep.latitude, lng: newStep.longitude })
         map.value.panBy(200, 150)
         setTimeout(() => {
-            map.value.setOptions({
+            map.value!.setOptions({
                 restriction: optRestriction.value
             })
         }, 100)

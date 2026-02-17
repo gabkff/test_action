@@ -120,8 +120,8 @@ export function useDate() {
    * @param count - Nombre de jours à générer (défaut: 5)
    * @returns Array de { timestamp, weekday, dateMonth }
    */
-  function getNextDays(count: number = 5): Array<{ timestamp: number; weekday: string; dateMonth: string }> {
-    const days: Array<{ timestamp: number; weekday: string; dateMonth: string }> = []
+  function getNextDays(count: number = 5): Array<{ timestamp: number; weekday: string; dateMonth: string, dayNumber: string }> {
+    const days: Array<{ timestamp: number; weekday: string; dateMonth: string, dayNumber: string }> = []
     const today = getStartOfDay(new Date())
 
     for (let i = 0; i < count; i++) {

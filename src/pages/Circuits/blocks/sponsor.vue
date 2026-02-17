@@ -25,12 +25,19 @@
 </template>
 
 <script setup lang="ts">
+import { PropType } from 'vue'
 import UiPicture from 'components/UiKit/Picture/index.vue'
 
-defineProps<{
-    left: boolean,
-    currentSponsor: Sponsor | null
-}>()
+const props = defineProps({
+    left: { 
+        type: Boolean,
+        default: false
+    },
+    currentSponsor: {
+        type: Object as PropType<Sponsor>,
+        default: null
+    }
+})
 </script>
 
 <style lang="stylus" scoped>
