@@ -67,6 +67,9 @@
             :stepNumber="currentStepIndex + 1"
             :totalSteps="current.steps.length"
             :commuting="current.commuting"
+            :nextStepTime="current.steps[currentStepIndex]?.next_step?.time_to_next_step"
+            :previousStepTime="current.steps[currentStepIndex - 1]?.next_step?.time_to_next_step"
+            :travelMode="current.main_travel_mode"
             :showItinerary="currentStepIndex === 0"
             @more="sidePanelStore.openCircuitStep({ title: current.title, step: currentStep, index: currentStepIndex + 1, qr: current.base64_qr})"
           />
@@ -152,7 +155,6 @@ const {
   nextCircuit,
   nextCircuitIndex,
   allPolylines,
-  currentNextParcours,
   markers,
   navigate
 } = useCircuit()
@@ -391,8 +393,15 @@ onBeforeMount(() => {
       .UiSelector
         background $aube
         height 160px
+        r(width, 490px 180px)
+        :deep(.UiSelector__option)
+          f-style('btn-large')
+          +layout(mobile)
+            f-style('btn-medium')
         :deep(.UiSelector__container)
           color $aube
+          .UiSelector__icon-container
+            r(size, 67px 23px)
           .is-active
             color $aube !important
         &[data-circuit-theme="1"]
@@ -415,7 +424,7 @@ onBeforeMount(() => {
     &__actions
       f(column, $justify: flex-start)
       r(gap, 60px 28px)
-      width 43%
+      r(width, 972px 417px)
       .UiButton
         width fit-content
     &__view_container
@@ -507,7 +516,7 @@ onBeforeMount(() => {
       margin-top auto
     &__step_container_wrapper
       position absolute
-      top 198px
+      top 798px
       right 210px
       z-index 3
       +layout(mobile)
