@@ -437,12 +437,6 @@ onBeforeMount(() => {
         position absolute
         r(left, 262px 93px)
         r(top, 298px 200px)
-        &[data-index="0"]
-          r(top, 811px 200px)
-          r(width, 1273px 487px)
-          r(height, 1367px 523px)
-          +layout(mobile)
-            left 93px
     &__step_content
       f(column, $justify: flex-start)
       height 100%

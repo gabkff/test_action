@@ -37,6 +37,7 @@ defineProps<{
                 text-transform uppercase
         &-title
             f-style('h2')
+            text-align center
             margin-bottom 80px
                 align-text center
         &-logo
