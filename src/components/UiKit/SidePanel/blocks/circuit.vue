@@ -10,7 +10,7 @@
         </div>
         <div class="SidePanel__circuit__title"> {{ currentStep.title }}</div>
         <div class="SidePanel__circuit__image-wrapper">
-        <ui-swiper :options="{ slidesPerView: 'auto', spaceBetween: isDesktop ? 30 : 15, centeredSlides: false }" :overflow="true" :navigation="currentStep.images.length > 1">
+        <ui-swiper v-if="currentStep.images && currentStep.images.length > 0" :options="{ slidesPerView: 'auto', spaceBetween: isDesktop ? 30 : 15, centeredSlides: false }" :overflow="true" :navigation="currentStep.images && currentStep.images.length > 1">
             <ui-picture v-for="image in currentStep.images as Image[]" :key="image.meta" :images="image.images" class="SidePanel__circuit__image" :cover="'cover'"/>
         </ui-swiper>
         </div>
