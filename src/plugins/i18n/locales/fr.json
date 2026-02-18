@@ -70,6 +70,8 @@
     "time_start_end": "De {start} à {end}"
   },
   "circuits": {
+    "map": "Carte",
+    "list": "Liste",
     "adress": "Adresse",
     "event_today": "Aujourd'hui, {date}",
     "name": "Circuit",

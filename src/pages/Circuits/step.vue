@@ -14,8 +14,8 @@
           <UiSelector
             v-model="currentView"
             :options="[
-              { value: 'map', icon: IconMap, label: 'carte'},
-              { value: 'list', label: 'liste', icon: IconList }
+              { value: 'map', icon: IconMap, label: $t('circuits.map') },
+              { value: 'list', label: $t('circuits.list'), icon: IconList }
             ]"
             @change="(value) =>onViewChange(value as ViewCircuit)"
             :data-circuit-theme="dataCircuitTheme"
