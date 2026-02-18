@@ -55,11 +55,11 @@
         <!-- Flèches -->
          <!-- Zone scrollable -->
          <div class="SidePanel__circuit__scroll" ref="descriptionEventRef">
-            <!-- Flèches de navigation -->
+            <!-- Flèches de navigation
             <div class="SidePanel__circuit__scroll-arrows" v-if="isScrollable && isDesktop">
                 <UiButton theme="arrow" :direction="'up'" @click="scrollUpDesc()"/>
                 <UiButton theme="arrow" :direction="'down'" @click="scrollDownDesc()"/>
-            </div>
+            </div> -->
             <div class="SidePanel__circuit__scroll-content">
                 <div class="SidePanel__circuit__scroll-text"> 
                     <UiWysiwyg v-html="currentStep.main_text"/>
