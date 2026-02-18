@@ -454,4 +454,22 @@
     width 50%
   .menu-page__sponsor
     width 50%
+.alternate-part
+  f(column, $justify: flex-start, $align: flex-start)
+  background red
+  .menu-page__part_meteo__title
+    f-style('h5')
+    color $fjord
+    r(margin-bottom, 45px 0px)
+    +layout(mobile)
+        font-size 23px
+        line-height 1.1
+        font-weight $fw-bold
+    .MenuModal__content__container__bottom_part__meteo
+        f(row, $justify: flex-start, $align: stretch)
+        r(gap, 36px)
+        > *
+            flex 1 1 0
+            min-width 0
+            height 412px
   </style>

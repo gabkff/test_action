@@ -45,7 +45,7 @@ const currentVent = computed(() => {
     .vent
         position relative
         width 25%
-        f(column, $justify: stretch, $align: stretch)
+        f(column, $justify: flex-start, $align: stretch)
         r(padding-top, 24px 16px)
         r(padding-bottom, 24px 16px)
         r(padding-left, 14px 14px)
@@ -91,8 +91,8 @@ const currentVent = computed(() => {
 
             &__img__icon
                 position absolute
-                width 100%
-                height 100%
+                width 273px
+                height 273px
                 z-index 1
                 display flex
                 :deep(svg)

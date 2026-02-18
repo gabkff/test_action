@@ -1,7 +1,6 @@
 <template>
     <div class="circuits-etape" v-if="ready && current" :data-circuit-theme="dataCircuitTheme">
       <div class="circuits-etape__container" :data-circuit-theme="circuitIndex">
-        <UiNavBar v-if="showMenu" key="navbar" class="circuits-etape__last__navbar" :back="true" :next="false" :previous="false" :home="false" @previous="showMenu = false"></UiNavBar>
         <div class="circuits-etape__header">
           <h2 class="circuits-etape__name" :data-circuit-theme="dataCircuitTheme">{{ $t('circuits.name') }} {{ circuitIndex! + 1 }}</h2>
           <ui-button theme="primary" :icon="IconHome" class="circuits-etape__home_button" @click="goSelection()"
@@ -11,7 +10,7 @@
           />
         </div>
         <h1 class="circuits-etape__title" :data-circuit-theme="dataCircuitTheme">{{ current.title }}</h1>
-        <div class="circuits-etape__header_wrapper" v-if="currentStepIndex < current.steps.length && !showMenu">
+        <div class="circuits-etape__header_wrapper" v-if="currentStepIndex < current.steps.length">
           <UiSelector
             v-model="currentView"
             :options="[
@@ -37,7 +36,7 @@
         </div>
         <!-- Écran de fin de circuit -->
         <CircuitLastStep 
-          v-else-if="!showMenu"
+          v-else
           :circuit="current"
           :circuitIndex="circuitIndex ?? null"
           :nextEvent="nextEvent"
@@ -48,20 +47,20 @@
           @restart="setStep('previous', true)"
           @feedback="sendFeedback"
         />
-        <div v-else>
-          <ui-button theme="secondary" :icon="IconArrow" :big="true" class="circuits-etape__step_back" @click="showMenu = false"
-            :iconPosition="'left'"
-            :label="$t('common.backToCircuit')"
-          />
-        </div>
       </div>
-      <div class="circuits-etape__view_container" v-if="currentStep && currentStep.main_image && !showMenu" :data-view="currentView">
+      <div class="circuits-etape__view_container" v-if="currentStep && currentStep.main_image" :data-view="currentView">
         
         <ui-picture :images="currentStep.main_image" :data-index="currentStepIndex" cover="cover" v-if="currentView === 'list'"/>
         <div class="circuits-etape__background" v-html="IconLine" :data-circuit-theme="dataCircuitTheme" v-if="currentView === 'list'"></div>
         <div class="circuits-etape__step_container_wrapper">
         <div class="circuits-etape__step_container">
-          <UiNavBar key="navbar" class="circuits-etape__navbar" :next="currentStepIndex < current.steps.length" :previous="currentStepIndex > 0" @next="setStep('next')" @previous="setStep('previous')" @menu="showMenu = !showMenu"/>
+          <UiNavBar key="navbar" class="circuits-etape__navbar"
+            :next="currentStepIndex < current.steps.length"
+            :previous="currentStepIndex > 0"
+            :panel="false"
+            @next="setStep('next')"
+            @previous="setStep('previous')"
+            @menu="menuStore.openFromCircuit(current.id)"/>
           <CircuitStepContent
             :step="currentStep"
             :stepNumber="currentStepIndex + 1"
@@ -92,10 +91,6 @@
         </div>
       </div>
       </div>
-      <template v-else-if="showMenu">
-        <div class="circuits-etape__background" v-html="IconLine" :data-circuit-theme="dataCircuitTheme"></div>
-        <menu-page/>
-      </template>
     </div>
   </template>
   
@@ -119,20 +114,20 @@ import IconMap from 'assets/svg/pin.svg?raw'
 import IconList from 'assets/svg/list.svg?raw'
 import IconQr from 'assets/svg/qrcode.svg?raw'
 import IconLine from 'assets/svg/line_background.svg?raw'
-import IconArrow from 'assets/svg/arrow.svg?raw'
 import IconZoomIn from 'assets/svg/plus.svg?raw'
 import IconZoomOut from 'assets/svg/moins.svg?raw'
 import IconCenter from 'assets/svg/center.svg?raw'
 import { UiButton } from '@/components/UiKit'
-import MenuPage from './blocks/menu.vue'
 import CircuitLastStep from './blocks/CircuitLastStep.vue'
 import CircuitStepContent from './blocks/CircuitStepContent.vue'
 import { useCircuit, useNextEvent } from 'plugins/utils'
+import { useMenuStore } from 'store/menu'
 
 const route = useRoute()
 const router = useRouter()
 const ready = ref(false)
 const sidePanelStore = useSidePanelStore()
+const menuStore = useMenuStore()
 const currentView = ref<ViewCircuit>('map')
 const feedbackReco = ref(false)
 const isDesktop = computed(() => interfaceStore.isDesktop)
@@ -144,7 +139,6 @@ interface UiMapExposed {
 }
 const mapRef = ref<UiMapExposed | null>(null)
 const i18nStore = useI18nStore()
-const showMenu = ref(false)
 
 // Composables pour la gestion du circuit et des événements
 const {
@@ -185,7 +179,6 @@ watchEffect(() => {
 // Thème visuel du circuit (selon l'état courant)
 const dataCircuitTheme = computed(() => {
   if (!current.value) return 1
-  if (showMenu.value) return 'menu'
   return currentStepIndex.value > current.value?.steps.length - 1 ? 'last' : circuitIndex.value
 })
 

@@ -13,7 +13,7 @@
     </main>
 
     <sidePanel />
-
+    <menuModal />
     <!-- Footer global (optionnel) -->
     <!-- <AppFooter /> -->
   </div>
@@ -33,7 +33,7 @@ import { onMounted } from 'vue'
 import { initMap } from 'components/ui/Maps/googleServices'
 import { store as appStore } from 'plugins/store/app'
 import sidePanel from 'components/UiKit/SidePanel/index.vue'
-
+import menuModal from 'components/UiKit/Menu/menuModal.vue'
 onMounted(async () => {
   // Initialise les données (cache + API ou mock selon le mode)
   await appStore.initData()

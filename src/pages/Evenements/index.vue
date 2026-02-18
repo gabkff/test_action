@@ -59,7 +59,7 @@
         :show-scroll-arrows="filteredEvents.length > 5 && isDesktop"
         @scrollup="scrollListUp"
         @scrolldown="scrollListDown"
-        @menu="router.push('/selection')"
+        @menu="menuStore.openFromEvents()"
       />
     </div>
     </div>
@@ -72,7 +72,7 @@ import { useI18n } from 'vue-i18n'
 import { store as appStore } from 'plugins/store/app'
 import { store as interfaceStore } from 'plugins/store/interface'
 import { useSidePanelStore } from 'store/sidePanel'
-import { useRouter } from 'vue-router'
+import { useMenuStore } from 'store/menu'
 import IconPlus from 'assets/svg/plus.svg?raw'
 import UiButton from 'components/UiKit/Button/index.vue'
 import UiAccordions from 'components/UiKit/Accordions/Items.vue'
@@ -82,7 +82,7 @@ import { useEvents, useDate } from 'plugins/utils'
 
 const { t } = useI18n()
 const sidePanelStore = useSidePanelStore()
-const router = useRouter()
+const menuStore = useMenuStore()
 // Utilise les composables pour la gestion des événements
 const { 
   selectedDate, 

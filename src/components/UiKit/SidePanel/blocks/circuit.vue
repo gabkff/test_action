@@ -1,9 +1,12 @@
 <template>
     <div class="SidePanel__circuit" v-if="current && currentStep">
         <div class="SidePanel__circuit__header"> {{$t('circuits.name') + ' ' + (circuitIndex! + 1) + ' - ' + current.title }} </div>
-        <div class="SidePanel__circuit__step"> 
+        <div class="SidePanel__circuit__step" > 
             <ui-button theme="icon" :icon="currentStep.icon"/>
-            <div>{{ $t('circuits.step', { number: data.index }) }} </div>
+            <div class="SidePanel__circuit__step__number"> 
+                <div>{{ $t('circuits.step', { number: data.index }) }} </div>
+                {{ currentStep.activity_type }}
+            </div>
         </div>
         <div class="SidePanel__circuit__title"> {{ currentStep.title }}</div>
         <div class="SidePanel__circuit__image-wrapper">
