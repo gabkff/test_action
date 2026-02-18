@@ -226,7 +226,7 @@ const toggleEvent = (id: number) => {
       overflow-y auto
       +layout(mobile)
         max-height unset
-        width 879px
+        width 966px
       
     &__list-content
       overflow scroll

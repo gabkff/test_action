@@ -385,12 +385,12 @@ onBeforeMount(() => {
       r(margin-bottom, 100px 0px)
       .UiSelector
         background $aube
-        height 160px
+        r(height, 160px 80px)
         r(width, 490px 180px)
         :deep(.UiSelector__option)
           f-style('btn-large')
           +layout(mobile)
-            f-style('btn-medium')
+            f-style('btn')
         :deep(.UiSelector__container)
           color $aube
           .UiSelector__icon-container

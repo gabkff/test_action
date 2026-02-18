@@ -91,8 +91,8 @@ const currentVent = computed(() => {
 
             &__img__icon
                 position absolute
-                width 273px
-                height 273px
+                r(width, 273px 130px)
+                r(height, 273px 130px)
                 z-index 1
                 display flex
                 :deep(svg)

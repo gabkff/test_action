@@ -31,6 +31,7 @@
                             </div>
                             <ui-button theme="secondary" :icon="IconArrow" class="MenuModal__content__container__left_part__circuit__home_button"
                                 :label="$t('common.backToCircuit')"
+                                @click="menuStore.close()"
                             />
                         </div>
                         <div v-else class="MenuModal__content__container__bottom_part__right_part__event first-event" style="height: 100%;">
@@ -123,7 +124,7 @@
                                 <maree/>
                             </ui-swiper>
                         </div>
-                        <sponsor :left="true" :currentSponsor="currentSponsor[0] ?? null"/>
+                        <sponsor v-if="currentSponsor" :left="true" :currentSponsor="currentSponsor[0] ?? null"/>
                     </div>
                     <div class="MenuModal__content__container__bottom_part__right_part">
                         <div class="MenuModal__content__container__bottom_part__right_part__event">
@@ -174,7 +175,7 @@
     </Teleport>
 </template>
 <script setup lang="ts">
-    import { ref, onMounted, computed } from 'vue'
+    import { ref, onMounted, computed, watch } from 'vue'
     import { useMenuStore } from 'store/menu'
     import { store as appStore } from 'plugins/store/app'
     import { useI18nStore } from 'plugins/i18n/store'
@@ -195,7 +196,6 @@
 
     const menuStore = useMenuStore()
     const i18nStore = useI18nStore()
-    const currentSponsor = ref<Sponsor[] | null>(null)
     const selectedLang = ref('fr')
     const route = useRoute()
     const router = useRouter()
@@ -206,20 +206,26 @@
     
     onMounted(() => {
         selectedLang.value = i18nStore.locale
+
+    })
+
+    const currentSponsor = computed(() => {
         if (appStore.home?.featured_partners?.length && appStore.home?.featured_partners?.length > 1 ) {
             const sponsors = []
             const getIndex = (max: number) => {
                 return Math.floor(Math.random() * max)
             }
-            let first = getIndex(appStore.home.featured_partners.length)
+            let first = getIndex(appStore.home?.featured_partners?.length ?? 0)
             let second = -1;
-            do {
-            second = getIndex(appStore.home.featured_partners.length)
-            console.log(second, first)
-            } while (second === first)
+            //do {
+                second = getIndex(appStore.home?.featured_partners?.length ?? 0)
+                console.log(second, first)
+            //} while (second === first)
             sponsors.push(appStore.home?.featured_partners[first])
             sponsors.push(appStore.home?.featured_partners[second])
-            currentSponsor.value = sponsors
+            return sponsors as Sponsor[]
+        } else {
+            return []
         }
     })
     function onLangChange(value: string | number) {
@@ -277,15 +283,14 @@
             z-index -1
             color $fjord
             +layout(mobile)
-                left -30%
-                top -15%
-                transform scale(.5)
+                top 10%
+                left -83%
         &__container
             r(padding-left, 100px 50px)
             r(padding-right, 100px 50px)
             r(padding-bottom, 100px 50px)
             f(column, $justify: flex-start, $align: flex-start)
-            r(gap, 60px 40px)
+            r(gap, 60px 0px)
             &__top_part,
             &__middle_part,
             &__bottom_part
@@ -300,7 +305,7 @@
                     height 100%
                     align-self flex-end
             &__bottom_part
-                r(margin-top, 126px 70px)
+                r(margin-top, 126px 20px)
                 width 100%
                 &__left_part
                     r(width, 833px 391px)
@@ -369,8 +374,10 @@
                     r(size, 80px 40px)
                     background white
                 :deep(.UiButton__arrow)
-                    r(width, 32x 15px)
-                    r(height, 32px 15px)
+                    r(width, 32x 20px)
+                    r(height, 32px 20px)
+                    +layout(mobile)
+                        width 100%
             &__part_meteo__title
                 f-style('h5')
                 color $fjord
@@ -387,9 +394,12 @@
                     f(column, $justify: flex-start, $align: flex-start)
                     r(min-height, 1005px 503px)
                     border-radius $radius-lgxl
-                    width 826px
+                    r(width, 826px 393px)
                     color $aube
-                    r(margin-top, 117px 70px)
+                    r(margin-top, 117px 45px)
+                    +layout(mobile)
+                        height 403px
+                        min-height unset
                     &[data-circuit-theme="1"]
                         background-color $penombre
                         color $crepuscule
@@ -407,7 +417,7 @@
                     &__title
                         f-style('h2')
                         +layout(mobile)
-                            font-size 23px
+                            font-size 45px
                             line-height 1.1
                             font-weight $fw-bold
                     &__home_button
@@ -426,7 +436,7 @@
                     r(border-radius, $radius-lg 6px)
                     f(row, $justify: flex-start, $align: center)
                     r(gap, 60px 28px)
-                    r(margin-top, 117px 70px)
+                    r(margin-top, 117px 10px)
                     &__icon
                         r(size, 168px 80px)
                         color $fjord
@@ -461,8 +471,8 @@
                     min-height 1126px
                     f(column, $justify: stretch, $align: flex-start)
                     +layout(mobile)
-                        width 388px
-                        overflow hidden
+                        min-width 388px
+                        r-mobile(min-height, 453px)
                     &__title
                         f-style('h5')
                         color $fjord
@@ -481,9 +491,10 @@
                     border-radius $radius-lgxl
                     r(padding, 10px 5px)
                     background-color $fjord
+                    r(max-height, 600px 400px)
                     +layout(mobile)
                         border-radius 6px
-                        width 388px
+                        width 500px
                     :deep(.UiPicture)
                         flex 1
                     &[data-circuit-theme="1"]
@@ -495,7 +506,7 @@
                         f(column, $justify: space-between, $align: flex-start)
                         r(margin-right, 20px 20px)
                         +layout(mobile)
-                            flex 1 1 100%
+                            width 183px
                         &__title
                             font-family $ff-title
                             text-transform uppercase
@@ -554,9 +565,13 @@
         r(padding, 100px 50px)
         f(column, $justify: flex-start, $align: flex-start)
         r(gap, 60px 40px)
+        +layout(mobile)
+            padding-bottom 20px
         &__title
             f-style('h1')
             width 60%
+            +layout(mobile)
+                f-style('h3')
     .first-event
         .MenuModal__content__container__bottom_part__right_part__event__title
             r(margin-bottom, 60px 20px)
@@ -565,11 +580,23 @@
         f(column, $justify: stretch, $align: stretch)
         height 100%
         flex 1
+        +layout(mobile)
+            flex-direction row
+            width 100%
+            height 412px
+            max-height unset
+            min-height unset
+            overflow scroll
+            width 600px
+            padding-right 200px
         .MenuModal__content__container__right_part__circuit
             flex 1
             align-items stretch
             justify-content stretch
+            +layout(mobile)
+                min-width 500px
     .alternate-part
+        margin-top 10px
         f(column, $justify: flex-start, $align: flex-start)
         width 100%
         gap 0
@@ -590,6 +617,8 @@
                 flex 1 1 0
                 min-width 0
                 height 412px
+                +layout(mobile)
+                    height 220px
     .menu-page__part_sponsor
         f(row, $justify: space-between, $align: stretch)
         r(gap, 30px 15px)
@@ -598,6 +627,9 @@
             flex 1 1 0
             min-width 0
             height 100%
+            +layout(mobile)
+                margin-top 10px
+                min-height 100px
 // --- Transition d'entrée ---
 .menu-overlay-enter-active
     transition opacity 0.25s ease
