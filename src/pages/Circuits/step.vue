@@ -3,11 +3,6 @@
       <div class="circuits-etape__container" :data-circuit-theme="circuitIndex">
         <div class="circuits-etape__header">
           <h2 class="circuits-etape__name" :data-circuit-theme="dataCircuitTheme">{{ $t('circuits.name') }} {{ circuitIndex! + 1 }}</h2>
-          <ui-button theme="primary" :icon="IconHome" class="circuits-etape__home_button" @click="goSelection()"
-            :iconPosition="'right'"
-            :label="$t('circuits.name_plural')"
-            v-if="dataCircuitTheme === 'last'"
-          />
         </div>
         <h1 class="circuits-etape__title" :data-circuit-theme="dataCircuitTheme">{{ current.title }}</h1>
         <div class="circuits-etape__header_wrapper" v-if="currentStepIndex < current.steps.length">
@@ -51,7 +46,7 @@
       <div class="circuits-etape__view_container" v-if="currentStep && currentStep.main_image" :data-view="currentView">
         
         <ui-picture :images="currentStep.main_image" :data-index="currentStepIndex" cover="cover" v-if="currentView === 'list'"/>
-        <div class="circuits-etape__background" v-html="IconLine" :data-circuit-theme="dataCircuitTheme" v-if="currentView === 'list'"></div>
+        <div class="circuits-etape__background" v-html="isDesktop ? IconLine : IconLineMobile" :data-circuit-theme="dataCircuitTheme" v-if="currentView === 'list'"></div>
         <div class="circuits-etape__step_container_wrapper">
         <div class="circuits-etape__step_container">
           <UiNavBar key="navbar" class="circuits-etape__navbar"
@@ -114,6 +109,7 @@ import IconMap from 'assets/svg/pin.svg?raw'
 import IconList from 'assets/svg/list.svg?raw'
 import IconQr from 'assets/svg/qrcode.svg?raw'
 import IconLine from 'assets/svg/line_background.svg?raw'
+import IconLineMobile from 'assets/svg/line_background_mobile.svg?raw'
 import IconZoomIn from 'assets/svg/plus.svg?raw'
 import IconZoomOut from 'assets/svg/moins.svg?raw'
 import IconCenter from 'assets/svg/center.svg?raw'
@@ -496,8 +492,8 @@ onBeforeMount(() => {
         +layout(mobile)
           top 10%
       +layout(mobile)
-        left -80%
-        top -32.6%
+        left 0
+        top 5.5%
     &__step_see_more
       width 100%
       margin-top auto

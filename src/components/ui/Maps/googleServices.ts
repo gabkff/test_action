@@ -18,48 +18,52 @@ const clients: GoogleClients = {
   GeometryLibrary: undefined,
 }
 
+function loadGoogleMapsScript(): Promise<void> {
+  return new Promise((resolve, reject) => {
+    if (window.google?.maps) {
+      resolve()
+      return
+    }
+    const script = document.createElement('script')
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${getGoogleMapKey()}&libraries=maps,marker,geometry&v=weekly`
+    script.setAttribute('referrerpolicy', 'no-referrer')
+    script.async = true
+    script.onload = () => resolve()
+    script.onerror = reject
+    document.head.appendChild(script)
+  })
+}
+
+
 export async function initMap() {
   if (clients.MapLibrary) {
     return clients.MapLibrary
   } else {
-    setOptions({
-      key: getGoogleMapKey(),
-      v: "weekly",
-    })
-    const googleMaps = (await importLibrary('maps')) as google.maps.MapsLibrary;
-    clients.MapLibrary = googleMaps
+    await loadGoogleMapsScript()
+    clients.MapLibrary = google.maps as unknown as google.maps.MapsLibrary
     return clients.MapLibrary
   }
 }
 
 export async function useMarker() {
-  if (clients.Marker) {
-    return clients.Marker
-  } else {
-    const { AdvancedMarkerElement } = (await importLibrary('marker')) as google.maps.MarkerLibrary;
-    clients.Marker = AdvancedMarkerElement
-    return clients.Marker
-  }
+  if (clients.Marker) return clients.Marker
+  await loadGoogleMapsScript()
+  clients.Marker = google.maps.marker.AdvancedMarkerElement
+  return clients.Marker
 }
 
 export async function usePinElement() {
-  if (clients.PinElement) {
-    return clients.PinElement
-  } else {
-    const { PinElement } = (await importLibrary('marker')) as google.maps.MarkerLibrary;
-    clients.PinElement = PinElement
-    return clients.PinElement
-  }
+  if (clients.PinElement) return clients.PinElement
+  await loadGoogleMapsScript()
+  clients.PinElement = google.maps.marker.PinElement
+  return clients.PinElement
 }
 
 export async function useGeometry() {
-  if (clients.GeometryLibrary) {
-    return clients.GeometryLibrary
-  } else {
-    const { encoding } = (await importLibrary('geometry')) as { encoding: typeof google.maps.geometry.encoding };
-    clients.GeometryLibrary = encoding
-    return clients.GeometryLibrary
-  }
+  if (clients.GeometryLibrary) return clients.GeometryLibrary
+  await loadGoogleMapsScript()
+  clients.GeometryLibrary = google.maps.geometry.encoding
+  return clients.GeometryLibrary
 }
 
 export const mapStyle = customStyles

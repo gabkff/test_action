@@ -66,6 +66,7 @@ export function getDefaultLocale(): string {
 
 /** Clé Google Maps (app-config.json en kiosk, sinon .env). */
 export function getGoogleMapKey(): string {
+  // if (appMode === 'ipad') return import.meta.env.VITE_GOOGLE_MAP_KEY_IOS ?? ''
   return runtimeOverrides.googleMapKey ?? import.meta.env.VITE_GOOGLE_MAP_KEY ?? ''
 }
 

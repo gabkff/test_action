@@ -5,7 +5,7 @@
         <div v-if="menuStore.isOpen" class="MenuModal">
           <div class="MenuModal__overlay" @click="menuStore.close()" />
           <div class="MenuModal__content" @click.stop>
-            <div class="MenuModal__content__background" v-html="IconLine"></div>
+            <div class="MenuModal__content__background" v-html="isDesktop ? IconLine : IconLineMobile"></div>
             <!-- Bouton retour contextuel -->
              <div class="MenuModal__header">
                 <div class="MenuModal__header__title">{{ $t('common.discover_circuits') }}</div>
@@ -38,7 +38,7 @@
                             <div class="MenuModal__content__container__bottom_part__right_part__event__title">
                                 {{ nextEventDate ?? '' }}
                             </div>
-                            <div class="MenuModal__content__container__bottom_part__right_part__event__content" style="height: 90%;">
+                            <div class="MenuModal__content__container__bottom_part__right_part__event__content" style="height: 90%;" @pointerdown="menuStore.close();router.push(`/evenements`)">
                                 <ui-picture :images="nextEvent.main_image.images" :cover="'cover'" v-if="nextEvent"/>
                                 <div class="MenuModal__content__container__bottom_part__right_part__event__content__overlay">
                                     <div class="MenuModal__content__container__bottom_part__right_part__event__content__heure">
@@ -131,7 +131,7 @@
                             <div class="MenuModal__content__container__bottom_part__right_part__event__title">
                                 {{ nextEventDate ?? '' }}
                             </div>
-                            <div class="MenuModal__content__container__bottom_part__right_part__event__content">
+                            <div class="MenuModal__content__container__bottom_part__right_part__event__content" @pointerdown="menuStore.close();router.push(`/evenements`)">
                                 <ui-picture :images="nextEvent.main_image.images" :cover="'cover'" v-if="nextEvent"/>
                                 <div class="MenuModal__content__container__bottom_part__right_part__event__content__overlay">
                                     <div class="MenuModal__content__container__bottom_part__right_part__event__content__heure">
@@ -181,7 +181,9 @@
     import { useI18nStore } from 'plugins/i18n/store'
     import { useRoute, useRouter } from 'vue-router'
     import { useNextEvent } from 'plugins/utils'
+    import { store as interfaceStore } from 'plugins/store/interface'
     import IconLine from 'assets/svg/line_background.svg?raw'
+    import IconLineMobile from 'assets/svg/line_background_mobile.svg?raw'
     import IconPlus from 'assets/svg/plus.svg?raw'
     import IconMind from 'assets/svg/mind.svg?raw'
     import IconInstagram from 'assets/svg/instagram.svg?raw'
@@ -203,7 +205,8 @@
     const nextEventData = useNextEvent()
     const nextEvent = computed(() => nextEventData.value?.event ?? null)
     const nextEventDate = computed(() => nextEventData.value?.label ?? '')
-    
+    const isDesktop = computed(() => interfaceStore.isDesktop)
+
     onMounted(() => {
         selectedLang.value = i18nStore.locale
 
@@ -231,9 +234,7 @@
     function onLangChange(value: string | number) {
         i18nStore.setLocale(selectedLang.value as LocaleKey)
     }
-    function getCircuitIndex(id: number) {
-        return appStore.getCircuitIndex(id)
-    }
+
     const circuitIndex = computed(() => {
         return appStore.circuits.findIndex(circuit => circuit.id === menuStore.payload.circuitId as number)
     })
@@ -282,9 +283,6 @@
             bottom 25%
             z-index -1
             color $fjord
-            +layout(mobile)
-                top 10%
-                left -83%
         &__container
             r(padding-left, 100px 50px)
             r(padding-right, 100px 50px)
@@ -335,6 +333,7 @@
                             top 0
                             left 0
                             height 100%
+                            width 100%
                         &__heure
                             f-style('small-body')
                             r(margin-bottom, 19px 9px)
@@ -390,7 +389,7 @@
             &__left_part
                 &__circuit
                     background $fjord
-                    r(padding, 60px 30px)
+                    r(padding, 60px 20px)
                     f(column, $justify: flex-start, $align: flex-start)
                     r(min-height, 1005px 503px)
                     border-radius $radius-lgxl
@@ -427,7 +426,7 @@
                         :deep(.UiButton__icon)
                             transform rotate(180deg)
                 &__dyk
-                    r(width, 828px 393px)
+                    r(width, 828px)
                     r(padding-left, 60px 28px)
                     r(padding-right, 60px 28px)
                     r(padding-top, 45px 21px)
@@ -437,6 +436,8 @@
                     f(row, $justify: flex-start, $align: center)
                     r(gap, 60px 28px)
                     r(margin-top, 117px 10px)
+                    +layout(mobile)
+                        width 100%
                     &__icon
                         r(size, 168px 80px)
                         color $fjord
@@ -595,12 +596,13 @@
             justify-content stretch
             +layout(mobile)
                 min-width 500px
+                padding 20px
     .alternate-part
         margin-top 10px
         f(column, $justify: flex-start, $align: flex-start)
         width 100%
         gap 0
-        r(padding-right, 190px)
+        r(padding-right, 190px 0px)
         .menu-page__part_meteo__title
             f-style('h5')
             color $fjord

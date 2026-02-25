@@ -1,5 +1,9 @@
 <template>
   <div class="home" v-if="isAppReady">
+    <div
+      class="home__veil"
+      :class="{ 'home__veil--hidden': holesReady }"
+    ></div>
     <div class="home__part">
       <div class="bg bg_fr" :style="{backgroundImage: `url(${imgBackgroundFr})`}"></div>
       <div class="home__part__wrapper" ref="wrapperFrRef" :style="wrapperFrMaskStyle">
@@ -35,7 +39,7 @@
         <div class="line line_3_en">
           <div class="mask mask3_en"></div>
           <div class="line_3_en__title text_en"> YOU</div>
-          <ui-button class="button_en" theme="primary" :label="'touch to start'" @click="goSelect('en')" :icon="IconArrow" :big="true" :iconPosition="'right'"/>
+          <ui-button class="button_en" theme="primary" :label="touchToStartEn" @click="goSelect('en')" :icon="IconArrow" :big="true" :iconPosition="'right'"/>
         </div>
       </div>
     </div>
@@ -80,12 +84,17 @@
   import IconArrow from 'assets/svg/arrow.svg?raw'
   import ImgBackgroundBackupFr from './assets/back_fr.png'
   import ImgBackgroundBackupEn from './assets/back_en.png'
+  import i18n from 'plugins/i18n'
   import { useI18nStore } from 'plugins/i18n/store'
   import { useRouter } from 'vue-router'
   import { store as appStore } from 'plugins/store/app'
   import { ref, computed, onMounted, onUnmounted, nextTick, watchEffect } from 'vue'
 
   const i18nStore = useI18nStore()
+
+  const touchToStartEn = computed(() =>
+    i18n.global.t('home.touch_to_start', {}, { locale: 'en' })
+  )
   const router = useRouter()
   const isAppReady = computed(() => appStore.isAppReady)
   const wrapperFrRef = ref<HTMLElement | null>(null)
@@ -164,7 +173,9 @@
         }
       })
     }
-    holesReady.value = true
+    setTimeout(() => {
+      holesReady.value = true
+    }, 1000)
   }
 
   function goSelect(lang: string) {
@@ -189,6 +200,22 @@
   r(padding-bottom, 656px 222px)
   background-size cover
   position relative
+  
+  .home__veil
+    position absolute
+    top 0
+    left 0
+    width 100%
+    height 100%
+    background $fjord
+    z-index 10
+    transition opacity 0.5s ease-out
+    pointer-events auto
+    opacity 1
+
+  .home__veil--hidden
+    opacity 0
+    pointer-events none
   
   :deep(.UiButton)
     r(width, 401px 180px)

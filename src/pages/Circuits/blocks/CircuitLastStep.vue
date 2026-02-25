@@ -1,6 +1,6 @@
 <template>
   <div class="circuit-last-step">
-    <div class="circuit-last-step__background" v-html="IconLine" :data-circuit-theme="circuitIndex"></div>
+    <div class="circuit-last-step__background" v-html="isDesktop ? IconLine : IconLineMobile" :data-circuit-theme="circuitIndex"></div>
     
     <!-- QR Code Section -->
     <div class="circuit-last-step__qr-container">
@@ -153,6 +153,7 @@ import { store as interfaceStore } from 'plugins/store/interface'
 import UiNavBar from 'components/NavBar/index.vue'
 import UiTag from 'components/UiKit/Tag/index.vue'
 import IconLine from 'assets/svg/line_background.svg?raw'
+import IconLineMobile from 'assets/svg/line_background_mobile.svg?raw'
 import IconPlus from 'assets/svg/plus.svg?raw'
 import IconPouce from 'assets/svg/pouce.svg?raw'
 import imgBorn from 'assets/img/borne.png'
@@ -201,8 +202,7 @@ const IsDesktop = computed(() => interfaceStore.isDesktop)
     &[data-circuit-theme="2"]
       color $bouleau
     +layout(mobile)
-      left -80%
-      top 135px
+      top 35%
 
   &__navbar
     position absolute

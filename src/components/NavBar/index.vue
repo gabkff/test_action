@@ -194,14 +194,14 @@ function handleLanguage() {
     display flex
     flex-direction column
     align-items center
-    r(gap, 20px 10px)
+    r(gap, 20px 25px)
     r(padding, 50px 9px)
     width 100%
     background white
     transform scaleX(1)
 
   &__item
-    r(size, 86px 20px)
+    size 86px
     display flex
     align-items center
     justify-content center
@@ -211,7 +211,8 @@ function handleLanguage() {
     cursor pointer
     transition all 0.2s ease
     color $fjord
-    
+    +layout(mobile)
+      size 25px
     &.is-active
       color $primary
 
@@ -220,7 +221,7 @@ function handleLanguage() {
     display flex
     align-items center
     justify-content center
-    width 45px
+    r(width, 45px 40px)
     
     :deep(svg)
       width 100%
@@ -250,8 +251,8 @@ function handleLanguage() {
         transform rotate(0deg)
 
   &__icon--arrow
-    r(width, 60px 30px)
-    r(height, 60px 30px)
+    r(width, 60px 40px) !important
+    r(height, 60px 40px) !important
   &__icon--arrow-back
     transform rotate(0deg) !important
   &__item--lang

@@ -456,7 +456,6 @@
     width 50%
 .alternate-part
   f(column, $justify: flex-start, $align: flex-start)
-  background red
   .menu-page__part_meteo__title
     f-style('h5')
     color $fjord
