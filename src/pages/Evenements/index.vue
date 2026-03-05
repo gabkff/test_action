@@ -11,7 +11,7 @@
           :key="day.timestamp"
           theme="date"
           :class="{ 'is-active': selectedDate === day.timestamp }"
-          @click="selectDate(day.timestamp)"
+          @pointerdown="selectDate(day.timestamp)"
         >
           <div class="date-label">
             <div class="date-label__weekday">{{ day.weekday }}</div>
@@ -44,7 +44,7 @@
               :location="event.address" 
               :title="event.title" 
               :icon="IconPlus" 
-              @click="toggleEvent(event.id)"
+              v-tap="() => toggleEvent(event.id)"
             />
           </UiAccordions>
           <div v-else class="events-page__empty">

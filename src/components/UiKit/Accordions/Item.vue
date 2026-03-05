@@ -6,7 +6,7 @@
   >
     <span class="border -top" />
     
-    <div :class="['header', { '-active': isOpen }]" @click="onToggle">
+    <div :class="['header', { '-active': isOpen }]" @pointerdown="onToggle">
       <div class="left">
         <p class="title">{{ title }}</p>
       </div>

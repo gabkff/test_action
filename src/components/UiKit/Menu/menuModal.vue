@@ -3,8 +3,8 @@
     <Teleport to="body">
       <Transition name="menu-overlay">
         <div v-if="menuStore.isOpen" class="MenuModal">
-          <div class="MenuModal__overlay" @click="menuStore.close()" />
-          <div class="MenuModal__content" @click.stop>
+          <div class="MenuModal__overlay" @pointerdown="menuStore.close()" />
+          <div class="MenuModal__content" @pointerdown.stop>
             <div class="MenuModal__content__background" v-html="isDesktop ? IconLine : IconLineMobile"></div>
             <!-- Bouton retour contextuel -->
              <div class="MenuModal__header">
@@ -31,7 +31,7 @@
                             </div>
                             <ui-button theme="secondary" :icon="IconArrow" class="MenuModal__content__container__left_part__circuit__home_button"
                                 :label="$t('common.backToCircuit')"
-                                @click="menuStore.close()"
+                                @pointerdown="menuStore.close()"
                             />
                         </div>
                         <div v-else class="MenuModal__content__container__bottom_part__right_part__event first-event" style="height: 100%;">
@@ -55,7 +55,7 @@
                                         {{ nextEvent?.title ?? $t('events.no_event') }}
                                     </div>
                                     <div class="MenuModal__content__container__bottom_part__right_part__event__content__button">
-                                        <ui-button :label="$t('events.see_all')" :icon="IconPlus" iconPosition="right" @click="menuStore.close();router.push(`/evenements`)" />
+                                        <ui-button :label="$t('events.see_all')" :icon="IconPlus" iconPosition="right" @pointerdown="menuStore.close();router.push(`/evenements`)" />
                                     </div>
                                 </div>
                             </div>
@@ -70,7 +70,7 @@
                                     v-for="(circuit, circuitIndex) in appStore.circuits.filter(circuit => circuit.id !== Number(route.params.id))"
                                     :key="circuit.id"
                                     :data-circuit-theme="circuitIndex"
-                                    @click="menuStore.close();router.push(`/circuits/${circuit.id}`)"
+                                    v-tap="() => {menuStore.close();router.push(`/circuits/${circuit.id}`)}"
                                 >
                                     <ui-picture v-if="circuit.image" :images="circuit.image.images" :cover="'cover'" />
                                     <div class="MenuModal__content__container__right_part__circuit__content">
@@ -78,7 +78,7 @@
                                     <div class="MenuModal__content__container__right_part__circuit__content_text_action" :data-circuit-theme="circuitIndex">
                                         <ui-tag :label="$t('circuits.total_step', { number: circuit.steps.length })" />
                                         <ui-button theme="primary" :label="$t('common.link_discover')" :icon="IconPlus" :iconPosition="'right'"
-                                        @click="menuStore.close();router.push(`/circuits/${circuit.id}`)"
+                                            v-tap="() => {menuStore.close();router.push(`/circuits/${circuit.id}`)}"
                                         />
                                     </div>
                                 </div>
@@ -112,8 +112,8 @@
                             <div class="MenuModal__content__container__part_meteo__header">
                                 <div class="MenuModal__content__container__part_meteo__title"> {{ $t('meteo.condition_meteo') }}</div>
                                 <div class="MenuModal__content__container__part_meteo__action__wrapper">
-                                    <ui-button theme="arrow" :direction="'left'" @click="swipeSlide('meteo', 'prev')"/>
-                                    <ui-button theme="arrow" :direction="'right'" @click="swipeSlide('meteo', 'next')"/>
+                                    <ui-button theme="arrow" :direction="'left'" @pointerdown="swipeSlide('meteo', 'prev')"/>
+                                    <ui-button theme="arrow" :direction="'right'" @pointerdown="swipeSlide('meteo', 'next')"/>
                                 </div>
                             </div>
                             
@@ -148,7 +148,7 @@
                                         {{ nextEvent?.title ?? $t('events.no_event') }}
                                     </div>
                                     <div class="MenuModal__content__container__bottom_part__right_part__event__content__button">
-                                        <ui-button :label="$t('events.see_all')" :icon="IconPlus" iconPosition="right" @click="menuStore.close();router.push(`/evenements`)" />
+                                        <ui-button :label="$t('events.see_all')" :icon="IconPlus" iconPosition="right" @pointerdown="menuStore.close();router.push(`/evenements`)" />
                                     </div>
                                 </div>
                             </div>

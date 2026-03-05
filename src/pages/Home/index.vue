@@ -21,7 +21,7 @@
         <div class="line_4_fr line">
           <div class="mask mask4_fr"></div>
           <div class="line_4_fr__title text_fr"> GUIDER</div>
-          <ui-button class="button_fr" theme="primary" :label="$t('home.touch_to_start')" @click="goSelect('fr')" :icon="IconArrow" :big="true" :iconPosition="'right'"/>
+          <ui-button class="button_fr" theme="primary" :label="$t('home.touch_to_start')" @pointerdown="goSelect('fr')" :icon="IconArrow" :big="true" :iconPosition="'right'"/>
         </div>
       </div>
     </div>
@@ -39,7 +39,7 @@
         <div class="line line_3_en">
           <div class="mask mask3_en"></div>
           <div class="line_3_en__title text_en"> YOU</div>
-          <ui-button class="button_en" theme="primary" :label="touchToStartEn" @click="goSelect('en')" :icon="IconArrow" :big="true" :iconPosition="'right'"/>
+          <ui-button class="button_en" theme="primary" :label="touchToStartEn" @pointerdown="goSelect('en')" :icon="IconArrow" :big="true" :iconPosition="'right'"/>
         </div>
       </div>
     </div>
@@ -104,20 +104,15 @@
   type HoleRect = { x: number; y: number; w: number; h: number }
   const holeRectsFr = ref<HoleRect[]>([])
   const holeRectsEn = ref<HoleRect[]>([])
+  const clipPathFr = ref<string>('')
+  const clipPathEn = ref<string>('')
   const holesReady = ref(false)
-
-  const maskStyle = (id: string) => ({
-    maskImage: `url(#${id})`,
-    WebkitMaskImage: `url(#${id})`,
-  })
-
-
   
   const wrapperFrMaskStyle = computed(() =>
-    holesReady.value && holeRectsFr.value.length ? maskStyle('wrapper-mask-fr') : {},
+    holesReady.value && clipPathFr.value ? { clipPath: clipPathFr.value } : {}
   )
   const overlayEnMaskStyle = computed(() =>
-    holesReady.value && holeRectsEn.value.length ? maskStyle('wrapper-mask-en') : {},
+    holesReady.value && clipPathEn.value ? { clipPath: clipPathEn.value } : {}
   )
 
   const imgBackgroundFr = computed(() => {
@@ -158,30 +153,53 @@
   }
 
   function updateHoles() {
-    console.log('updateHoles')
-    if (wrapperFrRef.value) holeRectsFr.value = getHoleRects(wrapperFrRef.value)
+    if (wrapperFrRef.value) {
+      const rect = wrapperFrRef.value.getBoundingClientRect()
+      const masks = wrapperFrRef.value.querySelectorAll<HTMLElement>('.mask')
+      clipPathFr.value = buildClipPath(rect, masks)
+    }
     if (overlayEnRef.value && partEnRef.value) {
       const partRect = partEnRef.value.getBoundingClientRect()
       const masks = partEnRef.value.querySelectorAll<HTMLElement>('.mask')
-      holeRectsEn.value = Array.from(masks).map((el) => {
-        const r = el.getBoundingClientRect()
-        return {
-          x: (r.left - partRect.left) / partRect.width,
-          y: (r.top - partRect.top) / partRect.height,
-          w: r.width / partRect.width,
-          h: r.height / partRect.height,
-        }
-      })
+      clipPathEn.value = buildClipPath(partRect, masks)
     }
     setTimeout(() => {
       holesReady.value = true
     }, 1000)
   }
 
+  function buildClipPath(containerRect: DOMRect, masks: NodeListOf<HTMLElement>): string {
+    const W = containerRect.width
+    const H = containerRect.height
+
+    // Rectangle externe → sens horaire (zone visible)
+    let path = `M 0 0 L ${W} 0 L ${W} ${H} L 0 ${H} Z`
+
+    // Trous arrondis → sens anti-horaire (annule le winding → transparent)
+    for (const el of Array.from(masks)) {
+      const elRect = el.getBoundingClientRect()
+      const x = elRect.left - containerRect.left
+      const y = elRect.top - containerRect.top
+      const w = elRect.width
+      const h = elRect.height
+      const r = Math.min(containerRect.width * 0.02, w / 2, h / 2)
+
+      path += ` M ${x + r} ${y}`
+      path += ` A ${r} ${r} 0 0 0 ${x} ${y + r}`
+      path += ` L ${x} ${y + h - r}`
+      path += ` A ${r} ${r} 0 0 0 ${x + r} ${y + h}`
+      path += ` L ${x + w - r} ${y + h}`
+      path += ` A ${r} ${r} 0 0 0 ${x + w} ${y + h - r}`
+      path += ` L ${x + w} ${y + r}`
+      path += ` A ${r} ${r} 0 0 0 ${x + w - r} ${y}`
+      path += ` Z`
+    }
+
+    return `path('${path}')`
+  }
+
   function goSelect(lang: string) {
-    console.log('goEnglish')
     i18nStore.setLocale(lang as LocaleKey)
-    console.log('i18nStore', i18nStore.locale)
     router.push('/selection')
   }
 
@@ -241,7 +259,7 @@
     z-index 1
     width 100%
     height 100%
-    transform scale(1.003)
+    transform scale(1.005)
     f(column, $align: flex-start, $justify: flex-start)
     r(gap, 30px 30px)
     
@@ -253,7 +271,7 @@
     width 100%
     height 100%
     z-index 1
-    transform scale(1.004)
+    transform scale(1.006)
     background-color $fjord
     pointer-events none
     

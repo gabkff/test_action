@@ -20,7 +20,7 @@ import { startPeriodicRefresh } from 'utils/refresh'
 import { startKioskInactivityTimer } from 'utils/kioskInactivity'
 import { initApiSite } from 'plugins/api/apiSite'
 import { initRuntimeConfig } from 'config/runtimeConfig'
-
+import { tapDirective } from './directives/tap'
 // Import des styles globaux
 import 'assets/styles/index.styl'
 
@@ -45,7 +45,7 @@ async function setup() {
 
   // Installation du UiKit (composants globaux)
   installUiKit(app)
-
+  app.directive('tap', tapDirective)
   // Monte l'application
   app.mount('#app')
 

@@ -11,13 +11,17 @@ const isTauri = (): boolean =>
 
 /**
  * Détermine le mode de l'application au chargement du module.
- * - Dans l'exécutable Tauri → toujours « kiosk » (borne).
- * - Dans le navigateur / dev → VITE_APP_MODE ou défaut « ipad ».
+ * - Tauri desktop (Windows/macOS) → « kiosk » (borne).
+ * - Tauri iOS (build iPad) → « ipad » si VITE_APP_MODE=ipad au build.
+ * - Navigateur / dev → VITE_APP_MODE ou défaut « ipad ».
  */
 const getAppMode = (): AppMode => {
-  if (isTauri()) return 'kiosk'
-  const mode = import.meta.env.VITE_APP_MODE as AppMode
-  return mode === 'kiosk' || mode === 'ipad' ? mode : 'ipad'
+  const envMode = import.meta.env.VITE_APP_MODE as AppMode | undefined
+  if (isTauri()) {
+    // Tauri peut être desktop (kiosk) ou iOS (ipad) selon le build
+    return envMode === 'ipad' ? 'ipad' : 'kiosk'
+  }
+  return envMode === 'kiosk' || envMode === 'ipad' ? envMode : 'ipad'
 }
 
 const appMode = getAppMode()

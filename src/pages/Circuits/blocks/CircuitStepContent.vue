@@ -56,7 +56,7 @@
       :icon="IconPlus"
       :iconPosition="'right'"
       class="step-content__see-more"
-      @click="$emit('more')"
+      @pointerdown="$emit('more')"
     />
   </div>
 </template>

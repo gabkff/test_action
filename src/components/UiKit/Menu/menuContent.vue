@@ -11,7 +11,7 @@
                     </span>
                 </div>
             </div>
-            <div class="menu-page__left_part__event" v-if="nextEvent"  @click="router.push(`/evenements`)">
+            <div class="menu-page__left_part__event" v-if="nextEvent"  @pointerdown="router.push(`/evenements`)">
                 <div class="menu-page__left_part__event__title">
                     {{  nextEventDate ?? '' }}
                 </div>
@@ -21,7 +21,7 @@
                         <div class="menu-page__left_part__event__content__heure">
                             <template v-if="nextEvent?.time_start && nextEvent?.time_end && nextEvent.time_start !== nextEvent.time_end && nextEvent.time_start !== '00:00' && nextEvent.time_end !== '00:00'">
                                 <span class="EventItem__time-text">
-                                    {{ $t('events.time_start_end', { start: nextEvent.time_start, end: nextEvent.time_end }) }}
+                                    {{ $tç('events.time_start_end', { start: nextEvent.time_start, end: nextEvent.time_end }) }}
                                 </span>
                             </template>
                             <template v-else>
@@ -32,7 +32,7 @@
                             {{ nextEvent?.title ?? $t('events.no_event') }}
                         </div>
                         <div class="menu-page__left_part__event__content__button">
-                            <ui-button :label="$t('events.see_all')" :icon="IconPlus" iconPosition="right" @click="router.push(`/evenements`)" />
+                            <ui-button :label="$t('events.see_all')" :icon="IconPlus" iconPosition="right" @pointerdown="router.push(`/evenements`)" />
                         </div>
                     </div>
                 </div>
@@ -51,7 +51,7 @@
                             v-for="(circuit, circuitIndex) in appStore.circuits.filter(circuit => circuit.id !== Number(route.params.id))"
                             :key="circuit.id"
                             :data-circuit-theme="getCircuitIndex(circuit.id)"
-                            @click="router.push(`/circuits/${circuit.id}`)"
+                            v-tap="() => router.push(`/circuits/${circuit.id}`)"
                         >
                         <ui-picture v-if="circuit.image" :images="circuit.image.images" :cover="'cover'" />
                         <div class="menu-page__right_part__circuit__content">
@@ -59,7 +59,7 @@
                             <div class="menu-page__right_part__circuit__content_text_action" :data-circuit-theme="getCircuitIndex(circuit.id)">
                                 <ui-tag :label="$t('circuits.total_step', { number: circuit.steps.length })" />
                                 <ui-button theme="primary" :label="$t('common.link_discover')" :icon="IconPlus" :iconPosition="'right'"
-                                @click="router.push(`/circuits/${circuit.id}`)"
+                                v-tap="() => router.push(`/circuits/${circuit.id}`)"
                                 />
                             </div>
                         </div>
@@ -71,8 +71,8 @@
                         <div class="menu-page__right_part__circuits__mobile__header">
                             <div class="menu-page__right_part__circuits__title"> {{ $t('menu.discover') }}</div>
                             <div class="menu-page__right_part__circuits__mobile__header__action__wrapper">
-                                <ui-button theme="arrow" :direction="'left'" @click="swipeSlide('circuits', 'prev')"/>
-                                <ui-button theme="arrow" :direction="'right'" @click="swipeSlide('circuits', 'next')"/>
+                                <ui-button theme="arrow" :direction="'left'" @pointerdown="swipeSlide('circuits', 'prev')"/>
+                                <ui-button theme="arrow" :direction="'right'" @pointerdown="swipeSlide('circuits', 'next')"/>
                             </div>
                         </div>
                         <div class="menu-page__right_part__circuits__mobile__circuit_wrapper">
@@ -82,7 +82,7 @@
                                     v-for="(circuit, circuitIndex) in appStore.circuits.filter(circuit => circuit.id !== Number(route.params.id))"
                                     :key="circuit.id"
                                     :data-circuit-theme="getCircuitIndex(circuit.id)"
-                                    @click="router.push(`/circuits/${circuit.id}`)"
+                                    v-tap="() => router.push(`/circuits/${circuit.id}`)"
                                 >
                                     <ui-picture v-if="circuit.image" :images="circuit.image.images" :cover="'cover'" />
                                     <div class="menu-page__right_part__circuit__content">
@@ -90,7 +90,7 @@
                                         <div class="menu-page__right_part__circuit__content_text_action" :data-circuit-theme="getCircuitIndex(circuit.id)">
                                             <ui-tag :label="$t('circuits.total_step', { number: circuit.steps.length })" />
                                             <ui-button theme="primary" :label="$t('common.link_discover')" :icon="IconPlus" :iconPosition="'right'"
-                                                @click="router.push(`/circuits/${circuit.id}`)"
+                                                v-tap="() => router.push(`/circuits/${circuit.id}`)"
                                             />
                                         </div>
                                     </div>
@@ -106,8 +106,8 @@
                 <div class="menu-page__part_meteo__header">
                     <div class="menu-page__part_meteo__title"> {{ $t('meteo.condition_meteo') }}</div>
                     <div class="menu-page__right_part__circuits__mobile__header__action__wrapper">
-                        <ui-button theme="arrow" :direction="'left'" @click="swipeSlide('meteo', 'prev')"/>
-                        <ui-button theme="arrow" :direction="'right'" @click="swipeSlide('meteo', 'next')"/>
+                        <ui-button theme="arrow" :direction="'left'" @pointerdown="swipeSlide('meteo', 'prev')"/>
+                        <ui-button theme="arrow" :direction="'right'" @pointerdown="swipeSlide('meteo', 'next')"/>
                     </div>
                 </div>
                 

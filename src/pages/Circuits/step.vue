@@ -22,7 +22,7 @@
               :icon="IconQr"
               :iconPosition="'right'"
               :label="$t('circuits.scan')" 
-              @click="sidePanelStore.openQrCode({ title: current.title, qr: current.base64_qr, index: circuitIndex})" 
+              @pointerdown="sidePanelStore.openQrCode({ title: current.title, qr: current.base64_qr, index: circuitIndex})" 
             />
             <div v-if="current.description" class="circuits-etape__description">
               <p>{{ current.description }}</p>
@@ -80,9 +80,9 @@
           ref="mapRef"
         />
         <div class="maps-zoom-control" v-if="isDesktop">
-          <ui-button class="maps-zoom-control__button" theme="secondary" :icon="IconZoomIn" :big="true" @click="zoomMap('in')" />
-          <ui-button class="maps-zoom-control__button" theme="secondary" :icon="IconCenter" :big="true" @click="zoomMap('center')" />
-          <ui-button class="maps-zoom-control__button" theme="secondary" :icon="IconZoomOut" :big="true" @click="zoomMap('out')" />
+          <ui-button class="maps-zoom-control__button" theme="secondary" :icon="IconZoomIn" :big="true" @pointerdown="zoomMap('in')" />
+          <ui-button class="maps-zoom-control__button" theme="secondary" :icon="IconCenter" :big="true" @pointerdown="zoomMap('center')" />
+          <ui-button class="maps-zoom-control__button" theme="secondary" :icon="IconZoomOut" :big="true" @pointerdown="zoomMap('out')" />
         </div>
       </div>
       </div>

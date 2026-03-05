@@ -2,9 +2,9 @@
   <Teleport to="body">
     <Transition name="panel">
       <div v-if="store.isOpen || store.isOpening" class="SidePanel">
-        <div class="SidePanel__overlay" ref="overlayRef" @click="handleClose($event)" />
+        <div class="SidePanel__overlay" ref="overlayRef" @pointerdown="handleClose($event)" />
         
-        <div class="SidePanel__container" @click.stop>
+        <div class="SidePanel__container" @pointerdown.stop>
           <UiNavBar key="nav" :panel="true"/>
           <div class="SidePanel__content">
             <!-- Contenu dynamique basé sur le type -->

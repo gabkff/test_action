@@ -42,14 +42,14 @@
             :big="true" 
             :icon="IconPouce" 
             class="circuit-last-step__pouce-button" 
-            @click="$emit('feedback', 'up')"
+            @pointerdown="$emit('feedback', 'up')"
           />
           <ui-button 
             theme="primary" 
             :icon="IconPouce" 
             class="circuit-last-step__pouce-button" 
             :data-down="true" 
-            @click="$emit('feedback', 'down')"
+            @pointerdown="$emit('feedback', 'down')"
           />
         </div>
       </div>
@@ -63,7 +63,7 @@
       <div 
         class="circuit-last-step__event-content"
         :style="{ backgroundImage: `url(${nextEvent.event.main_image?.images?.original?.url})` }"
-        @click="router.push('/evenements')"
+        @pointerdown="router.push('/evenements')"
       >
         <div class="circuit-last-step__event-overlay">
           <div class="circuit-last-step__event-time" v-if="nextEvent.event.time_start || nextEvent.event.time_end">
@@ -84,7 +84,7 @@
             :iconPosition="'right'"
             :label="$t('events.see_all')"
             class="circuit-last-step__event-button"
-            @click="router.push('/evenements')"
+            @pointerdown="router.push('/evenements')"
           />
         </div>
       </div>
@@ -110,7 +110,7 @@
       <div class="circuit-last-step__next-circuit-header">
         {{ $t('common.discover_more') }}
       </div>
-      <div class="circuit-last-step__next-circuit-card" :data-circuit-theme="nextCircuitIndex" @click="router.push(`/circuits/${nextCircuit.id}`)">
+      <div class="circuit-last-step__next-circuit-card" :data-circuit-theme="nextCircuitIndex" @pointerdown="router.push(`/circuits/${nextCircuit.id}`)">
         <ui-picture :images="nextCircuit?.image?.images" cover="cover" />
         <div class="circuit-last-step__next-circuit-info">
           <div class="circuit-last-step__next-circuit-title">
@@ -125,7 +125,7 @@
                 :label="$t('common.link_discover')" 
                 :icon="IconPlus" 
                 :iconPosition="'right'"
-                @click="router.push(`/circuits/${nextCircuit.id}`)"
+                @pointerdown="router.push(`/circuits/${nextCircuit.id}`)"
               />
             </div>
           </div>

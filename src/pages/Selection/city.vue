@@ -21,7 +21,7 @@
                 />
                 <ui-button
                     :label="$t('selection.city_validate')"
-                    @click="submitCity"
+                    @pointerdown="submitCity"
                     :big="true"
                     theme="primary"
                     :disabled="loading"

@@ -19,7 +19,7 @@
         type="button" 
         class="NavBar__item"
         :class="{ 'is-active': currentRoute === 'home' }"
-        @click="panel ? handleClose() : handleHome()"
+        @pointerdown="panel ? handleClose() : handleHome()"
       >
         <i class="NavBar__icon" v-html="panel ? IconClose : IconHouse" />
       </button>
@@ -29,7 +29,7 @@
         v-if="showScrollArrows"
         type="button" 
         class="NavBar__item NavBar__item--arrow NavBar__item--arrow-up"
-        @click="$emit('scrollup')"
+        @pointerdown="$emit('scrollup')"
       >
         <i class="NavBar__icon NavBar__icon--arrow" v-html="IconArrow" />
       </button>
@@ -39,7 +39,7 @@
         v-if="showScrollArrows"
         type="button" 
         class="NavBar__item NavBar__item--arrow NavBar__item--arrow-down"
-        @click="$emit('scrolldown')"
+        @pointerdown="$emit('scrolldown')"
       >
         <i class="NavBar__icon NavBar__icon--arrow" v-html="IconArrow" />
       </button>
@@ -66,7 +66,7 @@
       <button 
         type="button" 
         class="NavBar__item NavBar__item--lang"
-        @click="handleLanguage"
+        @pointerdown="handleLanguage"
       >
         <span class="NavBar__lang-text">{{ otherLang.charAt(0).toUpperCase() + otherLang.slice(1) }}</span>
       </button>

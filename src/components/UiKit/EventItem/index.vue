@@ -1,5 +1,5 @@
 <template>
-  <div class="EventItem" @click="handleClick">
+  <div class="EventItem" @pointerdown="handleClick">
     <span class="EventItem__border -top" />
     
     <div class="EventItem__content">
@@ -23,7 +23,7 @@
         </div>
         <div class="EventItem__title-container">
           <h3 class="EventItem__title" v-html="title"/>
-          <button type="button" class="EventItem__action" @click.stop="handleClick">
+          <button type="button" class="EventItem__action" @pointerdown.stop="handleClick">
             <i class="EventItem__icon" v-html="IconPlus" />
           </button>
         </div>
