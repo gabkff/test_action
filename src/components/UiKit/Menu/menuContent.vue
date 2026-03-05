@@ -21,7 +21,7 @@
                         <div class="menu-page__left_part__event__content__heure">
                             <template v-if="nextEvent?.time_start && nextEvent?.time_end && nextEvent.time_start !== nextEvent.time_end && nextEvent.time_start !== '00:00' && nextEvent.time_end !== '00:00'">
                                 <span class="EventItem__time-text">
-                                    {{ $tç('events.time_start_end', { start: nextEvent.time_start, end: nextEvent.time_end }) }}
+                                    {{ $t('events.time_start_end', { start: nextEvent.time_start, end: nextEvent.time_end }) }}
                                 </span>
                             </template>
                             <template v-else>

@@ -1,6 +1,6 @@
 <template>
   <div class="circuit-last-step">
-    <div class="circuit-last-step__background" v-html="isDesktop ? IconLine : IconLineMobile" :data-circuit-theme="circuitIndex"></div>
+    <div class="circuit-last-step__background" v-html="IsDesktop ? IconLine : IconLineMobile" :data-circuit-theme="circuitIndex"></div>
     
     <!-- QR Code Section -->
     <div class="circuit-last-step__qr-container">
