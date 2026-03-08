@@ -382,7 +382,10 @@ onBeforeMount(() => {
       .UiSelector
         background $aube
         r(height, 160px 80px)
-        r(width, 490px 180px)
+        r(width, 490px 220px)
+        +layout(mobile)
+          :deep(.UiSelector__container)
+            gap 16px
         :deep(.UiSelector__option)
           f-style('btn-large')
           +layout(mobile)

@@ -69,13 +69,13 @@
                                 <div class="MenuModal__content__container__right_part__circuit"
                                     v-for="(circuit, circuitIndex) in appStore.circuits.filter(circuit => circuit.id !== Number(route.params.id))"
                                     :key="circuit.id"
-                                    :data-circuit-theme="circuitIndex"
+                                    :data-circuit-theme="appStore.circuits.findIndex(c => c.id === circuit.id)"
                                     v-tap="() => {menuStore.close();router.push(`/circuits/${circuit.id}`)}"
                                 >
                                     <ui-picture v-if="circuit.image" :images="circuit.image.images" :cover="'cover'" />
                                     <div class="MenuModal__content__container__right_part__circuit__content">
-                                    <div class="MenuModal__content__container__right_part__circuit__content__title" :data-circuit-theme="circuitIndex"> {{ circuit.title }}</div>
-                                    <div class="MenuModal__content__container__right_part__circuit__content_text_action" :data-circuit-theme="circuitIndex">
+                                    <div class="MenuModal__content__container__right_part__circuit__content__title" :data-circuit-theme="appStore.circuits.findIndex(c => c.id === circuit.id)"> {{ circuit.title }}</div>
+                                    <div class="MenuModal__content__container__right_part__circuit__content_text_action" :data-circuit-theme="appStore.circuits.findIndex(c => c.id === circuit.id)">
                                         <ui-tag :label="$t('circuits.total_step', { number: circuit.steps.length })" />
                                         <ui-button theme="primary" :label="$t('common.link_discover')" :icon="IconPlus" :iconPosition="'right'"
                                             v-tap="() => {menuStore.close();router.push(`/circuits/${circuit.id}`)}"
@@ -334,6 +334,7 @@
                             left 0
                             height 100%
                             width 100%
+                            border-radius $radius-lg
                         &__heure
                             f-style('small-body')
                             r(margin-bottom, 19px 9px)
@@ -350,7 +351,7 @@
                                 font-weight $fw-bold
                         &__overlay
                             r(padding, 30px)
-                            border-radius $radius-lgxl
+                            border-radius $radius-lg
                             background-image linear-gradient(0deg,rgba(0, 0, 0, .7) 0%, rgba(0, 0, 0, .7) 100%)
                             z-index 2
                             width 100%
@@ -392,7 +393,7 @@
                     r(padding, 60px 20px)
                     f(column, $justify: flex-start, $align: flex-start)
                     r(min-height, 1005px 503px)
-                    border-radius $radius-lgxl
+                    border-radius $radius-lg
                     r(width, 826px 393px)
                     color $aube
                     r(margin-top, 117px 45px)
@@ -432,7 +433,7 @@
                     r(padding-top, 45px 21px)
                     r(padding-bottom, 45px 21px)
                     background-color white
-                    r(border-radius, $radius-lg 6px)
+                    border-radius $radius-lg
                     f(row, $justify: flex-start, $align: center)
                     r(gap, 60px 28px)
                     r(margin-top, 117px 10px)
@@ -489,12 +490,11 @@
                     f(row, $justify: stretch, $align: flex-start)
                     r(gap, 25px 10px)
                     r(min-height, 470px 223px)
-                    border-radius $radius-lgxl
+                    border-radius $radius-lg
                     r(padding, 10px 5px)
                     background-color $fjord
                     r(max-height, 600px 400px)
                     +layout(mobile)
-                        border-radius 6px
                         width 500px
                     :deep(.UiPicture)
                         flex 1
@@ -538,12 +538,12 @@
                                     margin auto
                             &[data-circuit-theme="1"]
                                 :deep(.UiButton)
-                                    background-color $ecume
-                                    color $epinette
-                            &[data-circuit-theme="2"]
-                                :deep(.UiButton)
                                     background-color $aurore
                                     color $penombre
+                            &[data-circuit-theme="2"]
+                                :deep(.UiButton)
+                                    background-color $ecume
+                                    color $epinette
                 &__follow
                     align-self flex-end
                     background white
@@ -552,8 +552,6 @@
                     f(row, $justify: space-between, $align: flex-start)
                     r(gap, 30px 15px)
                     r(width, 805px 388px)
-                    +layout(mobile)
-                        border-radius 6px
                     &__title
                         f-style('default')
                         +layout(mobile)

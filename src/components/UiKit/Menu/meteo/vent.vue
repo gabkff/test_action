@@ -54,7 +54,7 @@ const currentVent = computed(() => {
         border-radius $radius-lg
         aspect-ratio 1 / 1 // Force un carré pour un cadran parfait
         +layout(mobile)
-            border-radius 6px
+            border-radius $radius-lg
             height 195px
         
         &__title

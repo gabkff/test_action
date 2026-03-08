@@ -119,6 +119,7 @@
 </script>
 <style lang="stylus" scoped>
     .temperature
+        border-radius $radius-lg
         background-color white
         r(padding-top, 24px 16px)
         r(padding-bottom, 24px 16px)

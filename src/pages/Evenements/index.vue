@@ -27,8 +27,8 @@
           <div class="events-page__list-header">
             <h2 class="events-page__list-title">
               {{ isSelectedDateToday() 
-                ? $t('events.today', { date: formattedSelectedDate.weekday + ' ' + formattedSelectedDate.dateMonth }) 
-                : formattedSelectedDate.weekday + ' ' + formattedSelectedDate.dateMonth 
+                ? $t('events.today', { date: formattedSelectedDate.weekday + ' ' + formattedSelectedDate.dayNumber + ' ' + formattedSelectedDate.dateMonth }) 
+                : formattedSelectedDate.weekday + ' ' + formattedSelectedDate.dayNumber + ' ' + formattedSelectedDate.dateMonth 
               }} 
             </h2>
           </div>
@@ -158,6 +158,7 @@ const toggleEvent = (id: number) => {
     
     &__description
       f-style('small-body')
+      color $fjord
       text-align left
       width 50%
       +layout(mobile)

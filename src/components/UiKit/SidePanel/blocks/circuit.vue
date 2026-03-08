@@ -287,13 +287,15 @@ function scrollDownDesc() {
         min-height 0
         position relative
         flex 1
+        +layout(mobile)
+            padding-bottom 0px
     &__scroll-content
         width 100%
         flex 1
     &__map
         r(height, 600px 300px)
         width 100%
-        r(margin-bottom, 80px 40px)
+        r(margin-bottom, 80px 80px)
     &__scroll-text
         r(margin-bottom, 120px 30px)
     &__scroll-arrows

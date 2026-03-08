@@ -156,33 +156,34 @@
     if (wrapperFrRef.value) {
       const rect = wrapperFrRef.value.getBoundingClientRect()
       const masks = wrapperFrRef.value.querySelectorAll<HTMLElement>('.mask')
-      clipPathFr.value = buildClipPath(rect, masks)
+      clipPathFr.value = buildClipPath(wrapperFrRef.value, rect, masks)
     }
     if (overlayEnRef.value && partEnRef.value) {
       const partRect = partEnRef.value.getBoundingClientRect()
       const masks = partEnRef.value.querySelectorAll<HTMLElement>('.mask')
-      clipPathEn.value = buildClipPath(partRect, masks)
+      clipPathEn.value = buildClipPath(overlayEnRef.value, partRect, masks)
     }
     setTimeout(() => {
       holesReady.value = true
     }, 1000)
   }
 
-  function buildClipPath(containerRect: DOMRect, masks: NodeListOf<HTMLElement>): string {
-    const W = containerRect.width
-    const H = containerRect.height
+  function buildClipPath(containerEl: HTMLElement, containerRect: DOMRect, masks: NodeListOf<HTMLElement>): string {
+    // Utiliser les dimensions LOGIQUES (pré-transform) pour le clip-path
+    const W = containerEl.offsetWidth
+    const H = containerEl.offsetHeight
+    const scaleX = containerRect.width / W   // ex: 1.005
+    const scaleY = containerRect.height / H
 
-    // Rectangle externe → sens horaire (zone visible)
-    let path = `M 0 0 L ${W} 0 L ${W} ${H} L 0 ${H} Z`
+    let path = `M -4 -4 L ${W + 4} -4 L ${W + 4} ${H + 4} L -4 ${H + 4} Z`
 
-    // Trous arrondis → sens anti-horaire (annule le winding → transparent)
     for (const el of Array.from(masks)) {
       const elRect = el.getBoundingClientRect()
-      const x = elRect.left - containerRect.left
-      const y = elRect.top - containerRect.top
-      const w = elRect.width
-      const h = elRect.height
-      const r = Math.min(containerRect.width * 0.02, w / 2, h / 2)
+      const x = Math.round((elRect.left - containerRect.left) / scaleX) - 0.5
+      const y = Math.round((elRect.top - containerRect.top) / scaleY) - 0.5
+      const w = Math.round(elRect.width / scaleX) + 1
+      const h = Math.round(elRect.height / scaleY) + 1
+      const r = Math.min(W * 0.02, w / 2, h / 2)
 
       path += ` M ${x + r} ${y}`
       path += ` A ${r} ${r} 0 0 0 ${x} ${y + r}`
@@ -195,7 +196,7 @@
       path += ` Z`
     }
 
-    return `path('${path}')`
+    return `path(evenodd, '${path}')`
   }
 
   function goSelect(lang: string) {
@@ -259,9 +260,11 @@
     z-index 1
     width 100%
     height 100%
-    transform scale(1.005)
     f(column, $align: flex-start, $justify: flex-start)
     r(gap, 30px 30px)
+    transform scale(1.004)
+    +layout(mobile)
+      transform scale(1.0028)
     
     
   .home__part__overlay
@@ -271,9 +274,9 @@
     width 100%
     height 100%
     z-index 1
-    transform scale(1.006)
     background-color $fjord
     pointer-events none
+    transform scale(1.0028)
     
   .home__part__content
     position relative
@@ -287,7 +290,11 @@
     position absolute
     top 0
     left 0
+    inset 0
+    overflow hidden
     width 100%
+    background-size cover
+    background-position center
     height 100%
   .bg, .bg_en
     z-index 0

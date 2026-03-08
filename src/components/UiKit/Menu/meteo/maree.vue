@@ -102,8 +102,6 @@ const lineStyle = computed(() => {
         r(padding-bottom, 24px 16px)
         background-color white
         border-radius $radius-lg
-        +layout(mobile)
-            border-radius 6px
         &__title__icon
             r(size, 40px 18px)
             color $fjord

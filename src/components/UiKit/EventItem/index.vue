@@ -23,7 +23,7 @@
         </div>
         <div class="EventItem__title-container">
           <h3 class="EventItem__title" v-html="title"/>
-          <button type="button" class="EventItem__action" @pointerdown.stop="handleClick">
+          <button type="button" class="EventItem__action" @pointerdown="handleClick">
             <i class="EventItem__icon" v-html="IconPlus" />
           </button>
         </div>
