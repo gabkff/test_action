@@ -21,7 +21,7 @@
                 />
                 <ui-button
                     :label="$t('selection.city_validate')"
-                    @click="submitCity"
+                    @pointerdown="submitCity"
                     :big="true"
                     theme="primary"
                     :disabled="loading"
@@ -56,7 +56,7 @@ async function submitCity() {
   loading.value = true
   errorMessage.value = ''
   try {
-    await apiService.testSite(code, i18nStore.locale)
+    await apiService.testSite(code.toLowerCase(), i18nStore.locale)
     setApiSite(code)
     await router.push('/')
     await appStore.initData()

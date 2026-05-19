@@ -1,6 +1,6 @@
 <template>
   <div class="circuit-last-step">
-    <div class="circuit-last-step__background" v-html="IconLine" :data-circuit-theme="circuitIndex"></div>
+    <div class="circuit-last-step__background" v-html="IsDesktop ? IconLine : IconLineMobile" :data-circuit-theme="circuitIndex"></div>
     
     <!-- QR Code Section -->
     <div class="circuit-last-step__qr-container">
@@ -42,14 +42,14 @@
             :big="true" 
             :icon="IconPouce" 
             class="circuit-last-step__pouce-button" 
-            @click="$emit('feedback', 'up')"
+            @pointerdown="$emit('feedback', 'up')"
           />
           <ui-button 
             theme="primary" 
             :icon="IconPouce" 
             class="circuit-last-step__pouce-button" 
             :data-down="true" 
-            @click="$emit('feedback', 'down')"
+            @pointerdown="$emit('feedback', 'down')"
           />
         </div>
       </div>
@@ -63,7 +63,7 @@
       <div 
         class="circuit-last-step__event-content"
         :style="{ backgroundImage: `url(${nextEvent.event.main_image?.images?.original?.url})` }"
-        @click="router.push('/evenements')"
+        @pointerdown="router.push('/evenements')"
       >
         <div class="circuit-last-step__event-overlay">
           <div class="circuit-last-step__event-time" v-if="nextEvent.event.time_start || nextEvent.event.time_end">
@@ -84,7 +84,7 @@
             :iconPosition="'right'"
             :label="$t('events.see_all')"
             class="circuit-last-step__event-button"
-            @click="router.push('/evenements')"
+            @pointerdown="router.push('/evenements')"
           />
         </div>
       </div>
@@ -110,7 +110,7 @@
       <div class="circuit-last-step__next-circuit-header">
         {{ $t('common.discover_more') }}
       </div>
-      <div class="circuit-last-step__next-circuit-card" :data-circuit-theme="nextCircuitIndex" @click="router.push(`/circuits/${nextCircuit.id}`)">
+      <div class="circuit-last-step__next-circuit-card" :data-circuit-theme="nextCircuitIndex" @pointerdown="router.push(`/circuits/${nextCircuit.id}`)">
         <ui-picture :images="nextCircuit?.image?.images" cover="cover" />
         <div class="circuit-last-step__next-circuit-info">
           <div class="circuit-last-step__next-circuit-title">
@@ -125,7 +125,7 @@
                 :label="$t('common.link_discover')" 
                 :icon="IconPlus" 
                 :iconPosition="'right'"
-                @click="router.push(`/circuits/${nextCircuit.id}`)"
+                @pointerdown="router.push(`/circuits/${nextCircuit.id}`)"
               />
             </div>
           </div>
@@ -153,6 +153,7 @@ import { store as interfaceStore } from 'plugins/store/interface'
 import UiNavBar from 'components/NavBar/index.vue'
 import UiTag from 'components/UiKit/Tag/index.vue'
 import IconLine from 'assets/svg/line_background.svg?raw'
+import IconLineMobile from 'assets/svg/line_background_mobile.svg?raw'
 import IconPlus from 'assets/svg/plus.svg?raw'
 import IconPouce from 'assets/svg/pouce.svg?raw'
 import imgBorn from 'assets/img/borne.png'
@@ -201,8 +202,7 @@ const IsDesktop = computed(() => interfaceStore.isDesktop)
     &[data-circuit-theme="2"]
       color $bouleau
     +layout(mobile)
-      left -80%
-      top 135px
+      top 35%
 
   &__navbar
     position absolute

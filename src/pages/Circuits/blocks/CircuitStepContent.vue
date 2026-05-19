@@ -3,21 +3,51 @@
     <div class="step-content__header">
       <ui-button theme="icon" :icon="step.icon" />
       <div class="step-content__step-total">
-        {{ $t('circuits.step_total', { number: stepNumber, total: totalSteps }) }}
+        {{ step.activity_type }}
+        <div>
+          {{ stepNumber }} / {{ totalSteps }}
+        </div>
+        
       </div>
     </div>
     <h2 class="step-content__title">{{ step.title }}</h2>
     <div class="step-content__description">
       <p>{{ step.description }}</p>
     </div>
-    <div class="step-content__itinerary" v-if="showItinerary && commuting.length > 0">
-      <div class="step-content__itinerary-label">{{ $t('circuits.from_here') }}</div>
-      <UiTag
-        v-for="(item, index) in commuting"
-        :key="index"
-        :label="item.time + 'min'"
-        :icon="getTransportIcon(item.transportation)"
-      />
+    <div class="step-content__itinerary itinerary-next-previous" v-if="showItinerary && commuting.length > 0">
+      <div class="itinerary-next-from__item">
+        <div class="step-content__itinerary-label">{{ $t('circuits.from_here') }}</div>
+        <UiTag
+          v-for="(item, index) in commuting"
+          :key="index"
+          :label="item.time + 'min'"
+          :icon="getTransportIcon(item.transportation)"
+        />
+      </div>
+
+      <div class="itinerary-next-previous__item" v-if="nextStepTime">
+        <div class="step-content__itinerary-label">{{ $t('circuits.next_step') }}</div>
+        <UiTag
+          :label="nextStepTime + 'min'"
+          :icon="getTransportIcon(travelMode)"
+        />
+      </div>
+    </div>
+    <div class="step-content__itinerary itinerary-next-previous" v-else-if="nextStepTime || previousStepTime">
+      <div class="itinerary-next-previous__item" v-if="previousStepTime">
+        <div class="step-content__itinerary-label">{{ $t('circuits.previous_step') }}</div>
+          <UiTag
+            :label="previousStepTime + 'min'"
+            :icon="getTransportIcon(travelMode)"
+          />
+      </div>
+      <div class="itinerary-next-previous__item" v-if="nextStepTime">
+        <div class="step-content__itinerary-label">{{ $t('circuits.next_step') }}</div>
+        <UiTag
+          :label="nextStepTime + 'min'"
+          :icon="getTransportIcon(travelMode)"
+        />
+      </div>
     </div>
     <ui-button
       theme="secondary"
@@ -26,7 +56,7 @@
       :icon="IconPlus"
       :iconPosition="'right'"
       class="step-content__see-more"
-      @click="$emit('more')"
+      @pointerdown="$emit('more')"
     />
   </div>
 </template>
@@ -45,6 +75,9 @@ interface Props {
   totalSteps: number
   commuting: Array<{ time: number; transportation: string }>
   showItinerary?: boolean
+  nextStepTime?: number
+  previousStepTime?: number
+  travelMode: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -83,6 +116,8 @@ function getTransportIcon(transportation: string): string {
     f-style('subtitle')
     color $fjord
     r(margin-left, 40px 20px)
+    f(row, $justify: space-between)
+    width 100%
     +layout(mobile)
       font-size 14px
   &__title
@@ -119,4 +154,8 @@ function getTransportIcon(transportation: string): string {
   &__see-more
     width 100%
     margin-top auto
+  .itinerary-next-previous
+    f(row, $justify: flex-start)
+    gap 40px
+    margin-bottom 20px
 </style>

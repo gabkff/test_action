@@ -14,7 +14,7 @@
       { 'UiButton--loading': loading },
       { 'UiButton--big': big }
     ]"
-    @click="onClick"
+    @pointerdown="onClick"
   >
     <span class="UiButton__content">
       <i

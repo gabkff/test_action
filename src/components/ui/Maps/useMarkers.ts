@@ -63,11 +63,11 @@ export function useMarkers(map: ShallowRef<google.maps.Map | null>) {
         const container = document.createElement('div')
         container.className = 'custom-marker-container'
 
-        // Label au-dessus (Arrêt #)
+        /* Label au-dessus (Arrêt #)
         const label = document.createElement('div')
         label.textContent = (index + 1).toString()
         label.className = 'custom-marker-label'
-        container.appendChild(label)
+        container.appendChild(label) */
 
         // Le rond (Pin)
         const markerDiv = document.createElement('div')

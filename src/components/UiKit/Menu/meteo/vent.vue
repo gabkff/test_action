@@ -45,7 +45,7 @@ const currentVent = computed(() => {
     .vent
         position relative
         width 25%
-        f(column, $justify: stretch, $align: stretch)
+        f(column, $justify: flex-start, $align: stretch)
         r(padding-top, 24px 16px)
         r(padding-bottom, 24px 16px)
         r(padding-left, 14px 14px)
@@ -54,7 +54,7 @@ const currentVent = computed(() => {
         border-radius $radius-lg
         aspect-ratio 1 / 1 // Force un carré pour un cadran parfait
         +layout(mobile)
-            border-radius 6px
+            border-radius $radius-lg
             height 195px
         
         &__title
@@ -91,8 +91,8 @@ const currentVent = computed(() => {
 
             &__img__icon
                 position absolute
-                width 100%
-                height 100%
+                r(width, 273px 130px)
+                r(height, 273px 130px)
                 z-index 1
                 display flex
                 :deep(svg)

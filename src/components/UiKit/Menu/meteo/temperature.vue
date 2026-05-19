@@ -54,8 +54,10 @@
             }
         }
     })
-    const TEMP_MIN = -20
-    const TEMP_MAX = 40
+    const TEMP_MIN_CELSIUS = -20
+    const TEMP_MAX_CELSIUS = 40
+    const TEMP_MIN_FAHRENHEIT = -4
+    const TEMP_MAX_FAHRENHEIT = 104
 
     function celsiusToFahrenheit(celsius: number): number {
         return Number(((celsius * 9) / 5 + 32).toFixed(2))
@@ -70,8 +72,13 @@
 
     function temperatureToPercent(temp: number | undefined): number {
         if (temp == null || typeof temp !== 'number') return 50
-        const percent = ((temp - TEMP_MIN) / (TEMP_MAX - TEMP_MIN)) * 100
-        return Math.max(0, Math.min(100, percent))
+        if (currentTemp.value === 'celsius') {
+            const percent = ((temp - TEMP_MIN_CELSIUS) / (TEMP_MAX_CELSIUS - TEMP_MIN_CELSIUS)) * 100
+            return Math.max(0, Math.min(100, percent))
+        } else {
+            const percent = ((temp - TEMP_MIN_FAHRENHEIT) / (TEMP_MAX_FAHRENHEIT - TEMP_MIN_FAHRENHEIT)) * 100
+            return Math.max(0, Math.min(100, percent))
+        }
     }
 
     function hexToRgb(hex: string): [number, number, number] {
@@ -112,6 +119,7 @@
 </script>
 <style lang="stylus" scoped>
     .temperature
+        border-radius $radius-lg
         background-color white
         r(padding-top, 24px 16px)
         r(padding-bottom, 24px 16px)

@@ -1,15 +1,18 @@
 <template>
     <div class="SidePanel__circuit" v-if="current && currentStep">
         <div class="SidePanel__circuit__header"> {{$t('circuits.name') + ' ' + (circuitIndex! + 1) + ' - ' + current.title }} </div>
-        <div class="SidePanel__circuit__step"> 
+        <div class="SidePanel__circuit__step" > 
             <ui-button theme="icon" :icon="currentStep.icon"/>
-            <div>{{ $t('circuits.step', { number: data.index }) }} </div>
+            <div class="SidePanel__circuit__step__number"> 
+                <div>{{ $t('circuits.step', { number: data.index }) }} </div>
+                {{ currentStep.activity_type }}
+            </div>
         </div>
         <div class="SidePanel__circuit__title"> {{ currentStep.title }}</div>
         <div class="SidePanel__circuit__image-wrapper">
-        <ui-swiper :options="{ slidesPerView: 'auto', spaceBetween: isDesktop ? 30 : 15, centeredSlides: false }" :overflow="true" :navigation="currentStep.images.length > 1">
-            <ui-picture v-for="image in currentStep.images as Image[]" :key="image.meta" :images="image.images" class="SidePanel__circuit__image"/>
-        </ui-swiper>
+            <ui-swiper v-if="currentStep.images && currentStep.images.length > 0" :options="{ slidesPerView: 'auto', spaceBetween: isDesktop ? 30 : 15, centeredSlides: false }" :overflow="true" :navigation="currentStep.images.length > 1">
+                <ui-picture v-for="image in currentStep.images as Image[]" :key="image.meta" :images="image.images" class="SidePanel__circuit__image" :cover="'cover'"/>
+            </ui-swiper>
         </div>
         <div class="SidePanel__circuit__content-info">
             <div class="SidePanel__circuit__content-info-item" v-if="currentStep.estimated_time">
@@ -20,7 +23,7 @@
                 <div class="SidePanel__circuit__content-info-item-label">{{ $t('circuits.best_season') }}</div>
                 <div class="SidePanel__circuit__content-info-item-value"> 
                     <template v-for="(season, seasondex) in currentStep.seasons" :key="season">
-                        <span>{{ season }}</span>
+                        <span>{{ $t(`seasons.${season}`) }}</span>
                         <template v-if="seasondex as number < (currentStep.seasons.length - 1)">,&nbsp;</template>
                     </template>
                 </div>
@@ -52,11 +55,11 @@
         <!-- Flèches -->
          <!-- Zone scrollable -->
          <div class="SidePanel__circuit__scroll" ref="descriptionEventRef">
-            <!-- Flèches de navigation -->
+            <!-- Flèches de navigation
             <div class="SidePanel__circuit__scroll-arrows" v-if="isScrollable && isDesktop">
-                <UiButton theme="arrow" :direction="'up'" @click="scrollUpDesc()"/>
-                <UiButton theme="arrow" :direction="'down'" @click="scrollDownDesc()"/>
-            </div>
+                <UiButton theme="arrow" :direction="'up'" @pointerdown="scrollUpDesc()"/>
+                <UiButton theme="arrow" :direction="'down'" @pointerdown="scrollDownDesc()"/>
+            </div> -->
             <div class="SidePanel__circuit__scroll-content">
                 <div class="SidePanel__circuit__scroll-text"> 
                     <UiWysiwyg v-html="currentStep.main_text"/>
@@ -66,10 +69,10 @@
                         ref="mapRef"
                         id="sidepanel-map"
                         :lock="true"
-                        :zoom="15"
+                        :zoom="13"
                         :center="currentStep.map"
                         v-if="currentStep.map"
-                        :currentStep="currentStep"
+                        :currentStep="currentStep.map"
                         :currentStepIndex="currentStepIndex"
                         :allPolylines="allPolylines"
                         :markers="markers"
@@ -169,7 +172,7 @@ function scrollDownDesc() {
     flex-direction column
     overflow-y visible
     overflow-x hidden
-    height 100%
+    height 100vh
     &__address-icon
         f(row, $justify: flex-start)
         gap 12px
@@ -254,6 +257,7 @@ function scrollDownDesc() {
             .SidePanel__circuit__content-info-item-value:first-letter
                 text-transform uppercase
     &__qrcode
+        position sticky
         border-top 2px solid $fjord
         border-bottom 2px solid $fjord
         r(padding-top, 60px 40px)
@@ -280,17 +284,18 @@ function scrollDownDesc() {
         padding-bottom 80px
         r(margin-right, 60px 40px)
         r(margin-left, 60px 40px)
-        overflow-y scroll
-        overflow-x hidden
         min-height 0
         position relative
         flex 1
+        +layout(mobile)
+            padding-bottom 0px
     &__scroll-content
         width 100%
         flex 1
     &__map
         r(height, 600px 300px)
         width 100%
+        r(margin-bottom, 80px 80px)
     &__scroll-text
         r(margin-bottom, 120px 30px)
     &__scroll-arrows

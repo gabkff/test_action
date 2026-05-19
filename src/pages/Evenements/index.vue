@@ -11,12 +11,13 @@
           :key="day.timestamp"
           theme="date"
           :class="{ 'is-active': selectedDate === day.timestamp }"
-          @click="selectDate(day.timestamp)"
+          @pointerdown="selectDate(day.timestamp)"
         >
-          <span class="date-label">
-            <span class="date-label__weekday">{{ day.weekday }}</span>
-            <span class="date-label__date">{{ day.dateMonth }}</span>
-          </span>
+          <div class="date-label">
+            <div class="date-label__weekday">{{ day.weekday }}</div>
+            <div class="date-label__date">{{ day.dayNumber }}</div>
+            <div class="date-label__date">{{ day.dateMonth }}</div>
+            </div>
         </UiButton>
       </div>
       
@@ -26,8 +27,8 @@
           <div class="events-page__list-header">
             <h2 class="events-page__list-title">
               {{ isSelectedDateToday() 
-                ? $t('events.today', { date: formattedSelectedDate.weekday + ' ' + formattedSelectedDate.dateMonth }) 
-                : formattedSelectedDate.weekday + ' ' + formattedSelectedDate.dateMonth 
+                ? $t('events.today', { date: formattedSelectedDate.weekday + ' ' + formattedSelectedDate.dayNumber + ' ' + formattedSelectedDate.dateMonth }) 
+                : formattedSelectedDate.weekday + ' ' + formattedSelectedDate.dayNumber + ' ' + formattedSelectedDate.dateMonth 
               }} 
             </h2>
           </div>
@@ -43,7 +44,7 @@
               :location="event.address" 
               :title="event.title" 
               :icon="IconPlus" 
-              @click="toggleEvent(event.id)"
+              v-tap="() => toggleEvent(event.id)"
             />
           </UiAccordions>
           <div v-else class="events-page__empty">
@@ -58,7 +59,7 @@
         :show-scroll-arrows="filteredEvents.length > 5 && isDesktop"
         @scrollup="scrollListUp"
         @scrolldown="scrollListDown"
-        @menu="router.push('/selection')"
+        @menu="menuStore.openFromEvents()"
       />
     </div>
     </div>
@@ -71,7 +72,7 @@ import { useI18n } from 'vue-i18n'
 import { store as appStore } from 'plugins/store/app'
 import { store as interfaceStore } from 'plugins/store/interface'
 import { useSidePanelStore } from 'store/sidePanel'
-import { useRouter } from 'vue-router'
+import { useMenuStore } from 'store/menu'
 import IconPlus from 'assets/svg/plus.svg?raw'
 import UiButton from 'components/UiKit/Button/index.vue'
 import UiAccordions from 'components/UiKit/Accordions/Items.vue'
@@ -81,7 +82,7 @@ import { useEvents, useDate } from 'plugins/utils'
 
 const { t } = useI18n()
 const sidePanelStore = useSidePanelStore()
-const router = useRouter()
+const menuStore = useMenuStore()
 // Utilise les composables pour la gestion des événements
 const { 
   selectedDate, 
@@ -157,6 +158,7 @@ const toggleEvent = (id: number) => {
     
     &__description
       f-style('small-body')
+      color $fjord
       text-align left
       width 50%
       +layout(mobile)
@@ -166,14 +168,16 @@ const toggleEvent = (id: number) => {
     
     &__calendar
       display flex
-      r(gap, 61px 50px)
+      flex-direction row
+      gap 16px
       r(margin-bottom, 50px 23px)
       background-color white
       r(padding, 100px 45px)
       border-radius $radius-lgxl
       
       .UiButton
-        flex 1
+        flex 1 1 0
+        min-width 0
         +layout(mobile)
           padding-top 32px
           padding-bottom 32px
@@ -223,7 +227,7 @@ const toggleEvent = (id: number) => {
       overflow-y auto
       +layout(mobile)
         max-height unset
-        width 879px
+        width 95.5%
       
     &__list-content
       overflow scroll

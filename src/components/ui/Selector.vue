@@ -13,7 +13,7 @@
         :key="option.value"
         :class="['UiSelector__option', { 'is-active': modelValue === option.value }]"
         type="button"
-        @click="selectOption(option.value)"
+        @pointerdown="selectOption(option.value)"
         >
         <div v-if="option.icon" class="UiSelector__icon-container">
             <i 

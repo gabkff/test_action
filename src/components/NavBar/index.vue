@@ -19,7 +19,7 @@
         type="button" 
         class="NavBar__item"
         :class="{ 'is-active': currentRoute === 'home' }"
-        @click="panel ? handleClose() : handleHome()"
+        @pointerdown="panel ? handleClose() : handleHome()"
       >
         <i class="NavBar__icon" v-html="panel ? IconClose : IconHouse" />
       </button>
@@ -29,7 +29,7 @@
         v-if="showScrollArrows"
         type="button" 
         class="NavBar__item NavBar__item--arrow NavBar__item--arrow-up"
-        @click="$emit('scrollup')"
+        @pointerdown="$emit('scrollup')"
       >
         <i class="NavBar__icon NavBar__icon--arrow" v-html="IconArrow" />
       </button>
@@ -39,7 +39,7 @@
         v-if="showScrollArrows"
         type="button" 
         class="NavBar__item NavBar__item--arrow NavBar__item--arrow-down"
-        @click="$emit('scrolldown')"
+        @pointerdown="$emit('scrolldown')"
       >
         <i class="NavBar__icon NavBar__icon--arrow" v-html="IconArrow" />
       </button>
@@ -59,14 +59,14 @@
         class="NavBar__item NavBar__item--arrow NavBar__item--arrow-previous"
         @pointerdown="$emit('previous')"
       >
-        <i class="NavBar__icon NavBar__icon--arrow" v-html="IconArrow" />
+        <i :class="['NavBar__icon', 'NavBar__icon--arrow', lastStep ? 'NavBar__icon--arrow-back' : '']" v-html="lastStep ? IconBack : IconArrow" />
       </button>
 
       <!-- Bouton Langue -->
       <button 
         type="button" 
         class="NavBar__item NavBar__item--lang"
-        @click="handleLanguage"
+        @pointerdown="handleLanguage"
       >
         <span class="NavBar__lang-text">{{ otherLang.charAt(0).toUpperCase() + otherLang.slice(1) }}</span>
       </button>
@@ -90,7 +90,6 @@ import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useSidePanelStore } from 'store/sidePanel'
 import { useI18nStore } from 'plugins/i18n/store'
-import { store as appStore } from 'store/app'
 import { AVAILABLE_LOCALES } from 'config'
 import IconHouse from 'assets/svg/house.svg?raw'
 import IconArrow from 'assets/svg/arrow.svg?raw'
@@ -195,14 +194,14 @@ function handleLanguage() {
     display flex
     flex-direction column
     align-items center
-    r(gap, 20px 10px)
+    r(gap, 20px 25px)
     r(padding, 50px 9px)
     width 100%
     background white
     transform scaleX(1)
 
   &__item
-    r(size, 86px 20px)
+    size 86px
     display flex
     align-items center
     justify-content center
@@ -212,7 +211,8 @@ function handleLanguage() {
     cursor pointer
     transition all 0.2s ease
     color $fjord
-    
+    +layout(mobile)
+      size 25px
     &.is-active
       color $primary
 
@@ -221,7 +221,7 @@ function handleLanguage() {
     display flex
     align-items center
     justify-content center
-    width 45px
+    r(width, 45px 40px)
     
     :deep(svg)
       width 100%
@@ -251,9 +251,10 @@ function handleLanguage() {
         transform rotate(0deg)
 
   &__icon--arrow
-    r(width, 60px 30px)
-    r(height, 60px 30px)
-
+    r(width, 60px 40px) !important
+    r(height, 60px 40px) !important
+  &__icon--arrow-back
+    transform rotate(0deg) !important
   &__item--lang
     color $fjord
     +layout(mobile)

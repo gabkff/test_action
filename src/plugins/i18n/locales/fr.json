@@ -70,6 +70,8 @@
     "time_start_end": "De {start} à {end}"
   },
   "circuits": {
+    "map": "Carte",
+    "list": "Liste",
     "adress": "Adresse",
     "event_today": "Aujourd'hui, {date}",
     "name": "Circuit",
@@ -131,5 +133,12 @@
     "serverError": "Erreur serveur",
     "networkError": "Erreur de connexion",
     "unauthorized": "Non autorisé"
+  },
+  "seasons": {
+    "winter": "Hiver",
+    "spring": "Printemps",
+    "summer": "Été",
+    "autumn": "Automne",
+    "year_long": "Tout l'année"
   }
 }

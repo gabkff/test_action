@@ -38,8 +38,8 @@
         <div class="SidePanel__event__scroll" ref="descriptionEventRef">
             <!-- Flèches de navigation -->
             <div class="SidePanel__event__scroll-arrows" v-if="isScrollable && isDesktop">
-                <UiButton theme="arrow" :direction="'up'" @click="scrollUpDesc()"/>
-                <UiButton theme="arrow" :direction="'down'" @click="scrollDownDesc()"/>
+                <UiButton theme="arrow" :direction="'up'" @pointerdown="scrollUpDesc()"/>
+                <UiButton theme="arrow" :direction="'down'" @pointerdown="scrollDownDesc()"/>
             </div>
             <div class="SidePanel__event__scroll-content">
                 <div class="SidePanel__event__scroll-text"> 
@@ -129,6 +129,7 @@ function scrollDownDesc() {
         r(margin-top, 125px 0px)
         r(margin-bottom, 120px 60px)
         +layout(mobile)
+          font-family $ff-text
           font-size 35px
           font-weight $fw-bold
           line-height 1.1

@@ -9,7 +9,7 @@
     <div
       v-if="hasPlayBtn && (state.ended || !state.playing)"
       class="actions"
-      @click="play"
+      @pointerdown="play"
     >
       <button type="button" class="play-btn" aria-label="Play video">
         <span class="circle" />

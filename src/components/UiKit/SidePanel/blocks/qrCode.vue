@@ -31,22 +31,38 @@ defineProps<{
             padding-right 61px
         &-title-index
             f-style('subtitle')
-            margin-bottom 15px
+            r(margin-bottom, 15px 8px)
             opacity 0.6
             &::first-letter
                 text-transform uppercase
+            +layout(mobile)
+                font-size 14px
+                opacity 1
         &-title
             f-style('h2')
-            margin-bottom 80px
-                align-text center
+            text-align center
+            r(margin-bottom, 80px 40px)
+            align-text center
+            +layout(mobile)
+                font-size 35px
         &-logo
             position absolute
+            +layout(mobile)
+                width 105px
+                :deep(svg)
+                    width 100%
+                    height 100%
         &-img
-            size 265px
+            r(size, 265px 132px)
             margin-bottom 80px
         &-title-description
             f-style('h4')
             text-align center
             width 80%
+            +layout(mobile)
+                font-size 20px
+                line-height 1.3
+                width 60%
+                font-weight $fw-medium
 
 </style>

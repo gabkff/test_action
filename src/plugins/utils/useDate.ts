@@ -42,10 +42,11 @@ export function useDate() {
    * @param date - Date à formater
    * @returns { weekday: 'lundi', dateMonth: '15 janvier' }
    */
-  function formatDate(date: Date): { weekday: string; dateMonth: string } {
+  function formatDate(date: Date): { weekday: string; dateMonth: string; dayNumber: string } {
     const weekday = date.toLocaleDateString(localeCode.value, { weekday: 'long' })
-    const dateMonth = date.toLocaleDateString(localeCode.value, { day: 'numeric', month: 'long' })
-    return { weekday, dateMonth }
+    const dayNumber = date.toLocaleDateString(localeCode.value, { day: 'numeric' })
+    const dateMonth = date.toLocaleDateString(localeCode.value, { month: 'long' })
+    return { weekday, dateMonth, dayNumber }
   }
 
   /**
@@ -119,18 +120,19 @@ export function useDate() {
    * @param count - Nombre de jours à générer (défaut: 5)
    * @returns Array de { timestamp, weekday, dateMonth }
    */
-  function getNextDays(count: number = 5): Array<{ timestamp: number; weekday: string; dateMonth: string }> {
-    const days: Array<{ timestamp: number; weekday: string; dateMonth: string }> = []
+  function getNextDays(count: number = 5): Array<{ timestamp: number; weekday: string; dateMonth: string, dayNumber: string }> {
+    const days: Array<{ timestamp: number; weekday: string; dateMonth: string, dayNumber: string }> = []
     const today = getStartOfDay(new Date())
 
     for (let i = 0; i < count; i++) {
       const date = new Date(today)
       date.setDate(today.getDate() + i)
-      const { weekday, dateMonth } = formatDate(date)
+      const { weekday, dateMonth, dayNumber } = formatDate(date)
       days.push({
         timestamp: date.getTime(),
         weekday,
-        dateMonth
+        dateMonth,
+        dayNumber
       })
     }
 

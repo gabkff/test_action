@@ -63,8 +63,6 @@ const currentCondition = computed(() => {
         background-color white
         border-radius $radius-lg
         width 100%
-        +layout(mobile)
-            border-radius 6px
         &__title
             opacity 0.5
             font-size 26px

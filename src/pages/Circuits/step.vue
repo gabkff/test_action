@@ -1,23 +1,16 @@
 <template>
     <div class="circuits-etape" v-if="ready && current" :data-circuit-theme="dataCircuitTheme">
       <div class="circuits-etape__container" :data-circuit-theme="circuitIndex">
-        <UiNavBar v-if="showMenu" key="navbar" class="circuits-etape__last__navbar" :back="true" :next="false" :previous="false" :home="false" @previous="showMenu = false"></UiNavBar>
         <div class="circuits-etape__header">
           <h2 class="circuits-etape__name" :data-circuit-theme="dataCircuitTheme">{{ $t('circuits.name') }} {{ circuitIndex! + 1 }}</h2>
-          <ui-button theme="primary" :icon="IconHome" class="circuits-etape__home_button" @click="goSelection()"
-            :iconPosition="'right'"
-            :label="$t('circuits.name_plural')"
-            v-if="dataCircuitTheme === 'last'"
-          />
         </div>
         <h1 class="circuits-etape__title" :data-circuit-theme="dataCircuitTheme">{{ current.title }}</h1>
-        
-        <div class="circuits-etape__header_wrapper" v-if="currentStepIndex < current.steps.length && !showMenu">
+        <div class="circuits-etape__header_wrapper" v-if="currentStepIndex < current.steps.length">
           <UiSelector
             v-model="currentView"
             :options="[
-              { value: 'map', icon: IconMap, label: 'carte'},
-              { value: 'list', label: 'liste', icon: IconList }
+              { value: 'map', icon: IconMap, label: $t('circuits.map') },
+              { value: 'list', label: $t('circuits.list'), icon: IconList }
             ]"
             @change="(value) =>onViewChange(value as ViewCircuit)"
             :data-circuit-theme="dataCircuitTheme"
@@ -29,7 +22,7 @@
               :icon="IconQr"
               :iconPosition="'right'"
               :label="$t('circuits.scan')" 
-              @click="sidePanelStore.openQrCode({ title: current.title, qr: current.base64_qr, index: circuitIndex})" 
+              @pointerdown="sidePanelStore.openQrCode({ title: current.title, qr: current.base64_qr, index: circuitIndex})" 
             />
             <div v-if="current.description" class="circuits-etape__description">
               <p>{{ current.description }}</p>
@@ -38,7 +31,7 @@
         </div>
         <!-- Écran de fin de circuit -->
         <CircuitLastStep 
-          v-else-if="!showMenu"
+          v-else
           :circuit="current"
           :circuitIndex="circuitIndex ?? null"
           :nextEvent="nextEvent"
@@ -49,63 +42,50 @@
           @restart="setStep('previous', true)"
           @feedback="sendFeedback"
         />
-        <div v-else>
-          <ui-button theme="secondary" :icon="IconArrow" :big="true" class="circuits-etape__step_back" @click="showMenu = false"
-            :iconPosition="'left'"
-            :label="$t('common.backToCircuit')"
-          />
-        </div>
       </div>
-      <div class="circuits-etape__view_container" v-if="currentStep && currentStep.images && !showMenu" :data-view="currentView">
+      <div class="circuits-etape__view_container" v-if="currentStep && currentStep.main_image" :data-view="currentView">
         
-        <ui-picture :images="currentStep.images[0]" :data-index="currentStepIndex" cover="cover" v-if="currentView === 'list'"/>
-        <div class="circuits-etape__background" v-html="IconLine" :data-circuit-theme="dataCircuitTheme" v-if="currentView === 'list'"></div>
+        <ui-picture :images="currentStep.main_image" :data-index="currentStepIndex" cover="cover" v-if="currentView === 'list'"/>
+        <div class="circuits-etape__background" v-html="isDesktop ? IconLine : IconLineMobile" :data-circuit-theme="dataCircuitTheme" v-if="currentView === 'list'"></div>
         <div class="circuits-etape__step_container_wrapper">
         <div class="circuits-etape__step_container">
-          <UiNavBar key="navbar" class="circuits-etape__navbar" :next="currentStepIndex < current.steps.length" :previous="currentStepIndex > 0" @next="setStep('next')" @previous="setStep('previous')" @menu="showMenu = !showMenu"/>
+          <UiNavBar key="navbar" class="circuits-etape__navbar"
+            :next="currentStepIndex < current.steps.length"
+            :previous="currentStepIndex > 0"
+            :panel="false"
+            @next="setStep('next')"
+            @previous="setStep('previous')"
+            @menu="menuStore.openFromCircuit(current.id)"/>
           <CircuitStepContent
             :step="currentStep"
             :stepNumber="currentStepIndex + 1"
             :totalSteps="current.steps.length"
             :commuting="current.commuting"
+            :nextStepTime="current.steps[currentStepIndex]?.next_step?.time_to_next_step"
+            :previousStepTime="current.steps[currentStepIndex - 1]?.next_step?.time_to_next_step"
+            :travelMode="current.main_travel_mode"
             :showItinerary="currentStepIndex === 0"
             @more="sidePanelStore.openCircuitStep({ title: current.title, step: currentStep, index: currentStepIndex + 1, qr: current.base64_qr})"
           />
         </div>
-        <CircuitStepNavigation
-          v-if="isDesktop"
-          :view="currentView"
-          :hasNext="currentView === 'map' && currentNextParcours.length > 0"
-          :hasPrevious="currentStepIndex > 0"
-          :nextStepTitle="current.steps[currentStepIndex + 1]?.title"
-          :nextStepTime="current.steps[currentStepIndex]?.next_step?.time_to_next_step"
-          :previousStepTitle="current.steps[currentStepIndex - 1]?.title"
-          :previousStepTime="current.steps[currentStepIndex - 1]?.next_step?.time_to_next_step"
-          :travelMode="current.main_travel_mode"
-          @next="setStep('next')"
-          @previous="setStep('previous')"
-        />
       </div>
       <div class="circuits-etape__map_container" v-if="currentView === 'map'">
         <UiMap 
           :zoom="isDesktop ? 15 : 12"
           v-if="currentStep.map"
           :markers="markers"
+          :currenStep="currentStep.map"
           :currentStepIndex="currentStepIndex"
           :allPolylines="allPolylines"
           ref="mapRef"
         />
         <div class="maps-zoom-control" v-if="isDesktop">
-          <ui-button class="maps-zoom-control__button" theme="secondary" :icon="IconZoomIn" :big="true" @click="zoomMap('in')" />
-          <ui-button class="maps-zoom-control__button" theme="secondary" :icon="IconCenter" :big="true" @click="zoomMap('center')" />
-          <ui-button class="maps-zoom-control__button" theme="secondary" :icon="IconZoomOut" :big="true" @click="zoomMap('out')" />
+          <ui-button class="maps-zoom-control__button" theme="secondary" :icon="IconZoomIn" :big="true" @pointerdown="zoomMap('in')" />
+          <ui-button class="maps-zoom-control__button" theme="secondary" :icon="IconCenter" :big="true" @pointerdown="zoomMap('center')" />
+          <ui-button class="maps-zoom-control__button" theme="secondary" :icon="IconZoomOut" :big="true" @pointerdown="zoomMap('out')" />
         </div>
       </div>
       </div>
-      <template v-else-if="showMenu">
-        <div class="circuits-etape__background" v-html="IconLine" :data-circuit-theme="dataCircuitTheme"></div>
-        <menu-page/>
-      </template>
     </div>
   </template>
   
@@ -129,21 +109,21 @@ import IconMap from 'assets/svg/pin.svg?raw'
 import IconList from 'assets/svg/list.svg?raw'
 import IconQr from 'assets/svg/qrcode.svg?raw'
 import IconLine from 'assets/svg/line_background.svg?raw'
-import IconArrow from 'assets/svg/arrow.svg?raw'
+import IconLineMobile from 'assets/svg/line_background_mobile.svg?raw'
 import IconZoomIn from 'assets/svg/plus.svg?raw'
 import IconZoomOut from 'assets/svg/moins.svg?raw'
 import IconCenter from 'assets/svg/center.svg?raw'
 import { UiButton } from '@/components/UiKit'
-import MenuPage from './blocks/menu.vue'
 import CircuitLastStep from './blocks/CircuitLastStep.vue'
 import CircuitStepContent from './blocks/CircuitStepContent.vue'
-import CircuitStepNavigation from './blocks/CircuitStepNavigation.vue'
 import { useCircuit, useNextEvent } from 'plugins/utils'
+import { useMenuStore } from 'store/menu'
 
 const route = useRoute()
 const router = useRouter()
 const ready = ref(false)
 const sidePanelStore = useSidePanelStore()
+const menuStore = useMenuStore()
 const currentView = ref<ViewCircuit>('map')
 const feedbackReco = ref(false)
 const isDesktop = computed(() => interfaceStore.isDesktop)
@@ -155,7 +135,6 @@ interface UiMapExposed {
 }
 const mapRef = ref<UiMapExposed | null>(null)
 const i18nStore = useI18nStore()
-const showMenu = ref(false)
 
 // Composables pour la gestion du circuit et des événements
 const {
@@ -166,7 +145,6 @@ const {
   nextCircuit,
   nextCircuitIndex,
   allPolylines,
-  currentNextParcours,
   markers,
   navigate
 } = useCircuit()
@@ -197,7 +175,6 @@ watchEffect(() => {
 // Thème visuel du circuit (selon l'état courant)
 const dataCircuitTheme = computed(() => {
   if (!current.value) return 1
-  if (showMenu.value) return 'menu'
   return currentStepIndex.value > current.value?.steps.length - 1 ? 'last' : circuitIndex.value
 })
 
@@ -404,8 +381,19 @@ onBeforeMount(() => {
       r(margin-bottom, 100px 0px)
       .UiSelector
         background $aube
+        r(height, 160px 80px)
+        r(width, 490px 220px)
+        +layout(mobile)
+          :deep(.UiSelector__container)
+            gap 16px
+        :deep(.UiSelector__option)
+          f-style('btn-large')
+          +layout(mobile)
+            f-style('btn')
         :deep(.UiSelector__container)
           color $aube
+          .UiSelector__icon-container
+            r(size, 67px 23px)
           .is-active
             color $aube !important
         &[data-circuit-theme="1"]
@@ -428,7 +416,7 @@ onBeforeMount(() => {
     &__actions
       f(column, $justify: flex-start)
       r(gap, 60px 28px)
-      width 43%
+      r(width, 972px 417px)
       .UiButton
         width fit-content
     &__view_container
@@ -448,12 +436,6 @@ onBeforeMount(() => {
         position absolute
         r(left, 262px 93px)
         r(top, 298px 200px)
-        &[data-index="0"]
-          r(top, 811px 200px)
-          r(width, 1273px 487px)
-          r(height, 1367px 523px)
-          +layout(mobile)
-            left 93px
     &__step_content
       f(column, $justify: flex-start)
       height 100%
@@ -513,14 +495,14 @@ onBeforeMount(() => {
         +layout(mobile)
           top 10%
       +layout(mobile)
-        left -80%
-        top -32.6%
+        left 0
+        top 5.5%
     &__step_see_more
       width 100%
       margin-top auto
     &__step_container_wrapper
       position absolute
-      top 198px
+      top 798px
       right 210px
       z-index 3
       +layout(mobile)
@@ -604,9 +586,9 @@ onBeforeMount(() => {
     &__map_container
       position absolute
       transform-origin bottom
-      bottom 0
+      top 0
       left 0
-      height 45%
+      height 100%
       width 100%
       +layout(mobile)
         height 100%

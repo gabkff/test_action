@@ -1,5 +1,9 @@
 <template>
   <div class="home" v-if="isAppReady">
+    <div
+      class="home__veil"
+      :class="{ 'home__veil--hidden': holesReady }"
+    ></div>
     <div class="home__part">
       <div class="bg bg_fr" :style="{backgroundImage: `url(${imgBackgroundFr})`}"></div>
       <div class="home__part__wrapper" ref="wrapperFrRef" :style="wrapperFrMaskStyle">
@@ -17,7 +21,7 @@
         <div class="line_4_fr line">
           <div class="mask mask4_fr"></div>
           <div class="line_4_fr__title text_fr"> GUIDER</div>
-          <ui-button class="button_fr" theme="primary" :label="'touchez pour commencer'" @click="goSelect('fr')" :icon="IconArrow" :big="true" :iconPosition="'right'"/>
+          <ui-button class="button_fr" theme="primary" :label="$t('home.touch_to_start')" @pointerdown="goSelect('fr')" :icon="IconArrow" :big="true" :iconPosition="'right'"/>
         </div>
       </div>
     </div>
@@ -35,7 +39,7 @@
         <div class="line line_3_en">
           <div class="mask mask3_en"></div>
           <div class="line_3_en__title text_en"> YOU</div>
-          <ui-button class="button_en" theme="primary" :label="'touch to start'" @click="goSelect('en')" :icon="IconArrow" :big="true" :iconPosition="'right'"/>
+          <ui-button class="button_en" theme="primary" :label="touchToStartEn" @pointerdown="goSelect('en')" :icon="IconArrow" :big="true" :iconPosition="'right'"/>
         </div>
       </div>
     </div>
@@ -80,12 +84,17 @@
   import IconArrow from 'assets/svg/arrow.svg?raw'
   import ImgBackgroundBackupFr from './assets/back_fr.png'
   import ImgBackgroundBackupEn from './assets/back_en.png'
+  import i18n from 'plugins/i18n'
   import { useI18nStore } from 'plugins/i18n/store'
   import { useRouter } from 'vue-router'
   import { store as appStore } from 'plugins/store/app'
   import { ref, computed, onMounted, onUnmounted, nextTick, watchEffect } from 'vue'
 
   const i18nStore = useI18nStore()
+
+  const touchToStartEn = computed(() =>
+    i18n.global.t('home.touch_to_start', {}, { locale: 'en' })
+  )
   const router = useRouter()
   const isAppReady = computed(() => appStore.isAppReady)
   const wrapperFrRef = ref<HTMLElement | null>(null)
@@ -95,20 +104,15 @@
   type HoleRect = { x: number; y: number; w: number; h: number }
   const holeRectsFr = ref<HoleRect[]>([])
   const holeRectsEn = ref<HoleRect[]>([])
+  const clipPathFr = ref<string>('')
+  const clipPathEn = ref<string>('')
   const holesReady = ref(false)
-
-  const maskStyle = (id: string) => ({
-    maskImage: `url(#${id})`,
-    WebkitMaskImage: `url(#${id})`,
-  })
-
-
   
   const wrapperFrMaskStyle = computed(() =>
-    holesReady.value && holeRectsFr.value.length ? maskStyle('wrapper-mask-fr') : {},
+    holesReady.value && clipPathFr.value ? { clipPath: clipPathFr.value } : {}
   )
   const overlayEnMaskStyle = computed(() =>
-    holesReady.value && holeRectsEn.value.length ? maskStyle('wrapper-mask-en') : {},
+    holesReady.value && clipPathEn.value ? { clipPath: clipPathEn.value } : {}
   )
 
   const imgBackgroundFr = computed(() => {
@@ -149,28 +153,54 @@
   }
 
   function updateHoles() {
-    console.log('updateHoles')
-    if (wrapperFrRef.value) holeRectsFr.value = getHoleRects(wrapperFrRef.value)
+    if (wrapperFrRef.value) {
+      const rect = wrapperFrRef.value.getBoundingClientRect()
+      const masks = wrapperFrRef.value.querySelectorAll<HTMLElement>('.mask')
+      clipPathFr.value = buildClipPath(wrapperFrRef.value, rect, masks)
+    }
     if (overlayEnRef.value && partEnRef.value) {
       const partRect = partEnRef.value.getBoundingClientRect()
       const masks = partEnRef.value.querySelectorAll<HTMLElement>('.mask')
-      holeRectsEn.value = Array.from(masks).map((el) => {
-        const r = el.getBoundingClientRect()
-        return {
-          x: (r.left - partRect.left) / partRect.width,
-          y: (r.top - partRect.top) / partRect.height,
-          w: r.width / partRect.width,
-          h: r.height / partRect.height,
-        }
-      })
+      clipPathEn.value = buildClipPath(overlayEnRef.value, partRect, masks)
     }
-    holesReady.value = true
+    setTimeout(() => {
+      holesReady.value = true
+    }, 1000)
+  }
+
+  function buildClipPath(containerEl: HTMLElement, containerRect: DOMRect, masks: NodeListOf<HTMLElement>): string {
+    // Utiliser les dimensions LOGIQUES (pré-transform) pour le clip-path
+    const W = containerEl.offsetWidth
+    const H = containerEl.offsetHeight
+    const scaleX = containerRect.width / W   // ex: 1.005
+    const scaleY = containerRect.height / H
+
+    let path = `M -4 -4 L ${W + 4} -4 L ${W + 4} ${H + 4} L -4 ${H + 4} Z`
+
+    for (const el of Array.from(masks)) {
+      const elRect = el.getBoundingClientRect()
+      const x = Math.round((elRect.left - containerRect.left) / scaleX) - 0.5
+      const y = Math.round((elRect.top - containerRect.top) / scaleY) - 0.5
+      const w = Math.round(elRect.width / scaleX) + 1
+      const h = Math.round(elRect.height / scaleY) + 1
+      const r = Math.min(W * 0.02, w / 2, h / 2)
+
+      path += ` M ${x + r} ${y}`
+      path += ` A ${r} ${r} 0 0 0 ${x} ${y + r}`
+      path += ` L ${x} ${y + h - r}`
+      path += ` A ${r} ${r} 0 0 0 ${x + r} ${y + h}`
+      path += ` L ${x + w - r} ${y + h}`
+      path += ` A ${r} ${r} 0 0 0 ${x + w} ${y + h - r}`
+      path += ` L ${x + w} ${y + r}`
+      path += ` A ${r} ${r} 0 0 0 ${x + w - r} ${y}`
+      path += ` Z`
+    }
+
+    return `path(evenodd, '${path}')`
   }
 
   function goSelect(lang: string) {
-    console.log('goEnglish')
     i18nStore.setLocale(lang as LocaleKey)
-    console.log('i18nStore', i18nStore.locale)
     router.push('/selection')
   }
 
@@ -189,6 +219,22 @@
   r(padding-bottom, 656px 222px)
   background-size cover
   position relative
+  
+  .home__veil
+    position absolute
+    top 0
+    left 0
+    width 100%
+    height 100%
+    background $fjord
+    z-index 10
+    transition opacity 0.5s ease-out
+    pointer-events auto
+    opacity 1
+
+  .home__veil--hidden
+    opacity 0
+    pointer-events none
   
   :deep(.UiButton)
     r(width, 401px 180px)
@@ -214,9 +260,11 @@
     z-index 1
     width 100%
     height 100%
-    transform scale(1.003)
     f(column, $align: flex-start, $justify: flex-start)
     r(gap, 30px 30px)
+    transform scale(1.004)
+    +layout(mobile)
+      transform scale(1.0028)
     
     
   .home__part__overlay
@@ -226,9 +274,9 @@
     width 100%
     height 100%
     z-index 1
-    transform scale(1.004)
     background-color $fjord
     pointer-events none
+    transform scale(1.0028)
     
   .home__part__content
     position relative
@@ -242,7 +290,11 @@
     position absolute
     top 0
     left 0
+    inset 0
+    overflow hidden
     width 100%
+    background-size cover
+    background-position center
     height 100%
   .bg, .bg_en
     z-index 0

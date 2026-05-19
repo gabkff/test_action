@@ -51,7 +51,7 @@
                             v-for="(circuit, circuitIndex) in appStore.circuits.filter(circuit => circuit.id !== Number(route.params.id))"
                             :key="circuit.id"
                             :data-circuit-theme="getCircuitIndex(circuit.id)"
-                            @pointerdown="router.push(`/circuits/${circuit.id}`)"
+                            v-tap="() => router.push(`/circuits/${circuit.id}`)"
                         >
                         <ui-picture v-if="circuit.image" :images="circuit.image.images" :cover="'cover'" />
                         <div class="menu-page__right_part__circuit__content">
@@ -59,7 +59,7 @@
                             <div class="menu-page__right_part__circuit__content_text_action" :data-circuit-theme="getCircuitIndex(circuit.id)">
                                 <ui-tag :label="$t('circuits.total_step', { number: circuit.steps.length })" />
                                 <ui-button theme="primary" :label="$t('common.link_discover')" :icon="IconPlus" :iconPosition="'right'"
-                                @pointerdown="router.push(`/circuits/${circuit.id}`)"
+                                v-tap="() => router.push(`/circuits/${circuit.id}`)"
                                 />
                             </div>
                         </div>
@@ -82,7 +82,7 @@
                                     v-for="(circuit, circuitIndex) in appStore.circuits.filter(circuit => circuit.id !== Number(route.params.id))"
                                     :key="circuit.id"
                                     :data-circuit-theme="getCircuitIndex(circuit.id)"
-                                    @pointerdown="router.push(`/circuits/${circuit.id}`)"
+                                    v-tap="() => router.push(`/circuits/${circuit.id}`)"
                                 >
                                     <ui-picture v-if="circuit.image" :images="circuit.image.images" :cover="'cover'" />
                                     <div class="menu-page__right_part__circuit__content">
@@ -90,7 +90,7 @@
                                         <div class="menu-page__right_part__circuit__content_text_action" :data-circuit-theme="getCircuitIndex(circuit.id)">
                                             <ui-tag :label="$t('circuits.total_step', { number: circuit.steps.length })" />
                                             <ui-button theme="primary" :label="$t('common.link_discover')" :icon="IconPlus" :iconPosition="'right'"
-                                                @pointerdown="router.push(`/circuits/${circuit.id}`)"
+                                                v-tap="() => router.push(`/circuits/${circuit.id}`)"
                                             />
                                         </div>
                                     </div>
@@ -454,4 +454,21 @@
     width 50%
   .menu-page__sponsor
     width 50%
+.alternate-part
+  f(column, $justify: flex-start, $align: flex-start)
+  .menu-page__part_meteo__title
+    f-style('h5')
+    color $fjord
+    r(margin-bottom, 45px 0px)
+    +layout(mobile)
+        font-size 23px
+        line-height 1.1
+        font-weight $fw-bold
+    .MenuModal__content__container__bottom_part__meteo
+        f(row, $justify: flex-start, $align: stretch)
+        r(gap, 36px)
+        > *
+            flex 1 1 0
+            min-width 0
+            height 412px
   </style>
