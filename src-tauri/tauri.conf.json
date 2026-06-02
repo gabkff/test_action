@@ -22,7 +22,7 @@
       }
     ],
     "security": {
-      "csp": "default-src 'self' ipc: http://ipc.localhost tauri://localhost http://tauri.localhost; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://edge.marker.io https://maps.googleapis.com https://maps.gstatic.com https://*.googleapis.com; connect-src 'self' ipc: http://ipc.localhost ipc://localhost tauri://localhost http://tauri.localhost https://stage.tourismecote-nord.com https://prod.tourismecote-nord.com https://*.googleapis.com https://*.gstatic.com; img-src 'self' data: blob: tauri://localhost http://tauri.localhost https://stage.tourismecote-nord.com https://*.googleapis.com https://*.gstatic.com; font-src 'self' data: https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+      "csp": "default-src 'self' ipc: http://ipc.localhost tauri://localhost http://tauri.localhost; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://edge.marker.io https://maps.googleapis.com https://maps.gstatic.com https://*.googleapis.com; connect-src 'self' ipc: http://ipc.localhost ipc://localhost tauri://localhost http://tauri.localhost https://stage.tourismecote-nord.com https://prod.tourismecote-nord.com https://*.googleapis.com https://*.gstatic.com; img-src 'self' data: blob: tauri://localhost http://tauri.localhost https://*.tourismecote-nord.com https://*.googleapis.com https://*.gstatic.com; font-src 'self' data: https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
       "assetProtocol": {
         "enable": true,
         "scope": [
